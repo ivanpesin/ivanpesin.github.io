@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>howto on Articles, Translations, and Blog</title>
+    <link>http://pesin.space/categories/howto/</link>
+    <description>Recent content in howto on Articles, Translations, and Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 16 Oct 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://pesin.space/categories/howto/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Setting up autossh autostart with systemd</title>
+      <link>http://pesin.space/posts/2020-10-16-autossh-systemd/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2020-10-16-autossh-systemd/</guid>
+      <description>Just a quick note on setting up autossh on system&amp;rsquo;s startup. I use it to proxy-forward traffic from the internet exposed host to a firewalled host inside a private network. This way all the data and apps stay on-prem but are available to external users if needed.
+autossh advantage is that it restart ssh in case connection breaks for some reason. It&amp;rsquo;s important to configure it in a way so that it can detect such breakdowns.</description>
+    </item>
+    
+    <item>
+      <title>Fixing home/end behaviour on macos</title>
+      <link>http://pesin.space/posts/2020-07-28-home-end-keys-macosx/</link>
+      <pubDate>Tue, 28 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2020-07-28-home-end-keys-macosx/</guid>
+      <description>&lt;p&gt;This is just a quick note for how to make &lt;code&gt;Home&lt;/code&gt; and &lt;code&gt;End&lt;/code&gt; keys behave sensibly, i.e. take you to the beginning or end of a line:&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>k8s on Articles, Translations, and Blog</title>
+    <link>http://pesin.space/tags/k8s/</link>
+    <description>Recent content in k8s on Articles, Translations, and Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 02 Jul 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://pesin.space/tags/k8s/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Complexity solving catch-22</title>
+      <link>http://pesin.space/posts/2020-07-02-tonsky-docker-k8s/</link>
+      <pubDate>Thu, 02 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2020-07-02-tonsky-docker-k8s/</guid>
+      <description>&lt;p&gt;Today I&amp;rsquo;ve stumbled upon an amusing post &lt;a href=&#34;https://tonsky.me/blog/disenchantment/&#34;&gt;&amp;ldquo;Software disenchantment&amp;rdquo;&lt;/a&gt; by Nikita Tonski which resonated with me quite a bit. The following fragment in particular:&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

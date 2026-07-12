@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>hardware &#8211; Ivan Pesin</title>
+	<atom:link href="/blog/tag/hardware/feed/" rel="self" type="application/rss+xml" />
+	<link>https://pesin.space/blog</link>
+	<description>Articles &#38; Translations</description>
+	<lastBuildDate>
+	Wed, 19 Oct 2016 02:08:18 +0000	</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=5.1.1</generator>
+	<item>
+		<title>Как получить дополнительную информацию о производительности дисков?</title>
+		<link>/blog/2009/07/%d0%ba%d0%b0%d0%ba-%d0%bf%d0%be%d0%bb%d1%83%d1%87%d0%b8%d1%82%d1%8c-%d0%b4%d0%be%d0%bf%d0%be%d0%bb%d0%bd%d0%b8%d1%82%d0%b5%d0%bb%d1%8c%d0%bd%d1%83%d1%8e-%d0%b8%d0%bd%d1%84%d0%be%d1%80%d0%bc%d0%b0/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=%25d0%25ba%25d0%25b0%25d0%25ba-%25d0%25bf%25d0%25be%25d0%25bb%25d1%2583%25d1%2587%25d0%25b8%25d1%2582%25d1%258c-%25d0%25b4%25d0%25be%25d0%25bf%25d0%25be%25d0%25bb%25d0%25bd%25d0%25b8%25d1%2582%25d0%25b5%25d0%25bb%25d1%258c%25d0%25bd%25d1%2583%25d1%258e-%25d0%25b8%25d0%25bd%25d1%2584%25d0%25be%25d1%2580%25d0%25bc%25d0%25b0</link>
+				<pubDate>Thu, 02 Jul 2009 08:32:35 +0000</pubDate>
+		<dc:creator><![CDATA[ivan]]></dc:creator>
+				<category><![CDATA[RedHat KB]]></category>
+		<category><![CDATA[hardware]]></category>
+		<category><![CDATA[rhel5]]></category>
+		<category><![CDATA[statistics]]></category>
+
+		<guid isPermaLink="false">http://www.n-ix.com/ipesin/?p=327</guid>
+				<description><![CDATA[Copyright (c) 2009 by Red Hat, Inc. This material may be distributed only subject to the terms and conditions set forth in the Open Publication License, v1.0 or later (available at http://www.opencontent.org/openpub/). Original article: http://kb.redhat.com/faq/docs/DOC-7888.pdf Translated by Ivan Pesin, June 2009 Команда iostat предоставляет статистику операций ввода/вывода, но иногда администраторам требуется более детальная информация. В [&#8230;]]]></description>
+								<content:encoded><![CDATA[<p id="top" />
+<div class="copyright">Copyright (c) 2009 by Red Hat, Inc. This material may be distributed only subject to the terms and conditions set forth in the Open Publication License, v1.0 or later (available at <a href="http://www.opencontent.org/openpub/">http://www.opencontent.org/openpub/</a>).<br />
+Original article: <a href="http://kb.redhat.com/faq/docs/DOC-7888.pdf">http://kb.redhat.com/faq/docs/DOC-7888.pdf</a></p>
+<p>Translated by Ivan Pesin, June 2009</p></div>
+<p>Команда <strong>iostat</strong> предоставляет статистику операций ввода/вывода, но иногда администраторам требуется более детальная информация. В таких случаях может оказаться полезным файл <strong>/proc/diskstats</strong>. Ниже приведён пример выполнения команды <code>cat /proc/diskstats</code>:</p>
+<blockquote><p></p><pre class="crayon-plain-tag"># cat /proc/diskstats
+    1       0 ram0 0 0 0 0 0 0 0 0 0 0 0
+.........................................
+    1      15 ram15 0 0 0 0 0 0 0 0 0 0 0
+    8       0 sda 13707 12045 788079 251532 3517 6016 76252 184444 0
+ 77704 435976
+    8       1 sda1 834 1670 2 4
+    8       2 sda2 23606 784578 9531 76248
+    8       3 sda3 1267 1431 0 0
+   22       0 hdc 9 9 144 544 0 0 0 0 0 468 544
+    2       0 fd0 0 0 0 0 0 0 0 0 0 0 0
+    9       0 md0 0 0 0 0 0 0 0 0 0 0 0</pre><p></p></blockquote>
+<p>Рассмотрим приведённый вывод:</p>
+<p>Первые две колонки &#8212; это старший и младший номер устройства.</p>
+<p>Третья колонка содержит имя устройства, после которого идут ещё 11 колонок.</p>
+<p><strong>Поле 1:</strong> количество выполненных операций чтения. Это общее число успешно завершённых операций чтения.</p>
+<p><strong>Поле 2:</strong> количество объединённых операций чтения.</p>
+<p><strong>Поле 3:</strong> количество считанных секторов. Это общее число успешно прочитанных секторов.</p>
+<p><strong>Поле 4:</strong> количество миллисекунд, затраченных на чтение. Это общее число миллисекунд, затраченных на операции чтения (измеряется от вызова __make_request() до end_that_request_last()).</p>
+<p><strong>Поле 5:</strong> количество выполненных операций записи. Это общее число успешно завершённых операций записи.</p>
+<p><strong>Поле 6:</strong> количество объединённых операций записи. Последовательные операции чтения и записи могут объединяться для повышения эффективности. Потому две операции считывания по 4K, могут стать одной операцией по считыванию 8K непосредственно перед передачей запроса диску. Таким образом, эти операции будут посчитаны (и выполнены) как одна операция ввода/вывода. Это поле показывает насколько часто происходит такая ситуация.</p>
+<p><strong>Поле 7:</strong> количество записанных секторов. Это общее число успешно записанных секторов.</p>
+<p><strong>Поле 8:</strong> количество миллисекунд, затраченных на запись. Это общее число миллисекунд, затраченных на операции записи (измеряется от вызова __make_request() до end_that_request_last()).</p>
+<p><strong>Поле 9:</strong> количество выполняемых операций ввода/вывода в текущий момент. Единственное поле, значение которого может уменьшаться до нуля. Увеличивается при передаче запросов соответствующей request_queue_t и уменьшается при их завершении.</p>
+<p><strong>Поле 10:</strong> количество миллисекунд, затраченных на выполнение операций ввода/вывода. Это значение возрастает, пока значение поля 9 не равно нулю.</p>
+<p><strong>Поле 11:</strong> взвешенное число миллисекунд, затраченных на выполнение операций ввода/вывода. При каждом начале, завершении,или объединении операций ввода/вывода, или при считывании этой статистики, это поле увеличивается на число выполняемых в текущий момент операций ввода/вывода (поле 9), умноженное на количество миллисекунд, затраченных на выполнение операций ввода/вывода, с момента последнего обновления данного поля. Это позволяет получить простую статистику как времени выполнения операций ввода/вывода, так и количества незавершённых операций, число которых может возрастать.</p>
+<p><em><strong>Прим.пер.:</strong></em> здесь рассматривается формат записи, относящийся к диску, не разделу. Для разделов представлены только 4 поля, аналоги описанных полей 1,3,5,7. Начиная с ядра 2.6.25 у разделов появился полный набор полей статистики.</p>
+]]></content:encoded>
+										</item>
+		<item>
+		<title>Как избежать неправильной нумерации сетевых карт в системах Red Hat Enterprise Linux с несколькими сетевыми интерфейсами?</title>
+		<link>/blog/2009/05/%d0%ba%d0%b0%d0%ba-%d0%b8%d0%b7%d0%b1%d0%b5%d0%b6%d0%b0%d1%82%d1%8c-%d0%bd%d0%b5%d0%bf%d1%80%d0%b0%d0%b2%d0%b8%d0%bb%d1%8c%d0%bd%d0%be%d0%b9-%d0%bd%d1%83%d0%bc%d0%b5%d1%80%d0%b0%d1%86%d0%b8%d0%b8/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=%25d0%25ba%25d0%25b0%25d0%25ba-%25d0%25b8%25d0%25b7%25d0%25b1%25d0%25b5%25d0%25b6%25d0%25b0%25d1%2582%25d1%258c-%25d0%25bd%25d0%25b5%25d0%25bf%25d1%2580%25d0%25b0%25d0%25b2%25d0%25b8%25d0%25bb%25d1%258c%25d0%25bd%25d0%25be%25d0%25b9-%25d0%25bd%25d1%2583%25d0%25bc%25d0%25b5%25d1%2580%25d0%25b0%25d1%2586%25d0%25b8%25d0%25b8</link>
+				<pubDate>Wed, 20 May 2009 15:21:23 +0000</pubDate>
+		<dc:creator><![CDATA[ivan]]></dc:creator>
+				<category><![CDATA[RedHat KB]]></category>
+		<category><![CDATA[hardware]]></category>
+		<category><![CDATA[networking]]></category>
+		<category><![CDATA[rhel5]]></category>
+
+		<guid isPermaLink="false">http://www.n-ix.com/ipesin/?p=33</guid>
+				<description><![CDATA[Copyright (c) 2009 by Red Hat, Inc. This material may be distributed only subject to the terms and conditions set forth in  the Open Publication License, v1.0 or later (available at http://www.opencontent.org/openpub/). Original article: http://kbase.redhat.com/faq/docs/DOC-15331.pdf Translated by Ivan Pesin, May 2009 Система: Red Hat Enterprise Linux 5 Проблема: Большинство устройств нумеруются ядром Linux в соответствии [&#8230;]]]></description>
+								<content:encoded><![CDATA[<p id="top" />
+<div class="copyright">Copyright (c) 2009 by Red Hat, Inc. This material may be distributed only subject to the terms and conditions set forth in  the Open Publication License, v1.0 or later (available at http://www.opencontent.org/openpub/).<br />
+Original article: <a href="http://kbase.redhat.com/faq/docs/DOC-15331.pdf">http://kbase.redhat.com/faq/docs/DOC-15331.pdf</a></p>
+<p>Translated by Ivan Pesin, May 2009</p></div>
+<p><strong>Система</strong>: Red Hat Enterprise Linux 5</p>
+<p><strong>Проблема:</strong></p>
+<p>Большинство устройств нумеруются ядром Linux в соответствии с их порядком в PCI-таблице системного BIOS. Наполнением этой таблицы занимается сам BIOS. Поскольку порядок устройств в этой таблице на разных системах не обязательно последовательный, устройства могут нумероваться ядром по-разному. Обычно при определении порядка устройств на шине используются номер шины, номер устройства и номер функции. Некоторые системы имеют несколько шин, например шину PCI и шину PCI-X.</p>
+<p><strong>Решение:</strong></p>
+<p>Для того, чтобы избежать случаев перенумеровывания системных сетевых интерфейсов, необходимо использовать параметр <strong>HWADDR=</strong>. Например, следующая строка может быть добавлена в любой из файлов <code>/etc/sysconfig/network-scripts/ifcfg-ethN</code>:</p>
+<blockquote><p><code>HWADDR=</code></p></blockquote>
+<p>Если параметр &#8220;HWADDR=&#8221; не используется, то при перезагрузках может происходить периодическое переименование устройств.</p>
+<p><strong>Пример</strong></p>
+<blockquote><p></p><pre class="crayon-plain-tag">ifconfig -a | grep HW
+
+__tmp1174018308 Link encap:Ethernet  HWaddr 00:1D:09:6A:78:EA
+eth1      Link encap:Ethernet  HWaddr 00:1D:09:6A:78:EC
+eth2      Link encap:Ethernet  HWaddr 00:15:17:19:39:38
+eth3      Link encap:Ethernet  HWaddr 00:15:17:19:39:39</pre><p></p></blockquote>
+<p>В вышеприведённом примере вы можете видеть, что устройство eth0 после перезагрузки было переименовано в &#8220;__tmp1174018308&#8221;. Чтобы избежать повторения такой проблемы, задайте параметр &#8220;HWADDR=&#8221; в файле /etc/sysconfig/network-scripts/ifcfg-eth0 следующим образом:</p>
+<blockquote><p><code>Ethernet Device<br />
+DEVICE=eth0<br />
+BOOTPROTO=static<br />
+HWADDR=00:1D:09:6A:78:EA<br />
+ONBOOT=yes</code></p></blockquote>
+]]></content:encoded>
+										</item>
+	</channel>
+</rss>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>chef &#8211; Ivan Pesin</title>
+	<atom:link href="/blog/tag/chef/feed/" rel="self" type="application/rss+xml" />
+	<link>https://pesin.space/blog</link>
+	<description>Articles &#38; Translations</description>
+	<lastBuildDate>
+	Wed, 19 Oct 2016 02:08:18 +0000	</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=5.1.1</generator>
+	<item>
+		<title>Links: Jan 2</title>
+		<link>/blog/2014/01/links-jan-2/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=links-jan-2</link>
+				<pubDate>Wed, 01 Jan 2014 21:16:39 +0000</pubDate>
+		<dc:creator><![CDATA[ivan]]></dc:creator>
+				<category><![CDATA[Links]]></category>
+		<category><![CDATA[bitcoin]]></category>
+		<category><![CDATA[cfengine]]></category>
+		<category><![CDATA[chef]]></category>
+		<category><![CDATA[configuration management]]></category>
+		<category><![CDATA[hiring]]></category>
+		<category><![CDATA[krauss]]></category>
+		<category><![CDATA[msdos]]></category>
+		<category><![CDATA[routing]]></category>
+
+		<guid isPermaLink="false">https://pesin.space/blog/2014/01/links-jan-2/</guid>
+				<description><![CDATA[Merry Christmas and a happy New Year! :-) Technology A very interesting and simple video explaining how the Bitcoin works. As Tom Limoncelli mentioned, this is first time I understood it: A video from ChefConf, Phil Dibowitz&#8217;s talk about Scaling systems configuration at Facebook. Very interesting to listen what they count as important achievements and [&#8230;]]]></description>
+								<content:encoded><![CDATA[<p id="top" />Merry Christmas and a happy New Year! :-)</p>
+<h2>Technology</h2>
+<ul>
+<li>A very interesting and simple video explaining how the Bitcoin works. As Tom Limoncelli mentioned, this is first time I understood it:</li>
+</ul>
+<blockquote><p><center><br />
+<iframe width="625" height="352" src="https://www.youtube.com/embed/Lx9zgZCMqXE?feature=oembed" frameborder="0" allowfullscreen></iframe><br />
+</center></p></blockquote>
+<ul>
+<li>A video from ChefConf, Phil Dibowitz&#8217;s talk about Scaling systems configuration at Facebook. Very interesting to listen what they count as important achievements and what sort of approaches they use. Few things irked me though:
+<ul>
+<li><span style="line-height: 1.5em;">What point is in comparing Chef, first released in 2010, with CFEngine 2, which was released in 1998, especially considering CFEngine 3 is around since 2008? Most of the complaints about CFEngine or its shortcomings Phil makes either have been addressed or are easily implemented in CFEngine 3.</span></li>
+<li><span style="line-height: 1.5em;">The lessons they have learned are enlightening, though achieving idempotent systems is very complicated in cases when you do not own the systems you are supposed to manage via configuration management.</span></li>
+<li><span style="line-height: 1.5em;">Full programming languages versus DSL &#8212; well, no one argues that full programming languages are way more versatile compared to domain-specific, but that&#8217;s their purpose. Implementing functionality which DSL is tailored for, on the other hand, is faster and more efficient in DSL. I would try to strike a balance here, using each tool in the domain it is targeted at.</span></li>
+</ul>
+</li>
+<li>And two messages I wanted to highlight:
+<ul>
+<li><span style="line-height: 1.5em;">Scale is more than number of clients &#8212; this is a very powerful message that many miss.</span></li>
+<li><span style="line-height: 1.5em;">Regarding testing &#8212; not long ago I had a lunch with couple of younger colleagues and we were discussing release rollouts and time estimates. I started with saying &#8216;Suppose your release fails at the very last step of the procedure&#8230;&#8217; and was interrupted with &#8216;why would it fail?!&#8217;. I had to stop and explain that &#8216;Why would it fail&#8217; is a wrong question to ask. If we knew why it would fail, we could have prepared or even address it. This is just to reinforce Phil&#8217;s message that &#8216;until you run it in production, you cannot know it works&#8217;. Totally agree with this.</span></li>
+</ul>
+</li>
+</ul>
+<blockquote><p><center><br />
+<iframe width="625" height="352" src="https://www.youtube.com/embed/SYZ2GzYAw_Q?feature=oembed" frameborder="0" allowfullscreen></iframe><br />
+</center></p></blockquote>
+<ul>
+<li>An example of <a href="http://cfengine.com/blog/cfengine-and-docker-ensure-application-availability-and-container-integrity? mkt_tok=3RkMMJWWfF9wsRoks6zKZKXonjHpfsX56uokXaCylMI%2F0ER3fOvrPUfGjI4DS8BlI%2BSLDwEYGJlv6SgFSLDAMa9u37gEUxA%3D">Docker and CFEngine</a> integration</li>
+<li><span style="line-height: 1.5em;">On the relevant note &#8212; is <a href="http://kartar.net/2013/11/docker-and-configuration-management">Docker really suited</a> for use with configuration management?</span></li>
+<li>To end chef-related links, here is a web-tool that lets you browse the data in your Chef server: <a title="Chef Browser" href="https://github.com/3ofcoins/chef-browser">Chef Browser</a>.</li>
+<li><span style="line-height: 1.5em;">Switching to hiring matters, two excellent blog-posts: </span><span style="line-height: 1.5em;"><a href="http://css-tricks.com/interviewing-front-end-engineer-san-francisco/">Interviewing</a> as a Front-End Engineer in San Francisco </span><span style="line-height: 1.5em;">and </span><span style="line-height: 1.5em;"><a href="http://www.nczonline.net/blog/2013/12/27/on-interviewing-front-end-engineers/">On Interviewing</a> Front-End Engineers </span></li>
+<li>Unknown MS-DOS 4.0M:
+<ul>
+<li><a href="https://sites.google.com/site/pcdosretro/multitaskingdos4">Multitasking MS-DOS 4.0</a> was a little known and separate development of DOS done in parallel with the development of DOS 3.x in 1985. It should not be confused with the later retail DOS 4.0 that was released in 1988. DOS 4.0 supported preemptive multitasking, shared memory, semaphores, advanced memory management, a session manager, imports, exports and a new executable format. Many of the ideas and features introduced here found their way into OS/2. Unfortunately DOS 4.0 was limited by the real-mode 8086 environment and the 640KB address space. Also programs which were not well-behaved or relied upon undocumented DOS functions would not run properly under DOS 4.0, particularly TSR programs.</li>
+<li>From <a href="http://blogs.technet.com/b/exchange/archive/2004/03/05/larry-osterman-s-biography.aspx">Larry Osterman&#8217;s</a> <a href="https://blogs.msdn.com/b/larryosterman/archive/2009/08/26/24-years-ago-today-1985.aspx">blog</a>: MS-DOS 4.0 was unique because it was developed “on spec” – IBM didn’t see a need for a multitasking version MS-DOS and didn’t have a new hardware offering on which to attach the product. But IBM did have the PC/AT which was an 80286 based processor and it didn’t have an OS that took advantage of that hardware. So IBM and Microsoft started negotiations to take the MS-DOS 4.0 code base and turn it into what eventually turned into OS/2. I ended up not working on the OS/2 effort, instead I worked on finishing up MS-DOS 4.0 for the OEM partners who had licensed MS-DOS 4.0.</li>
+<li><a href="http://habrahabr.ru/post/207848/">Investigation report</a> on MS-DOS 4.0M in Russian</li>
+</ul>
+</li>
+<li>Finally this is happening: <a href="http://allthingsd.com/20131120/how-somebody-forced-the-worlds-internet-traffic-through-belarus-and-iceland">routing battles</a>, somebody forced the world’s Internet traffic through Belarus and Iceland.</li>
+</ul>
+<h2>Other</h2>
+<blockquote><p><center><br />
+<iframe width="625" height="352" src="https://www.youtube.com/embed/sZP5U6SW_08?feature=oembed" frameborder="0" allowfullscreen></iframe><br />
+</center></p></blockquote>
+]]></content:encoded>
+										</item>
+	</channel>
+</rss>

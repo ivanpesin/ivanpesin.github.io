@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>tty &#8211; Ivan Pesin</title>
+	<atom:link href="/blog/tag/tty/feed/" rel="self" type="application/rss+xml" />
+	<link>https://pesin.space/blog</link>
+	<description>Articles &#38; Translations</description>
+	<lastBuildDate>
+	Wed, 19 Oct 2016 02:08:18 +0000	</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=5.1.1</generator>
+	<item>
+		<title>Почему попытка удалённо выполнить команду sudo с помощью ssh оканчивается ошибкой?</title>
+		<link>/blog/2009/05/%d0%bf%d0%be%d1%87%d0%b5%d0%bc%d1%83-%d0%bf%d0%be%d0%bf%d1%8b%d1%82%d0%ba%d0%b0-%d1%83%d0%b4%d0%b0%d0%bb%d1%91%d0%bd%d0%bd%d0%be-%d0%b2%d1%8b%d0%bf%d0%be%d0%bb%d0%bd%d0%b8%d1%82%d1%8c-%d0%ba%d0%be/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=%25d0%25bf%25d0%25be%25d1%2587%25d0%25b5%25d0%25bc%25d1%2583-%25d0%25bf%25d0%25be%25d0%25bf%25d1%258b%25d1%2582%25d0%25ba%25d0%25b0-%25d1%2583%25d0%25b4%25d0%25b0%25d0%25bb%25d1%2591%25d0%25bd%25d0%25bd%25d0%25be-%25d0%25b2%25d1%258b%25d0%25bf%25d0%25be%25d0%25bb%25d0%25bd%25d0%25b8%25d1%2582%25d1%258c-%25d0%25ba%25d0%25be</link>
+				<pubDate>Sat, 30 May 2009 15:50:32 +0000</pubDate>
+		<dc:creator><![CDATA[ivan]]></dc:creator>
+				<category><![CDATA[RedHat KB]]></category>
+		<category><![CDATA[configuration]]></category>
+		<category><![CDATA[networking]]></category>
+		<category><![CDATA[rhel5]]></category>
+		<category><![CDATA[sudo]]></category>
+		<category><![CDATA[tty]]></category>
+
+		<guid isPermaLink="false">http://www.n-ix.com/ipesin/?p=168</guid>
+				<description><![CDATA[Copyright (c) 2009 by Red Hat, Inc. This material may be distributed only subject to the terms and conditions set forth in the Open Publication License, v1.0 or later (available at http://www.opencontent.org/openpub/). Original article: http://kbase.redhat.com/faq/docs/DOC-15839.pdf Translated by Ivan Pesin, May 2009 Система: Red Hat Enterprise Linux 5 Проблема: Попытка удалённого вызова команды sudo с помощью [&#8230;]]]></description>
+								<content:encoded><![CDATA[<p id="top" />
+<div class="copyright">Copyright (c) 2009 by Red Hat, Inc. This material may be distributed only subject to the terms and conditions set forth in the Open Publication License, v1.0 or later (available at <a href="http://www.opencontent.org/openpub/">http://www.opencontent.org/openpub/</a>).<br />
+Original article: <a href="http://kbase.redhat.com/faq/docs/DOC-15839.pdf">http://kbase.redhat.com/faq/docs/DOC-15839.pdf</a></p>
+<p>Translated by Ivan Pesin, May 2009</p></div>
+<p><strong>Система:</strong> Red Hat Enterprise Linux 5</p>
+<p><strong>Проблема:</strong></p>
+<p>Попытка удалённого вызова команды <code>sudo</code> с помощью <code>ssh</code> заканчивается ошибкой.</p>
+<p>Например:</p>
+<blockquote><p><code>$ ssh hostname sudo &lt;command&gt;<br />
+$ sudo: sorry, you must have a tty to run sudo</code></p></blockquote>
+<p><strong>Решение:</strong></p>
+<p>Файл <code>/etc/sudoers</code> в Red Hat Enterprise Linux 5 по-умолчанию содержит флаг <code>'requiretty'</code>. Когда этот флаг установлен, только зарегистрированные в системе пользователи могут выполнять команды с помощью <code>sudo</code>. Именно это и не позволяет выполнять удалённо команду <code>sudo</code> через <code>rsh</code> или <code>ssh</code>. Программы <code>rsh</code> и <code>ssh</code> не выделяют устройство псевдотерминала. Рекомендуется не убирать этот флаг, поскольку без псеводтерминала невозможно отключить эхо вводимых символов и, как следствие, отображение вводимого пароля.</p>
+<p>Для принудительного выделения псевдотерминального устройства, укажите команде <code>ssh</code> параметр <code>-t</code> :</p>
+<blockquote><p><code># ssh -t hostname sudo &lt;cmd&gt;</code></p></blockquote>
+<p>Как вариант, можно также отредактировать файл <code>/etc/sudoers</code> с помощью <code>visudo</code> и отключить флаг <code>requiretty</code>, закомментировав строку <code>"Defaults: requiretty"</code>. <strong>Примечание:</strong> делать это не рекомендуется.</p>
+<p>За подробной информацией обращайтесь к <a href="http://www.redhat.com/docs/manuals/enterprise/RHEL-5-manual/Deployment_Guide-en-US/s3-wstation-privileges-limitroot-sudo.html">Red Hat Enterprise Linux Deployment Guide</a>.</p>
+]]></content:encoded>
+										</item>
+	</channel>
+</rss>

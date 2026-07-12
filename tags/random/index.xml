@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>random on Articles, Translations, and Blog</title>
+    <link>http://pesin.space/tags/random/</link>
+    <description>Recent content in random on Articles, Translations, and Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 17 May 2015 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://pesin.space/tags/random/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Links: 17th May</title>
+      <link>http://pesin.space/posts/2015-05-17-links/</link>
+      <pubDate>Sun, 17 May 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2015-05-17-links/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;He [Galton] even measured the life spans of sovereigns and clergymen, which, being similar to the lifespans of people in other professions, led him to conclude that prayer brought no benefit.&lt;br&gt;
+&amp;ndash; &lt;em&gt;Leonard Mlodinov&lt;/em&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Mlodinov’s &amp;ldquo;The Drunkard’s Walk&amp;hellip;&amp;rdquo; is a fantastically good book. I couldn’t pull myself away of it, I’d read it in the morning before the work starts and right after I wrap it up for a day. A captivating overview of mathematics of chance, randomness, and statistics put in a very comprehensible form and language, intertwined with amusing digressions into history of mathematical thought, it connects randomness with our everyday life.  Scientific American’s comment reflect my feelings: &amp;ldquo;Delightfully entertaining&amp;rdquo;.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

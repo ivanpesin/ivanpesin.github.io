@@ -1,0 +1,1402 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+  <head>
+    <meta
+     name="generator"
+     content=
+    "HTML Tidy for Linux/x86 (vers 1st May 2002), see www.w3.org">
+
+    <title>[rus]: Повесть о Linux и LVM (Logical Volume Manager)</title>
+    <meta
+     http-equiv="Content-Type"
+     content="text/html; charset=KOI8-R">
+    <style
+     type="text/css">
+ p.c1 {text-align: center}
+    </style>
+  </head>
+
+  <body>
+    <hr noshade>
+
+    <p
+     class="c1"><!-- Article Title --><big><strong>Повесть о Linux 
+     и LVM (Logical Volume Manager).</strong></big><br>
+     Автор: <!-- Author --><a
+     href="../../team/i_pesin.html">Иван Песин</a> <!-- Author --><br>
+    </p>
+
+    <hr noshade>
+    
+    <blockquote>
+      <h3><em>Содержание</em></h3>
+    </blockquote>
+
+    
+<ol>
+  <li><a
+       href="#Intro">Введение</a></li>
+  <li><a
+       href="#Terms">Терминология</a></li>
+  <li> <a
+         href="#Tasks">Работа с LVM</a> 
+    <ol>
+      <li><a
+           href="#w1">Инициализация дисков и разделов</a></li>
+      <li><a
+           href="#w2">Создание группы томов</a></li>
+      <li><a
+           href="#w3">Активация группы томов</a></li>
+      <li><a
+           href="#w4">Удаление группы томов</a></li>
+      <li><a
+           href="#w5">Добавление физических томов в группу томов</a></li>
+      <li><a
+           href="#w6">Удаление физических томов из группы томов</a></li>
+      <li><a
+           href="#w7">Создание логического тома</a></li>
+      <li><a
+           href="#w8">Удаление логических томов</a></li>
+      <li><a
+           href="#w9">Увеличение логических томов</a></li>
+      <li><a
+           href="#w10">Уменьшение размера логического тома</a></li>
+      <li><a
+           href="#w11">Перенос данных с физического тома</a></li>
+    </ol>
+  </li>
+  <li> <a
+         href="#Examples">Примеры</a> 
+    <ol>
+      <li><a
+           href="#e1">Настройка LVM на трех SCSI дисках</a></li>
+      <li><a
+           href="#e2">Создание логического тома</a></li>
+      <li><a
+           href="#e3">Создание файловой системы</a></li>
+      <li><a
+           href="#e4">Создание логического тома с "расслоением"</a></li>
+      <li><a
+           href="#e5">Добавление нового диска</a></li>
+      <li><a
+           href="#e6">Резервное копирование при помощи "снапшотов"</a></li>
+      <li><a
+           href="#e7">Удаление диска из группы томов</a></li>
+      <li><a
+           href="#e8">Перенос группы томов на другую систему</a></li>
+      <li><a
+           href="#e9">Конвертация корневой файловой системы в LVM</a></li>
+      <li><a href="#e10">Организация корневой файловой системы в LVM для дистрибутива 
+        ALT Master 2.2</a></li>
+    </ol>
+  </li>
+  <li><a
+       href="#End">Заключение</a></li>
+</ol>
+    <hr>
+
+    <h2><em><a
+     name="Intro"></a>Введение.</em></h2>
+
+    
+<p>Цель статьи -- описать процесс установки и использования менеджера логических 
+  томов на Linux-системе. LVM (Logical Volume Manager), менеджер логических томов 
+  -- это система управления дисковым пространством, абстрагирующаяся от физических 
+  устройств. Она позволяет эффективно использовать и легко управлять дисковым 
+  пространством. LVM обладает хорошей масштабируемостью, уменьшает общую сложность 
+  системы. У логических томов, созданных с помощью LVM, можно легко изменить размер, 
+  а их названия могут нести большую смысловую нагрузку, в отличие от традиционных 
+  /dev/sda, /dev/hda ...</p>
+<p>Реализации менеджеров логических томов существуют практически во всех UNIX-подобных 
+  операционных системах. Зачастую они сильно отличаются в реализации, но все они 
+  основаны на одинаковой идее и преследуют аналогичные цели. Одна из основных 
+  реализаций была выполнена Open Software Foundation (OSF) и сейчас входит в состав 
+  многих систем, например IBM AIX, DEC Tru64, HP/UX. Она же послужила и основой 
+  для Linux-реализации LVM.</p>
+
+    <p>Данная статья является переработкой и дополнением LVM-HOWTO.</p>
+
+    <h2><em><a
+     name="Terms"></a>Терминология.</em></h2>
+
+    <p>Поскольку система управления логическими томами использует
+    собственную модель представления дискового пространства, нам будет
+    необходимо определиться с терминами и взаимосвязями понятий.
+    Рассмотрим схему, основанную на диаграмме Эрика Бегфорса (<a
+     href="mailto:erik@bagfors.nu_NOSPAM">Erik Bеgfors</a>),
+    приведенную им в списке рассылки linux-lvm. Она демонстрирует
+    взаимосвязь понятий системы LVM:</p>
+<pre>
+sda1     sda2     sdb     sdc       &lt;-- PV
+ |        |        |       |
+ |        |        |       |
+ +--------+- VG00 -+-------+        &lt;-- VG
+              |
+ +-------+-------+---------+
+ |       |       |         |
+root    usr     home      var       &lt;-- LV
+ |       |       |         | 
+ext3 reiserfs reiserfs    xfs       &lt;-- Файловые системы
+</pre>
+
+    <p>Обозначения и понятия:</p>
+
+    <ul>
+      <li><strong><em>PV, Physical volume, физический
+      том.</em></strong> Обычно это раздел на диске или весь диск. В
+      том числе, устройства программного и аппаратного RAID (которые
+      уже могут включать в себя несколько физических дисков).
+      Физические тома входят в состав <em>группы томов</em>.</li>
+
+      
+  <li><strong><em>VG, Volume group, группа томов.</em></strong> Это самый верхний 
+    уровень абстрактной модели, используемой системой LVM. С одной стороны группа 
+    томов состоит из физических томов, с другой -- из <em>логических</em> и представляет 
+    собой единую административную единицу.</li>
+
+      <li><strong><em>LV, Logical volume, логический том.</em></strong>
+      Раздел группы томов, эквивалентен разделу диска в не-LVM системе.
+      Представляет собой блочное устройство и, как следствие, может
+      содержать файловую систему.</li>
+
+      <li><strong><em>PE, Physical extent, физический
+      экстент.</em></strong> Каждый физический том делиться на порции
+      данных, называющиеся физическими экстентами. Их размеры
+      те же, что и у <em>логических экстентов</em>.</li>
+
+      <li><strong><em>LE, Logical extent, логический
+      экстент.</em></strong> Каждый логический том делится на порции
+      данных, называющиеся логическими экстентами. Размер логических
+      экстентов не меняется в пределах группы томов.</li>
+    </ul>
+
+    
+<p>Давайте теперь соединим все эти понятия в общую картину. Пусть у нас имеется 
+  группа томов VG00 с размером физического экстента 4Мб. В эту группу мы добавляем 
+  два раздела, /dev/hda1 и /dev/hdb1. Эти разделы становятся физическими томами, 
+  например PV1 и PV2 (символьные имена присваивает администратор, так что они 
+  могут быть более осмысленными). Физические тома делятся на 4-х мегабайтные порции 
+  данных, т.к. это размер логического экстента. Диски имеют разный размер: PV1 
+  получается размером в 99 экстентов, а PV2 -- размером в 248 экстентов. Теперь 
+  можно приступать к созданию логических томов, размером от 1 до 347 (248+99) 
+  экстентов. При создании логического тома, определяется отображение между логическими 
+  и физическими экстентами. Например, логический экстент 1 может отображаться 
+  в физический экстент 51 тома PV1. В этом случае, данные, записанные в первые 
+  4Мб логического экстента 1, будут в действительности записаны в 51-й экстент 
+  тома PV1.</p>
+
+    <p>Администратор может выбрать алгоритм отображения логических
+    экстентов в физические. На данный момент доступны два
+    алгоритма:</p>
+
+    <ol>
+      <li><em><strong>Линейное отображение</strong></em>
+      последовательно назначает набор физических экстентов области
+      логического тома, т.е. LE 1 - 99 отображаются на PV1, а LE 100 -
+      347 -- на PV2.</li>
+
+      <li>
+        <em><strong>"Расслоенное" (striped) отображение</strong></em>
+        разделяет порции данных логических экстентов на определенное
+        количество физических томов. То есть: 
+
+        <p>1-я порция данных LE[1] -&gt; PV1[1],</p>
+
+        <p>2-я порция данных LE[1] -&gt; PV2[1],</p>
+
+        <p>3-я порция данных LE[1] -&gt; PV3[1],</p>
+
+        <p>4-я порция данных LE[1] -&gt; PV1[2], и т.д.</p>
+      </li>
+    </ol>
+
+    <p>Похожая схема используется в работе RAID нулевого уровня. В
+    некоторых ситуациях этот алгоритм отображения позволяет увеличить
+    производительность логического тома. Однако он имеет значительное
+    ограничение: логический том с данным отображением <em><strong>не может быть
+    расширен</strong></em> за пределы физических томов, на которых он изначально и
+    создавался.</p>
+
+    <p>Великолепная возможность, предоставляемая системой LVM -- это
+    "снапшоты". Они позволяют администратору создавать новые блочные
+    устройства с точной копией логического тома, "замороженного" в
+    какой-то момент времени. Обычно это используется в пакетных
+    режимах. Например, при создании резервной копии системы. Однако при
+    этом вам не будет нужно останавливать работающие задачи, меняющие
+    данные на файловой системе. Когда необходимые процедуры будут
+    выполнены, системный администратор может просто удалить
+    устройство-"снапшот". Ниже мы рассмотрим работу с таким
+    устройством.</p>
+
+    <h2><strong><em><a
+     name="Tasks"></a>Работа с LVM</em></strong></h2>
+
+    <p>Давайте теперь рассмотрим задачи, стоящие перед администратором
+    LVM системы. Помните, что для работы с системой LVM ее нужно
+    инициализировать командами:</p>
+<pre>
+<strong
+ class="command"># vgscan
+# vgchange -ay</strong>
+</pre>
+
+    <p>Первая команда сканирует диски на предмет наличия групп томов,
+    вторая активирует все найденные группы томов. Аналогично для
+    завершения всех работ, связанных с LVM, нужно выполнить деактивацию
+    групп:</p>
+<pre>
+<strong
+ class="command"># vgchange -an</strong>
+</pre>
+
+    <p>Первые две строки нужно будет поместить в скрипты автозагрузки
+    (если их там нет), а последнюю можно дописать в скрипт
+    shutdown.</p>
+
+    <h3><em><a
+     name="w1"></a>Инициализация дисков и разделов</em></h3>
+
+    <p>Перед использованием диска или раздела в качестве физического
+    тома необходимо его инициализировать:</p>
+
+    <p>Для целого диска:</p>
+
+    <blockquote>
+<pre>
+<strong># pvcreate /dev/hdb</strong>
+</pre>
+
+      <p>Эта команда создает в начале диска дескриптор группы
+      томов.</p>
+
+      <p>Если вы получили ошибку инициализации диска с таблицей
+      разделов -- проверьте, что работаете именно с нужным диском, и
+      когда полностью будете уверены в том, что делаете, выполните
+      следующие команды</p>
+<pre>
+<strong># dd if=/dev/zero of=/dev/diskname bs=1k count=1<br>
+# blockdev --rereadpt /dev/diskname</strong>
+</pre>
+
+      <p>Эти команды уничтожат таблицу разделов на целевом диске.</p>
+    </blockquote>
+
+    <p>Для разделов:</p>
+
+    <blockquote>
+      <p>Установите программой fdisk тип раздела в 0x8e.</p>
+<pre>
+ <strong># pvcreate /dev/hdb1</strong>
+</pre>
+
+      <p>Команда создаст в начале раздела /dev/hdb1 дескриптор группы
+      томов.</p>
+    </blockquote>
+
+    <h3><em><a
+     name="w2"></a>Создание группы томов</em></h3>
+
+    <p>Для создания группы томов используется команда 'vgcreate'</p>
+<pre>
+<strong># vgcreate vg00  /dev/hda1 /dev/hdb1</strong> 
+</pre>
+
+    <p>Замечание: если вы используете devfs важно указывать полное имя
+    в devfs, а не ссылку в каталоге /dev. Таким образом приведенная
+    команда должна выглядеть в системе с devfs так:</p>
+<pre>
+<strong># vgcreate vg00  /dev/ide/host0/bus0/target0/lun0/part1 /dev/ide/host0/bus0/target1/lun0/part1</strong>
+</pre>
+
+    <p>Кроме того, вы можете задать размер экстента при помощи ключа
+    "-s", если значение по умолчанию в 32Мб вас не устраивает. Можно,
+    также, указать ограничения возможного количества физических и
+    логических томов.</p>
+
+    <h3><em><a
+     name="w3"></a>Активация группы томов</em></h3>
+
+    <p>После перезагрузки системы или выполнения команды vgchange -an,
+    ваши группы томов и логические тома находятся в неактивном
+    состоянии. Для их активации необходимо выполнить команду</p>
+
+    <blockquote>
+<pre>
+<strong># vgchange -a y vg00</strong>
+</pre>
+    </blockquote>
+
+    <h3><em><a
+     name="w4"></a>Удаление группы томов</em></h3>
+
+    <p>Убедитесь, что группа томов не содержит логических томов. Как
+    это сделать, показано в следующих разделах.</p>
+
+    <p>Деактивируйте группу томов:</p>
+
+    <blockquote>
+<pre>
+<strong># vgchange -a n vg00</strong>
+</pre>
+    </blockquote>
+
+    <p>Теперь можно удалить группу томов командой:</p>
+
+    <blockquote>
+<pre>
+<strong># vgremove vg00</strong>
+</pre>
+    </blockquote>
+
+    <h3><em><a
+     name="w5"></a>Добавление физических томов в группу томов</em></h3>
+
+    <p>Для добавления предварительно инициализированного физического
+    тома в существующую группу томов используется команда
+    'vgextend':</p>
+<pre>
+<strong># vgextend vg00 /dev/hdc1</strong>
+                ^^^^^^^^^ новый физический том
+</pre>
+
+    <h3><em><a
+     name="w6"></a>Удаление физических томов из группы томов</em></h3>
+
+    <p>Убедитесь, что физический том не используется никакими
+    логическими томами. Для этого используйте команду 'pvdisplay':</p>
+<pre>
+<strong># pvdisplay /dev/hda1</strong>
+</pre>
+<pre>
+--- Physical volume ---
+   PV Name            /dev/hda1
+   VG Name            vg00
+   PV Size            1.95 GB / NOT usable 4 MB [LVM: 122 KB]
+   PV#                1
+   PV Status          available
+   Allocatable        yes (but full)
+   Cur LV             1
+   PE Size (KByte)    4096
+   Total PE           499
+   Free PE            0
+   Allocated PE       499
+   PV UUID            Sd44tK-9IRw-SrMC-MOkn-76iP-iftz-OVSen7
+</pre>
+
+    <p>Если же физический том используется, вам нужно будет перенести
+    данные на другой физический том. Эта процедура будет описана в
+    следующих разделах.</p>
+
+    <p>После этого можно использовать 'vgreduce' для удаления
+    физических томов:</p>
+
+    <blockquote>
+  <pre><strong># vgreduce vg00 /dev/hda1</strong>
+</pre>
+    </blockquote>
+
+    <h3><em><a
+     name="w7"></a>Создание логического тома</em></h3>
+
+    
+<p>Для того, чтобы создать логический том "lv00", размером 1500Мб, выполните команду:</p>
+<pre><strong># lvcreate -L1500 -nlv00 vg00</strong>
+</pre>
+
+    <p>Для создания логического тома размером в 100 логических экстентов
+    с расслоением по двум физическим томам и размером блока данных 4
+    KB:</p>
+<pre><strong># lvcreate -i2 -I4 -l100 -nlv01 vg00</strong>
+</pre>
+
+    <p>Если вы хотите создать логический том, полностью занимающий
+    группу томов, выполните команду vgdisplay, чтобы узнать полные
+    размер группы томов, после чего используйте команду lvcreate.</p>
+<pre><strong># vgdisplay vg00 | grep "Total PE"</strong>
+Total PE        10230
+<strong># lvcreate -l 10230 vg00 -n lv02</strong>
+</pre>
+
+    <p>Эти команды создают логический том testvg, полностью заполняющий
+    группу томов.</p>
+
+    <h3><em><a
+     name="w8"></a>Удаление логических томов</em></h3>
+
+    
+<p>Логический том должен быть размонтирован перед удалением:</p>
+<pre><strong># umount /dev/vg00/home</strong>
+<strong># lvremove /dev/vg00/home</strong>
+lvremove -- do you really want to remove "/dev/vg00/home"? [y/n]:    y
+lvremove -- doing automatic backup of volume group "vg00"
+lvremove -- logical volume "/dev/vg00/home" successfully removed
+</pre>
+
+    <h3><em><a
+     name="w9"></a>Увеличение логических томов</em></h3>
+
+    <p>Для увеличения логического тома вам нужно просто указать команде
+    lvextend до какого размера вы хотите увеличить том:</p>
+<pre><strong># lvextend -L12G /dev/vg00/home</strong>
+lvextend -- extending logical volume "/dev/vg00/home" to 12 GB
+lvextend -- doing automatic backup of volume group "vg00"
+lvextend -- logical volume "/dev/vg00/home" successfully extended
+</pre>
+
+    
+<p>В результате /dev/vg00/home увеличится до 12Гбайт.</p>
+
+    
+<p><strong># lvextend -L+1G /dev/vg00/home</strong><br>
+  lvextend -- extending logical volume "/dev/vg00/home" to 13 GB<br>
+     lvextend -- doing automatic backup of volume group "vg00"<br>
+  lvextend -- logical volume "/dev/vg00/home" successfully extended</p>
+
+    <p>Эта команда увеличивает размер логического тома на 1Гб.</p>
+
+    <p>После того как вы увеличили логический том, необходимо
+    соответственно увеличить размер файловой системы. Как это сделать
+    зависит от типа используемой файловой системы.</p>
+
+    <p>По умолчанию большинство утилит изменения размера файловой
+    системы увеличивают ее размер до размера соответствующего
+    логического тома. Так что вам не нужно беспокоится об указании
+    одинаковых размеров для всех команд.</p>
+
+    <p><u>ext2</u></p>
+
+    <blockquote>
+      <p>Если вы не пропатчили ваше ядро патчем ext2online, вам будет
+      необходимо размонтировать файловую систему перед изменением
+      размера:</p>
+  <pre><strong># umount /dev/vg00/home
+# resize2fs /dev/vg00/home
+# mount /dev/vg00/home /home</strong>
+</pre>
+
+      <p>Если у вас нет пакета e2fsprogs 1.19 его можно загрузить с
+      сайта ext2resize.sourceforge.net.</p>
+
+      <p>Для файловой системы ext2 есть и другой путь. В состав LVM
+      входит утилита e2fsadm, которая выполняет и lvextend, и resize2fs
+      (она также выполняет и уменьшение размера файловой системы, это
+      описано в следующем разделе). Так что можно использовать одну
+      команду:</p>
+
+      
+  <pre><strong># e2fsadm -L+1G /dev/vg00/home</strong></pre>
+
+      <p>что эквивалентно двум следующим:</p>
+  <pre><strong># extend -L+1G /dev/vg00/home
+# resize2fs /dev/vg00/home</strong>
+</pre>
+
+      <p>Замечание: вам все равно нужно будет размонтировать файловую
+      систему перед выполнением e2fsadm.</p>
+    </blockquote>
+
+    <p><u>reiserfs</u></p>
+
+    <blockquote>
+      
+  <p>Увеличивать размер файловых систем Reiserfs можно как в смонтированном, так 
+    и в размонтированном состоянии.</p>
+
+      
+  <p>Увеличить размер смонтированной файловой системы:</p>
+  <pre><strong># resize_reiserfs -f /dev/vg00/home</strong>
+</pre>
+
+      
+  <p>Увеличить размер размонтированной файловой системы:</p>
+<pre>
+<strong># umount /dev/vg00/homevol
+# resize_reiserfs /dev/vg00/homevol
+# mount -treiserfs /dev/vg00/homevol /home
+</strong>
+</pre>
+    </blockquote>
+
+    <p><u>xfs</u></p>
+
+    <blockquote>
+      
+  <p>Размер файловой системы XFS можно увеличить только в смонтированном состоянии. 
+    Кроме того, утилите в качестве параметра нужно передать точку монтирования, 
+    а не имя устройства:</p>
+<pre>
+<strong># xfs_growfs /home</strong>
+</pre>
+    </blockquote>
+
+    <h3><em><a
+     name="w10"></a>Уменьшение размера логического тома</em></h3>
+
+    <p>Логические тома могут быть уменьшены в размере, точно также как
+    и увеличены. Однако очень важно помнить, что нужно в первую очередь
+    уменьшить размер файловой системы, и только после этого уменьшать
+    размер логического тома. Если вы нарушите последовательность, вы
+    можете потерять данные.</p>
+
+    <p><u>ext2</u></p>
+
+    <blockquote>
+      <p>При использовании файловой системы ext2, как уже указывалось
+      ранее, можно использовать команду e2fsadm:</p>
+  <pre>
+<strong># umount /home
+# e2fsadm -L-1G /dev/vg00/home
+# mount /home</strong>
+</pre>
+
+      
+  <p>Если вы хотите выполнить операцию по уменьшению логического тома вручную, 
+    вам нужно знать размер тома в блоках:</p>
+  <pre>
+<strong># umount /home
+# resize2fs /dev/vg00/home 524288
+# lvreduce -L-1G /dev/vg00/home
+# mount /home</strong>
+</pre>
+    </blockquote>
+
+    <p><u>reiserfs</u></p>
+
+    
+<blockquote> 
+  <p>При уменьшении размера файловой системы Reiserfs, ее <em>нужно</em> размонтировать:</p>
+  <pre>
+<strong># umount /home
+# resize_reiserfs -s-1G /dev/vg00/home
+# lvreduce -L-1G /dev/vg00/home
+# mount -treiserfs /dev/vg00/home /home</strong></pre>
+</blockquote>
+<p><u>xfs</u></p>
+
+    
+<blockquote> 
+  <p>Уменьшить размер файловой системы XFS нельзя.</p>
+</blockquote>
+<p><strong><em>Примечание:</em></strong> обратите внимание на то, что для уменьшения 
+  размера файловых систем, необходимо их размонтировать. Это вносит определенные 
+  трудности, если вы желаете уменьшить размер корневой файловой системы. В этом 
+  случае можно применить следующий метод: загрузится с CD дистрибутива, поддерживающего 
+  LVM. Перейти в командный режим (обычно это делается нажатием клавиш Alt+F2) 
+  и выполнить команды сканирования и активации группы томов:</p>
+<pre><strong># vgscan
+# vgchange -a y</strong></pre>
+<p>Теперь вы имеете доступ к логическим томам и можете изменять их размеры:</p>
+<pre><strong># resize_reiserfs -s-500M /dev/vg00/root
+# lvreduce -L-500M /dev/vg00/root
+# reboot</strong></pre>
+<p>&nbsp;</p>
+<h3><em><a
+     name="w11"></a>Перенос данных с физического тома</em></h3>
+
+    <p>Для того, чтобы можно было удалить физический том из группы
+    томов, необходимо освободить все занятые на нем физические
+    экстенты. Это делается путем перераспределения занятых физических
+    экстентов на другие физические тома. Следовательно, в группе томов
+    должно быть достаточно свободных физических экстентов. Описание
+    операции удаления физического тома приведено в разделе
+    примеров.</p>
+
+    <h2><em><a
+     name="Examples"></a>Примеры</em></h2>
+
+    <h3><em><a
+     name="e1"
+     id="e1"></a>Настройка LVM на трех SCSI дисках</em></h3>
+
+    
+<p>В первом примере мы настроим логический том из трех SCSI дисков. Устройства 
+  дисков: /dev/sda, /dev/sdb и /dev/sdc.</p>
+
+    <p>Перед добавлением в группу томов диски нужно
+    инициализировать:</p>
+<pre>
+<strong># pvcreate /dev/sda
+# pvcreate /dev/sdb
+# pvcreate /dev/sdc</strong>
+</pre>
+
+    <p>После выполнения этих команд в начале каждого диска создастся
+    область дескрипторов группы томов.</p>
+
+    
+<p>Теперь создадим группу томов vg01, состоящую из этих дисков:</p>
+<pre>
+<strong># vgcreate vg01 /dev/sda /dev/sdb /dev/sdc/</strong>
+</pre>
+
+    <p>Проверим статус группы томов командой vgdisplay:</p>
+<pre>
+<strong># vgdisplay
+</strong>--- Volume Group ---
+VG Name            vg01
+VG Access          read/write
+VG Status          available/resizable
+VG #               1
+MAX LV             256
+Cur LV             0
+Open LV            0
+MAX LV Size        255.99 GB
+Max PV             256
+Cur PV             3
+Act PV             3
+VG Size            1.45 GB
+PE Size            4 MB
+Total PE           372
+Alloc PE / Size    0 / 0
+Free PE / Size     372/ 1.45 GB
+VG UUID            nP2PY5-5TOS-hLx0-FDu0-2a6N-f37x-0BME0Y
+</pre>
+
+    
+<p>Обратите внимание на первые три строки и строку с общим размером группы томов. 
+  Она должна соответствовать сумме всех трех дисков. Если всё в порядке, можно 
+  переходить к следующей задаче:</p>
+
+    <h3><em><a
+     name="e2"></a>Создание логического тома</em></h3>
+
+    
+<p>После успешного создания группы томов, можно начать создавать логические тома 
+  в этой группе. Размер тома может быть любым, но, естественно, не более всего 
+  размера группы томов. В этом примере мы создадим один логический том размером 
+  1 Гб. Мы не будем использовать "расслоение", поскольку при этом невозможно добавить 
+  диск в группу томов после создания логического тома, использующего данный алгоритм.</p>
+<pre>
+<strong># lvcreate -L1G -nusrlv vg01
+</strong>lvcreate -- doing automatic backup of "vg01"
+lvcreate -- logical volume "/dev/vg01/usrlv" successfully created
+</pre>
+
+    <h3><em><a
+     name="e3"></a>Создание файловой системы</em></h3>
+
+    <p>Создадим на логическом томе файловую систему ext2:</p>
+<pre>
+<strong># mke2fs /dev/vg01/usrlv
+</strong>mke2fs 1.19, 13-Jul-2000 for EXT2 FS 0.5b, 95/08/09
+Filesystem label=
+OS type: Linux
+Block size=4096 (log=2)
+Fragment size=4096 (log=2)
+131072 inodes, 262144 blocks
+13107 blocks (5.00%) reserved for the super user
+First data block=0
+9 block groups
+32768 blocks per group, 32768 fragments per group
+16384 inodes per group
+Superblock backups stored on blocks:
+32768, 98304, 163840, 229376
+</pre>
+<pre>
+Writing inode tables: done
+Writing superblocks and filesystem accounting information: done
+</pre>
+
+    <p>Тестирование файловой системы</p>
+
+    <p>Смонтируйте логический том и проверьте все ли в порядке:</p>
+<pre>
+<strong># mount /dev/vg01/usrlv /mnt
+# df
+</strong>Filesystem       1k-blocks   Used Available Use% Mounted on
+/dev/hda1          1311552 628824    616104  51% /
+/dev/vg01/usrlv    1040132     20    987276   0% /mnt
+</pre>
+
+    <p>Если вы все сделали правильно, у вас должен появиться логический
+    том с файловой системой ext2, смонтированный в точке /mnt.</p>
+
+    <h3><em><a
+     name="e4"></a>Создание логического тома с "расслоением"</em></h3>
+
+    <p>Рассмотрим теперь вариант логического тома, использующего
+    алгоритм "расслоения". Как уже указывалось выше, минусом этого
+    решения является невозможность добавления дополнительного
+    диска.</p>
+
+    <p>Процедура создания данного типа логического тома также требует
+    инициализации устройств и добавления их в группу томов, как это уже
+    было показано.</p>
+
+    <p>Для создания логического тома с "расслоением" на три физических
+    тома с блоком данных 4Кб выполните команду:</p>
+<pre>
+<strong># lvcreate -i3 -I4 -L1G -nvarlv vg01
+</strong>lvcreate -- rounding 1048576 KB to stripe boundary size 1056768 KB / 258 PE
+lvcreate -- doing automatic backup of "vg01"
+lvcreate -- logical volume "/dev/vg01/varlv"    successfully created
+</pre>
+
+    <p>После чего можно создавать файловую систему на логическом
+    томе.</p>
+
+    <h3><em><a
+     name="e5"></a>Добавление нового диска</em></h3>
+
+    <p>Рассмотрим систему со следующей конфигурацией:</p>
+<pre>
+<strong
+ class="command"># pvscan</strong>
+<tt
+ class=
+"computeroutput">pvscan -- ACTIVE   PV "/dev/sda"  of VG "dev"   [1.95 GB / 0 free]
+pvscan -- ACTIVE   PV "/dev/sdb"  of VG "sales" [1.95 GB / 0 free]
+pvscan -- ACTIVE   PV "/dev/sdc"  of VG "ops"   [1.95 GB / 44 MB free]
+pvscan -- ACTIVE   PV "/dev/sdd"  of VG "dev"   [1.95 GB / 0 free]
+pvscan -- ACTIVE   PV "/dev/sde1" of VG "ops"   [996 MB / 52 MB free]
+pvscan -- ACTIVE   PV "/dev/sde2" of VG "sales" [996 MB / 944 MB free]
+pvscan -- ACTIVE   PV "/dev/sdf1" of VG "ops"   [996 MB / 0 free]
+pvscan -- ACTIVE   PV "/dev/sdf2" of VG "dev"   [996 MB / 72 MB free]
+pvscan -- total: 8 [11.72 GB] / in use: 8 [11.72 GB] / in no VG: 0 [0]</tt>
+
+<strong
+ class="command"># df</strong>
+<tt
+ class=
+"computeroutput">Filesystem           1k-blocks      Used Available Use% Mounted on
+/dev/dev/cvs           1342492    516468    757828  41% /mnt/dev/cvs
+/dev/dev/users         2064208   2060036      4172 100% /mnt/dev/users
+/dev/dev/build         1548144   1023041    525103  66% /mnt/dev/build
+/dev/ops/databases     2890692   2302417    588275  79% /mnt/ops/databases
+/dev/sales/users       2064208    871214   1192994  42% /mnt/sales/users
+/dev/ops/batch         1032088    897122    134966  86% /mnt/ops/batch</tt>
+</pre>
+
+    <p>Как видно из листинга, группы томов "dev" и "ops" практически
+    заполнены. В систему добавили новый диск /dev/sdg. Его необходимо
+    разделить между группами "ops" и "dev", поэтому разобьем его на
+    разделы:</p>
+<pre>
+<strong
+ class="command"># fdisk /dev/sdg</strong>
+<tt
+ class=
+"computeroutput">Device contains neither a valid DOS partition table, nor Sun or SGI
+disklabel Building a new DOS disklabel. Changes will remain in memory
+only, until you decide to write them. After that, of course, the
+previous content won't be recoverable.</tt>
+
+<tt
+ class="prompt">Command (m for help):</tt> n
+<tt
+ class="computeroutput">Command action
+   e   extended
+   p   primary partition (1-4)</tt>
+p
+<tt
+ class="prompt">Partition number (1-4):</tt> 1
+<tt
+ class="prompt">First cylinder (1-1000, default 1):</tt>
+<tt
+ class="computeroutput">Using default value 1</tt>
+<tt
+ class=
+"prompt">Last cylinder or +size or +sizeM or +sizeK (1-1000, default 1000):</tt> 500
+
+<tt
+ class="prompt">Command (m for help):</tt> n
+<tt
+ class="computeroutput">Command action
+   e   extended
+   p   primary partition (1-4)</tt>
+p
+<tt
+ class="prompt">Partition number (1-4):</tt> 2
+<tt
+ class="prompt">First cylinder (501-1000, default 501):</tt> 
+<tt
+ class="computeroutput">Using default value 501</tt>
+<tt
+ class=
+"prompt">Last cylinder or +size or +sizeM or +sizeK (501-1000, default 1000):</tt> 
+<tt
+ class="computeroutput">Using default value 1000</tt>
+
+<tt
+ class="prompt">Command (m for help):</tt> t
+<tt
+ class="prompt">Partition number (1-4):</tt> 1
+<tt
+ class="prompt">Hex code (type L to list codes):</tt> 8e
+<tt
+ class=
+"computeroutput">Changed system type of partition 1 to 8e (Unknown)</tt>
+
+<tt
+ class="prompt">Command (m for help):</tt> t
+<tt
+ class="prompt">Partition number (1-4):</tt> 2
+<tt
+ class="prompt">Hex code (type L to list codes):</tt> 8e
+<tt
+ class=
+"computeroutput">Changed system type of partition 2 to 8e (Unknown)</tt>
+
+<tt
+ class="prompt">Command (m for help):</tt> w
+<tt
+ class="computeroutput">The partition table has been altered!
+
+Calling ioctl() to re-read partition table.
+
+WARNING: If you have created or modified any DOS 6.x partitions,
+please see the fdisk manual page for additional information.</tt>
+</pre>
+
+    <p>Перед тем как добавить разделы в группу томов, их необходимо
+    инициализировать:</p>
+<pre
+ class="screen">
+<strong
+ class="command"># pvcreate /dev/sdg1</strong>
+<tt
+ class=
+"computeroutput">pvcreate -- physical volume "/dev/sdg1" successfully created</tt>
+
+<strong
+ class="command"># pvcreate /dev/sdg2</strong>
+<tt
+ class=
+"computeroutput">pvcreate -- physical volume "/dev/sdg2" successfully created</tt>
+</pre>
+
+    <p>Теперь можно добавлять физические тома в группы томов:</p>
+<pre>
+<strong
+ class="command"># vgextend ops /dev/sdg1</strong>
+<tt
+ class=
+"computeroutput">vgextend -- INFO: maximum logical volume size is 255.99 Gigabyte
+vgextend -- doing automatic backup of volume group "ops"
+vgextend -- volume group "ops" successfully extended</tt>
+
+<strong
+ class="command"># vgextend dev /dev/sdg2</strong>
+<tt
+ class=
+"computeroutput">vgextend -- INFO: maximum logical volume size is 255.99 Gigabyte
+vgextend -- doing automatic backup of volume group "dev"
+vgextend -- volume group "dev" successfully extended</tt>
+
+<strong
+ class="command"># pvscan</strong>
+<tt
+ class=
+"computeroutput">pvscan -- reading all physical volumes (this may take a while...)
+pvscan -- ACTIVE   PV "/dev/sda"  of VG "dev"   [1.95 GB / 0 free]
+pvscan -- ACTIVE   PV "/dev/sdb"  of VG "sales" [1.95 GB / 0 free]
+pvscan -- ACTIVE   PV "/dev/sdc"  of VG "ops"   [1.95 GB / 44 MB free]
+pvscan -- ACTIVE   PV "/dev/sdd"  of VG "dev"   [1.95 GB / 0 free]
+pvscan -- ACTIVE   PV "/dev/sde1" of VG "ops"   [996 MB / 52 MB free]
+pvscan -- ACTIVE   PV "/dev/sde2" of VG "sales" [996 MB / 944 MB free]
+pvscan -- ACTIVE   PV "/dev/sdf1" of VG "ops"   [996 MB / 0 free]
+pvscan -- ACTIVE   PV "/dev/sdf2" of VG "dev"   [996 MB / 72 MB free]
+pvscan -- ACTIVE   PV "/dev/sdg1" of VG "ops"   [996 MB / 996 MB free]
+pvscan -- ACTIVE   PV "/dev/sdg2" of VG "dev"   [996 MB / 996 MB free]
+pvscan -- total: 10 [13.67 GB] / in use: 10 [13.67 GB] / in no VG: 0 [0]</tt>
+              
+</pre>
+
+    <p>Наконец, увеличим размеры логических томов и расширим файловые
+    системы до размеров логических томов:</p>
+<pre>
+<strong
+ class="command"># umount /mnt/ops/batch
+# umount /mnt/dev/users</strong>
+
+<strong
+ class="command"># export E2FSADM_RESIZE_CMD=ext2resize
+# e2fsadm /dev/ops/batch -L+500M</strong>
+<tt
+ class=
+"computeroutput">e2fsck 1.18, 11-Nov-1999 for EXT2 FS 0.5b, 95/08/09
+Pass 1: Checking inodes, blocks, and sizes
+Pass 2: Checking directory structure
+Pass 3: Checking directory connectivity
+Pass 4: Checking reference counts
+Pass 5: Checking group summary information
+/dev/ops/batch: 11/131072 files (0.0&lt;!--  non-contiguous), 4127/262144 blocks
+lvextend -- extending logical volume "/dev/ops/batch" to 1.49 GB
+lvextend -- doing automatic backup of volume group "ops"
+lvextend -- logical volume "/dev/ops/batch" successfully extended
+
+ext2resize v1.1.15 - 2000/08/08 for EXT2FS 0.5b
+e2fsadm -- ext2fs in logical volume "/dev/ops/batch" successfully extended to 1.49 GB</tt>
+
+
+<strong
+ class="command"># e2fsadm /dev/dev/users -L+900M</strong>
+<tt
+ class=
+"computeroutput">e2fsck 1.18, 11-Nov-1999 for EXT2 FS 0.5b, 95/08/09
+Pass 1: Checking inodes, blocks, and sizes
+Pass 2: Checking directory structure
+Pass 3: Checking directory connectivity
+Pass 4: Checking reference counts
+Pass 5: Checking group summary information
+/dev/dev/users: 12/262144 files (0.0% non-contiguous), 275245/524288 blocks
+lvextend -- extending logical volume "/dev/dev/users" to 2.88 GB
+lvextend -- doing automatic backup of volume group "dev"
+lvextend -- logical volume "/dev/dev/users" successfully extended
+
+ext2resize v1.1.15 - 2000/08/08 for EXT2FS 0.5b
+e2fsadm -- ext2fs in logical volume "/dev/dev/users" successfully extended to 2.88 GB</tt>
+</pre>
+
+    <p>Нам осталось смонтировать системы и посмотреть их размеры:</p>
+<pre>
+<strong
+ class="command"># mount /dev/ops/batch
+# mount /dev/dev/users
+# df</strong>
+<tt
+ class=
+"computeroutput">Filesystem           1k-blocks      Used Available Use% Mounted on
+/dev/dev/cvs           1342492    516468    757828  41% /mnt/dev/cvs
+/dev/dev/users         2969360   2060036    909324  69% /mnt/dev/users
+/dev/dev/build         1548144   1023041    525103  66% /mnt/dev/build
+/dev/ops/databases     2890692   2302417    588275  79% /mnt/ops/databases
+/dev/sales/users       2064208    871214   1192994  42% /mnt/sales/users
+/dev/ops/batch         1535856    897122    638734  58% /mnt/ops/batch</tt>
+</pre>
+
+    <h3><em><a
+     name="e6"></a>Резервное копирование при помощи
+    "снапшотов"</em></h3>
+
+    <p>Развивая приведенный пример, предположим, что нам нужно
+    выполнить резервирование базы данных. Для этой задачи мы будем
+    использовать устройство-"снапшот".</p>
+
+    <p>Этот тип устройства представляет собой доступную только на
+    чтение копию другого тома на момент выполнения процедуры "снапшот".
+    Это дает возможность продолжать работу не заботясь о том, что
+    данные могут измениться в момент резервного копирования. Кроме
+    того, нам не нужно останавливать работу базы данных на время
+    выполнения резервного копирования.</p>
+
+    <p>В группе томов ops у нас осталось около 600Мб свободного места,
+    его мы и задействуем для "снапшот"-устройства. Размер
+    "снапшот"-устройства не регламентируется, но должен быть достаточен
+    для сохранения всех изменений, которые могут произойти за его время
+    жизни. 600Мб должно хватить для наших целей:</p>
+<pre>
+<strong
+ class=
+"command"># lvcreate -L592M -s -n dbbackup /dev/ops/databases</strong> 
+<tt
+ class=
+"computeroutput">lvcreate -- WARNING: the snapshot must be disabled if it gets full
+lvcreate -- INFO: using default snapshot chunk size of 64 KB for "/dev/ops/dbbackup"
+lvcreate -- doing automatic backup of "ops"
+lvcreate -- logical volume "/dev/ops/dbbackup" successfully create</tt>
+</pre>
+
+    <p>Если вы делаете "снапшот" файловой системы XFS, нужно выполнить
+    на смонтированной файловой системе команду xfs_freeze, и лишь после
+    этого создавать "снапшот":</p>
+<pre>
+<strong
+ class=
+"command"># xfs_freeze -f /mnt/point; lvcreate -L592M -s -n dbbackup /dev/ops/databases; xfs_freeze -u /mnt/point</strong>
+</pre>
+
+    <p>Если устройство-"снапшот" полностью заполняется, оно
+    автоматически деактивируется. В этом случае "снапшот" не может
+    более использоваться, потому крайне важно выделять достаточное
+    пространство для него.</p>
+
+    <p>После того как мы создали "снапшот", его нужно смонтировать:</p>
+<pre>
+<strong
+ class="command"># mkdir /mnt/ops/dbbackup
+# mount /dev/ops/dbbackup /mnt/ops/dbbackup</strong>
+<tt
+ class=
+"computeroutput">mount: block device /dev/ops/dbbackup is write-protected, mounting read-only</tt>
+</pre>
+
+    <p>Если вы работаете с файловой системой XFS, вам будет нужно при
+    монтировании указать опцию nouuid:</p>
+<pre>
+<strong
+ class=
+"command"># mount -o nouuid,ro /dev/ops/dbbackup /mnt/ops/dbbackup</strong>
+</pre>
+
+    <p>Выполним резервное копирование раздела:</p>
+<pre>
+<strong
+ class="command"># tar -cf /dev/rmt0 /mnt/ops/dbbackup</strong>
+<tt
+ class=
+"computeroutput">tar: Removing leading `/' from member names</tt>
+</pre>
+
+    <p>После выполнения необходимых процедур, нужно удалить
+    устройство-"снапшот":</p>
+<pre>
+<strong
+ class="command"># umount /mnt/ops/dbbackup
+# lvremove /dev/ops/dbbackup</strong> 
+<tt
+ class=
+"prompt">lvremove -- do you really want to remove "/dev/ops/dbbackup"? [y/n]:</tt> y
+<tt
+ class=
+"computeroutput">lvremove -- doing automatic backup of volume group "ops"
+lvremove -- logical volume "/dev/ops/dbbackup" successfully removed</tt>
+</pre>
+
+    <h3><em><a
+     name="e7"></a>Удаление диска из группы томов</em></h3>
+
+    <p>Скажем, вы хотите освободить один диск из группы томов. Для
+    этого необходимо выполнить процедуру переноса использующихся
+    физических экстентов. Естественно, что на других физических томах
+    должно быть достаточно свободных физических экстентов.</p>
+
+    <p>Выполните команду:</p>
+<pre>
+<strong
+ class="command"># pvmove /dev/hdb</strong>
+<tt
+ class=
+"computeroutput">pvmove -- moving physical extents in active volume group "dev"
+pvmove -- WARNING: moving of active logical volumes may cause data loss!</tt>
+<tt
+ class="prompt">pvmove -- do you want to continue? [y/n]</tt> y
+<tt
+ class=
+"computeroutput">pvmove -- 249 extents of physical volume "/dev/hdb" successfully moved</tt>
+</pre>
+
+    <p>Учтите, что операция переноса физических экстентов занимает
+    много времени. Если вы хотите наблюдать за процессом переноса
+    экстентов, укажите в команде ключ -v .</p>
+
+    <p>После окончания процедуры переноса, удалите физический том из
+    группы томов:</p>
+<pre>
+<strong
+ class="command"># vgreduce dev /dev/hdb</strong>
+<tt
+ class=
+"computeroutput">vgreduce -- doing automatic backup of volume group "dev"
+vgreduce -- volume group "dev" successfully reduced by physical volume:
+vgreduce -- /dev/hdb</tt>
+</pre>
+
+    <p>Теперь данный диск может быть физически удален из системы или
+    использован в других целях. Например, добавлен в другую группу
+    томов.</p>
+
+    <h3><em><a
+     name="e8"></a>Перенос группы томов на другую систему</em></h3>
+
+    <p>Физический перенос группы томов на другую систему
+    организовывается при помощи команд vgexport и vgimport.</p>
+
+    <p>Сперва необходимо размонтировать все логические тома группы
+    томов и деактивировать группу:</p>
+<pre>
+<strong
+ class="command"># unmount /mnt/design/users</strong>
+<strong
+ class="command"># vgchange -an design</strong>
+<tt
+ class=
+"computeroutput">vgchange -- volume group "design" successfully deactivated</tt>
+</pre>
+
+    <p>После этого экспортируем группу томов. Процедура экспорта
+    запрещает доступ к группе на данной системе и готовит ее к
+    удалению:</p>
+<pre>
+<strong
+ class="command"># vgexport design</strong>
+<tt
+ class=
+"computeroutput">vgexport -- volume group "design" sucessfully exported</tt>
+</pre>
+
+    <p>Теперь можно выключить машину, отсоединить диски, составляющие
+    группу томов и подключить их к новой системе. Остается
+    импортировать группу томов на новой машине и смонтировать
+    логические тома:</p>
+<pre>
+<strong
+ class="command"># pvscan</strong>
+<tt
+ class=
+"computeroutput">pvscan -- reading all physical volumes (this may take a while...)
+pvscan -- inactive PV "/dev/sdb1"  is in EXPORTED VG "design" [996 MB / 996 MB free]
+pvscan -- inactive PV "/dev/sdb2"  is in EXPORTED VG "design" [996 MB / 244 MB free]
+pvscan -- total: 2 [1.95 GB] / in use: 2 [1.95 GB] / in no VG: 0 [0]</tt>
+<strong
+ class="command"># vgimport design /dev/sdb1 /dev/sdb2</strong>
+<tt
+ class=
+"computeroutput">vgimport -- doing automatic backup of volume group "design"
+vgimport -- volume group "design" successfully imported and activated</tt>
+
+<strong
+ class="command"># mkdir -p /mnt/design/users
+# mount /dev/design/users /mnt/design/users</strong>
+</pre>
+
+    <p>Все! Группа томов готова к использованию на новой системе.</p>
+
+    <h3><em><a
+     name="e9"></a>Конвертация корневой файловой системы в
+    LVM</em></h3>
+
+    <p>В данном примере имеется установленная система на двух разделах:
+    корневом и /boot. Диск размером 2Гб разбит на разделы следующим
+    образом:</p>
+<pre>
+/dev/hda1  /boot 
+/dev/hda2  swap
+/dev/hda3  /
+</pre>
+
+    <p>Корневой раздел занимает все пространство, оставшееся после
+    выделения swap и /boot разделов. Главное требование, предъявляемое
+    к корневому разделу в нашем примере: он должен быть более чем на
+    половину пуст. Это нужно, чтобы мы могли создать его копию. Если
+    это не так, нужно будет использовать дополнительный диск. Процесс
+    при этом останется тот же, но уменьшать корневой раздел будет не
+    нужно.</p>
+
+    <p>Для изменения размера файловой системы мы будем использовать
+    утилиту GNU parted.</p>
+
+    <p>Загрузитесь в однопользовательском режиме, это важно. Запустите
+    программу parted для уменьшения размера корневого раздела. Ниже
+    приведен пример диалога с утилитой parted:</p>
+<pre>
+<strong
+ class="command"># parted /dev/hda</strong>
+<tt
+ class="prompt">(parted)</tt> p
+.
+.
+.
+</pre>
+
+    <p>Изменим размер раздела:</p>
+<pre>
+<tt
+ class="prompt">(parted)</tt> resize 3 145 999
+</pre>
+
+    <p>Первое число -- это номер раздела (hda3), второе -- начало
+    раздела hda3, не меняйте его. Последнее число -- это конец раздела.
+    Укажите приблизительно половину текущего размера раздела.</p>
+
+    <p>Создадим новый раздел:</p>
+<pre>
+<tt
+ class="prompt">(parted)</tt> mkpart primary ext2 1000 1999
+</pre>
+
+    <p>Этот раздел будет содержать LVM. Он должен начинаться после
+    раздела hda3 и заканчиваться в конце диска.</p>
+
+    <p>Выйдите из утилиты parted:</p>
+<pre>
+<tt
+ class="prompt">(parted)</tt> q
+</pre>
+
+    <p>Перезагрузите систему. Убедитесь, что ваше ядро содержит
+    необходимые установки. Для поддержки LVM должны быть включены
+    параметры CONFIG_BLK_DEV_RAM и CONFIG_BLK_DEV_INITRD.</p>
+
+    <p>Для созданного раздела необходимо изменить тип на LVM (8e).
+    Поскольку parted не знает такого типа, воспользуемся утилитой
+    fdisk:</p>
+<pre>
+<strong
+ class="command"># fdisk /dev/hda</strong>
+<tt
+ class="prompt">Command (m for help):</tt> t
+<tt
+ class="prompt">Partition number (1-4):</tt> 4
+<tt
+ class="prompt">Hex code (type L to list codes):</tt> 8e
+<tt
+ class=
+"computeroutput">Changed system type of partition 4 to 8e (Unknown)</tt>
+<tt
+ class="prompt">Command (m for help):</tt> w
+</pre>
+
+    <p>Инициализируем LVM, физический том; создаем группу томов и
+    логический том для корневого раздела:</p>
+<pre>
+<strong
+ class="command"># vgscan</strong>
+<strong
+ class="command"># pvcreate /dev/hda4</strong>
+<strong
+ class="command"># vgcreate vg /dev/hda4</strong>
+<strong
+ class="command"># lvcreate -L250M -n root vg</strong>
+</pre>
+
+    <p>Создадим теперь файловую систему на логическом томе и перенесем
+    туда содержимое корневого каталога:</p>
+<pre>
+<strong
+ class="command"># mke2fs /dev/vg/root
+# mount /dev/vg/root /mnt/
+# find / -xdev | cpio -pvmd /mnt</strong>
+</pre>
+
+    <p>Отредактируйте файл /mnt/etc/fstab на логическом томе
+    соответствующем образом. Например, строку:</p>
+<pre>
+/dev/hda3       /    ext2       defaults 1 1
+</pre>
+
+    <p>замените на:</p>
+<pre>
+/dev/vg/root    /    ext2       defaults 1 1
+</pre>
+
+    <p>Создаем образ initrd, поддерживающий LVM:</p>
+<pre>
+# lvmcreate_initrd
+Logical Volume Manager 1.0.6 by Heinz Mauelshagen  25/10/2002
+lvmcreate_initrd -- make LVM initial ram disk /boot/initrd-lvm-2.4.20-inp1-up-rootlvm.gz</pre>
+<pre>lvmcreate_initrd -- finding required shared libraries
+lvmcreate_initrd -- stripping shared libraries
+lvmcreate_initrd -- calculating initrd filesystem parameters
+lvmcreate_initrd -- calculating loopback file size
+lvmcreate_initrd -- making loopback file (6491 kB)
+lvmcreate_initrd -- making ram disk filesystem (19125 inodes)
+lvmcreate_initrd -- mounting ram disk filesystem
+lvmcreate_initrd -- creating new /etc/modules.conf
+lvmcreate_initrd -- creating new modules.dep
+lvmcreate_initrd -- copying device files to ram disk
+lvmcreate_initrd -- copying initrd files to ram disk
+lvmcreate_initrd -- copying shared libraries to ram disk
+lvmcreate_initrd -- creating new /linuxrc
+lvmcreate_initrd -- creating new /etc/fstab
+lvmcreate_initrd -- ummounting ram disk
+lvmcreate_initrd -- creating compressed initrd /boot/initrd-lvm-2.4.20-inp1-up-rootlvm.gz</pre>
+<p>Внимательно изучите вывод команды. Обратите внимание на имя<br>
+  нового образа и его размер. Отредактируйте файл /etc/lilo.conf. Он<br>
+  должен выглядеть приблизительно следующим образом:</p>
+<pre>image   = /boot/KERNEL_IMAGE_NAME
+label   = lvm
+root    = /dev/vg/root
+initrd  = /boot/INITRD_IMAGE_NAME
+ramdisk = 8192
+</pre>
+
+    <p>KERNEL_IMAGE_NAME -- имя ядра, поддерживающего LVM.
+    INITRD_IMAGE_NAME -- имя образа initrd, созданного командой
+    lvmcreate_initrd. Возможно, вам будет нужно увеличить значение
+    ramdisk, если у вас достаточно большая конфигурация LVM, но
+    значения 8192 должно хватить в большинстве случаев. Значение по
+    умолчанию параметра ramdisk равно 4096. Если сомневаетесь,
+    проверьте вывод команды lvmcreate_initrd в строке lvmcreate_initrd
+    -- making loopback file (6189 kB).</p>
+
+    <p>После этого файл lilo.conf нужно скопировать и на логический
+    том:</p>
+<pre>
+<strong
+ class="command"># cp /etc/lilo.conf /mnt/etc/</strong>
+</pre>
+
+    <p>Выполните команду lilo:</p>
+<pre>
+ # lilo
+</pre>
+
+    <p>Перезагрузитесь и выберите образ lvm. Для этого введите "lvm" в
+    ответ на приглашение LILO. Система должна загрузится, а корневой
+    раздел будет находиться на логическом томе.</p>
+
+    <p>После того как вы убедитесь, что все работает нормально, образ
+    lvm нужно сделать загружаемым по умолчанию. Для этого укажите в
+    конфигурационном файле LILO строку default=lvm, и выполните команду
+    lilo.</p>
+
+    <p>Наконец, добавьте оставшийся старый корневой раздел в группу
+    томов. Для этого измените тип раздела утилитой fdisk на 8е, и
+    выполните команды:</p>
+<pre>
+<strong
+ class="command"># pvcreate /dev/hda3
+# vgextend vg /dev/hda3</strong>
+</pre>
+<h3><em><a name="e10"></a>Организация корневой файловой системы в LVM для дистрибутива 
+  ALT Master 2.2</em></h3>
+<p>При установке данного дистрибутива оказалось невозможным разместить корневой 
+  раздел в системе LVM. Связано это с тем, как выяснилось позже, что в ядре, поставляемом 
+  с данным дистрибутивом, поддержка файловой системы ext2 организована в виде 
+  загружаемого модуля. Образ же initrd использует файловую систему romfs, поддержка 
+  которой вкомпилирована в ядро. При выполнении команды lvmcreate_initrd генерируется 
+  файл-образ initrd с системой ext2. Если после этого вы попытаетесь загрузиться, 
+  то получите примерно следующее:</p>
+<pre>Kernel panic: VFS: Unable to mount root fs on 3a:00</pre>
+<p>Первое, что вам нужно будет сделать -- это скомпилировать ядро со встроенной 
+  поддержкой файловой системы ext2, установить его и проверить. После этого снова 
+  выполните команду lvmcreate_initrd. Дальнейшие действия зависят от вашей конфигурации. 
+  Смонтируйте созданный образ:</p>
+<pre><strong># gzip -d /boot/initrd-lvm-2.4.20-inp1-up-rootlvm.gz
+# mount -o loop /boot/initrd-lvm-2.4.20-inp1-up-rootlvm /mnt/initrd</strong></pre>
+<p>И копируйте туда модули, необходимые для работы с вашими дисковыми накопителями 
+  и файловыми системами (если они не вкомпилированы в ядро). Так, для системы 
+  с RAID-контроллером ICP-Vortex и корневой файловой системой reiserfs нужны модули: 
+  gdth.o mod_scsi.o sd_mod.o reiserfs.o. Добавьте их загрузку в файл /mnt/initrd/linuxrc.</p>
+<p> Обратите внимание на оставшееся свободное место на образе:</p>
+<pre>Filesystem            Size  Used Avail Use% Mounted on<br>...<br>/boot/initrd-lvm-2.4.20-inp1-up-rootlvm<br>                      4.0M  3.9M  0.1M  100% /mnt/initrd</pre>
+<p>В файловой системе должно быть свободно еще 200-300Кб, в зависимости от вашей 
+  LVM-конфигурации. Если же у вас ситуация похожа на приведенную в листинге, будет 
+  необходимо создать новый образ, с большим размером файловой системы и повторить 
+  операции добавления модулей.</p>
+<p>Наконец, отмонтируйте образ, сожмите его, запустите программу lilo и перезагрузитесь:</p>
+<pre><strong># umount /mnt/initrd
+# gzip /boot/initrd-lvm-2.4.20-inp1-up-rootlvm
+# lilo
+# reboot</strong></pre>
+<h2><a name="End"></a>Заключение</h2>
+
+    
+<p>Система управления логическими томами особенно полезна в работе с серверами, 
+  поскольку обеспечивает масштабируемость и удобное управление дисковым пространством. 
+  Она упрощает планирование дискового пространства и предотвращает проблемы, возникающие 
+  при неожиданно быстром росте занятого места в разделах. LVM не предназначен 
+  для обеспечения отказоустойчивости или высокой производительности. Потому он 
+  часто используется в сочетании с системами RAID. </p>
+<p>Использованные источники:
+<li>LVM-HOWTO</li>
+<li>http://www.gweep.net/~sfoskett/linux/lvmlinux.html</li></p>
+<hr noshade>
+
+    <p
+     class="c1"><small><strong>Copyright (c) 2003, Ivan
+    Pesin</strong></small></p>
+    <!-- *** END copyright *** -->
+
+    <hr noshade>
+
+    <p
+     class="c1"><a
+     href="../index.html">Вернуться на главную страницу</a></p>
+
+    <hr noshade>
+  </body>
+</html>
+

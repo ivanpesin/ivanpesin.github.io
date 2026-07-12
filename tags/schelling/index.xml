@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>schelling on Articles, Translations, and Blog</title>
+    <link>http://pesin.space/tags/schelling/</link>
+    <description>Recent content in schelling on Articles, Translations, and Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 03 Aug 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://pesin.space/tags/schelling/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>The Schelling Model of Ethnic Residential Dynamics</title>
+      <link>http://pesin.space/posts/2018-08-03-segregation-model/</link>
+      <pubDate>Fri, 03 Aug 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2018-08-03-segregation-model/</guid>
+      <description>In 1971, the American economist Thomas Schelling created an agent-based model that might help explain why segregation is so difficult to combat. His model of segregation showed that even when individuals (or &amp;ldquo;agents&amp;rdquo;) didn&amp;rsquo;t mind being surrounded or living by agents of a different race, they would still choose to segregate themselves from other agents over time! Although the model is quite simple, it gives a fascinating look at how individuals might self-segregate, even when they have no explicit desire to do so.</description>
+    </item>
+    
+  </channel>
+</rss>

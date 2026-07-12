@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>rhngeneral &#8211; Ivan Pesin</title>
+	<atom:link href="/blog/tag/rhngeneral/feed/" rel="self" type="application/rss+xml" />
+	<link>https://pesin.space/blog</link>
+	<description>Articles &#38; Translations</description>
+	<lastBuildDate>
+	Wed, 19 Oct 2016 02:08:18 +0000	</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=5.1.1</generator>
+	<item>
+		<title>Как с помощью yum скачать пакет, не устанавливая его в системе?</title>
+		<link>/blog/2009/07/%d0%ba%d0%b0%d0%ba-%d1%81-%d0%bf%d0%be%d0%bc%d0%be%d1%89%d1%8c%d1%8e-yum-%d1%81%d0%ba%d0%b0%d1%87%d0%b0%d1%82%d1%8c-%d0%bf%d0%b0%d0%ba%d0%b5%d1%82-%d0%bd%d0%b5-%d1%83%d1%81%d1%82%d0%b0%d0%bd%d0%b0/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=%25d0%25ba%25d0%25b0%25d0%25ba-%25d1%2581-%25d0%25bf%25d0%25be%25d0%25bc%25d0%25be%25d1%2589%25d1%258c%25d1%258e-yum-%25d1%2581%25d0%25ba%25d0%25b0%25d1%2587%25d0%25b0%25d1%2582%25d1%258c-%25d0%25bf%25d0%25b0%25d0%25ba%25d0%25b5%25d1%2582-%25d0%25bd%25d0%25b5-%25d1%2583%25d1%2581%25d1%2582%25d0%25b0%25d0%25bd%25d0%25b0</link>
+				<pubDate>Mon, 13 Jul 2009 15:30:21 +0000</pubDate>
+		<dc:creator><![CDATA[ivan]]></dc:creator>
+				<category><![CDATA[RedHat KB]]></category>
+		<category><![CDATA[rhel5]]></category>
+		<category><![CDATA[rhngeneral]]></category>
+		<category><![CDATA[yum]]></category>
+
+		<guid isPermaLink="false">http://www.n-ix.com/ipesin/?p=498</guid>
+				<description><![CDATA[Copyright (c) 2009 by Red Hat, Inc. This material may be distributed only subject to the terms and conditions set forth in the Open Publication License, v1.0 or later (available at http://www.opencontent.org/openpub/). Original article: http://kbase.redhat.com/faq/docs/DOC-10155.pdf Translated by Ivan Pesin, July 2009 Система: Red Hat Enterprise Linux 5 Решение: Убедитесь, что пакет yum-downloadonly установлен в системе. [&#8230;]]]></description>
+								<content:encoded><![CDATA[<p id="top" />
+<div class="copyright">Copyright (c) 2009 by Red Hat, Inc. This material may be distributed only subject to the terms and conditions set forth in the Open Publication License, v1.0 or later (available at <a href="http://www.opencontent.org/openpub/">http://www.opencontent.org/openpub/</a>).<br />
+Original article: <a href="http://kbase.redhat.com/faq/docs/DOC-10155.pdf">http://kbase.redhat.com/faq/docs/DOC-10155.pdf</a></p>
+<p>Translated by Ivan Pesin, July 2009</p></div>
+<p><strong>Система:</strong> Red Hat Enterprise Linux 5</p>
+<p><strong>Решение:</strong></p>
+<p>Убедитесь, что пакет <strong>yum-downloadonly</strong> установлен в системе. Если нет, то этот пакет доступен в <a href="https://rhn.redhat.com/">Red Hat Network</a> (RHN).  Чтобы установить пакет <strong>yum-downloadonly</strong> в системе, зарегистрированной в Red Hat Network, выполните команду:</p>
+<blockquote><p></p><pre class="crayon-plain-tag">#yum install yum-downloadonly</pre><p></p></blockquote>
+<p><strong>yum-downloadonly</strong> &#8212; это плагин, который может быть использован для загрузки пакетов из RHN или репозиториев yum, без установки их в системе. Проверьте содержимое файла <strong>/etc/yum/pluginconf.d/downloadonly.conf</strong> и убедитесь, что плагин разрешён:</p>
+<blockquote><p></p><pre class="crayon-plain-tag">[main]
+enabled=1</pre><p></p></blockquote>
+<p>Теперь, для примера, выполните следующую команду, которая загружает последнюю версию vsftpd, если она доступна, без установки в системе:</p>
+<blockquote><p></p><pre class="crayon-plain-tag"># yum install --downloadonly vsftpd
+Loading &quot;downloadonly&quot; plugin
+Loading &quot;rhnplugin&quot; plugin
+rhel-i386-server-5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 100% |=========================| 1.4 kB&nbsp;&nbsp;&nbsp; 00:00
+Setting up Install Process
+Parsing package install arguments
+Package vsftpd - 2.0.5-10.el5.i386 is already installed.
+Resolving Dependencies
+--&amp;gt; Running transaction check
+---&amp;gt; Package vsftpd.i386 0:2.0.5-12.el5 set to be updated
+--&amp;gt; Finished Dependency Resolution
+
+Dependencies Resolved
+
+=============================================================================
+ Package&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Arch&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Version&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Repository&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Size 
+=============================================================================
+Updating:
+ vsftpd&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; i386&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2.0.5-12.el5&nbsp;&nbsp;&nbsp;&nbsp; rhel-i386-server-5&nbsp; 138 k
+
+Transaction Summary
+=============================================================================
+Install&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 Package(s)
+Update&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 Package(s)
+Remove&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 Package(s)
+
+Total download size: 138 k
+Is this ok [y/N]: y
+Downloading Packages:
+(1/1): vsftpd-2.0.5-12.el 100% |=========================| 138 kB&nbsp;&nbsp;&nbsp; 00:02
+
+exiting because --downloadonly specified</pre><p></p></blockquote>
+<p>По-умолчанию, пакет сохраняется в каталог <strong>/var/cache/yum/&lt;repo&gt;/packages/</strong>. В нашем случае &lt;repo&gt; это <strong>rhel-i386-server-5</strong>. Чтобы сохранить пакет в другом каталоге, укажите параметр <code>--downloaddir</code> вместе с <code>--downloadonly</code>. Например:</p>
+<blockquote><p></p><pre class="crayon-plain-tag">#yum install --downloadonly --downloaddir=/tmp vsftpd</pre><p></p></blockquote>
+<p>В результате последняя доступная версия пакета vsftpd, если он не установлен в системе, будет загружена и сохранена в каталоге /tmp.</p>
+<p>Чтобы скачать пакет установленный в системе, используйте команду <code>yumdownloader</code>. Например, в системе установлен пакет <code>httpd-2.2.3-22.el5</code>:</p>
+<blockquote><p></p><pre class="crayon-plain-tag"># rpm -q httpd
+httpd-2.2.3-22.el5</pre><p></p></blockquote>
+<p>Чтобы скачать его, воспользуйтесь командой <code>yumdownloader</code>:</p>
+<blockquote><p></p><pre class="crayon-plain-tag"># yumdownloader httpd-2.2.3-22.el5
+Loaded plugins: fastestmirror, kmod, protectbase, rhnplugin, versionlock
+Loading mirror speeds from cached hostfile
+Reading version lock configuration
+0 packages excluded due to repository protections
+httpd-2.2.3-22.el5.i386.rpm</pre><p></p></blockquote>
+<p>Пакет сохраняется в текущем каталоге. Чтобы указать другое место, добавьте ключ <code>--destdir</code> с указанием нужного каталога. За подробной информацией о возможностях и параметрах команды обращайтесь к странице руководства, доступной по команде <code>man yumdownloader</code>.</p>
+<p><strong><em>Прим.пер.</em></strong>: утилита <code>yumdownloader</code> входит в пакет <code>yum-utils</code>.</p>
+]]></content:encoded>
+										</item>
+	</channel>
+</rss>

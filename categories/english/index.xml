@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>english on Articles, Translations, and Blog</title>
+    <link>http://pesin.space/categories/english/</link>
+    <description>Recent content in english on Articles, Translations, and Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 25 Jul 2020 13:50:34 +0300</lastBuildDate>
+    
+	<atom:link href="http://pesin.space/categories/english/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Epigrams in English and Russian</title>
+      <link>http://pesin.space/posts/2020-07-25-burns-marshak/</link>
+      <pubDate>Sat, 25 Jul 2020 13:50:34 +0300</pubDate>
+      
+      <guid>http://pesin.space/posts/2020-07-25-burns-marshak/</guid>
+      <description>&lt;p&gt;Wonderful Burns&amp;rsquo; epigram in Marshak&amp;rsquo;s translation:&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>The Elements of Style</title>
+      <link>http://pesin.space/posts/2013-07-10-elements-of-style/</link>
+      <pubDate>Wed, 10 Jul 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2013-07-10-elements-of-style/</guid>
+      <description>&amp;ldquo;No book in shorter space, with fewer words, will help any writer more than this persistent little volume.&amp;rdquo; — The Boston Globe
+  A friend recommended a book to read, “The Elements of Style” by W. Strunk. It resonated with me strongly, here are a couple of quotes:
+ Vigorous writing is concise. A sentence should contain no unnecessary words, a paragraph no unnecessary sentences, for the same reason that a drawing should have no unnecessary lines and a machine no unnecessary parts.</description>
+    </item>
+    
+  </channel>
+</rss>

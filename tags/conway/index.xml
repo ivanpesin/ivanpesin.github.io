@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>conway on Articles, Translations, and Blog</title>
+    <link>http://pesin.space/tags/conway/</link>
+    <description>Recent content in conway on Articles, Translations, and Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 03 Aug 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://pesin.space/tags/conway/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Conway&#39;s Life simulation in Go</title>
+      <link>http://pesin.space/posts/2018-02-10-life-go/</link>
+      <pubDate>Fri, 03 Aug 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2018-02-10-life-go/</guid>
+      <description>Implemeting Conway&amp;rsquo;s life is one of the first things I do when exploring a new programming language.
+Conway&amp;rsquo;s Game of Life, also known as the Game of Life or simply Life, is a cellular automaton devised by the British mathematician John Horton Conway in 1970. It is the best-known example of a cellular automaton. Ever since its publication, Conway&amp;rsquo;s Game of Life has attracted much interest because of the surprising ways in which the patterns can evolve.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,753 @@
+/************************************************************** LOGO HEADER */
+	
+#header {
+	width: 100%;
+	height: 42px;
+	clear: left;
+	}
+	
+#header form {
+	width: 201px;
+	margin-top: 5px;
+	float: right;
+	text-align: right;
+	}
+	
+#header input {
+	background: #eee;
+	}
+	
+#rhLogo {
+	float: left;
+	margin-left: 15px;
+	}
+	
+/************************************************************** WIDGETS */
+
+#widget {
+	width: 132px;
+	padding-bottom: 9px;
+	margin-bottom: 1em;
+	font-size: 10px;
+	background-image: url(/g/chrome/corner_widget_bottom.png);
+	background-position: bottom right;
+	background-repeat: no-repeat;
+	}
+	
+#widgetRed {
+	width: 132px;
+	padding-bottom: 9px;
+	margin-bottom: 1em;
+	font-size: 10px;
+	background-image: url(/g/chrome/corner_widget_bottom.png);
+	background-position: bottom right;
+	background-repeat: no-repeat;
+	}
+	
+#widget img {
+	display: block;
+	padding: 0;
+	margin: 0;
+	}
+	
+#widget h3 {
+	font-size: 10px;
+	color: white;
+	background: #b4b4b4;
+	padding: 4px 10px;
+	margin: 0;
+	}
+	
+#widgetRed h3 {
+	font-size: 10px;
+	color: white;
+	background: #900;
+	padding: 4px 10px;
+	margin: 0;
+	}
+	
+#widget h3.noPromo {
+	background-image: url(/g/chrome/corner_widget_top.gif);
+	background-position: top left;
+	background-repeat: no-repeat;
+	padding-top: 5px;
+	padding-bottom: 5px;	
+	}
+	
+#widgetRed h3.noPromoRed {
+	background-image: url(/g/chrome/corner_widgetRed_top.gif);
+	background-position: top left;
+	background-repeat: no-repeat;
+	padding-top: 5px;
+	padding-bottom: 5px;	
+	}
+
+#widget .noPromoLtGrey {
+	background-image: url(/g/chrome/corner_widget_top_ltgrey.png);
+	background-position: top left;
+        background-repeat: no-repeat;
+	padding-top: 0;
+        padding-bottom: 0;
+	border-bottom: 1px solid #b4b4b4;
+        background-color: #f2f2f2;
+        }
+        
+#widgetCMSTop {
+	 background: url(http://www.redhat.com/g/chrome/corner_widget_top_ltgrey.png) 50% 50% no-repeat; 
+	 padding-top: 14px;
+	 }
+
+.widgetBody {
+	width: 132px;
+	padding: 9px;
+	border-left: 1px solid #b4b4b4;
+	border-right: 1px solid #b4b4b4;
+	background-color: #f2f2f2;
+/* tantek box hack for ie5 win */
+	voice-family: "\"}\"";
+	voice-family: inherit;
+	width: 112px;
+	}
+
+/* for Opera */
+html>body .widgetBody {
+	width: 112px;
+	}
+	
+.widgetBody input {
+	font-size: 10px;
+	}
+	
+.widgetBody ul.linkage {
+	list-style: none;
+	padding-left: 0;
+	margin-left: 0;
+	}
+	
+/************************************************************** FOOTER */
+
+p#footer {
+	padding-top: 40px;
+	margin-left: 15px;
+	line-height: 1.5em;
+	color: #999;
+	font-size: xx-small;
+	clear: both;
+	}
+	
+p#footer a {
+	text-decoration: none;
+	}
+	
+/************************************************************** MAIN CONTENT */
+	
+#contentWrap {
+	margin: 25px 0 10px 0;
+	padding: 0;
+	}
+	
+#contentWrap:after {
+    content: "."; 
+    display: block;
+    height: 0;
+    overflow: hidden;
+    clear: both; 
+    visibility: hidden;
+    }
+
+    /* Holly Hack Targets IE Win only \*/
+    * html #contentWrap {height: 1%;}
+    /* End Holly Hack */
+    
+#contentWrap1Col {
+	margin: 25px 15px 10px 15px;
+	padding: 0;
+	}
+	
+#contentWrap1Col:after {
+    content: "."; 
+    display: block; 
+    height: 0;
+    overflow: hidden;
+    clear: both; 
+    visibility: hidden;
+    }
+
+    /* Holly Hack Targets IE Win only \*/
+    * html #contentWrap1Col {height: 1%;}
+    /* End Holly Hack */
+    
+/**** wrap this around any area with 2 columns except for "compare" */
+    
+.content2Col:after {
+    content: "."; 
+    display: block; 
+    height: 1px;
+    margin-top: -1px
+    overflow: hidden;
+    clear: both; 
+    visibility: hidden;
+    }
+
+    /* Holly Hack Targets IE Win only \*/
+    * html .content2Col {height: 1%;}
+    /* End Holly Hack */
+    
+/**** wrap this around any area with 2 columns that are followed by an HR */
+    
+.content2ColHR {
+	padding-bottom: 15px;
+	border-bottom: 1px solid #C8C5AC;
+	margin-bottom: 15px;
+	}
+    
+.content2ColHR:after {
+    content: "."; 
+    display: block; 
+    height: 0;
+    overflow: hidden;
+    clear: both; 
+    visibility: hidden;
+    }
+
+    /* Holly Hack Targets IE Win only \*/
+    * html .content2ColHR {height: 1%;}
+    /* End Holly Hack */
+    
+
+    
+/**** following two styles define LEFT SIDENAV and RIGHT-HAND CONTENT */
+	
+#navCol {
+	float: left;
+	width: 132px;
+	}
+	
+	/* Holly Hack Targets IE Win only \*/
+    * html #navCol {position: static;}
+    /* End Holly Hack */
+	
+#contentColRight {
+	margin-left: 147px;
+	}
+	
+	/* Holly Hack Targets IE Win only \*/
+    * html #contentColRight {margin-left: 144px;}
+    /* End Holly Hack */
+    
+    
+
+/**** following two styles define LEFT-HAND CONTENT and RIGHT-HAND WIDGETS */
+	
+#contentColLeft {
+	float: left;
+	width: 573px;
+	}
+
+#widgetCol {
+	margin-left: 588px;
+	}
+	
+	/* Holly Hack Targets IE Win only \*/
+    * html #widgetCol {margin-left: 583px;}
+    /* End Holly Hack */
+    
+#widgetFloat {
+	float: right;
+	margin-left: 15px;
+	margin-bottom: 15px;
+	}
+    
+#widgetWrap:after {
+    content: "."; 
+    display: block; 
+    height: 0;
+    overflow: hidden;
+    clear: both; 
+    visibility: hidden;
+    }
+
+    /* Holly Hack Targets IE Win only \*/
+    * html #widgetWrap {height: 1%;}
+    /* End Holly Hack */
+    
+/**** END basic template styles */
+	
+/**** following styles define HALF-WIDTH CONTENT COLUMNS */
+	
+.halfColLeft {
+	float: left;
+	}
+	
+	/* Holly Hack Targets IE Win only \*/
+    * html .halfColLeft {position: static;}
+    /* End Holly Hack */
+	
+.halfColRight,
+.twothirdColRight{
+	margin-left: 294px;
+	}
+	
+	/* Holly Hack Targets IE Win only \*/
+    * html .halfColRight,
+    * html .twothirdColRight{margin-left: 291px;}
+    /* End Holly Hack */
+    
+.halfColRight,
+.halfColLeft {
+	width: 279px;
+	padding-top: 0;
+	}
+	
+.twothirdColRight {
+	width: 411px;
+	}
+	
+.onethirdColRight {
+	width: 279px;
+	margin-left: 441px;
+	}
+	
+	/* Holly Hack Targets IE Win only \*/
+    * html .onethirdColRight {margin-left: 438px;}
+    /* End Holly Hack */
+	
+.twothirdColLeft {
+	width: 426px;
+	float: left;
+	}
+	
+.halfColRight ul,
+.halfColLeft ul {
+	padding: 0 10px 0 20px;
+	margin: 5px 0 11px 0;
+	}
+	
+.contentIndent {
+	margin-left: 15px;
+	margin-bottom: 15px;
+	}
+	
+.noIndent p	{
+	margin: 0;
+	}
+
+/* HalfFullCols -- right and left 50% cols on a full 720px page, like /choice/ */
+
+.halfFullColLeft {
+        float: left;
+        }
+                                                                                                                                                                                       
+        /* Holly Hack Targets IE Win only \*/
+    * html .halfFullColLeft {position: static;}
+    /* End Holly Hack */
+                                                                                                                                                                                       
+.halfFullColRight {
+        margin-left: 375px;
+        }
+                                                                                                                                                                                       
+        /* Holly Hack Targets IE Win only \*/
+    * html .halfFullColRight {margin-left: 357px;}
+    /* End Holly Hack */
+                                                                                                                                                                                       
+.halfFullColRight,
+.halfFullColLeft {
+        width: 345px;
+        padding-top: 0;
+        }
+
+	
+/**** following styles define INTRO PARAGRAPHS ON MAIN AND SUB SECTION PAGES */
+	
+#intro {
+	color: #b4b19a;
+	margin-bottom: 15px;
+	}
+	
+#intro h1 {
+	color: #333;
+	text-transform: uppercase;
+	}
+	
+#intro h2 {
+	margin-bottom: 0;
+	padding-bottom: 0;
+	font-size: large;
+	}
+	
+#intro p {
+	font-size: medium;
+	line-height: 1.33em;
+	margin: 0;
+	}
+	
+#intro a {
+	text-decoration: none;
+	}
+	
+#introMain {
+	margin-left: 15px;
+	}
+	
+#introSub {
+	padding-bottom: 15px;
+	border-bottom: 2px solid #e6e6e6;
+	}
+	
+/**** following styles define the BUY BUTTONS and surroundings */
+	
+.buyBox {
+	color: #999;
+	margin-bottom: 10px;
+	border-bottom: 2px solid #e6e6e6;
+	}
+	
+.buyWrap {
+	height: 29px;
+	}
+
+.buyWrap:after {
+    content: "."; 
+    display: block; 
+    height: 0;
+    overflow: hidden;
+    clear: both; 
+    visibility: hidden;
+    }
+
+    /* Holly Hack Targets IE Win only \*/
+    * html .buyWrap {height: 1%;}
+    /* End Holly Hack */
+    
+.buyBox p {
+	margin-top: 5px;
+	padding: 0;
+	}
+    
+button.buyButton {
+	float: left;
+	position: relative;
+	background: url(/g/chrome/link_rhelblue.png) no-repeat;
+	text-align: center;
+	color: #fff;
+	font-size: 10px;
+	font-weight: bold;
+	width: 75px;
+	height: 29px;
+	border: 0;
+	padding: 0;
+	margin: 0;
+}
+
+p.buyText {
+	color: #000;
+	width: 200px;
+	margin: 0 0 0 85px;
+}
+
+p.buyTextToo	{
+	color: #000;
+	margin: 0 0 0 85px;
+	}
+	
+/**** following styles define COLUMNS THAT MUST BE ALIGNED AND COMPARE TWO CONCEPTS */
+
+.compare {
+	margin: 0 0 15px 0;
+	padding: 0;
+	}
+	
+.compare:after {
+    content: "."; 
+    display: block; 
+    height: 1px;
+    margin-top: -1px;
+    overflow: hidden;
+    clear: both; 
+    visibility: hidden;
+    }
+
+    /* Holly Hack Targets IE Win only \*/
+    * html .compare {height: 1%;}
+    /* End Holly Hack */
+	
+.compareColLeft,
+.compareColRight {
+	width: 279px;
+	background-image: url(/g/chrome/corner_listbox_cream_bottom.png);
+	background-position: bottom right;
+    	background-repeat: no-repeat;
+	}
+
+.compareColLeftNoBG,
+.compareColRightNoBG  {
+	width: 279px;
+	}
+
+.compareColLeft h2,
+.compareColRight h2,
+.compareColLeftNoBG h2,
+.compareColRightNoBG h2 {
+	margin-bottom: 5px;
+	}
+
+.compareColLeft,
+.compareColLeftNoBG {
+	float: left;
+	}
+	
+.compareColRight,
+.compareColRightNoBG {
+	float: right;
+	}
+
+.compareColLeftClear,
+.compareColRightClear {
+        width: 279px;
+        }
+                                                                                                                             
+.compareColLeftClear h2,
+.compareColRightClear h2 {
+        margin-bottom: 5px;
+        }
+                                                                                                                             
+.compareColLeftClear {
+        float: left
+        }
+                                                                                                                             
+.compareColRightClear {
+        float: right
+        }
+	
+/**** following styles define ROUNDED CORNER LIGHT BACKGROUND LISTS */
+	
+ul.listBoxLeft,
+ul.listBoxRight {
+	width: 249px;
+	background-color: #f7f2d0;
+    	background-image: url(/g/chrome/corner_listbox_cream_top.png);
+	background-position: top right;
+	background-repeat: no-repeat;
+	padding: 7px 10px 0 20px;
+	margin: 5px 0 11px 0;
+	}
+	
+ul.listBoxLeft li,
+ul.listBoxRight li {
+	padding: .5em 0 .5em 0;
+	}
+
+	
+.boxCream	{
+	width: 279px;
+	background-color: #f7f2d0;
+        background-image: url(/g/chrome/corner_listbox_cream_bottom.png);
+        background-position: bottom right;
+        background-repeat: no-repeat;
+	padding-bottom: 10px;
+	margin-bottom: 15px;
+        }
+
+ul.listBoxCream	{
+	width: 249px;
+	background-color: #f7f2d0;
+        background-image: url(/g/chrome/corner_listbox_cream_top.png);
+        background-position: top right;
+        background-repeat: no-repeat;
+        padding: 7px 10px 0 20px;
+        margin: 5px 0 0 0;
+	list-style: none;
+        }
+
+ul.listBoxCream li {
+	font-size: smaller;
+	font-weight: bold;
+	line-height: 1.5em;
+	background-image: url(/g/chrome/bullet_bluearrowoncream_dot.png);
+        background-repeat: no-repeat;
+        background-position: 0 3px;
+        padding: 1px 0 1px 18px;
+	}
+	
+/**** following styles define PRODUCT DESCRIPTIONS ON MAIN SECTION PAGES */
+	
+.prod {
+	width: 279px;
+	margin-bottom: 15px;
+	}
+	
+.prod:after {
+    content: "."; 
+    display: block; 
+    height: 1px;
+    margin-top: -1px;
+    overflow: hidden;
+    clear: both; 
+    visibility: hidden;
+    }
+
+    /* Holly Hack Targets IE Win only \*/
+    * html .prod {height: 1%;}
+    /* End Holly Hack */
+	
+.prod h3 {
+	margin: 0 0 0 81px;
+	font-size: x-small;
+	text-transform: uppercase;
+	}
+	
+.prod p {
+	width: 198px;
+	margin: 3px 0 0 81px;
+	}
+	
+.prod img {
+	float: left;
+	margin: 0 0 0 15px;
+	}
+	
+/**** following styles define CAPTIONS FOR IMAGES */
+
+div.imgBox {
+  	background: url(/g/chrome/corner_boxcream_br.png) bottom right no-repeat;
+  	background-color: #F7F2D0;
+  	margin-bottom: 15px;
+  	border-bottom: 1px solid white;
+  	}
+  
+div.imgBox img {
+	padding: 0;
+	margin-bottom: -3px;
+  	background-color: #fff;
+	}
+	
+div.caption {
+  	background: url(/g/chrome/corner_boxcream_tr.png) top right no-repeat;
+  	font-style: italic;
+  	font-size: x-small;
+ 	}
+  
+div.caption h3 {
+  	background: url(/g/chrome/corner_boxcream_tl.png) top left no-repeat;
+  	padding: 8px 0 0 8px;
+  	font-size: x-small;
+  	margin: 0;
+ 	}
+  
+div.caption p {
+  	background: url(/g/chrome/corner_boxcream_bl.png) bottom left no-repeat;
+  	margin: 0;
+  	padding: 0 8px 10px 8px;
+  	}
+  
+div#imgClusterSuiteDiag {
+	width: 427px;
+ 	}
+ 	
+ /**** following styles define the CLEAR BOX W/ROUNDED CORNERS */
+ 
+ .clearBox {
+ 	width: 279px;
+ 	background: url(/g/chrome/corner_halflinebox_top.png) top right no-repeat;
+ 	}
+ 	
+ .clearBoxWide {
+ 	width: 573px;
+ 	background: url(/g/chrome/corner_mediumlinebox_top.png) top right no-repeat;
+ 	}
+ 	
+ .clearBoxFull {
+ 	width: 690px;
+ 	background: url(/g/chrome/corner_lineboxfull_top.png) top right no-repeat;
+ 	}
+ 
+ .clearBoxHalfFull	{
+	width: 345px;
+	background: url(/g/chrome/corner_lineboxhalffull_top.gif) top right no-repeat;
+        }
+	
+ .clearBox,
+ .clearBoxWide,
+ .clearBoxFull,
+ .clearBoxHalfFull {
+ 	padding-top: 7px;
+ 	margin-bottom: 15px;
+ 	}
+ 	
+ .clearBoxInner {
+ 	background: url(/g/chrome/corner_halflinebox_bottom.png) bottom left no-repeat;
+ 	}
+ 	
+ .clearBoxInnerWide {
+	background: url(/g/chrome/corner_mediumlinebox_bottom.png) bottom left no-repeat;
+	}
+ 	
+.clearBoxInnerFull {
+ 	background: url(/g/chrome/corner_lineboxfull_bottom.png) bottom left no-repeat;
+ 	}
+ 	
+.clearBoxInnerHalfFull {
+        background: url(/g/chrome/corner_lineboxhalffull_bottom.gif) bottom left no-repeat;
+        }
+
+
+ .clearBoxInner,
+ .clearBoxInnerWide,
+ .clearBoxInnerFull,
+ .clearBoxInnerHalfFull {
+ 	width: 100%;
+ 	padding-bottom: 7px;
+ 	}
+ 	
+ .clearBoxBody {
+ 	padding: 5px 14px;
+ 	border-left: 1px solid #b4b4b4;
+ 	border-right: 1px solid #b4b4b4;
+ 	}
+ 	
+ .clearBoxBody h2 {
+ 	font-size: small;
+ 	}
+	
+.clearBoxWide div.formrow span.formfield {
+	width: 430px;
+	}
+                                                                                                                                                         
+.clearBoxFullQuote {
+	width: 690px;
+	padding-top: 7px;
+	background: url(/g/chrome/corner_lineboxfull_top.png) top right no-repeat;
+	margin-bottom: 15px;
+	}
+                                                                                                                                                         
+.clearBoxQuote {
+	width: 573px;
+	padding-top: 7px;
+	background: url(/g/chrome/corner_lineboxwide_top.png) top right no-repeat;
+	margin-bottom: 15px;
+	margin-left: 50px;
+	}
+ 	
+ /**** following styles if you need a HORIZONTAL RULE */
+ 	
+ .HRBox {
+	padding-bottom: 15px;
+	border-bottom: 1px solid #C8C5AC;
+	margin-bottom: 15px;
+	}
+ 	
+ /**** following styles define the an IMAGE ON THE LEFT W/TEXT ON THE RIGHT */
+ 	
+ div.imgLeft {
+ 	margin-bottom: 15px;
+ 	overflow: auto;
+ 	}
+	
+div.imgLeft img {
+ 	float: left;
+ 	margin: 0 30px 15px 0;
+ 	}
+ 
+div.imgLeft img.margin15	{
+	margin-right: 15px;
+	}

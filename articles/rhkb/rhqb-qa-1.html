@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.10">
+<meta name="author" content="Ivan Pesin">
+<title>Подборка вопросов и ответов #1</title>
+<link rel="stylesheet" href="./asciidoc-ip.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body class="article toc2 toc-right">
+<div id="header">
+<h1>Подборка вопросов и ответов #1</h1>
+<div class="details">
+<span id="author" class="author">Ivan Pesin</span><br>
+<span id="revnumber">version 1.2,</span>
+<span id="revdate">2013-07-13</span>
+</div>
+<div id="toc" class="toc2">
+<div id="toctitle">Содержание</div>
+<ul class="sectlevel1">
+<li><a href="#_Как_выключить_цветовую_подсветку_в_vi_или_vim_из_red_hat_enterprise_linux">Как выключить цветовую подсветку в vi или vim из Red Hat Enterprise Linux</a></li>
+<li><a href="#_Как_избежать_неправильной_нумерации_сетевых_карт_в_системах_red_hat_enterprise_linux_с_несколькими_сетевыми_интерфейсами">Как избежать неправильной нумерации сетевых карт в системах Red Hat Enterprise Linux с несколькими сетевыми интерфейсами?</a></li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_Как_выключить_цветовую_подсветку_в_vi_или_vim_из_red_hat_enterprise_linux"><a class="anchor" href="#_Как_выключить_цветовую_подсветку_в_vi_или_vim_из_red_hat_enterprise_linux"></a>Как выключить цветовую подсветку в vi или vim из Red Hat Enterprise Linux</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Copyright (c) 2009 by Red Hat, Inc. This material may be distributed only subject to the terms and conditions set forth in
+the Open Publication License, v1.0 or later (available at <a href="http://www.opencontent.org/openpub/" class="bare">http://www.opencontent.org/openpub/</a>).<br>
+Original article: <a href="http://kb.redhat.com/faq/docs/DOC-6899.pdf" class="bare">http://kb.redhat.com/faq/docs/DOC-6899.pdf</a></p>
+</div>
+<div class="paragraph">
+<p>Translated by Ivan Pesin, May 2009</p>
+</div>
+<div class="paragraph">
+<p><strong>Система</strong>: Red Hat Enterprise Linux, все версии</p>
+</div>
+<div class="paragraph">
+<p><strong>Проблема</strong>: В Red Hat Enterprise Linux команда <code>vi</code> является псевдонимом текстового редактора <code>vim</code>, улучшенной версии <code>vi</code>. Некоторым людям не нравится цветной вариант и подсветка в <code>vim</code> и они хотят того же стиля, как в старом <code>vi</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Решение</strong>:</p>
+</div>
+<div class="paragraph">
+<p>Самый простой способ решения этой проблемы — выключить синтаксическую подсветку в <code>vim</code>. Введите следующую команду в <code>vim</code> для отключения синтаксической подсветки:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>:syntax off</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Если вы захотите опять включить цвета и подсветку, просто введите:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>:syntax on</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Примечание: если вы хотите, чтобы запрет подсветки синтаксиса сохранялся при последующих запусках <code>vim</code> для данной учётной записи, вы можете отредактировать файл <code>.vimrc</code> в домашнем каталоге пользователя.</p>
+</div>
+<div class="paragraph">
+<p>Выполните команду:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>vi ~/.vimrc</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Добавьте следующую строку в файл <code>.vimrc</code>, чтобы запретить подсветку синтаксиса для текущей учётной записи:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>syntax off</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Если вы захотите вернуть обратно синтаксическую подсветку в <code>vim</code>, укажите <code>syntax on</code>.</p>
+</div>
+<div class="paragraph">
+<p><code>vim</code> — программа с богатым набором настроек. Вы даже можете создавать собственные наборы цветовых схем и синтаксических подсветок. Подробная информация о возможностях vim доступна в документации, которую можно прочесть, введя в редакторе команды:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>:help
+:help syntax</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_Как_избежать_неправильной_нумерации_сетевых_карт_в_системах_red_hat_enterprise_linux_с_несколькими_сетевыми_интерфейсами"><a class="anchor" href="#_Как_избежать_неправильной_нумерации_сетевых_карт_в_системах_red_hat_enterprise_linux_с_несколькими_сетевыми_интерфейсами"></a>Как избежать неправильной нумерации сетевых карт в системах Red Hat Enterprise Linux с несколькими сетевыми интерфейсами?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Copyright (c) 2009 by Red Hat, Inc. This material may be distributed only subject to the terms and conditions set forth in  the Open Publication License, v1.0 or later (available at <a href="http://www.opencontent.org/openpub/" class="bare">http://www.opencontent.org/openpub/</a>).<br>
+Original article: <a href="http://kbase.redhat.com/faq/docs/DOC-15331.pdf" class="bare">http://kbase.redhat.com/faq/docs/DOC-15331.pdf</a></p>
+</div>
+<div class="paragraph">
+<p>Translated by Ivan Pesin, May 2009</p>
+</div>
+<div class="paragraph">
+<p><strong>Система</strong>: Red Hat Enterprise Linux 5</p>
+</div>
+<div class="paragraph">
+<p><strong>Проблема</strong>:</p>
+</div>
+<div class="paragraph">
+<p>Большинство устройств нумеруются ядром Linux в соответствии с их порядком в PCI-таблице системного BIOS. Наполнением этой таблицы занимается сам BIOS. Поскольку порядок устройств в этой таблице на разных системах не обязательно последовательный, устройства могут нумероваться ядром по-разному. Обычно при определении порядка устройств на шине используются номер шины, номер устройства и номер функции. Некоторые системы имеют несколько шин, например шину PCI и шину PCI-X.</p>
+</div>
+<div class="paragraph">
+<p><strong>Решение</strong>:</p>
+</div>
+<div class="paragraph">
+<p>Для того, чтобы избежать случаев перенумеровывания системных сетевых интерфейсов, необходимо использовать параметр <code>HWADDR=</code>. Например, следующая строка может быть добавлена в любой из файлов <code>/etc/sysconfig/network-scripts/ifcfg-ethN</code>:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>HWADDR=</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Если параметр <code>HWADDR=</code> не используется, то при перезагрузках может происходить периодическое переименование устройств.</p>
+</div>
+<div class="paragraph">
+<p><strong>Пример</strong>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>ifconfig <span class="nt">-a</span> | <span class="nb">grep </span>HW
+<span class="go">
+__tmp1174018308 Link encap:Ethernet  HWaddr 00:1D:09:6A:78:EA
+eth1      Link encap:Ethernet  HWaddr 00:1D:09:6A:78:EC
+eth2      Link encap:Ethernet  HWaddr 00:15:17:19:39:38
+eth3      Link encap:Ethernet  HWaddr 00:15:17:19:39:39</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>В вышеприведённом примере вы можете видеть, что устройство <code>eth0</code> после перезагрузки было переименовано в <code>__tmp1174018308</code>. Чтобы избежать повторения такой проблемы, задайте параметр <code>HWADDR=</code> в файле <code>/etc/sysconfig/network-scripts/ifcfg-eth0</code> следующим образом:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash"><span class="c"># Ethernet Device</span>
+<span class="nv">DEVICE</span><span class="o">=</span>eth0
+<span class="nv">BOOTPROTO</span><span class="o">=</span>static
+<span class="nv">HWADDR</span><span class="o">=</span>00:1D:09:6A:78:EA
+<span class="nv">ONBOOT</span><span class="o">=</span><span class="nb">yes</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Version 1.2<br>
+Last updated 2020-11-15 12:14:51 +0200
+</div>
+</div>
+<link rel="stylesheet" href="./rouge-github.css">
+</body>
+</html>

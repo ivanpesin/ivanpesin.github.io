@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>coe on Articles, Translations, and Blog</title>
+    <link>http://pesin.space/tags/coe/</link>
+    <description>Recent content in coe on Articles, Translations, and Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 08 Feb 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://pesin.space/tags/coe/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Excellence</title>
+      <link>http://pesin.space/posts/2020-02-08-excellence/</link>
+      <pubDate>Sat, 08 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2020-02-08-excellence/</guid>
+      <description>What exactly means &amp;ldquo;Center of Excellence&amp;rdquo;? Whatever we want it to mean.   We should be brimming with excellence by nightfall.   Centers of excellence create more excellence. Evidence? None.   </description>
+    </item>
+    
+  </channel>
+</rss>

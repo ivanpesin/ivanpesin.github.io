@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>media on Articles, Translations, and Blog</title>
+    <link>http://pesin.space/tags/media/</link>
+    <description>Recent content in media on Articles, Translations, and Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 28 Jun 2016 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://pesin.space/tags/media/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Media Ideological Placement</title>
+      <link>http://pesin.space/posts/2016-06-28-media-ideology/</link>
+      <pubDate>Tue, 28 Jun 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2016-06-28-media-ideology/</guid>
+      <description>&lt;p&gt;Interesting information on ideological placement of various news outlets
+by &lt;a href=&#34;https://www.washingtonpost.com/news/the-fix/wp/2014/10/21/lets-rank-the-media-from-liberal-to-conservative-based-on-their-audiences/&#34;&gt;Washington Post&lt;/a&gt;:&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

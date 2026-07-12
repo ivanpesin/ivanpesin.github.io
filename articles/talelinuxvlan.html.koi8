@@ -1,0 +1,369 @@
+<HTML>
+<HEAD>
+<title>I. Pesin, Povest' o Linux i VLAN</title>
+<meta http-equiv="Content-Type" content="text/html; charset=KOI8-R">
+<link rel="stylesheet" href="../../rus-lg.css" type="text/css">
+</HEAD>
+<body>
+<table align="center" border="0" cellspacing="0" width="90%">
+  <tr> 
+    <td align="center"> 
+      <hr noshade size="2">
+      <p><b> Повесть о Linux и VLAN. </b><br>
+        &nbsp;<br>
+        Автор: (C) Иван Песин 
+      <hr noshade size="2">
+    </td>
+  </tr>
+  <tr> 
+    <td> 
+      <div align="center"> 
+        <h1><font color="#660000">Повесть о Linux и VLAN</font></h1>
+        <h3 align="left">1. Введение.</h3>
+      </div>
+      <div align="left"> 
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Цель статьи - описать настройку 
+          компьютера под управлением Linux в качестве маршрутизатора между 
+          VLAN'ами (читается "виланами").VLAN, или Virtual bridged LAN, - 
+          это группа устройств объединяемых по логическому принципу (т.е. 
+          по выполняемым функциям, структурным подразделениям предприятия, 
+          приложениям и т.д.), вне зависимости от их физического размещения 
+          и подключения объединяемых сегментов сети. Эта технология позволяет 
+          управлять широковещательным и обычным сетевым трафиком, а так же 
+          увеличивает безопасность информации передаваемой по локальной сети. 
+        </p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Предполагается, что читатель 
+          знаком с основами стандарта 802.1Q, умеет компилировать и устанавливать 
+          ядро Linux и настраивать IP маршрутизацию. По этим темам существует 
+          хорошая документация, поэтому, чтобы не увеличивать объем статьи, 
+          на этих вопросах я останавливаться не буду, а читателю предлагаю 
+          при необходимости обратиться к материалам, ссылки на которые приводятся 
+          в конце статьи.</p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Итак, займемся делом. Задача 
+          простая - имеем коммутатор, скажем Cisco IOS-based или Allied Telesyn 
+          AT8124XL. Нужно организовать три VLAN'a, и настроить маршрутизацию 
+          между ними. Поехали.</p>
+        <h3>2. Обновление ядра.</h3>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Если у вас ядро до 2.4.14, 
+          идем на <a href="http://scry.wanfear.com/%7Egreear/vlan.html">http://scry.wanfear.com/~greear/vlan.html</a> 
+          и загружаем патч для вашего ядра. Кстати, по тому же адресу, вы 
+          найдете множество полезных ссылок по теме. Если версия выше - сразу 
+          переходите к конфигурации ядра.</p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Распаковываем файл vlan.х.х.х.tar.gz, 
+          и патчим ядро:</p>
+        <p> <font face="Courier New, Courier, mono" size="-1"># cd ~<br>
+          # tar xzvf vlan.x.x.x.tar.gz <br>
+          # patch -p1 < /root/vlan/vlan.patch.2.2 </font></p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Пора настраивать ядро. Перейдя 
+          в каталог с исходными тесктами, набираем магические слова:</p>
+        <p><font face="Courier New, Courier, mono" size="-1"># make menuconfig</font><br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;или<br>
+          <font face="Courier New, Courier, mono" size="-1"># make xconfig</font><br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;или<br>
+          <font face="Courier New, Courier, mono" size="-1"># make config 
+          </font></p>
+        <p>кому что больше по вкусу.</p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Теперь в настройке ядра будет 
+          поддержка стандарта 802.1Q. Включаем ее, а так же указываем все 
+          опции, нужные для маршрутизации.</p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Пишем заветную строчку:</p>
+        <p><font face="Courier New, Courier, mono" size="-1"># make dep && 
+          make bzImage && make modules && make modules_install</font></p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Устанавливаем ядро, и перезагружаем 
+          машину. Во время загрузки успеваем увидеть радующие глаз строки:</p>
+        <p><font face="Courier New, Courier, mono" size="-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;802.1Q 
+          VLAN Support vX.ХХ Ben Greear &lt;greearb@candelatech.com&gt; <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vlan Initialization complete. 
+          </font></p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Это то, что мы, собственно, 
+          и добивались. Теперь надо браться за настройку Linux'а, как маршрутизатора 
+          между VLAN'ами.</p>
+        <h3>3. Настройка Linux.</h3>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Сначала небольшое отступление. 
+          Когда мы настроим Linux, то для каждого VLAN'а будет создано отдельное 
+          устройство. Нужно выбрать формат обозначения устройств из четырех 
+          имеющихся вариантов. Формат устанавливается с помощью команды:</p>
+        <p><font face="Courier New, Courier, mono" size="-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vconfig 
+          set_name_type [name-type],</font></p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;где name-type может принимать 
+          следующие значения:</p>
+        <table width="95%" border="0">
+          <tr> 
+            <td><font face="Courier New, Courier, mono" size="-1">VLAN_PLUS_VID</font></td>
+            <td><font face="Courier New, Courier, mono" size="-1">имя устройства 
+              будет выглядеть так: vlan0005</font></td>
+          </tr>
+          <tr> 
+            <td><font face="Courier New, Courier, mono" size="-1">VLAN_PLUS_VID_NO_PAD</font></td>
+            <td><font face="Courier New, Courier, mono" size="-1">имя устройства 
+              будет выглядеть так: vlan5</font></td>
+          </tr>
+          <tr> 
+            <td><font face="Courier New, Courier, mono" size="-1">DEV_PLUS_VID</font></td>
+            <td><font face="Courier New, Courier, mono" size="-1">имя устройства 
+              будет выглядеть так: eth0.0005</font></td>
+          </tr>
+          <tr> 
+            <td><font face="Courier New, Courier, mono" size="-1">DEV_PLUS_VID_NO_PAD</font></td>
+            <td><font face="Courier New, Courier, mono" size="-1">имя устройства 
+              будет выглядеть так: eth0.5</font></td>
+          </tr>
+        </table>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Каждый из вариантов имеет свои 
+          плюсы и минусы. Так, привязка к устройству позволяет видеть, с какой 
+          сетевой картой вы работаете. Но, в тоже время, далеко не все программы 
+          поддерживают наличие точки в имени интерфейса. Например, программа 
+          sysctl из Red Hat Linux 6.2 будет ругаться на переменные вида eth0.0002.ip_forward, 
+          тогда как имя vlan0002.ip_forward пропустит без замечаний. В общем, 
+          - выбор за вами.</p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Хочу еще раз подчеркнуть, что 
+          имя, ассоциируемое с каждым из VLAN'ов, будь то vlan0002 или eth0.0002, 
+          представляет собой отдельное и самостоятельное устройство. Это важно 
+          при построении межсетевого экрана: как известно программа ipchains 
+          не различает псевдонимы на устройстве - они для нее одно устройство. 
+          В тоже время ipchains отличит eth0.0002 и eth0.0003.</p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Вернемся теперь к настройке 
+          OC. Отключаем интерфейс, на котором будем настраивать VLAN'ы:</p>
+        <p><font face="Courier New, Courier, mono" size="-1"># ifconfig eth0 
+          down</font></p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;А теперь, просто поднимаем 
+          его (не устанавливая ip адрес, иначе мы не сможем настраивать VLAN'ы!)</p>
+        <p><font size="-1" face="Courier New, Courier, mono"># ifconfig eth0 
+          0.0.0.0 up</font></p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Укажем VLAN'ы, которые будут 
+          использоваться на этом интерфейсе. Каждый VLAN добавим на нужный 
+          интерфейс:</p>
+        <p><font face="Courier New, Courier, mono" size="-1"># vconfig add 
+          eth0 2<br>
+          # vconfig add eth0 3<br>
+          # vconfig add eth0 4</font></p>
+        <p>и т.д.</p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>Примечание: В системах Cisco, 
+          и некоторых других, VLAN #1 является vlan'ом по умолчанию, и поэтому 
+          использоваться не может. Необходимо начинать с #2</i></p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Всё, мы прописали VLAN'ы, которые 
+          будут использоваться на интерфейсе, нужно присваивать им ip адреса:</p>
+        <p><font size="-1" face="Courier New, Courier, mono"># ifconfig -a 
+          <br>
+          # ifconfig -i vlan0002 192.168.2.1 broadcast 192.168.2.255 netmask 
+          255.255.255.0 up <br>
+          # ifconfig -i vlan0003 192.168.3.1 broadcast 192.168.3.255 netmask 
+          255.255.255.0 up <br>
+          # ifconfig -i vlan0004 192.168.4.1 broadcast 192.168.4.255 netmask 
+          255.255.255.0 up</font> </p>
+        <p>Вот, с линуксом мы и разобрались.</p>
+        <h3>4. Настройка коммутатора AT8124XL</h3>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Так, займемся коммутаторами 
+          Allied Telesyn. Важно помнить, что на этом коммутаторе при работе 
+          с VLAN'ами их нужно переводить в состояние disabled. Поэтому полная 
+          конфигурация VLAN'ов может быть произведена только через консольный 
+          порт. Вот последовательность команд для на стройки с удаленного 
+          клиента:</p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Регистрируемся.<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Выбираем Advanced Switch Configuration 
+          -> VLAN configuration<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Создаем нужное количество 
+          VLAN'ов (процесс подробно описан в документации). <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Добавляем нужные порты в соответствующие 
+          VLAN'ы. <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- В каждый VLAN помещаем порт, 
+          на котором находится линукс-маршрутизатор и делаем его таггируемым 
+          (tagging = yes). <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Не забываем поставить для 
+          каждого порта, находящегося не в первом VLAN'е, PVID равным соответствующему 
+          VID. <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Всё. </p>
+        <h3>5. Настройка коммутатора Cisco IOS-based.</h3>
+        <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Итак, настраиваем Cisco. Вот 
+          набор команд для настройки порта, на который подсоединен линукс-маршрутизатор: 
+        </p>
+        <p>&nbsp;&nbsp;&nbsp;<font size="-1" face="Courier New, Courier, mono">&nbsp;&nbsp; 
+          &nbsp;telnet mycisco <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; >en <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # conf t <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ig)# int Fa 0/24 <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int)# duplex full <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int)# speed 100 <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int)# switchport trunk encaps 
+          dot1q <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int)# switchport trunk allowed 
+          vlan 2 <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int)# switchport trunk allowed 
+          vlan 3 <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int)# switchport trunk allowed 
+          vlan 4 <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int)# switchport mode trunk 
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int)# end <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # sh run <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # ping myrouter </font><br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ... если все нормально, сохраняем 
+          конфигурацию коммутатора командой <br>
+          <font face="Courier New, Courier, mono" size="-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+          # copy run start </font></p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Кроме этого, нужно добавить 
+          к каждому VLAN'у несколько портов без инкапсуляции. (иначе какой-же 
+          смысл?).</p>
+        <h3>6. Проблемы с драйверами сетевых карт.</h3>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Теперь самое интересное и противное. 
+          Нужно с какого-нибудь Linux/UNIX в одном из vlan'ов дать команду:</p>
+        <p><font size="-1" face="Courier New, Courier, mono">$ ping -s 1476 
+          myrouter</font></p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Если работает - то облегченно 
+          вздыхаете, в противном случае, затаив дыхание, пишете следующую 
+          команду:</p>
+        <p><font face="Courier New, Courier, mono" size="-1">$ ping -s 100 
+          myrouter</font></p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Если такой "пинг" успешен, 
+          то это свидетельствует о "кривом" драйвере сетевой карты. Подробности 
+          дальше по тексту. Если же и в этот раз "пинг" не проходит - значит, 
+          вы что-то сделали не так. Либо плохо сконфигурирован коммутатор, 
+          либо маршрутизатор, либо ваш UNIX/Linux не включен в этот самый 
+          коммутатор┘</p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Теперь о проблемах с драйверами 
+          сетевых карт. Суть состоит в том, что стандарт 802.1Q определяет 
+          максимальный размер сегмента на 4 байта больше, чем стандарт ethernet. 
+          Эти 4 байта и несут информацию о принадлежности пакета тому или 
+          иному vlan'у. Самый простой выход - использовать сетевую карту на 
+          чипе rtl8029(as) или rtl8139, драйвера к которым написаны корректно. 
+          Легко правятся драйвера сетевых карт фирмы 3Com: исправлением строки</p>
+        <p><font face="Courier New, Courier, mono" size="-1">static int mtu 
+          = 1500;</font><br>
+          на:<br>
+          <font size="-1" face="Courier New, Courier, mono">static int mtu 
+          = 1504; </font></p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Правки для других драйверов 
+          вы найдете по ссылке, приведенной в конце статьи.</p>
+        <h3>7. Скрипт старта сети для Red Hat систем.</h3>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Так как на сайте <a href="http://scry.wanfear.com/%7Egreear/vlan.html">http://scry.wanfear.com/~greear/vlan.html</a> 
+          лежит скрипт для имен формата ethX.XXXX, то, что бы не повторятся, 
+          я приведу скрипт для имен вида vlanXXXX (OS RedHat 6.2):</p>
+        <pre><font face="Courier New, Courier, mono">#!/bin/sh
+#
+# network       Bring up/down networking
+#
+# chkconfig: 2345 10 90
+# description: Activates/Deactivates all network interfaces configured to \
+#              start at boot time.
+# probe: true
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+if [ ! -f /etc/sysconfig/network ]; then
+    exit 0
+fi
+
+. /etc/sysconfig/network
+
+if [ -f /etc/sysconfig/pcmcia ]; then
+	. /etc/sysconfig/pcmcia
+fi
+
+
+# Check that networking is up.
+[ ${NETWORKING} = "no" ] && exit 0
+
+[ -x /sbin/ifconfig ] || exit 0
+
+# Even if IPX is configured, without the utilities we can't do much
+[ ! -x /sbin/ipx_internal_net -o ! -x /sbin/ipx_configure ] && IPX=
+
+CWD=`pwd`
+cd /etc/sysconfig/network-scripts
+
+# find all the interfaces besides loopback.
+# ignore aliases, alternative configurations, and editor backup files
+interfaces=`ls ifcfg* | egrep -v '(ifcfg-lo|:)' | \
+            egrep -v 'ifcfg-ippp[0-9]+$' | \
+            egrep 'ifcfg-[a-z0-9]+$' | \
+            sed 's/^ifcfg-//g'`
+
+# See how we were called.
+case "$1" in
+  start)
+  
+  	action "Setting network parameters" sysctl -p /etc/sysctl.conf
+
+	action "Bringing up interface lo" ./ifup ifcfg-lo
+
+	case "$IPX" in
+	  yes|true)
+	    /sbin/ipx_configure --auto_primary=$IPXAUTOPRIMARY \
+				   --auto_interface=$IPXAUTOFRAME
+	    if [ "$IPXINTERNALNETNUM" != "0" ]; then
+	       /sbin/ipx_internal_net add $IPXINTERNALNETNUM $IPXINTERNALNODENUM
+	    fi
+	    ;;
+	esac
+<font color="000066">
+> action "Setting VLAN parameters: " vconfig set_name_type VLAN_PLUS_VID</font>
+
+	for i in $interfaces; do
+		if egrep -L "ONBOOT=\"?[Nn][Oo]\"?" ifcfg-$i >/dev/null ; then
+			# Probe module to preserve interface ordering
+			/sbin/ifconfig $i >/dev/null 2>&1
+		else
+<font color="#000066">>   			vlan=`echo $i | egrep -v '(lo|:)' | \
+>        			egrep -v 'ippp[0-9]+$' | \
+>        			egrep 'vlan[0-9][0-9][0-9][0-9]$' | \
+>        			sed "s/^vlan//g;s/^0*//g"`
+>   			ifvlan=`egrep -e VLANDEV ifcfg-$i | \
+>        			cut -d= -f2`</font>
+
+<font color="#000066">>   if [ -n "${vlan}" ]; then
+>    action "Enable VLAN # ${vlan} on device {$ifvlan}: " vconfig add ${ifvlan} ${vlan}
+>   fi</font>
+			action "Bringing up interface $i" ./ifup $i boot
+		fi
+	done</font>
+</pre>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Строки с изменениями, которые 
+          необходимо внести в оригинальный файл network, отмечены символом 
+          ">". Кроме того, как видно из текста, скрипт требует внесение в 
+          файл ifcfg-vlanXXXX дополнительного параметра VLANDEV, который определяет 
+          интерфейс, на котором должен быть создан данный VLAN.</p>
+        <h3>8. Ссылки.</h3>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <a href="http://scry.wanfear.com/%7Egreear/vlan.html">http://scry.wanfear.com/~greear/vlan.htm</a>l 
+          <br>
+          <font size="-1">основной сайт. Информация о "кривых" драйверах сетевых 
+          плат, скрипт запуска сети для имен вида ethX.XXXX и многое другое.</font> 
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <a href="http://standards.ieee.org/reading/ieee/std/lanman/802.1Q-1998.pdf">http://standards.ieee.org/reading/ieee/std/lanman/802.1Q-1998.pdf</a> 
+          <br>
+          <font size="-1">описание стандарта 802.1Q </font><br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Документация по другим вопросом: 
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 
+          <a href="http://www.ibiblio.org/pub/Linux/docs/HOWTO/Ethernet-HOWTO">http://www.ibiblio.org/pub/Linux/docs/HOWTO/Ethernet-HOWTO</a> 
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 
+          <a href="http://www.ibiblio.org/pub/Linux/docs/HOWTO/Firewall-HOWTO">http://www.ibiblio.org/pub/Linux/docs/HOWTO/Firewall-HOWTO</a> 
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 
+          <a href="http://www.ibiblio.org/pub/Linux/docs/HOWTO/IPCHAINS-HOWTO">http://www.ibiblio.org/pub/Linux/docs/HOWTO/IPCHAINS-HOWTO</a> 
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 
+          <a href="http://www.ibiblio.org/pub/Linux/docs/HOWTO/Net-HOWTO">http://www.ibiblio.org/pub/Linux/docs/HOWTO/Net-HOWTO</a> 
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 
+          <a href="http://www.ibiblio.org/pub/Linux/docs/HOWTO/Kernel-HOWTO">http://www.ibiblio.org/pub/Linux/docs/HOWTO/Kernel-HOWTO</a> 
+        </p>
+      </div>
+      <hr noshade size="2">
+      Эта статья любезно предоставлена автором.</td>
+  </tr>
+  <tr> 
+    <td align="center"> 
+      <hr noshade size="2">
+      <a href="http://gazette.linux.ru.net">Вернуться на главную страницу</a> 
+      <hr noshade size="2">
+    </td>
+  </tr>
+</table>
+</body>
+</html>
+
+
+
+

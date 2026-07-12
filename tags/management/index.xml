@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>management on Articles, Translations, and Blog</title>
+    <link>http://pesin.space/tags/management/</link>
+    <description>Recent content in management on Articles, Translations, and Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 21 Jan 2017 14:36:06 -0500</lastBuildDate>
+    
+	<atom:link href="http://pesin.space/tags/management/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Peter&#39;s principle</title>
+      <link>http://pesin.space/posts/2017-01-20-peter-s-principle/</link>
+      <pubDate>Sat, 21 Jan 2017 14:36:06 -0500</pubDate>
+      
+      <guid>http://pesin.space/posts/2017-01-20-peter-s-principle/</guid>
+      <description>I&amp;rsquo;m sure you have heard about Peter&amp;rsquo;s principle, if not the name then the principle:
+ In a hierarchy every employee tends to rise to his level of incompetence.
+ and the corollary:
+ In time, every post tends to be occupied by an employee who is incompetent to carry out its duties.
+ But what struck me recently is that I didn&amp;rsquo;t know how old this principle was. It was first published in 1969!</description>
+    </item>
+    
+  </channel>
+</rss>

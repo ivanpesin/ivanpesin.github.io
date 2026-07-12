@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Ivan Pesin | 
+      Review: Have you tried turning it off and on again?
+      </title>
+    <meta name="description" content="">
+
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/custom.css">
+    
+    
+    
+    
+
+    
+    <meta property="og:locale" content="en_US">
+    <meta property="og:title" content="Review: Have you tried turning it off and on again?">
+    
+    <meta property="og:description" content="Articles, Translations, and Blog">
+    <meta property="og:site_name" content="Ivan Pesin">
+
+  </head>
+
+
+<body>
+  <nav class="navbar navbar-default">
+    <div class="container">
+      
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        
+        <a class="navbar-brand" href="/">Articles, Translations, and Blog</a>
+      </div>
+  
+      
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="/posts/">Blog</a></li>
+            <li><a href="/photos/">Photos</a></li>
+            <li><a href="/#articles-translations">Articles & Translations</a></li>
+            <li><a href="/talks/">Talks</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Links <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="/phonetic-alphabet">Phonetic Alphabet</a></li>
+                <li><a href="/emoji">Emoji shortcuts</a></li>
+                <li><a href="/vim-cheatsheet">VIM cheatsheet</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="/articles/kb/">Assorted tips&trciks</a></li>
+              </ul>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+  <div class="container">
+    <article>
+      
+
+    <div class="row">
+        <div class="col-md-9">
+
+        <div class="text-muted">
+    November 14, 2018
+</div>
+<h2 class="title" style="margin-top: 0">Review: Have you tried turning it off and on again?</h2>
+<div>
+     
+     <span class="text-muted">&sect;
+     
+             <a href="/categories/tech/">tech</a>
+    </span>
+
+    &nbsp;&nbsp;&nbsp;<span class="text-muted"> # 
+    
+      <a href="/tags/lisa/">lisa</a>
+      <span class="separator">•</span>
+      <a href="/tags/conf/">conf</a>
+      <span class="separator">•</span>
+      <a href="/tags/dependencies/">dependencies</a>
+      <span class="separator">•</span>
+      <a href="/tags/scale/">scale</a>
+    </span>
+
+</div>
+
+
+        <div style="margin-top: 10px">
+        
+
+        <div class="bs-callout bs-callout-info">
+    This is the LISA2017 conference talk review I wrote for <a href="https://www.usenix.org/blog/review-disaster-recovery">their official blog</a>. Just saving a copy here in case they decide to rework their blog and content disappears or something.
+</div>
+<p>Submitted by ipesin on November 7, 2017 - 11:38 am</p>
+<p>When you attend a talk that starts with a Google engineer asking, “What would happen if all of the machines you are running on restarted right now?” you might get really worried. Think about the Google services we use on a daily basis and what would happen if they suddenly stopped working—Google Maps, for example. Hopefully, we’d be able to get home from the office, but if we were travelling or looking for a business location, that would become a disaster. What about Google Search? Would we be able to even do our job if it went down? I actually got scared for a moment, as thoughts like these raced through my mind. But then I realised that it is good that engineers at Google actually ask these same questions. This gives me hope.</p>
+<p>Tanya Reilly’s talk on disaster recovery <a href="https://www.usenix.org/conference/lisa17/conference-program/presentation/reilly">“Have You Tried Turning It Off and Turning It On Again?”</a> was the best talk I attended at <a href="https://www.usenix.org/conference/lisa17">LISA17</a>. It contained everything that makes a technical talk great: good natured humor, engaging speaking style, thoughtful analysis, shocking real-life examples, and nerdy stuff about handy tools. Even more: the talk was filled with phrases you just wanted to write down, so good they were. Jon Kuroda, who later delivered the <a href="https://www.usenix.org/conference/lisa17/conference-program/presentation/kuroda">closing plenary</a>, couldn’t resist including one of them: “Because humans are terrible.”</p>
+<p>People are extremely bad at dealing with complex systems, tedious and routine processes, repeatable processes; you name it, and we’re usually bad at it. Most of us know this, but do we do enough to mitigate this? For some years already there has been tribal knowledge that backups must be regularly tested to be sure you can recover from them. But how many organizations are actually doing it? And how many of those are doing it properly, i.e. not simply making sure you can read or extract backups, but actually starting all of their systems from the backup and then checking that everything works as it should? As Tanya said: “I’m not going to ask for show of hands, because it’s kind of embarrassing.”</p>
+<p>The backup discussion is decades old, and it is still in quite bad shape. But the world is changing, and we are building more and more complex systems that consist of hundreds and thousands interdependent subsystems. These systems are also becoming increasingly reliable and failure resistant. The problem is that such systems are built gradually, and their complexity grows quite unnoticeably until no one really understands its interdependencies. At that point you realize that you can run the system, possibly even extend it, but if it really goes down, no one is sure how to bring it up again from the ground zero or how long it would take.</p>
+<p>I had a similar experience about a decade ago, when the firm I worked for expanded from a dozen of servers to a hundred plus. Back then power outages were not uncommon where the firm’s office was located, and one day it took us more than four hours to bring the infrastructure back online because of dependencies, sometimes circular ones, that we hadn’t realized were there. After that event, we set up a task force to map all the dependencies we had, document them, make sure there were no circular dependencies, and create a recovery plan detailing in which order the infrastructure had to be powered back up. To steal another quote from the talk: “you don’t need a backup plan; you need a recovery plan.”</p>
+<p>As you gather the dependencies, if there are more than a couple of dozens of them, you will find that it becomes difficult to process all of them and determine what shouldn’t be there (“because, you know, people are terrible”). As a nerdy diversion, Tanya spoke about and shared one of her favourite tools, which I happen to be fan of as well, <strong>graphviz</strong>. It’s so easy to visualize dependencies with it, you just put them one per line and surround with <strong>digraph { }</strong>:</p>
+<pre><code class="language-console" data-lang="console">$ cat sysexample.dot 
+digraph {
+   app1 -&gt; db1
+   app1 -&gt; cache1
+   app1 -&gt; ldap
+   app1 -&gt; dns
+   dns -&gt; ldap
+   db1 -&gt; ldap
+   db1 -&gt; storage
+   ldap -&gt; storage        
+   storage -&gt; dns
+}
+$ dot sysexample.dot -Tpng &gt; sysex.png
+</code></pre><p><img src="/imgs/posts/pesin_sysex_image.png" alt=""></p>
+<p>You get the visual representation which is easier to comprehend and notice a vicious cycle.</p>
+<p>In my case, we really were looking for dependencies between the machines. These days, however, more and more functions are abstracted as microservices which run in containers, so dependencies are becoming more about services, and their interaction complexity continues to grow.</p>
+<p>It is phenomenal how Tanya managed to make a talk on what I would call “the dark realms of the industry,” which are intrinsically sad and scary, fun and hope-inducing instead. It made me less scared and inspired to venture into and tackle these problems, which is essentially the point of the talk. Even better, start thinking about component dependencies before it becomes a problem, know them, include them into design phase, and constrain them.</p>
+<p>Go and see the recording of this talk if you missed it. I am sure this is one of the talks which will have lasting effect and maybe at some point will help you in your career. The best way to listen to such talks is at the conference, certainly: you get the atmosphere, you get other people to talk to about it, and you have time to think about it while not being distracted by work. So if you missed the conference this year, come to the next LISA. Experiencing talks like this one first-hand makes you charged up with desire to fix things, address issues, and make the world a better place.</p>
+
+
+        </div>
+    </div>
+</div>
+
+
+    </article>
+
+    <hr>
+<div class="text-muted text-center small">
+    <i>
+        &mdash; `If you knew Time as well as I do,' said the Hatter, `you wouldn't talk about wasting IT. It's HIM.'
+    </i>
+</div>
+<div class="text-muted text-center m-20 small">
+<samp>$ Last updated: Feb 7, 2021 at 13:38 (EET) $</samp>
+</div>
+  </div>
+      
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+    
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+  
+  
+
+</body>
+
+</html>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>mss &#8211; Ivan Pesin</title>
+	<atom:link href="/blog/tag/mss/feed/" rel="self" type="application/rss+xml" />
+	<link>https://pesin.space/blog</link>
+	<description>Articles &#38; Translations</description>
+	<lastBuildDate>
+	Wed, 19 Oct 2016 02:08:18 +0000	</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=5.1.1</generator>
+	<item>
+		<title>В выводе netstat -rn значение MSS равно 0. Что это означает?</title>
+		<link>/blog/2009/08/%d0%b2-%d0%b2%d1%8b%d0%b2%d0%be%d0%b4%d0%b5-netstat-rn-%d0%b7%d0%bd%d0%b0%d1%87%d0%b5%d0%bd%d0%b8%d0%b5-mss-%d1%80%d0%b0%d0%b2%d0%bd%d0%be-0-%d1%87%d1%82%d0%be-%d1%8d%d1%82%d0%be-%d0%be%d0%b7%d0%bd/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=%25d0%25b2-%25d0%25b2%25d1%258b%25d0%25b2%25d0%25be%25d0%25b4%25d0%25b5-netstat-rn-%25d0%25b7%25d0%25bd%25d0%25b0%25d1%2587%25d0%25b5%25d0%25bd%25d0%25b8%25d0%25b5-mss-%25d1%2580%25d0%25b0%25d0%25b2%25d0%25bd%25d0%25be-0-%25d1%2587%25d1%2582%25d0%25be-%25d1%258d%25d1%2582%25d0%25be-%25d0%25be%25d0%25b7%25d0%25bd</link>
+				<pubDate>Fri, 14 Aug 2009 07:01:49 +0000</pubDate>
+		<dc:creator><![CDATA[ivan]]></dc:creator>
+				<category><![CDATA[RedHat KB]]></category>
+		<category><![CDATA[ftp]]></category>
+		<category><![CDATA[mss]]></category>
+		<category><![CDATA[mtu]]></category>
+		<category><![CDATA[networking]]></category>
+		<category><![CDATA[path]]></category>
+		<category><![CDATA[route]]></category>
+		<category><![CDATA[web_server]]></category>
+
+		<guid isPermaLink="false">http://www.n-ix.com/ipesin/?p=281</guid>
+				<description><![CDATA[Copyright (c) 2009 by Red Hat, Inc. This material may be distributed only subject to the terms and conditions set forth in the Open Publication License, v1.0 or later (available at http://www.opencontent.org/openpub/). Original article: http://kbase.redhat.com/faq/docs/DOC-6302.pdf Translated by Ivan Pesin, August 2009 Вывод команды netstat -nr выглядит обычно так: [crayon-6a527cb091891605663561/] Значение максимального размера сегмента (Maximum Segment [&#8230;]]]></description>
+								<content:encoded><![CDATA[<p id="top" />
+<div class="copyright">Copyright (c) 2009 by Red Hat, Inc. This material may be distributed only subject to the terms and conditions set forth in the Open Publication License, v1.0 or later (available at <a href="http://www.opencontent.org/openpub/">http://www.opencontent.org/openpub/</a>).<br />
+Original article: <a href="http://kbase.redhat.com/faq/docs/DOC-6302.pdf">http://kbase.redhat.com/faq/docs/DOC-6302.pdf</a></p>
+<p>Translated by Ivan Pesin, August 2009</p></div>
+<p>Вывод команды <code>netstat -nr</code> выглядит обычно так:</p>
+<blockquote><p></p><pre class="crayon-plain-tag"># netstat -nr
+Kernel IP routing table
+Destination&nbsp;&nbsp;&nbsp;&nbsp; Gateway&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Genmask&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Flags&nbsp;&nbsp; MSS Window&nbsp; irtt Iface
+192.168.0.0&nbsp;&nbsp;&nbsp;&nbsp; 0.0.0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 255.255.255.0&nbsp;&nbsp; U&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 eth0
+169.254.0.0&nbsp;&nbsp;&nbsp;&nbsp; 0.0.0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 255.255.0.0&nbsp;&nbsp;&nbsp;&nbsp; U&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 eth0
+0.0.0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 192.168.0.254&nbsp;&nbsp; 0.0.0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; UG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 eth0</pre><p></p></blockquote>
+<p>Значение максимального размера сегмента (Maximum Segment Size, MSS) равное нулю в выводе команды <code>netstat</code> является неверным для любого типа сети. Это значение игнорируется ядром при активации сетевого подключения. </p>
+<p>Когда MSS маршрута равен нулю, он определяется ядром исходя из размера MTU интерфейса, с которого отправляется пакет.</p>
+<p>Чтобы посмотреть настройки интерфейса, используйте команду <code>ifconfig</code>:</p>
+<blockquote><p></p><pre class="crayon-plain-tag"># ifconfig eth0
+eth0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Link encap:Ethernet&nbsp; HWaddr 00:0D:61:93:55:3E
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; inet addr:192.168.0.22&nbsp; Bcast:172.168.0.255&nbsp; Mask:255.255.255.0
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; UP BROADCAST RUNNING MULTICAST&nbsp; MTU:1500&nbsp; Metric:1
+ ...</pre><p></p></blockquote>
+<p>Значение MSS вычисляется по формуле MSS = MTU &#8211; 40 байт. То есть, если MTU интерфейса равен 1500 байтам, то вычисленный ядром размер MSS будет равен 1460 байтам. Это предлагаемое значение MSS (advertised MSS) для TCP-соединения, оно используется, чтобы сообщить другой стороне о предпочитаемом размере MSS. Когда устанавливается TCP-соединение, значение MSS отправляется в SYN-пакете.</p>
+<p>MSS маршрута (который выводится командой <code>netstat -rn</code>) может использоваться для переопределения предлагаемого значения MSS, которое вычисляется ядром. Например, если мы хотим принудительно задать MSS равное 1200 байтам для всех соединений с сетью 192.168.1.0/24, можно использовать команду <code>ip</code>:</p>
+<blockquote><p></p><pre class="crayon-plain-tag">ip route add 192.168.1.0/24 dev eth0 advmss 1200</pre><p></p></blockquote>
+<p>Можно также задать значение MSS для конкретного хоста:</p>
+<blockquote><p></p><pre class="crayon-plain-tag">ip route add 192.168.0.212 dev eth0 advmss 1200</pre><p></p></blockquote>
+<p>Отметим, что это влияет лишь на пакеты, которые мы получаем, но не отправляем: значение MSS &#8212; это предлагаемое значение, которое используется для информирования удалённой системы о том, что мы можем обработать.</p>
+<p>MSS пакетов, которые отправляем мы сами, может определяться аналогичным путём, хотя и не всегда, поскольку параметр предлагаемого MSS является необязательным. Red Hat Enterprise Linux указывает значение MSS в пакетах SYN и SYN-ACK, тогда как другие реализации стека TCP/IP могут его не указывать.</p>
+<p>В общем, если предлагаемое значение MSS получено не было, то используется минимальное значение MSS, равное 536 (MTU 576 &#8211; 40 байт = 536).</p>
+<p>Также обратите внимание, что, кроме значений MTU и MSS маршрутов, в Red Hat Enterprise Linux реализована технология определения MTU для маршрута (path MTU discovery) &#8212; это простой протокол, который пытается автоматически определить оптимальный размер MTU для TCP-соединения.</p>
+<p>Если автоопределение MTU маршрута работает корректно, то необходимость изменять MTU интерфейса или значение MSS маршрута возникает крайне редко.</p>
+]]></content:encoded>
+										</item>
+	</channel>
+</rss>

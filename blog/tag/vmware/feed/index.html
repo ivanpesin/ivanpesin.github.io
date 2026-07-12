@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>vmware &#8211; Ivan Pesin</title>
+	<atom:link href="/blog/tag/vmware/feed/" rel="self" type="application/rss+xml" />
+	<link>https://pesin.space/blog</link>
+	<description>Articles &#38; Translations</description>
+	<lastBuildDate>
+	Wed, 19 Oct 2016 02:08:18 +0000	</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=5.1.1</generator>
+	<item>
+		<title>Как определить, выполняется ли текущая система в виртуальной машине?</title>
+		<link>/blog/2009/07/%d0%ba%d0%b0%d0%ba-%d0%be%d0%bf%d1%80%d0%b5%d0%b4%d0%b5%d0%bb%d0%b8%d1%82%d1%8c-%d0%b2%d1%8b%d0%bf%d0%be%d0%bb%d0%bd%d1%8f%d0%b5%d1%82%d1%81%d1%8f-%d0%bb%d0%b8-%d1%82%d0%b5%d0%ba%d1%83%d1%89%d0%b0/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=%25d0%25ba%25d0%25b0%25d0%25ba-%25d0%25be%25d0%25bf%25d1%2580%25d0%25b5%25d0%25b4%25d0%25b5%25d0%25bb%25d0%25b8%25d1%2582%25d1%258c-%25d0%25b2%25d1%258b%25d0%25bf%25d0%25be%25d0%25bb%25d0%25bd%25d1%258f%25d0%25b5%25d1%2582%25d1%2581%25d1%258f-%25d0%25bb%25d0%25b8-%25d1%2582%25d0%25b5%25d0%25ba%25d1%2583%25d1%2589%25d0%25b0</link>
+				<pubDate>Sun, 05 Jul 2009 09:53:25 +0000</pubDate>
+		<dc:creator><![CDATA[ivan]]></dc:creator>
+				<category><![CDATA[RedHat KB]]></category>
+		<category><![CDATA[qemu]]></category>
+		<category><![CDATA[rhel5]]></category>
+		<category><![CDATA[virtualization]]></category>
+		<category><![CDATA[vmware]]></category>
+		<category><![CDATA[xen]]></category>
+
+		<guid isPermaLink="false">http://www.n-ix.com/ipesin/?p=313</guid>
+				<description><![CDATA[Copyright (c) 2009 by Red Hat, Inc. This material may be distributed only subject to the terms and conditions set forth in the Open Publication License, v1.0 or later (available at http://www.opencontent.org/openpub/). Original article: http://kbase.redhat.com/faq/docs/DOC-15413.pdf Translated by Ivan Pesin, July 2009 В только-что загрузившейся системе, чтобы узнать, работает ли она в виртуальном окружении, достаточно проверить [&#8230;]]]></description>
+								<content:encoded><![CDATA[<p id="top" />
+<div class="copyright">Copyright (c) 2009 by Red Hat, Inc. This material may be distributed only subject to the terms and conditions set forth in the Open Publication License, v1.0 or later (available at <a href="http://www.opencontent.org/openpub/">http://www.opencontent.org/openpub/</a>).<br />
+Original article: <a href="http://kbase.redhat.com/faq/docs/DOC-15413.pdf">http://kbase.redhat.com/faq/docs/DOC-15413.pdf</a></p>
+<p>Translated by Ivan Pesin, July 2009</p></div>
+<p>В только-что загрузившейся системе, чтобы узнать, работает ли она в виртуальном окружении, достаточно проверить вывод команды <code>dmesg</code>. Ниже приведены примеры выполнения команды в разных виртуализационных средах: </p>
+<p><strong>Xen</strong></p>
+<blockquote><p></p><pre class="crayon-plain-tag">$ dmesg | grep -i virtual 
+Xen virtual console successfully installed as xvc0</pre><p></p></blockquote>
+<p><strong>VMWare</strong></p>
+<blockquote><p></p><pre class="crayon-plain-tag">$ dmesg | grep -i virtual  
+     VMware vmxnet virtual NIC driver         Vendor: VMware    Model: Virtual disk      Rev: 1.0  
+     hda: VMware Virtual IDE CDROM Drive, ATAPI CD/DVD-ROM drive</pre><p></p></blockquote>
+<p><strong>QEMU или KVM</strong></p>
+<blockquote><p></p><pre class="crayon-plain-tag">$ dmesg | grep -i virtual    
+   CPU: AMD QEMU Virtual CPU version 0.9.1 stepping 03</pre><p></p></blockquote>
+<p>Кроме того, можно также использовать команду <code>dmidecode</code>, для получения информации из системного BIOS. Например:</p>
+<p><strong>VMWare</strong>:</p>
+<blockquote><p></p><pre class="crayon-plain-tag"># dmidecode | egrep -i 'manufacturer|product'   
+    Manufacturer: VMware, Inc.       Product Name: VMware Virtual Platform</pre><p></p></blockquote>
+<p><strong>QEMU или KVM</strong>:</p>
+<blockquote><p></p><pre class="crayon-plain-tag"># dmidecode | egrep -i 'vendor' 
+   Vendor: QEMU</pre><p></p></blockquote>
+]]></content:encoded>
+										</item>
+	</channel>
+</rss>

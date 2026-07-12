@@ -1,0 +1,163 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Nunito');
+*/
+
+html, body {
+    font-family: "Helvetica", Arial, sans-serif;
+} 
+
+blockquote {
+    font-size: 1.1em;
+}
+
+@media screen {
+    .container {
+        max-width: 1024px;
+    }
+}
+
+.carrol-quote-top {
+    font-weight: 300;
+    white-space: pre;
+    font-size: 1.2em;
+}
+
+.carrol-quote {
+    color: #777777;
+    padding-left: 30px;
+    font-size: smaller;
+    font-style: italic;
+    /* border-left: 5px solid #eeeeee; */
+}
+
+.posts-list {
+    padding-left: 20px;
+    margin-top: 20px;
+}
+
+.posts-list-item {
+    margin-top: 10px;
+}
+
+.post-footer {
+    background-color: #f3f3f3;
+    padding: 10px;
+    font-size: smaller;
+    color: #777;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 30px;
+}
+.post-footer-date {
+    float: left;
+}
+
+.gallery-image {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.talks-section {
+    margin-top: 10px;
+}
+
+.talks-year {
+    color: #999;
+    font-size: xx-large;
+}
+
+.width-auto {
+    width: auto;
+}
+
+.m-10 {
+    margin: 10px;
+}
+
+.mb-10 {
+    margin-bottom: 10px;
+}
+
+.m-20 {
+    margin: 20px;
+}
+
+.mb-30 {
+    margin-bottom: 30px;
+}
+
+.ml-10 {
+    margin-left: 10px;
+}
+
+.p-15 {
+    padding: 15px;
+}
+
+figure > img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto 10 auto;
+}
+
+.taxonomy-list-item {
+    margin: 10px;
+    line-height: 2;
+}
+
+.bs-callout {
+    padding: 10px;
+    margin: 20px 0;
+    border: 0px solid #eee;
+    border-left-width: 3px;
+    /* border-radius: 3px; */
+}
+.bs-callout h4 {
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+.bs-callout p:last-child {
+    margin-bottom: 0;
+}
+.bs-callout code {
+    border-radius: 3px;
+}
+.bs-callout+.bs-callout {
+    margin-top: -5px;
+}
+.bs-callout-default {
+    border-left-color: #777;
+}
+.bs-callout-default h4 {
+    color: #777;
+}
+.bs-callout-primary {
+    border-left-color: #428bca;
+}
+.bs-callout-primary h4 {
+    color: #428bca;
+}
+.bs-callout-success {
+    border-left-color: #5cb85c;
+}
+.bs-callout-success h4 {
+    color: #5cb85c;
+}
+.bs-callout-danger {
+    border-left-color: #d9534f;
+}
+.bs-callout-danger h4 {
+    color: #d9534f;
+}
+.bs-callout-warning {
+    border-left-color: #f0ad4e;
+}
+.bs-callout-warning h4 {
+    color: #f0ad4e;
+}
+.bs-callout-info {
+    border-left-color: #5bc0de;
+}
+.bs-callout-info h4 {
+    color: #5bc0de;
+}

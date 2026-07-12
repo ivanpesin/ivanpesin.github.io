@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Talks on Articles, Translations, and Blog</title>
+    <link>http://pesin.space/talks/</link>
+    <description>Recent content in Talks on Articles, Translations, and Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 28 Jan 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://pesin.space/talks/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Cutting through firewall thickets with SSH</title>
+      <link>http://pesin.space/talks/2019-tbdevops-ssh/</link>
+      <pubDate>Mon, 28 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/talks/2019-tbdevops-ssh/</guid>
+      <description>&lt;p&gt;An overview and a demo of advanced and less known features of &lt;code&gt;ssh&lt;/code&gt; and auxiliary tools: port forwarding, connection multiplexing, tunneling, host jumping, data transfer with ssh; &lt;code&gt;sshuttle&lt;/code&gt;, &lt;code&gt;corkscrew&lt;/code&gt;, &lt;code&gt;sshpass/pdsh&lt;/code&gt;, &lt;code&gt;stunnel&lt;/code&gt;.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Processing text files with CLI tools</title>
+      <link>http://pesin.space/talks/2018-rew-textproc/</link>
+      <pubDate>Tue, 01 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/talks/2018-rew-textproc/</guid>
+      <description>&lt;p&gt;Any *NIX-based system offers a rich toolset to deal with text files. Some of these tools are more than 30 years old and provide impressive functionality and speed. In the age of cloud computing craze, it is good to know that most day-to-day text handling tasks are best done locally with these commands. This talk gives an overview of tools like &lt;code&gt;grep/sed/awk/sort/uniq&lt;/code&gt; and the techniques for solving common tasks such as &lt;em&gt;filtering, counting, finding text, unions and intersections&lt;/em&gt;.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>End-to-end CI/CD with ChatOps</title>
+      <link>http://pesin.space/talks/2018-rew-cicd/</link>
+      <pubDate>Mon, 01 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/talks/2018-rew-cicd/</guid>
+      <description>&lt;p&gt;This training introduces audience with an end-to-end CI/CD pipeline and chatops practices. During this training we:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;review the CI/CD pipeline stages and components&lt;/li&gt;
+&lt;li&gt;modify a demo application to provide new functionality&lt;/li&gt;
+&lt;li&gt;follow the process of application release and deployment&lt;/li&gt;
+&lt;li&gt;review the approval mechanism for production release&lt;/li&gt;
+&lt;li&gt;introduce an unwanted side-effect to the codebase&lt;/li&gt;
+&lt;li&gt;write a new test for this side-effect, and fix the code&lt;/li&gt;
+&lt;li&gt;release the new code to production&lt;/li&gt;
+&lt;li&gt;review monitoring feedback loop and automatic issue ticketing&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+    <item>
+      <title>Puppet and how to misuse it</title>
+      <link>http://pesin.space/talks/2017-tbdevops-puppet/</link>
+      <pubDate>Mon, 01 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/talks/2017-tbdevops-puppet/</guid>
+      <description>&lt;!--December 18, 2017--&gt;
+&lt;p&gt;This talk discusses the strategies for managing software updates in complex large environments using &lt;code&gt;puppet&lt;/code&gt;. How to implement gradual updates? How to control the velocity and monitor for issues? What are the best practices and which approaches to avoid? Lessons learnt from implementing configuration management at large organizations with 10k+ hosts.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Defensive techniques when managing 10k&#43; hosts</title>
+      <link>http://pesin.space/talks/2017-lvivdevops-large-scale-conf-mgmt/</link>
+      <pubDate>Sun, 01 Jan 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/talks/2017-lvivdevops-large-scale-conf-mgmt/</guid>
+      <description>&lt;p&gt;Developing cross-platform automation code that targets 10k+
+hosts poses a lot of interesting challenges. The classic example
+is &lt;code&gt;hostname -f&lt;/code&gt; command which returns FQDN on Linux systems whereas
+on a Solaris it would set the hostname to &lt;code&gt;-f&lt;/code&gt;. Event probabilities
+also change significantly; some events can be disregarded as very
+unlikely in a small fleet suddenly become almost guaranteed when the
+fleet grows to thousands of servers. This talk explores gotchas and
+approaches which reduce chances of damaging infrastructure by automation.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>How to prevent clouds from turning black</title>
+      <link>http://pesin.space/talks/2015-operating-cloud-infra/</link>
+      <pubDate>Thu, 01 Jan 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/talks/2015-operating-cloud-infra/</guid>
+      <description>Talk focuses on issues of cloud environment management and is intended for people who already use clouds but haven’t yet implemented automatic ways of ensuring correct configuration, code deployments, and scaling:
+ Short introduction during which we create cloud environment for our further experiments and demonstrations Duplicating environments—quick way to scale systems under load Addressing static nature of images—self-healing and auto-updating systems using configuration management (CFEngine) Quick-and-dirty ways for cloud environment manual orchestration  Delivered  as an internal training</description>
+    </item>
+    
+    <item>
+      <title>Benefits of cloud-based infrastructure</title>
+      <link>http://pesin.space/talks/2013-cloud-benefits/</link>
+      <pubDate>Tue, 01 Jan 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/talks/2013-cloud-benefits/</guid>
+      <description>The talk is intended for audiences that have basic knowledge and experience with clouds, though have not employed more advanced features like load balancers, monitors, autoscaling, and cloud formation. In this talk we will discuss and have a demo covering the following aspects:
+ Introduction to cover IaaS basics (make sure audience is on the same page) IaaS solutions scaling—load balancers Duplicating environments: cloud formation Monitoring options, some of available metrics Dynamic auto scaling environment that feeds from monitoring metrics  Delivered  as an internal training</description>
+    </item>
+    
+    <item>
+      <title>On the road with clouds</title>
+      <link>http://pesin.space/talks/2013-on-the-road-with-clouds/</link>
+      <pubDate>Tue, 01 Jan 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/talks/2013-on-the-road-with-clouds/</guid>
+      <description>In this talk we will take a look at what is &amp;lsquo;cloud computing&amp;rsquo;, what benefits it delivers, and what are the typical use-cases. Then we will actually see how simple it is to use cloud services. To this end we will:
+ provision a web-server deploy a simple demo app add monitoring increase the load to the point of failure setup autoscaling of the infrastructure observe autoscaling dynamically bringing up and down infrastructure  Delivered at: Lviv Polytechnic University, as internal trainings</description>
+    </item>
+    
+    <item>
+      <title>Value of experience</title>
+      <link>http://pesin.space/talks/2012-value-of-exp/</link>
+      <pubDate>Sun, 01 Jan 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/talks/2012-value-of-exp/</guid>
+      <description>In this talk we discuss value of experience that comes with age. What are advantages and disadvantages of 20 and 30 years old person? How the same person differs in his or hers 20s and 30s? How experience works and how do we make decisions? There is a lot of unexpected and curious facts to discover.
+Delivered at: Lviv Engineering Job Fair (EJF-2012)
+Audience: students</description>
+    </item>
+    
+    <item>
+      <title>Behind the scenes of a job interview</title>
+      <link>http://pesin.space/talks/2011-behind-the-scenes-interview/</link>
+      <pubDate>Sat, 01 Jan 2011 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/talks/2011-behind-the-scenes-interview/</guid>
+      <description>What is a job interview about? What&amp;rsquo;s hidden from an applicant&amp;rsquo;s view inside clanking machinery of firm&amp;rsquo;s recruitment processes? To what extent can applicant influence the interview&amp;rsquo;s outcome? How to properly prepare for an interview and what take-aways are there? Let&amp;rsquo;s try to find out!
+Delivered at:  Lviv Polytechnic University, Lviv Franko University, Lviv QA School
+Audience: students
+Brief outline:
+ What is the purpose of an interview? What&amp;rsquo;s going on behind the scenes in the company?</description>
+    </item>
+    
+    <item>
+      <title>Critical thinking</title>
+      <link>http://pesin.space/talks/2011-critical-thinking/</link>
+      <pubDate>Sat, 01 Jan 2011 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/talks/2011-critical-thinking/</guid>
+      <description>Thinking defines us. Good thinking allows improved understanding and leads to balanced and efficient decisions. Are we good at thinking and is it possible to improve our thinking abilities?
+Delivered at:  Lviv Polytechnic University, Lviv Franko University, Lviv QA School
+Audience: students
+The slide deck (in Russian):
+ </description>
+    </item>
+    
+    <item>
+      <title>Five ideas for students</title>
+      <link>http://pesin.space/talks/2011-five-ideas/</link>
+      <pubDate>Sat, 01 Jan 2011 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/talks/2011-five-ideas/</guid>
+      <description>Managers have expectations even of fresh graduates, yet many graduates have no idea of what they should do to meet them. This talk highlights the most wanted features of a student in the eyes of a potential manager.
+Delivered at: Lviv Engineering Job Fair (EJF-2011)
+Audience: students
+Brief outline:
+ Think actively Develop understanding of the world around you Be mad about what you do Strive for excellence and match to the best Keep your mind open  The slide deck (in Russian):</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,358 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+
+
+
+  
+  
+  <meta content="text/html; charset=windows-1251" http-equiv="content-type">
+
+
+  
+
+
+  
+  
+  
+  <title>RedHat Magazine Tips &amp; Tricks 12</title>
+  <link rel="stylesheet" type="text/css" href="css/master.css">
+
+
+
+  
+  
+  <link rel="stylesheet" type="text/css" href="css/rhmag11.css">
+</head>
+
+
+<body>
+
+
+
+<div id="rhmagCenter">
+<div class="department">
+<h1 id="tipstricks">Tips &amp; tricks</h1>
+
+
+
+This article is protected by the <a href="http://www.opencontent.org/openpub/">Open Publication
+License, V1.0 or later</a>. Copyright &copy; 2005 by Red Hat,
+Inc.<br>
+
+
+
+<p>
+Original article: <a href="http://www.redhat.com/magazine/012oct05/departments/tips_tricks/">http://www.redhat.com/magazine/012oct05/departments/tips_tricks/</a></p>
+
+
+
+<h4> <a href="http://www.redhat.com/magazine/012oct05/departments/tips_tricks/">Red
+Hat Magazine, выпуск 12, октябрь 2005</a></h4>
+
+
+
+<p>Перевод: &copy; Иван Песин</p>
+
+
+
+<p>Служба поддержки пользователей Red Hat получает технические
+вопросы со
+всего мира. Специалисты Red Hat
+ежедневно добавляют полученные вопросы и ответы на них в базу
+знаний&nbsp;<a href="http://kbase.redhat.com/">Red Hat
+Knowledgebase</a>. Доступ к ней возможен при наличии учетной
+записи на сайте redhat.com. Каждый месяц Red Hat Magazine знакомит
+читателей с&nbsp;<a href="http://kbase.redhat.com/">Red
+Hat Knowledgebase</a>, публикуя несколько самых свежих вопросов и
+ответов.</p>
+
+
+
+<div id="RHCEtip">
+<h1 id="rhcetips">Советы от&nbsp;RHCE</h1>
+
+
+
+<div class="rhceInner">
+<h2>Утилиты командной строки для работы с SELinux</h2>
+
+
+
+<h3 class="byline">Зорстен Скерф (Thorsten Scherf),&nbsp;RHCE и инструктор&nbsp;Red Hat</h3>
+
+
+
+<p>Одной из наиболее ценных особенностей Red Hat Enterprise Linux 4
+является
+SELinux (Security Enhanced Linux) -- мощный слой безопасности уровня
+ядра, который предоставляет возможности тонкого контроля за тем, к чему
+в системе имеют доступ пользователи и процессы, и что они могут
+запускать. По умолчанию,&nbsp;SELinux активирован в системах Red Hat
+Enterprise Linux, осуществляя обязательный контроль доступа,
+который&nbsp;Red Hat называет политикой targeted. В основном, этот
+контроль доступа увеличивает безопасность соответствующих сетевых
+сервисов, но иногда может влиять на работы некоторых программ сторонних
+производителей и скриптов, работавших в предыдущих версиях&nbsp;Red Hat
+Enterprise Linux.
+</p>
+
+
+
+<p>Крайне важно понимать работу основных утилит командной строки для&nbsp;SELinux.</p>
+
+
+
+<ul>
+
+
+
+  <li><code>sestatus</code> - выводит общую информацию о состоянии и некоторые логические настройки</li>
+
+
+
+  <li><code>getenforce</code> - вы<em></em>водит текущий режим работы&nbsp;selinux</li>
+
+
+
+
+  <li><code>setenforce 1/0</code> - переключает между режимами работы enforcing и warning</li>
+
+
+  <li><code>enforcing=1/0</code> - параметр загрузки grub, задающий режим&nbsp;enforcing или&nbsp;warning, вне зависимости от н<em></em>астроек в файле&nbsp;/etc/sysconfig/selinux</li>
+
+
+
+  <li><code>system-config-securitylevel</code> - задает&nbsp;режим&nbsp;selinux и версию политики по-умолчанию</li>
+
+
+
+  <li><code>ключ -Z</code> - используется утилитами&nbsp;"ps" и "ls"
+для вывода контекста безопасности файлов и процессов<em></em></li>
+
+
+
+  <li><code>chcon</code> - изменяет контекст безопасности файлов&nbsp;(chcon --reference для использования эталона)</li>
+
+
+
+</ul>
+
+
+
+</div>
+
+
+
+<comment title=" end rhceInner " xmlns="http://disruptive-innovations.com/zoo/nvu"><br>
+
+
+</comment></div>
+
+
+
+<comment title=" end RHCEtip " xmlns="http://disruptive-innovations.com/zoo/nvu"><br>
+
+
+</comment>
+<h2>Существует ли&nbsp;gdb-плагин для&nbsp;Eclipse?</h2>
+
+
+
+<h4 class="byline">Рауль Сандерем (Rahul Sundaram)</h4>
+
+
+
+<p>
+Да. Платформа&nbsp;Eclipse поддерживает&nbsp;<code class="command">gdb</code>с
+помощью плагина&nbsp;CDT для разработки на&nbsp;C/C++. Плагин&nbsp;CDT
+для Eclipse доступен покупателям Red Hat Enterprise Linux в <a href="https://rhn.redhat.com/">Red Hat Network</a>
+(RHN), как часть&nbsp;Red Hat Developer Suite. Для установки <code class="filename">eclipse-cdt</code> в системе, зарегистрированной в RHN и подписанной на канал Red Hat
+Developer Suite, вы можете выполнить следующую команду:</p>
+
+
+
+<pre><code>up2date eclipse-cdt</code>
+</pre>
+
+
+
+
+<p>Также доступны и другие графические отладчики, например <code class="command">ddd</code>, основанные на <code class="command">gdb</code>. Они входят &nbsp;в состав Red Hat Enterprise Linux и доступны из RPM-пакета <code class="filename">ddd</code>.&nbsp;</p>
+
+
+<p>Другой интересной программой, является отладчик&nbsp;<a href="http://sources.redhat.com/insight/">Red Hat Insight</a>.</p>
+
+
+
+<h2>Как только я запускаю в моей системе&nbsp;OProfile, в системе становится практически невозможно&nbsp;работать. В чем проблема?</h2>
+
+
+
+<p>При использовании OProfile очень важно сохранять баланс между
+частотой выборки&nbsp;и накладными расходами. Существует возможность
+настроить&nbsp;OProfile таким образом, что накладные расходы при его
+работе приведут к невозможности работы в системе. Вы должны действовать
+с осторожностью при выборе значений счетчиков.</p>
+
+
+
+<p>Выполните команду&nbsp;<code>opcontrol</code> с параметром <code>--list-events</code>. Она выведет типы событий, доступные для установленного процессора вместе с рекомендуемыми минимальными значениями счетчиков.</p>
+
+
+
+<h2>Как управлять точностью вычислений с плавающей запятой на платформе&nbsp;Intel в&nbsp;Red Hat
+Enterprise Linux?</h2>
+
+
+
+<h4 class="byline">Стэн Кокс (Stan Cox)</h4>
+
+
+
+<p>Значения с плавающей запятой, которые хранятся в соответствующем
+стеке, имеют точность в 80 бит, тогда как при переносе этих значений в
+память, они округляются до 64 бит. Таким образом, для того чтобы
+отложить округление до 64 бит, храните&nbsp;значения с плавающей
+запятой как можно дольше в стеке.</p>
+
+
+
+<p>Операции округления могут производиться и после каждого вычисления. Однако, это заметно снизит производительность.</p>
+
+
+
+<p>Одним вариантом может быть установка округления значений с плавающей
+запятой до&nbsp;64
+бит. Но тут есть побочный эффект, а именно, становится недоступным
+тип&nbsp;long double.
+Кроме того, при операциях с плавающей запятой все равно могут возникать
+проблемы с недостаточной точностью. Некоторые компиляторы применяют
+этот подход. Как им пользоваться на&nbsp;Linux
+вы можете прочитать в&nbsp;<code class="command">man fegetround</code>.</p>
+
+
+
+<p>Возможным решением проблемы недостаточной точности, при использовании&nbsp; <code class="command">gcc</code>
+на
+Intel&reg; Pentium&reg; 4,&nbsp;может стать выполнение арифметических
+операций с плавающей запятой в&nbsp;регистрах SSE, что достигается
+указанием опции&nbsp;<code class="command">-mfpmath=sse</code>. Регистры&nbsp;SSE имеют достаточную точность для операций с типами float и double, что устраняет проблему.</p>
+
+
+
+<p>Еще одним решением является использование опции&nbsp;<code class="command">-ffloat-store</code>.
+Оно помогает в некоторых случаях, но не всегда. Этот параметр
+принуждает выделять место для пользовательских переменных в стеке.
+Однако, временные переменные и дальше хранятся в регистрах, что может
+привести к ошибкам округления из-за недостаточной точности.</p>
+
+
+
+<p>Вообще говоря,&nbsp;80-битная точность результатов -- хорошая вещь,
+увеличивающая точность математических вычислений. Однако, она может
+добавить работы при портировании кода на другие архитектуры. Две
+наиболее часто возникающие проблемы:</p>
+
+
+
+<ol>
+
+
+
+  <li>Несоответствие результатов, из-за потери битов на старых
+платформах, где внутренние вычисления производятся с точностью
+менее&nbsp;80 бит</li>
+
+
+
+  <li>Время нахождения ответа в итеративных алгоритмах. Это может
+иметь место в программах, ожидающих определенного значение, а в связи с
+округлением (меньшей точностью) на других платформах, время вычисления
+значения может быть меньше (больше), чем на ia32.</li>
+
+
+
+</ol>
+
+
+
+<p>Работа с&nbsp;плавающей запятой на&nbsp;x86 является компромиссом
+между тем, что поддерживает аппаратная часть и тем, что компилятор
+может эффективно использовать.</p>
+
+
+
+<h2>Какой из файлов&nbsp;quota.h&nbsp;должен использоваться в пользовательских программах на Red Hat Enterprise Linux 4
+Update 2?</h2>
+
+
+
+<h4 class="byline">Линда Уонг (Linda Wang)</h4>
+
+
+
+<p>
+<em>Проблема:</em><br>
+
+
+
+Файл заголовков&nbsp;<code class="filename">quota.h</code>, входящий в состав пакета&nbsp;<code class="filename">glibc-headers</code>, в Red Hat Enterprise Linux 4 Update 2 отличается от файла, включенного в RPM-пакеты исходных текстов ядра и&nbsp;<code class="filename">kernel-devel</code>.
+</p>
+
+
+
+<p><em>Решение: </em><br>
+
+
+
+Файл заголовков, включенный в&nbsp;RPM-пакеты исходных текстов ядра и&nbsp;<code class="filename">kernel-devel</code> не предназначены для использования и компиляции с пользовательскими программами.</p>
+
+
+
+<p>Пользовательские программы должны использовать файлы заголовков, включенные в пакет&nbsp;<code class="command">glibc-headers</code>.</p>
+
+
+
+<p>В нашем случае, файл заголовков&nbsp;<code class="filename">quota.h</code>
+из пакета&nbsp;<code class="command">glibc-headers</code>
+для Red Hat Enterprise Linux 4 Update 2 был обновлен для поддержки
+новых структур данных. Старая версия включена для обратной
+совместимости;&nbsp;во время компиляции приложения можно указать, какую
+версию необходимо использовать.</p>
+
+
+
+<p>По умолчанию в <code class="command">glibc-headers</code> для Red Hat Enterprise Linux 4 Update 2 используются структуры данных и интерфейсы старой версии. Потому, если приложение использует старую семантику работы с квотами, просто скомпилируйте его с заголовками из&nbsp;<code class="command">glibc-headers</code>
+и все должно заработать.</p>
+
+
+
+<p>Если же приложению необходимо работать с интерфейсами и структурами
+данных новой версии, тогда при компиляции с заголовками из&nbsp;<code class="command">glibc-headers</code>
+нужно еще указать опцию:</p>
+
+
+
+<pre>-D_LINUX_QUOTA_VERSION=2</pre>
+
+
+
+<comment title=" END OF TIPS AND TRICKS " xmlns="http://disruptive-innovations.com/zoo/nvu"><br>
+
+
+</comment>
+<p class="palenote"></p>
+
+
+
+</div>
+
+
+
+</div>
+
+
+
+</body>
+</html>

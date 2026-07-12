@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>air on Articles, Translations, and Blog</title>
+    <link>http://pesin.space/tags/air/</link>
+    <description>Recent content in air on Articles, Translations, and Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 29 Jun 2016 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://pesin.space/tags/air/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Air quality in Europe</title>
+      <link>http://pesin.space/posts/2016-06-29-eu-air-pollution/</link>
+      <pubDate>Wed, 29 Jun 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2016-06-29-eu-air-pollution/</guid>
+      <description>Surprisingly, Poland has the worst air quality in Europe. Here is an infographics from the Economist:
+
+See also Air Quality Indexes website.</description>
+    </item>
+    
+  </channel>
+</rss>

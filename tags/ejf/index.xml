@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ejf on Articles, Translations, and Blog</title>
+    <link>http://pesin.space/tags/ejf/</link>
+    <description>Recent content in ejf on Articles, Translations, and Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 04 Dec 2011 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://pesin.space/tags/ejf/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Додаткові матеріали до лекції &#34;П&#39;ять ідей&#34; @EJF 2011</title>
+      <link>http://pesin.space/posts/2011-12-04-ejf-five-ideas/</link>
+      <pubDate>Sun, 04 Dec 2011 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2011-12-04-ejf-five-ideas/</guid>
+      <description>&lt;p&gt;Після моєї лекції у Львівській політехніці на EJF 2011 я отримав багато відгуків і тому викладую деякі матеріали, які, на мою думку, будуть корисні тим, кого зачепила та розповідь.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

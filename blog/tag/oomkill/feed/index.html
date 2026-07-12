@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>oomkill &#8211; Ivan Pesin</title>
+	<atom:link href="/blog/tag/oomkill/feed/" rel="self" type="application/rss+xml" />
+	<link>https://pesin.space/blog</link>
+	<description>Articles &#38; Translations</description>
+	<lastBuildDate>
+	Wed, 19 Oct 2016 02:08:18 +0000	</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=5.1.1</generator>
+	<item>
+		<title>Как определить и настроить вероятность с которой процесс будет завершён при нехватке оперативной памяти</title>
+		<link>/blog/2009/06/%d0%ba%d0%b0%d0%ba-%d0%be%d0%bf%d1%80%d0%b5%d0%b4%d0%b5%d0%bb%d0%b8%d1%82%d1%8c-%d0%b8-%d0%bd%d0%b0%d1%81%d1%82%d1%80%d0%be%d0%b8%d1%82%d1%8c-%d0%b2%d0%b5%d1%80%d0%be%d1%8f%d1%82%d0%bd%d0%be%d1%81/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=%25d0%25ba%25d0%25b0%25d0%25ba-%25d0%25be%25d0%25bf%25d1%2580%25d0%25b5%25d0%25b4%25d0%25b5%25d0%25bb%25d0%25b8%25d1%2582%25d1%258c-%25d0%25b8-%25d0%25bd%25d0%25b0%25d1%2581%25d1%2582%25d1%2580%25d0%25be%25d0%25b8%25d1%2582%25d1%258c-%25d0%25b2%25d0%25b5%25d1%2580%25d0%25be%25d1%258f%25d1%2582%25d0%25bd%25d0%25be%25d1%2581</link>
+				<pubDate>Thu, 25 Jun 2009 12:24:59 +0000</pubDate>
+		<dc:creator><![CDATA[ivan]]></dc:creator>
+				<category><![CDATA[RedHat KB]]></category>
+		<category><![CDATA[oom]]></category>
+		<category><![CDATA[oomkill]]></category>
+		<category><![CDATA[performance]]></category>
+
+		<guid isPermaLink="false">http://www.n-ix.com/ipesin/?p=256</guid>
+				<description><![CDATA[Copyright (c) 2009 by Red Hat, Inc. This material may be distributed only subject to the terms and conditions set forth in the Open Publication License, v1.0 or later (available at http://www.opencontent.org/openpub/). Original article: http://kbase.redhat.com/faq/docs/DOC-5359.pdf Translated by Ivan Pesin, June 2009 Ядро Red Hat Enterprise Linux 5.2 создает 2 файла для каждого процесса, которые позволяют [&#8230;]]]></description>
+								<content:encoded><![CDATA[<p id="top" />
+<div class="copyright">Copyright (c) 2009 by Red Hat, Inc. This material may be distributed only subject to the terms and conditions set forth in the Open Publication License, v1.0 or later (available at <a href="http://www.opencontent.org/openpub/">http://www.opencontent.org/openpub/</a>).<br />
+Original article: <a href="http://kbase.redhat.com/faq/docs/DOC-5359.pdf">http://kbase.redhat.com/faq/docs/DOC-5359.pdf</a></p>
+<p>Translated by Ivan Pesin, June 2009</p></div>
+<p>Ядро Red Hat Enterprise Linux 5.2 создает 2 файла для каждого процесса, которые позволяют управлять вероятностью, с которой этот процесс будет завершён, когда система будет вынуждена заврешать процессы из-за нехватки оперативной памяти (out-of-memory, OOM). Это файлы:</p>
+<ul>
+<li><code>/proc/[pid]/oom_adj</code> — используется для изменения &#8220;OOM-счёта&#8221; (OOM score), который определяет вероятность завершения процесса при нехватке оперативной памяти. Чем больше значение OOM-счёта, тем больше вероятность того, что процесс будет завершён подсистемой <code>oomkill</code>. Допустимые значения находятся в промежутке от -17 до 15; обратите внимание, что OOM-счёт равный -17 означает, что <code>[pid]</code> не будет завершён при нехватке памяти.
+<p>Чтобы задать OOM-счёт, просто выполните команду <code>echo значение</code> с выводом в файл <code>/proc/[pid]/oom_adj</code>. Например, чтобы установить OOM-счёт равный 15 для процесса <code>1111</code>, выполните:</p><pre class="crayon-plain-tag">echo 15 &amp;gt; /proc/1111/oom_adj</pre><p>Учтите, что OOM-счёт наследуется процессом-потомком от родительского процесса при использовании системных вызовов семейства <code>fork()</code>.</li>
+<li><code>/proc/[pid]/oom_score</code> — содержит текущий OOM-счёт для данного процесса. Используйте команду <code>cat</code> чтобы посмотреть текущий OOM-счёт для процесса с номером <code>[pid]</code>. Например, чтобы узнать текущий OOM-счёт для процесса <code>1111</code>, выполните:</p><pre class="crayon-plain-tag">cat /proc/1111/oom_score</pre><p>
+</li>
+</ul>
+<p><em><strong>Прим. пер.:</strong></em> Значение в файле <code>oom_score</code> — динамически вычисляемое, оно не равняется значению, которое передаётся в файл <code>oom_adj</code>. Значение, передаваемое в файл <code>oom_adj</code>, меняет вероятность в большую или меньшую сторону, а не задаёт абсолютное значение.</p>
+]]></content:encoded>
+										</item>
+	</channel>
+</rss>

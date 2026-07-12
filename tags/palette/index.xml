@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>palette on Articles, Translations, and Blog</title>
+    <link>http://pesin.space/tags/palette/</link>
+    <description>Recent content in palette on Articles, Translations, and Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 17 Jan 2016 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://pesin.space/tags/palette/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>My zenburn-based terminal colour palletes</title>
+      <link>http://pesin.space/posts/2016-01-17-terminal-zenburn/</link>
+      <pubDate>Sun, 17 Jan 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2016-01-17-terminal-zenburn/</guid>
+      <description>&lt;p&gt;I  was a big fan of standard linux terminal colour palette. Initially, the default was a saturated version and later it shifted to pastel colours. I still enjoy the way it looks – bright and clear; it also works great if you are giving a demo over a beamer, opposed to dark backgrounds.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

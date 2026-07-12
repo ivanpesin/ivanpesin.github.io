@@ -1,0 +1,96 @@
+= Подборка вопросов и ответов #1
+Ivan Pesin
+v1.2, 2013-07-13
+:toc: right
+:toc-title: Содержание
+:sectanchors:
+:icons: font
+:source-highlighter: rouge
+// :stylesdir: ./stylesheets
+:stylesheet: asciidoc-ip.css
+:linkcss:
+
+:TODO: pass:q[<span style="background-color: gold">&nbsp; *TODO* </span>:]
+
+== Как выключить цветовую подсветку в vi или vim из Red Hat Enterprise Linux
+
+Copyright (c) 2009 by Red Hat, Inc. This material may be distributed only subject to the terms and conditions set forth in
+the Open Publication License, v1.0 or later (available at http://www.opencontent.org/openpub/). +
+Original article: http://kb.redhat.com/faq/docs/DOC-6899.pdf
+
+Translated by Ivan Pesin, May 2009
+
+*Система*: Red Hat Enterprise Linux, все версии
+
+*Проблема*: В Red Hat Enterprise Linux команда `vi` является псевдонимом текстового редактора `vim`, улучшенной версии `vi`. Некоторым людям не нравится цветной вариант и подсветка в `vim` и они хотят того же стиля, как в старом `vi`.
+
+*Решение*:
+
+Самый простой способ решения этой проблемы — выключить синтаксическую подсветку в `vim`. Введите следующую команду в `vim` для отключения синтаксической подсветки:
+
+    :syntax off
+
+Если вы захотите опять включить цвета и подсветку, просто введите:
+
+    :syntax on
+
+Примечание: если вы хотите, чтобы запрет подсветки синтаксиса сохранялся при последующих запусках `vim` для данной учётной записи, вы можете отредактировать файл `.vimrc` в домашнем каталоге пользователя.
+
+Выполните команду:
+
+    vi ~/.vimrc
+
+Добавьте следующую строку в файл `.vimrc`, чтобы запретить подсветку синтаксиса для текущей учётной записи:
+
+    syntax off
+
+Если вы захотите вернуть обратно синтаксическую подсветку в `vim`, укажите `syntax on`.
+
+`vim` — программа с богатым набором настроек. Вы даже можете создавать собственные наборы цветовых схем и синтаксических подсветок. Подробная информация о возможностях vim доступна в документации, которую можно прочесть, введя в редакторе команды:
+
+    :help
+    :help syntax
+
+== Как избежать неправильной нумерации сетевых карт в системах Red Hat Enterprise Linux с несколькими сетевыми интерфейсами?
+
+Copyright (c) 2009 by Red Hat, Inc. This material may be distributed only subject to the terms and conditions set forth in  the Open Publication License, v1.0 or later (available at http://www.opencontent.org/openpub/). +
+Original article: http://kbase.redhat.com/faq/docs/DOC-15331.pdf
+
+Translated by Ivan Pesin, May 2009
+
+*Система*: Red Hat Enterprise Linux 5
+
+*Проблема*:
+
+Большинство устройств нумеруются ядром Linux в соответствии с их порядком в PCI-таблице системного BIOS. Наполнением этой таблицы занимается сам BIOS. Поскольку порядок устройств в этой таблице на разных системах не обязательно последовательный, устройства могут нумероваться ядром по-разному. Обычно при определении порядка устройств на шине используются номер шины, номер устройства и номер функции. Некоторые системы имеют несколько шин, например шину PCI и шину PCI-X.
+
+*Решение*:
+
+Для того, чтобы избежать случаев перенумеровывания системных сетевых интерфейсов, необходимо использовать параметр `HWADDR=`. Например, следующая строка может быть добавлена в любой из файлов `/etc/sysconfig/network-scripts/ifcfg-ethN`:
+
+    HWADDR=
+
+Если параметр `HWADDR=` не используется, то при перезагрузках может происходить периодическое переименование устройств.
+
+*Пример*:
+
+[source,console]
+----
+$ ifconfig -a | grep HW
+
+__tmp1174018308 Link encap:Ethernet  HWaddr 00:1D:09:6A:78:EA
+eth1      Link encap:Ethernet  HWaddr 00:1D:09:6A:78:EC
+eth2      Link encap:Ethernet  HWaddr 00:15:17:19:39:38
+eth3      Link encap:Ethernet  HWaddr 00:15:17:19:39:39
+----
+
+В вышеприведённом примере вы можете видеть, что устройство `eth0` после перезагрузки было переименовано в `__tmp1174018308`. Чтобы избежать повторения такой проблемы, задайте параметр `HWADDR=` в файле `/etc/sysconfig/network-scripts/ifcfg-eth0` следующим образом:
+
+[source,bash]
+----
+# Ethernet Device
+DEVICE=eth0
+BOOTPROTO=static
+HWADDR=00:1D:09:6A:78:EA
+ONBOOT=yes
+----

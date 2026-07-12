@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>doctors on Articles, Translations, and Blog</title>
+    <link>http://pesin.space/tags/doctors/</link>
+    <description>Recent content in doctors on Articles, Translations, and Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 14 Aug 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://pesin.space/tags/doctors/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Interesting bits and bobs: 2020-08-14</title>
+      <link>http://pesin.space/posts/2020-08-14/</link>
+      <pubDate>Fri, 14 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2020-08-14/</guid>
+      <description>&lt;p&gt;Google Photos on iOS does &lt;em&gt;not&lt;/em&gt; have a slideshow function! 😱 They did however roll out a new designed and killed off &lt;em&gt;For You&lt;/em&gt; feature.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

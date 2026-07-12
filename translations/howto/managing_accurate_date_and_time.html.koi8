@@ -1,0 +1,1829 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+  <head>
+    <meta
+     name="generator"
+     content=
+    "HTML Tidy for Linux/x86 (vers 1st May 2002), see www.w3.org">
+
+    <title>[non-lg]: Точное управление временем и датой</title>
+    <meta
+     content="text/html; charset=koi8-r"
+     http-equiv="Content-Type">
+    <link
+     type="text/css"
+     href="../../rus-lg.css"
+     rel="stylesheet">
+    <style
+     type="text/css">
+ p.c1 {text-align: center}
+    </style>
+
+  </head>
+
+  <body
+   class="article">
+    <div
+     class="ARTICLE">
+      <div
+       class="TITLEPAGE">
+        <hr
+	noshade>
+        <h1
+         class="title"
+	 align="center"><a
+         name="AEN2"></a>Точное управление временем и датой</h1>
+
+        <hr
+	noshade>
+        <div
+         class="authorgroup">
+          <a
+           name="AEN7"></a>
+
+          <h3
+           class="author"><a
+           name="AEN8">Avi Alkalay</a></h3>
+
+          <div
+           class="affiliation address">
+            <p
+             class="address"><br>
+             <tt
+             class="email">&lt;<a
+             href="mailto:avi%20at%20unix.sh">avi at
+            unix.sh</a>&gt;</tt><br>
+             <tt
+             class="email">&lt;<a
+             href="mailto:avi%20at%20br.ibm.com">avi at
+            br.ibm.com</a>&gt;</tt><br>
+            </p>
+
+            <p
+             class="address"><span
+             class="orgdiv">Консультант по Linux и открытым стандартам
+            :: Старший разработчик по ИТ и ПО<br>
+            </span> <span
+             class="orgname">IBM Linux Impact Team :: <a
+             href="http://ibm.com/linux"
+             target="_top">ibm.com/linux</a><br>
+            </span></p>
+          </div>
+
+          <p
+           class="othercredit"><strong>Brad Knowles -</strong> <span
+           class="contrib">Предложение использовать pool.ntp.org и
+          NTP-сервера второго уровня (stratum 2)</span></p>
+
+          <p
+           class="othercredit"><strong>Kent Borg -</strong> <span
+           class="contrib">Предложение использовать ntpq вместо
+          ntpdc</span></p>
+
+          <p
+           class="othercredit"><strong>Yura Moron -</strong> <span
+           class="contrib">Хорошие пояснения по ntpq и ntpdc</span></p>
+
+          <p
+           class="othercredit"><strong>Takeo Nakano -</strong> <span
+           class="contrib">Перевод на японский язык</span></p>
+        </div>
+
+        <p
+         class="copyright">Copyright &copy; 2002,2003 Avi Alkalay</p>
+
+        <p
+         class="pubdate">1.0.5 :: 2003-07-05</p>
+
+        <div
+         class="address">
+          <p
+           class="address">Перевод на русский: &copy; <a
+    	    href="../../team/i_pesin.html">Иван Песин</a>
+<!--	   
+	   Иван Песин 
+	   (&#105;&#112;&#101;&#115;&#105;&#110;&#32;&#97;&#116;&#32;&#112;&#111;&#115;&#116;&#46;&#76;&#118;&#105;&#118;&#46;&#85;&#65;).</p>
+-->	   
+        </div>
+         
+
+        <p
+         class="pubdate"></p>
+
+        <div
+         class="revhistory">
+          <table
+           width="100%"
+           border="0">
+            <tr>
+              <th
+               align="left"
+               valign="top"
+               colspan="3"><strong>История пересмотров</strong></th>
+            </tr>
+
+            <tr>
+              <td
+               align="left">Пересмотр 1.0.5</td>
+
+              <td
+               align="left">05 Jul 2003</td>
+
+              <td
+               align="left">Revised by: avi</td>
+            </tr>
+
+            <tr>
+              <td
+               align="left"
+               colspan="3">Изменена ссылка на список серверов времени.
+              Добавлен pool.ntp.org.</td>
+            </tr>
+
+            <tr>
+              <td
+               align="left">Пересмотр 1.0.4</td>
+
+              <td
+               align="left">21 Dec 2002</td>
+
+              <td
+               align="left">Revised by: avi</td>
+            </tr>
+
+            <tr>
+              <td
+               align="left"
+               colspan="3">Добавлены ссылка на японский перевод и
+              список участников.</td>
+            </tr>
+
+            <tr>
+              <td
+               align="left">Пересмотр 1.0.3</td>
+
+              <td
+               align="left">24 Aug 2002</td>
+
+              <td
+               align="left">Revised by: avi</td>
+            </tr>
+
+            <tr>
+              <td
+               align="left"
+               colspan="3">Исправлены неверная ширина экрана и
+              листингов.</td>
+            </tr>
+
+            <tr>
+              <td
+               align="left">Пересмотр 1.0.2</td>
+
+              <td
+               align="left">04 Aug 2002</td>
+
+              <td
+               align="left">Revised by: avi</td>
+            </tr>
+
+            <tr>
+              <td
+               align="left"
+               colspan="3">Ссылка на страницу общедоступных серверов
+              времени.</td>
+            </tr>
+
+            <tr>
+              <td
+               align="left">Пересмотр 1.0.1</td>
+
+              <td
+               align="left">07 May 2002</td>
+
+              <td
+               align="left">Revised by: avi</td>
+            </tr>
+
+            <tr>
+              <td
+               align="left"
+               colspan="3">Окончательная конвертация в XML.
+              Реорганизация файлов.</td>
+            </tr>
+
+            <tr>
+              <td
+               align="left">Пересмотр 1.0</td>
+
+              <td
+               align="left">28 Apr 2002</td>
+
+              <td
+               align="left">Revised by: avi</td>
+            </tr>
+
+            <tr>
+              <td
+               align="left"
+               colspan="3">Закончен рисунок.</td>
+            </tr>
+
+            <tr>
+              <td
+               align="left">Пересмотр 0.8</td>
+
+              <td
+               align="left">27 Apr 2002</td>
+
+              <td
+               align="left">Revised by: avi</td>
+            </tr>
+
+            <tr>
+              <td
+               align="left"
+               colspan="3">Заменен пример с ntpdc на ntpq, взят из
+              присланных дополнений.</td>
+            </tr>
+
+            <tr>
+              <td
+               align="left">Пересмотр 0.8.1</td>
+
+              <td
+               align="left">20 Apr 2002</td>
+
+              <td
+               align="left">Revised by: avi</td>
+            </tr>
+
+            <tr>
+              <td
+               align="left"
+               colspan="3">Улучшение графики. Ссылки на другие места
+              расположения документа.</td>
+            </tr>
+
+            <tr>
+              <td
+               align="left">Пересмотр 0.8</td>
+
+              <td
+               align="left">14 Apr 2002</td>
+
+              <td
+               align="left">Revised by: avi</td>
+            </tr>
+
+            <tr>
+              <td
+               align="left"
+               colspan="3">Улучшение рисунка NTP.</td>
+            </tr>
+
+            <tr>
+              <td
+               align="left">Пересмотр 0.76</td>
+
+              <td
+               align="left">13 Apr 2002</td>
+
+              <td
+               align="left">Revised by: avi</td>
+            </tr>
+
+            <tr>
+              <td
+               align="left"
+               colspan="3">Включен рисунок архитектуры.</td>
+            </tr>
+
+            <tr>
+              <td
+               align="left">Пересмотр 0.75</td>
+
+              <td
+               align="left">10 Apr 2002</td>
+
+              <td
+               align="left">Revised by: avi</td>
+            </tr>
+
+            <tr>
+              <td
+               align="left"
+               colspan="3">Проверена орфография. Используется DocBook
+              XSLT 1.50.</td>
+            </tr>
+
+            <tr>
+              <td
+               align="left">Пересмотр 0.65</td>
+
+              <td
+               align="left">31 Mar 2002</td>
+
+              <td
+               align="left">Revised by: avi</td>
+            </tr>
+
+            <tr>
+              <td
+               align="left"
+               colspan="3">Обновление до формата XML 4.1.2 DocBook</td>
+            </tr>
+
+            <tr>
+              <td
+               align="left">Пересмотр 0.6</td>
+
+              <td
+               align="left">29 Mar 2002</td>
+
+              <td
+               align="left">Revised by: avi</td>
+            </tr>
+
+            <tr>
+              <td
+               align="left"
+               colspan="3">Закончено описание механизма часовых поясов
+              в Linux. Написано приложение. Остались рисунки.</td>
+            </tr>
+
+            <tr>
+              <td
+               align="left">Пересмотр 0.4</td>
+
+              <td
+               align="left">24 Mar 2002</td>
+
+              <td
+               align="left">Revised by: avi</td>
+            </tr>
+
+            <tr>
+              <td
+               align="left"
+               colspan="3">Сделаны все наброски. Написаны все примеры
+              команд.</td>
+            </tr>
+
+            <tr>
+              <td
+               align="left">Пересмотр 0.2</td>
+
+              <td
+               align="left">19 Mar 2002</td>
+
+              <td
+               align="left">Revised by: avi</td>
+            </tr>
+
+            <tr>
+              <td
+               align="left"
+               colspan="3">Первая версия в DocBook</td>
+            </tr>
+          </table>
+        </div>
+        <hr>
+      </div>
+
+      <div
+       class="TOC">
+        <dl>
+          <dt><strong>Содержание</strong></dt>
+
+          <dt>1. <a
+           href="#time">Общие концепции даты и времени</a></dt>
+
+          <dt>2. <a
+           href="#tz">Что такое часовые пояса?</a></dt>
+
+          <dd>
+            <dl>
+              <dt>2.1. <a
+               href="#tz.dst">Летнее время</a></dt>
+
+              <dt>2.2. <a
+               href="#tz.examples">Примеры часовых поясов</a></dt>
+
+              <dt>2.3. <a
+               href="#tz.linux">Механизм часовых поясов в
+              Linux</a></dt>
+            </dl>
+          </dd>
+
+          <dt>3. <a
+           href="#set">Корректная настройка вашей системы
+          Linux</a></dt>
+
+          <dd>
+            <dl>
+              <dt>3.1. <a
+               href="#set.tz">Установка часового пояса</a></dt>
+
+              <dt>3.2. <a
+               href="#set.hwclock">Установка аппаратных часов</a></dt>
+            </dl>
+          </dd>
+
+          <dt>4. <a
+           href="#ntp">Точная мировая синхронизация времени</a></dt>
+
+          <dd>
+            <dl>
+              <dt>4.1. <a
+               href="#ntp.ntp"><span
+               class="acronym">NTP</span>: Сетевой протокол времени
+              (Network Time Protocol)</a></dt>
+
+              <dt>4.2. <a
+               href="#ntp.arch">Построение простой архитектуры
+              синхронизации времени</a></dt>
+
+              <dt>4.3. <a
+               href="#ntp.configs"><span
+               class="acronym">Конфигурации NTP</span></a></dt>
+
+              <dt>4.4. <a
+               href="#ntp.watch">Наблюдение за синхронизацией</a></dt>
+
+              <dt>4.5. <a
+               href="#ntp.boot">Настройка автозапуска демона <span
+               class="acronym">NTP</span> при загрузке</a></dt>
+            </dl>
+          </dd>
+
+          <dt>A. <a
+           href="#about">О данном документе</a></dt>
+        </dl>
+      </div>
+
+      <div
+       class="section">
+        <h1
+         class="section"><a
+         name="time"></a>1. Общие концепции даты и времени</h1>
+
+        <p>Для определения текущего времени в некотором регионе
+        планеты, компьютеру необходимо знать две вещи:</p>
+
+        <ol
+         type="1">
+          <li>
+            <p>Правильное всеобщее скоординированное время (UTC,
+            всеобщее время, такое же как и в Гринвиче, но не <span
+             class="acronym">GMT</span>)</p>
+          </li>
+
+          <li>
+            <p>Часовой пояс текущего региона</p>
+          </li>
+        </ol>
+
+        <p>В компьютерах, кроме того, существуют аппаратные часы,
+        которые используются для установки времени операционной
+        системы.</p>
+
+        <p>Дата и время операционной системы (с этого момента мы будем
+        пользоваться словом "дата" <em>или</em> "время")
+        устанавливается при загрузке специальным скриптом, который
+        считывает значение аппаратных часов, производит вычисление
+        часового пояса (в <span
+         class="acronym">BIOS не хранится информация о часовом
+        поясе</span>) и устанавливает часы операционной системы. После
+        этого, часы операционной системы и <span
+         class="acronym">BIOS</span> полностью независимы.
+        Следовательно, через некоторое время между ними может быть
+        разница в несколько секунд. Какие же часы содержат правильное
+        время? Если вы не делали специальных настроек -- ни те, ни
+        другие.</p>
+
+        <p>В этом документе мы обсудим, как сделать чтобы время этих
+        часов <em>максимально точным</em>.</p>
+      </div>
+
+      <div
+       class="section">
+        <hr>
+
+        <h1
+         class="section"><a
+         name="tz"></a>2. Что такое часовые пояса?</h1>
+
+        <p>Часовые пояса -- это геофизическое деление земного шара на
+        части по 15 градусов каждая, начиная с Гринвича, в Англии.
+        Это деление было введено с тем, чтобы помочь людям узнать
+        текущее время в других частях света.</p>
+
+        <p><em>Идею часовых поясов предложил канадский инженер-связист
+        С.Флемминг -- Прим.пер.</em></p>
+
+        <p>В наши дни это деление принимает и политическую окраску, так
+        как иногда людям нужно, чтобы их время совпадало со временем в
+        других, не очень отдаленных, местах. Более того, существует
+        понятие <a
+         href="#tz.dst">летнего времени</a>, которое позволяет более
+        эффективно использовать световой день.</p>
+
+        <p>Часовой пояс обычно определяется правительством государства,
+        либо неким астрономическим институтом, и представляется в виде
+        аббревиатуры из трех или четырех букв. В <a
+         href="#tz.examples">разделе 2.2</a> приведены примеры.</p>
+
+        <p>Если вы хотите узнать текущее время в разных регионах нашей
+        планеты, это можно сделать на странице <a
+         href="http://www.timezoneconverter.com/"
+         target="_top">timezoneconverter.com</a>.</p>
+
+        <div
+         class="section">
+          <hr>
+
+          <h2
+           class="section"><a
+           name="tz.dst"></a>2.1. Летнее время</h2>
+
+          <p>По соображениям экономного использования энергии и
+          максимального использования светового дня, правительства
+          создали понятие летнего времени. Наши часы переводятся на час
+          вперед, что позволяет людям эффективней использовать световой
+          день. Фактически, это реализуется в пределах понятия часового
+          пояса. Исходное время (<span
+           class="acronym">UTC</span>) остается неизменным.</p>
+
+          <p>Ниже мы узнаем, как автоматически включать и выключать
+          летнее время в Linux.</p>
+        </div>
+
+        <div
+         class="section">
+          <hr>
+
+          <h2
+           class="section"><a
+           name="tz.examples"></a>2.2. Примеры часовых поясов</h2>
+
+          <p>Нет ничего лучше примеров:</p>
+
+          <div
+           class="table">
+            <a
+             name="tz.ex.br"></a> 
+
+            <p><strong>Таблица 1. Бразильские часовые пояса. Сдвиг
+            относительно <span
+             class="acronym">UTC</span></strong></p>
+
+            <table
+             border="1"
+             class="CALSTABLE">
+              <thead>
+                <tr>
+                  <th
+                   align="left"
+                   valign="middle">Название и сдвиг</th>
+
+                  <th
+                   align="left"
+                   valign="middle"><span
+                   class="acronym">Название <a
+                   href="#tz.dst">летнего времени</a> и
+                  сдвиг</span></th>
+
+                  <th
+                   align="left"
+                   valign="middle">Местоположение</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr>
+                  <td
+                   align="left"
+                   valign="middle">BREST -2:00</td>
+
+                  <td
+                   align="left"
+                   valign="middle">BREDT -1:00</td>
+
+                  <td
+                   align="left"
+                   valign="middle">Fernando de Noronha</td>
+                </tr>
+
+                <tr>
+                  <td
+                   align="left"
+                   valign="middle">BRST -3:00</td>
+
+                  <td
+                   align="left"
+                   valign="middle">BRDT -2:00</td>
+
+                  <td
+                   align="left"
+                   valign="middle">Sгo Paulo, Rio, Brasilia, Minas
+                  Gerais, North East Region, South Region,etc</td>
+                </tr>
+
+                <tr>
+                  <td
+                   align="left"
+                   valign="middle">BRWST -4:00</td>
+
+                  <td
+                   align="left"
+                   valign="middle">BRWDT -3:00</td>
+
+                  <td
+                   align="left"
+                   valign="middle">West Region</td>
+                </tr>
+
+                <tr>
+                  <td
+                   align="left"
+                   valign="middle">BRAST -5:00</td>
+
+                  <td
+                   align="left"
+                   valign="middle">BRADT -4:00</td>
+
+                  <td
+                   align="left"
+                   valign="middle">Acre</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>Пожалуйста, присылайте дополнительные данные, такие как
+          таблица часовых поясов для США.</p>
+        </div>
+
+        <div
+         class="section">
+          <hr>
+
+          <h2
+           class="section"><a
+           name="tz.linux"></a>2.3. Механизм часовых поясов в
+          Linux</h2>
+
+          <p>Системы Linux используют динамические часовые пояса GLIBC,
+          основанные на <tt
+           class="filename">/etc/localtime</tt>. Этот файл представляет
+          собой ссылку на (или копию) информационный файл зоны, обычно
+          расположенный в каталоге <tt
+           class="filename">/usr/share/zoneinfo</tt>.</p>
+
+          <p>С геофизической точки зрения существуют
+          60<sup>o</sup>/15<sup>o</sup>=24 часовых пояса. Но для
+          упрощения и учета различных политических вариаций (таких как
+          летнее время), в каталоге <tt
+           class="filename">/usr/share/zoneinfo</tt> вы найдете сотни
+          файлов для множества городов и стран, хотя, конечно, не для
+          всех.</p>
+
+          <p>В некоторых странах, например в Бразилии, нет
+          фиксированной даты начала летнего времени. Она определяется
+          каждый год, за несколько месяцев до начала лета, и вы можете
+          оказаться в ситуации, когда придется изменять информационный
+          файл зоны, созданный командой <strong
+           class="command">zic</strong> из текстового файла, пример
+          которого приведен ниже.</p>
+
+	  <p><em>(А я считал, что это только у нас в стране [читающий выбирает свою страну] 
+	  такой бардак. :) Прим.ред.)</em></p>
+
+          <div
+           class="example">
+            <a
+             name="AEN190"></a> 
+
+            <p><strong>Пример 1. Текстовый информационный файл
+            бразильских часовых поясов</strong></p>
+
+            <table
+             border="0"
+             bgcolor="#E0E0E0"
+             width="100%">
+              <tr>
+                <td>
+<pre
+ class="programlisting">
+# Brazil Time Zones
+#
+# Brazilian Time Zones are:
+# BREST: East of Brasilia. Fernando de Noronha.
+# BRST:  Brasilia, Sгo Paulo, Rio, Northeast, South etc
+# BRWST: West of Brasilia. Mato Grosso, Manaus
+# BRAST: Acre.
+#
+# In daylight saving time, letter 'S' changes to 'D'.
+#
+# To install, make:
+#
+# # zic Brazil.txt
+#
+# Zone files will be installed in /usr/share/zoneinfo (depends on your
+# distribution). Then, make a symbolic link from your zone to /etc/localtime:
+#
+# # ln -sf /usr/share/zoneinfo/Brazil/Brasilia /etc/localtime
+#
+#
+# If you have updates and new standards to this file please send to
+#
+# Avi Alkalay &lt;avi @ unix.sh&gt;
+#
+# Last update: 18 Nov 2000
+# This file is available at http://avi.alkalay.net/linux/zoneinfo/
+#
+
+# Rule  NAME    FROM  TO    TYPE  IN    ON   AT    SAVE   LETTER/S
+Rule    Brazil  1931  1932  -     Oct   3    0:00  1:00   D
+Rule    Brazil  1932  1933  -     Mar   31   0:00  0      S
+Rule    Brazil  1949  only  -     Dec   1    0:00  1:00   D
+Rule    Brazil  1950  only  -     Apr   30   0:00  0      S
+Rule    Brazil  1950  1952  -     Dec   1    0:00  1:00   D
+Rule    Brazil  1951  only  -     Apr   16   0:00  0      S
+Rule    Brazil  1952  only  -     Mar   31   0:00  0      S
+Rule    Brazil  1953  only  -     Feb   28   0:00  0      S
+Rule    Brazil  1963  only  -     Oct   23   0:00  1:00   D
+Rule    Brazil  1964  only  -     Mar   1    0:00  0      S
+Rule    Brazil  1965  only  -     Jan   31   0:00  1:00   D
+Rule    Brazil  1965  only  -     Mar   31   0:00  0      S
+Rule    Brazil  1965  only  -     Dec   1    0:00  1:00   D
+Rule    Brazil  1966  1968  -     Mar   1    0:00  0      S
+Rule    Brazil  1966  1967  -     Nov   1    0:00  1:00   D
+Rule    Brazil  1984  only  -     Nov   2    0:00  1:00   D
+Rule    Brazil  1985  only  -     Mar   15   0:00  0      S
+Rule    Brazil  1985  only  -     Nov   2    0:00  1:00   D
+Rule    Brazil  1986  only  -     Mar   15   0:00  0      S
+Rule    Brazil  1986  only  -     Oct   25   0:00  1:00   D
+Rule    Brazil  1987  only  -     Feb   14   0:00  0      S
+Rule    Brazil  1987  only  -     Oct   25   0:00  1:00   D
+Rule    Brazil  1988  only  -     Feb   7    0:00  0      S
+Rule    Brazil  1988  only  -     Oct   16   0:00  1:00   D
+Rule    Brazil  1989  only  -     Jan   29   0:00  0      S
+Rule    Brazil  1989  only  -     Oct   15   0:00  1:00   D
+Rule    Brazil  1990  only  -     Feb   11   0:00  0      S
+Rule    Brazil  1990  only  -     Oct   21   0:00  1:00   D
+Rule    Brazil  1991  only  -     Feb   17   0:00  0      S
+Rule    Brazil  1991  only  -     Oct   20   0:00  1:00   D
+Rule    Brazil  1992  only  -     Feb   9    0:00  0      S
+Rule    Brazil  1992  only  -     Oct   25   0:00  1:00   D
+Rule    Brazil  1993  only  -     Jan   31   0:00  0      S
+Rule    Brazil  1993  only  -     Oct   17   0:00  1:00   D
+Rule    Brazil  1994  only  -     Feb   20   0:00  0      S
+Rule    Brazil  1994  only  -     Oct   16   0:00  1:00   D
+Rule    Brazil  1995  only  -     Feb   19   0:00  0      S
+Rule    Brazil  1995  only  -     Oct   15   0:00  1:00   D
+Rule    Brazil  1996  only  -     Feb   11   0:00  0      S
+Rule    Brazil  1996  only  -     Oct   06   0:00  1:00   D
+Rule    Brazil  1997  only  -     Feb   16   0:00  0      S
+Rule    Brazil  1997  only  -     Oct   06   0:00  1:00   D
+Rule    Brazil  1998  only  -     Mar   01   0:00  0      S
+Rule    Brazil  1998  only  -     Oct   11   0:00  1:00   D
+Rule    Brazil  1999  only  -     Feb   21   0:00  0      S
+Rule    Brazil  1999  only  -     Oct   03   0:00  1:00   D
+Rule    Brazil  2000  only  -     Feb   27   0:00  0      S
+Rule    Brazil  2000  only  -     Oct   8    0:00  1:00   D
+Rule    Brazil  2001  only  -     Feb   18   0:00  0      S
+
+
+# Zone  NAME                          GMTOFF  RULES/SAVE    FORMAT  [UNTIL]
+Zone    Brazil/DeNoronha              -2:00   Brazil        BRE%sT
+Zone    posix/Brazil/DeNoronha        -2:00   Brazil        BRE%sT
+Zone    right/Brazil/DeNoronha        -2:00   Brazil        BRE%sT
+Zone    Brazil/East                   -2:00   Brazil        BRE%sT
+Zone    posix/Brazil/East             -2:00   Brazil        BRE%sT
+Zone    right/Brazil/East             -2:00   Brazil        BRE%sT
+
+Zone    America/Sao_Paulo             -3:00   Brazil        BR%sT
+Zone    America/Rio_de_Janeiro        -3:00   Brazil        BR%sT
+Zone    America/Brasilia              -3:00   Brazil        BR%sT
+Zone    posix/America/Sao_Paulo       -3:00   Brazil        BR%sT
+Zone    posix/America/Rio_de_Janeiro  -3:00   Brazil        BR%sT
+Zone    posix/America/Salvador        -3:00   Brazil        BR%sT
+Zone    posix/America/Brasilia        -3:00   Brazil        BR%sT
+Zone    posix/Brazil/Central          -3:00   Brazil        BR%sT
+Zone    posix/Brazil/Brasilia         -3:00   Brazil        BR%sT
+Zone    posix/Brazil/Sao_Paulo        -3:00   Brazil        BR%sT
+Zone    posix/Brazil/Salvador         -3:00   Brazil        BR%sT
+Zone    posix/Brazil/Rio_de_Janeiro   -3:00   Brazil        BR%sT
+Zone    right/America/Sao_Paulo       -3:00   Brazil        BR%sT
+Zone    right/America/Rio_de_Janeiro  -3:00   Brazil        BR%sT
+Zone    right/America/Salvador        -3:00   Brazil        BR%sT
+Zone    right/America/Brasilia        -3:00   Brazil        BR%sT
+Zone    right/Brazil/Central          -3:00   Brazil        BR%sT
+Zone    right/Brazil/Brasilia         -3:00   Brazil        BR%sT
+Zone    right/Brazil/Sao_Paulo        -3:00   Brazil        BR%sT
+Zone    right/Brazil/Salvador         -3:00   Brazil        BR%sT
+Zone    right/Brazil/Rio_de_Janeiro   -3:00   Brazil        BR%sT
+Zone    Brazil/Central                -3:00   Brazil        BR%sT
+Zone    Brazil/Brasilia               -3:00   Brazil        BR%sT
+Zone    Brazil/Sao_Paulo              -3:00   Brazil        BR%sT
+Zone    Brazil/Rio_de_Janeiro         -3:00   Brazil        BR%sT
+Zone    Brazil/Salvador               -3:00   Brazil        BR%sT
+
+Zone    Brazil/West                   -4:00   Brazil        BRW%sT
+Zone    Brazil/Manaus                 -4:00   Brazil        BRW%sT
+Zone    Brazil/Rondonia               -4:00   Brazil        BRW%sT
+Zone    Brazil/Roraima                -4:00   Brazil        BRW%sT
+Zone    Brazil/Mato_Grosso            -4:00   Brazil        BRW%sT
+Zone    posix/Brazil/Manaus           -4:00   Brazil        BRW%sT
+Zone    posix/Brazil/Mato_Grosso      -4:00   Brazil        BRW%sT
+Zone    right/Brazil/Manaus           -4:00   Brazil        BRW%sT
+Zone    right/Brazil/Mato_Grosso      -4:00   Brazil        BRW%sT
+Zone    posix/America/Manaus          -4:00   Brazil        BRW%sT
+Zone    right/America/Manaus          -4:00   Brazil        BRW%sT
+
+Zone    Brazil/Acre                   -5:00   Brazil        BRA%sT
+                                
+</pre>
+                </td>
+              </tr>
+            </table>
+          </div>
+
+          <p>Блок <strong
+           class="command">Rule</strong> определяет дату и время
+          изменения часового пояса; в блоке <strong
+           class="command">Zone</strong> мы ссылаемся на <strong
+           class="command">Rule</strong>, которым будем
+          руководствоваться. Обратите внимание, что имя записи <strong
+           class="command">Zone</strong> в действительности
+          соответствует имени файла относительно каталога <tt
+           class="filename">/usr/share/zoneinfo</tt>. В файле
+          определено несколько различных имен для одного и того же
+          часового пояса, просто для того, чтобы людям легче было найти
+          их часовой пояс.</p>
+
+          <p>Комментарии в этом файле поясняют, как установить часовой
+          пояс с помощью компилятора <strong
+           class="command">zic</strong> (который уже включает описания
+          часовых поясов). Чтобы активизировать установленный часовой
+          пояс, вам остаётся создать ссылку (или копию) на
+          информационный файл зоны в <tt
+           class="filename">/etc/localtime</tt>. В некоторых
+          дистрибутивах применяется более высокоуровневый (и
+          предпочтительный) подход к установке часового пояса,
+          описанный в <a
+           href="#set.tz">разделе 3.1</a>.</p>
+
+          <p>После того, как файл <tt
+           class="filename">/etc/localtime</tt> начнет ссылаться на
+          верный информационный файл зоны, система сразу же начинает
+          обрабатывать время в соответствии с правилами выбранного
+          часового пояса, а переход на летнее время будет
+          осуществляться автоматически -- вам ничего не нужно менять
+          вручную.</p>
+
+          <p>Следующий набор команд демонстрирует гибкость механизма
+          часовых поясов в Linux. Обратите внимание, что все команды
+          были выполнены менее чем за одну минуту:</p>
+
+          <table
+           border="0"
+           bgcolor="#E0E0E0"
+           width="100%">
+            <tr>
+              <td>
+<pre
+ class="screen">
+<tt
+ class="prompt">bash$</tt> <strong
+ class="command">ls -al /etc/localtime</strong>
+lrwxrwxrwx  1 root root 35 May 22  2001 /etc/localtime -&gt; <em>/usr/share/zoneinfo/Brazil/Brasilia</em>
+<tt
+ class="prompt">bash$</tt> <strong
+ class="command">date</strong>
+Fri Mar 29 20:13:38 <em>BRST</em> 2002
+<tt
+ class="prompt">bash#</tt> <strong
+ class="command">ln -sf /usr/share/zoneinfo/GMT /etc/localtime</strong>
+<tt
+ class="prompt">bash$</tt> <strong
+ class="command">date</strong>
+Fri Mar 29 23:13:47 <em>GMT</em> 2002
+<tt
+ class="prompt">bash#</tt> <strong
+ class=
+"command">ln -sf /usr/share/zoneinfo/Brazil/Brasilia /etc/localtime</strong>
+<tt
+ class="prompt">bash$</tt> <strong
+ class="command">date</strong>
+Fri Mar 29 20:14:03 <em>BRST</em> 2002
+</pre>
+              </td>
+            </tr>
+          </table>
+
+          <p>В 20:13 я находился в своем бразильском часовом поясе
+          (BRST). Я переключился в часовой пояс GMT и мое время
+          изменилось на 23:13! Когда в вашем часовом поясе подходит
+          дата перехода на летнее время, происходит нечто подобное, но
+          без смены часового пояса ( т.е. ссылка <tt
+           class="filename">/etc/localtime</tt> не меняется, как в
+          приведенном примере).</p>
+
+          <p>Приложения, запущенные на машине (например, веб-сервер,
+          генерирующий журнал доступа) почувствует такое изменение,
+          потому очень важно, чтобы разработчики помнили: концепция
+          полного времени -- это текущее <em>время</em>, плюс текущий
+          <em>часовой пояс</em>, как описано в <a
+           href="#time">разделе 1</a>.</p>
+
+          <p>В конце примера я вернулся к своему часовому поясу.</p>
+        </div>
+      </div>
+
+      <div
+       class="section">
+        <hr>
+
+        <h1
+         class="section"><a
+         name="set"></a>3. Корректная настройка вашей системы
+        Linux</h1>
+
+        <p>Для любой операционной системы вам нужно знать ваш часовой
+        пояс. Он соответствует вашему городу или стране. Кроме того,
+        вам нужно будет решить, как установить время в <span
+         class="acronym">BIOS. Могу вам предложить две
+        стратегии</span>:</p>
+
+        <div
+         class="variablelist">
+          <dl>
+            <dt><em>Машина только для Linux</em></dt>
+
+            <dd>
+              <p>В этом случае установите время в <span
+               class="acronym">BIOS</span> равным <span
+               class="acronym">всеобщему скоординированному времени
+              (UTC)</span>. <span
+               class="acronym">Переходы на летнее время будут
+              автоматически выполняться в соответствии с
+              настройками</span> <a
+               href="#tz.linux">часового пояса</a>.</p>
+            </dd>
+
+            <dt><em>Машина с двумя ОС: Linux и MS Windows</em></dt>
+
+            <dd>
+              <p>Windows работает со временем более примитивно, чем
+              Linux. Для Windows время в <span
+               class="acronym">BIOS</span> -- это всегда ваше местное
+              время, а переход на летнее время более агрессивный,
+              поскольку при этом вносятся изменения в аппаратные часы.
+              А поскольку как Linux, так и Windows при загрузке
+              получают время из аппаратных часов, в случае двух ОС на
+              одном компьютере, Linux должен обрабатывать его таким же
+              образом, как и Windows. Потому устанавливайте время в
+              <span
+               class="acronym">BIOS</span> равным вашему местному
+              времени.</p>
+            </dd>
+          </dl>
+        </div>
+
+        <div
+         class="section">
+          <hr>
+
+          <h2
+           class="section"><a
+           name="set.tz"></a>3.1. Установка часового пояса</h2>
+
+          <p>В Red Hat Linux и её производных, установить часовой пояс
+          можно с помощью утилиты <strong
+           class="command">timeconfig</strong>, которая имеет приятный
+          пользовательский интерфейс. Но можно ее использовать и в
+          пакетном режиме:</p>
+
+          <div
+           class="example">
+            <a
+             name="AEN257"></a> 
+
+            <p><strong>Пример 2. Утилита конфигурирования часового
+            пояса</strong></p>
+
+            <table
+             border="0"
+             bgcolor="#E0E0E0"
+             width="100%">
+              <tr>
+                <td
+                 height="53">
+<pre
+ class="screen">
+<tt
+ class="prompt">bash#</tt> <strong
+ class=
+"command">timeconfig "Brasil/East"</strong>   # установить время аппаратных часов равным местному, а часовой пояс -- "Brazil/East"
+<tt
+ class="prompt">bash#</tt> <strong
+ class=
+"command">timeconfig --utc "Brasil/East"</strong>   # установить время аппаратных часов равным UTC, а часовой пояс -- "Brazil/East"
+</pre>
+                </td>
+              </tr>
+            </table>
+          </div>
+
+          <p>В любом варианте, утилита меняет файл <tt
+           class="filename">/etc/sysconfig/clock</tt>, который
+          считывается при загрузке. Его можно отредактировать и
+          вручную, вот как он выглядит:</p>
+
+          <div
+           class="example">
+            <a
+             name="AEN266"></a> 
+
+            <p><strong>Пример 3. Файл <tt
+             class="filename">/etc/sysconfig/clock</tt></strong></p>
+
+            <table
+             border="0"
+             bgcolor="#E0E0E0"
+             width="100%">
+              <tr>
+                <td>
+<pre
+ class="programlisting">
+ZONE="Brazil/East"
+UTC=true
+ARC=false
+</pre>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+        <div
+         class="section">
+          <hr>
+
+          <h2
+           class="section"><a
+           name="set.hwclock"></a>3.2. Установка аппаратных часов</h2>
+
+          <p>Я советую вам устанавливать ваши аппаратные часы, только
+          если вы понимаете, как настроить точное время (это описано в
+          <a
+           href="#ntp">разделе 4</a>).</p>
+
+          <p>Команда <strong
+           class="command">hwclock</strong> читает и устанавливает
+          аппаратные часы на основании переданных ему параметров.
+          Доступные параметры описаны в странице руководства команды.
+          Но если вы используете современный дистрибутив, вам не нужно
+          пользоваться этой командой. После того, как вы решите, какое
+          время хранить в аппаратных часах и выберете часовой пояс, для
+          установки аппаратных часов можно будет использовать
+          высокоуровневую команду <strong
+           class="command">setclock</strong>. Вам не нужно передавать
+          параметры команде <strong
+           class="command">setclock</strong>, она сама выбирает
+          параметры, которые нужно передать <strong
+           class="command">hwclock</strong> на основании ваших
+          установок в операционной системе. <em>Так что всегда стоит
+          проверять наличие команды <strong
+           class="command">setclock</strong>.</em></p>
+
+          <p>Но если вы минималист и любите тяжелый труд, вот несколько
+          примеров использования <strong
+           class="command">hwclock</strong>:</p>
+
+	  <p><em>(Для усиления эффекта "тяжёлого труда" рекомендуется отжаться 24 раза. 
+	  По числу часовых поясов. ;)) Прим.ред.)</em></p>
+	  
+          <div
+           class="example">
+            <a
+             name="AEN284"></a> 
+
+            <p><strong>Пример 4. Использование setclock и
+            hwclock</strong></p>
+
+            <table
+             border="0"
+             bgcolor="#E0E0E0"
+             width="100%">
+              <tr>
+                <td>
+<pre
+ class="screen">
+<tt
+ class="prompt">bash#</tt> <strong
+ class=
+"command">setclock</strong>                                      # Простейший метод установки аппаратных часов
+<tt
+ class="prompt">bash#</tt> <strong
+ class=
+"command">hwclock</strong>                                       # считывает время из аппаратных часов
+<tt
+ class="prompt">bash#</tt> <strong
+ class=
+"command">hwclock --systohc --utc</strong>                       # устанавливает время аппаратных часов равным UTC на основании системного времени 
+<tt
+ class="prompt">bash#</tt> <strong
+ class=
+"command">hwclock --systohc</strong>                             # устанавливает время аппаратных часов равным местному на основании системного  времени
+<tt
+ class="prompt">bash#</tt> <strong
+ class=
+"command">hwclock --set --date "22 Mar 2002 13:17"</strong>      # устанавливает время аппаратных часов равным указанной строке
+</pre>
+                </td>
+              </tr>
+            </table>
+          </div>
+
+          <p>Поскольку время ОС независимо от аппаратных часов, любые
+          изменения в <span
+           class="acronym">BIOS</span> будут учтены при следующей
+          загрузке.</p>
+
+          <p>Другим вариантом изменения времени в аппаратных часах --
+          это доступ в <span
+           class="acronym">BIOS</span> при загрузке системы. На
+          платформах <a
+           href="http://ibm.com/servers/eserver/zseries/os/linux/"
+           target="_top">IBM e-server zSeries</a> это нужно делать на
+          уровне z/VM, потому что Linux работает в виртуальной машине,
+          созданной z/VM.</p>
+        </div>
+      </div>
+
+      <div
+       class="section">
+        <hr>
+
+        <h1
+         class="section"><a
+         name="ntp"></a>4. Точная мировая синхронизация времени</h1>
+
+        <p>Точное время на всех ваших системах также важно, как и
+        серьезная стратегия сетевой безопасности (для достижения
+        которой нужно много больше простых брандмауэров). Точное время
+        является одним из главных компонентов системного
+        администрирования, основанного на хорошей практике, которое
+        ведет к организованности и безопасности. В администрировании
+        распределенных приложений, веб-сервисов и наблюдении за
+        безопасностью, точное время -- это необходимость.</p>
+
+        <div
+         class="section">
+          <hr>
+
+          <h2
+           class="section"><a
+           name="ntp.ntp"></a>4.1. <span
+           class="acronym">NTP</span>: Сетевой протокол времени
+          (Network Time Protocol)</h2>
+
+          <p>Здесь мы не будем останавливаться на подробностях
+          реализации этого протокола, а сосредоточимся на том, как это
+          замечательное изобретение, соединенное со всепроникаемостью
+          Интернета, может быть нам полезно. За дополнительной
+          информацией, обращайтесь на сайт <a
+           href="http://www.ntp.org/"
+           target="_top">www.ntp.org</a>.</p>
+
+          <p>После настройки <span
+           class="acronym">NTP</span> будет поддерживать точность
+          времени, выполняя очень маленькие корректировки часов, такие
+          маленькие, что они никак не будут влиять на работающие
+          приложения.</p>
+
+          <p>Точное время можно получить с помощью специальной
+          аппаратуры, основанной на частоте электронов атома или
+          циклотронах. Также существует метод, основанный на <span
+           class="acronym">GPS</span> (Global Positioning System,
+          глобальной системе позиционирования). Первый способ более
+          точный, но и второй весьма неплох. Оба способа требуют
+          специализированного и дорогого оборудования, но их владельцы
+          (обычно университеты и исследовательские лаборатории)
+          подключают это оборудование к компьютерам, на которых запущен
+          демон <span
+           class="acronym">NTP. Зачастую эти же машины подключены к
+          Интернету, что в конечном итоге дает нам возможность
+          бесплатно узнавать точное время.</span></p>
+        </div>
+
+        <div
+         class="section">
+          <hr>
+
+          <h2
+           class="section"><a
+           name="ntp.arch"></a>4.2. Построение простой архитектуры
+          синхронизации времени</h2>
+
+          <p>Вам понадобится:</p>
+
+          <ol
+           type="1">
+            <li>
+              <p>Прямое или непрямое (через брандмауэр) соединение с
+              Internet.</p>
+            </li>
+
+            <li>
+              <p>Выберите несколько <span
+               class="acronym">NTP-серверов. Можно использовать
+              общедоступный сервер</span> <a
+               href="http://www.fortytwo.ch/time/"
+               target="_top">pool.ntp.org</a>, либо выбрать несколько
+              серверов из <a
+               href="http://www.eecis.udel.edu/~mills/ntp/clock2a.html"
+               target="_top">списка серверов времени второго уровня</a>
+              на сайте <span
+               class="acronym">NTP</span>. Если у вас нет доступа к
+              Internet, ваш администратор <span
+               class="acronym">WAN</span> (должен быть толковым парнем)
+              сможет сообщить вам какой-то внутренний адрес.</p>
+            </li>
+
+            <li>
+              <p>На всех системах, которые вы хотите синхронизировать,
+              должен быть установлен пакет <span
+               class="acronym">NTP</span>. Пакет RPM можно найти на
+              компакте вашего любимого дистрибутива, или же <a
+               href=
+              "http://rpmfind.net/linux/rpm2html/search.php?query=ntp"
+               target="_top">поищите</a> на сайте <a
+               href="http://rpmfind.net/"
+               target="_top">rpmfind.net</a>.</p>
+	       <p><em>(Не RPM'ом единым жив Linux. Прим.ред.)</em></p>
+            </li>
+          </ol>
+
+          <p>Вот пример хорошей архитектуры:</p>
+
+          <div
+           class="figure">
+            <a
+             name="AEN336"></a> 
+
+            <p><strong>Рисунок 1. Локальные релейные сервера для
+            NTP</strong></p>
+
+            <p><img
+             src="manage_time/ntp.png"
+             align="center"></p>
+          </div>
+
+          <p>Если вам нужно синхронизировать время на нескольких
+          машинах, <em>не задавайте им всем</em> в качестве сервера
+          выбранные <span
+           class="acronym">NTP</span>-сервера. Только лишь две машины
+          должны иметь доступ к удаленным <span
+           class="acronym">NTP</span>-серверам, остальные машины будут
+          синхронизироваться с этими двумя. Мы будем их называть
+          <em>релейными серверами</em>.</p>
+
+          <p>Релейными серверами может стать любая из машин в вашей
+          сети. <span
+           class="acronym">NTP</span> занимает мало памяти и
+          процессорного времени. Вам не нужно иметь выделенную
+          машину.</p>
+
+          <div
+           class="tip">
+            <table
+             class="tip"
+             width="100%"
+             border="0">
+              <tr>
+                <td
+                 width="25"
+                 align="center"
+                 valign="top"><img
+                 src="manage_time/tip.gif"
+                 alt="Tip"
+                 width="25"
+                 height="24"
+                 hspace="5"></td>
+
+                <td
+                 align="left"
+                 valign="top">
+                  <p>Хорошая мысль создать псевдонимы для ваших
+                  локальных релейных серверов, например ntp1.my.com и
+                  ntp2.my.com, а на клиентах использовать только эти
+                  имена. Тогда вы сможете при необходимости легко
+                  перенести функции релейного сервера на другую машину
+                  (с другим IP-адресом и именем) без переконфигурации
+                  клиентов. Попросите вашего администратора <span
+                   class="acronym">DNS</span> создать такие
+                  псевдонимы.</p>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+        <div
+         class="section">
+          <hr>
+
+          <h2
+           class="section"><a
+           name="ntp.configs"></a>4.3. <span
+           class="acronym">Конфигурации NTP</span></h2>
+
+          <div
+           class="variablelist">
+            <dl>
+              <dt><em>Для ваших релейных серверов</em></dt>
+
+              <dd>
+                <p>Отредактируйте файл <tt
+                 class="filename">/etc/ntp.conf</tt> и добавьте
+                выбранные сервера:</p>
+
+                <div
+                 class="example">
+                  <a
+                   name="AEN360"></a> 
+
+                  <p><strong>Пример 5. Файл <tt
+                   class="filename">/etc/ntp.conf</tt> на релейных
+                  серверах</strong></p>
+
+                  <table
+                   border="0"
+                   bgcolor="#E0E0E0"
+                   width="100%">
+                    <tr>
+                      <td>
+<pre
+ class="programlisting">
+.
+.
+server  otherntp.server.org     # Сервер первого уровня в домене server.org
+server  ntp.research.gov        # Сервер второго уровня в домене research.gov
+.
+.
+</pre>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+
+                <p>Опять таки, можно использовать сервер <a
+                 href="http://www.fortytwo.ch/time/"
+                 target="_top">pool.ntp.org</a> или любой из списка <a
+                 href=
+                "http://www.eecis.udel.edu/~mills/ntp/clock2a.html"
+                 target="_top">общедоступных серверов времени</a> на
+                сайте <span
+                 class="acronym">NTP</span>.</p>
+              </dd>
+
+              <dt><em>Для ваших клиентов</em></dt>
+
+              <dd>
+                <p>Отредактируйте файл <tt
+                 class="filename">/etc/ntp.conf</tt> и добавьте свои
+                релейные сервера:</p>
+
+                <div
+                 class="example">
+                  <a
+                   name="AEN374"></a> 
+
+                  <p><strong>Пример 6. Файл <tt
+                   class="filename">/etc/ntp.conf</tt> на клиентских
+                  машинах</strong></p>
+
+                  <table
+                   border="0"
+                   bgcolor="#E0E0E0"
+                   width="100%">
+                    <tr>
+                      <td>
+<pre
+ class="programlisting">
+.
+.
+server  ntp1.my.com             # Первый локальный релей
+server  ntp2.my.com             # Второй локальный релей
+.
+.
+</pre>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+              </dd>
+            </dl>
+          </div>
+
+          <p>Если UTC-время вашей машины отличается от времени на <span
+           class="acronym">NTP-сервере больше чем на минуту,</span>
+          <span
+           class="acronym">NTP</span> работать не будет. Так что, вам
+          нужно будет выполнить полную синхронизацию времени. Я
+          рекомендую это делать в нерабочее время. Эта процедура
+          выполняется только один раз, при настройке <span
+           class="acronym">NTP</span>. Ничего более:</p>
+
+          <div
+           class="example">
+            <a
+             name="AEN382"></a> 
+
+            <p><strong>Пример 7. Первая синхронизация</strong></p>
+
+            <table
+             border="0"
+             bgcolor="#E0E0E0"
+             width="100%">
+              <tr>
+                <td>
+<pre
+ class="screen">
+<tt
+ class="prompt">bash#</tt> <strong
+ class="command">ntpdate otherntp.research.gov</strong>       <a
+ name="sync1"><img
+ src="manage_time/1.gif"
+ alt="(1)"
+ width="12"
+ height="12"
+ hspace="0"
+ vspace="0"
+ border="0"></a>
+24 Mar 18:16:36 ntpdate[10254]: step time server 200.100.20.10 offset -15.266188 sec
+<tt
+ class="prompt">bash#</tt> <strong
+ class="command">ntpdate otherntp.research.gov</strong>       <a
+ name="sync2"><img
+ src="manage_time/2.gif"
+ alt="(2)"
+ width="12"
+ height="12"
+ hspace="0"
+ vspace="0"
+ border="0"></a>
+24 Mar 18:16:43 ntpdate[10255]: adjust time server 200.100.20.10 offset -0.000267 sec
+</pre>
+                </td>
+              </tr>
+            </table>
+
+            <div
+             class="calloutlist">
+              <dl
+               compact="compact">
+                <dt><a
+                 href="#sync1"><img
+                 src="manage_time/1.gif"
+                 alt="(1)"
+                 width="12"
+                 height="12"
+                 hspace="0"
+                 vspace="0"
+                 border="0"></a></dt>
+
+                <dd>Первая полная синхронизация. Мы опаздывали на 15
+                секунд.</dd>
+
+                <dt><a
+                 href="#sync2"><img
+                 src="manage_time/2.gif"
+                 alt="(2)"
+                 width="12"
+                 height="12"
+                 hspace="0"
+                 vspace="0"
+                 border="0"></a></dt>
+
+                <dd>Вторая полная синхронизация, для уверенности.
+                Теперь мы фактически не отстаем, что очень хорошо.</dd>
+              </dl>
+            </div>
+          </div>
+
+          <p>Последнее, что нужно сделать -- это запустить или
+          перезапустить демоны <span
+           class="acronym">NTP</span> на всех машинах:</p>
+
+          <table
+           border="0"
+           bgcolor="#E0E0E0"
+           width="100%">
+            <tr>
+              <td>
+<pre
+ class="screen">
+<tt
+ class="prompt">bash#</tt> <strong
+ class="command">service ntpd restart</strong>
+</pre>
+              </td>
+            </tr>
+          </table>
+        </div>
+
+        <div
+         class="section">
+          <hr>
+
+          <h2
+           class="section"><a
+           name="ntp.watch"></a>4.4. Наблюдение за синхронизацией</h2>
+
+          <p>Теперь у вас все настроено. <span
+           class="acronym">NTP</span> будет держать время в
+          синхронизации. Этот процесс можно наблюдать при помощи
+          команды NTP Query (<strong
+           class="command">ntpq</strong>):</p>
+
+          <div
+           class="example">
+            <a
+             name="AEN406"></a> 
+
+            <p><strong>Пример 8. Состояние синхронизации</strong></p>
+
+            <table
+             border="0"
+             bgcolor="#E0E0E0"
+             width="100%">
+              <tr>
+                <td>
+<pre
+ class="screen">
+<tt
+ class="prompt">bash#</tt> <strong
+ class="command">ntpq -p</strong>
+     remote           refid      st t when poll reach   delay   offset  jitter
+==============================================================================
+-jj.cs.umb.edu   gandalf.sigmaso  3 u   95 1024  377   31.681  -18.549   1.572
+ milo.mcs.anl.go ntp0.mcs.anl.go  2 u  818 1024  125   41.993  -15.264   1.392
+-mailer1.psc.edu ntp1.usno.navy.  2 u  972 1024  377   38.206   19.589  28.028
+-dr-zaius.cs.wis ben.cs.wisc.edu  2 u  502 1024  357   55.098    3.979   0.333
++taylor.cs.wisc. ben.cs.wisc.edu  2 u  454 1024  347   54.127    3.379   0.047
+-ntp0.cis.strath harris.cc.strat  3 u  507 1024  377  115.274   -5.025   1.642
+*clock.via.net   .GPS.            1 u  426 1024  377  107.424   -3.018   2.534
+ ntp1.conectiv.c 0.0.0.0         16 u    - 1024    0    0.000    0.000 4000.00
++bonehed.lcs.mit .GPS.            1 u  984 1024  377   25.126    0.131  30.939
+-world.std.com   204.34.198.40    2 u  119 1024  377   24.229   -6.884   0.421
+</pre>
+                </td>
+              </tr>
+            </table>
+          </div>
+
+          <div
+           class="variablelist">
+            <p><strong>Значение каждой колонки</strong></p>
+
+            <dl>
+              <dt><em>remote</em></dt>
+
+              <dd>
+                <p>Имя удаленного <span
+                 class="acronym">NTP-сервера. Если указать ключ</span>
+                <tt
+                 class="option">-n</tt>, вы получите IP-адреса серверов
+                вместо имён.</p>
+              </dd>
+
+              <dt><em>refid</em></dt>
+
+              <dd>
+                <p>Указывает, откуда каждый сервер получает время в
+                данный момент. Это может быть имя хоста или что-то
+                вроде <span
+                 class="acronym">.GPS.</span>, указывающее на источник
+                глобальной системы позиционирования (Global Positioning
+                System).</p>
+              </dd>
+
+              <dt><em>st</em></dt>
+
+              <dd>
+                <p><em>Stratum</em> (уровень) это число от 1 до 16,
+                указывающее на точность сервера. Единица означает
+                максимальную точность, 16 -- сервер недоступен. Ваш
+                уровень будет равен уровню наименее точного удаленного
+                сервера плюс 1.</p>
+              </dd>
+
+              <dt><em>poll</em></dt>
+
+              <dd>
+                <p>Интервал между опросами (в секундах). Значение будет
+                изменяться между минимальной и максимальной частотой
+                опросов. В начале интервал будет маленьким, чтобы
+                синхронизация происходила быстро. После того как часы
+                синхронизируются, интервал начинает увеличиваться,
+                чтобы уменьшить трафик и нагрузку на популярные сервера
+                времени.</p>
+              </dd>
+
+              <dt><em>reach</em></dt>
+
+              <dd>
+                <p>Восьмеричное представление массива из 8 бит,
+                отражающего результаты последних восьми попыток
+                соединения с сервером. Бит выставлен, если удаленный
+                сервер ответил.</p>
+              </dd>
+
+              <dt><em>delay</em></dt>
+
+              <dd>
+                <p>Количество времени (в секундах) необходимого для
+                получения ответа на запрос "который час? ".</p>
+              </dd>
+
+              <dt><em>offset</em></dt>
+
+              <dd>
+                <p>Наиболее важное поле. Разница между временем
+                локального и удаленного серверов. В ходе синхронизации
+                это значение должно понижаться, указывая на то, что
+                часы локальной машины идут все точнее.</p>
+              </dd>
+
+              <dt><em>jitter</em></dt>
+
+              <dd>
+                <p>Дисперсия (Jitter) -- это мера статистических
+                отклонений от значения смещения (поле offset) по
+                нескольким успешным парам запрос-ответ. Меньшее
+                значение дисперсии предпочтительнее, поскольку
+                позволяет точнее синхронизировать время.</p>
+              </dd>
+            </dl>
+          </div>
+
+          <div
+           class="variablelist">
+            <p><strong>Значение знаков перед именами
+            серверов</strong></p>
+
+            <dl>
+              <dt><em>-</em></dt>
+
+              <dd>
+                <p>Означает, что локальный сервис NTP не предпочитает
+                этот сервер</p>
+              </dd>
+
+              <dt><em>+</em></dt>
+
+              <dd>
+                <p>Означает, что локальный сервис NTP предпочитает этот
+                сервер</p>
+              </dd>
+
+              <dt><em>x</em></dt>
+
+              <dd>
+                <p>Отмечает плохой хост</p>
+              </dd>
+
+              <dt><em>*</em></dt>
+
+              <dd>
+                <p>Указывает на текущий наиболее предпочтительный
+                сервер</p>
+              </dd>
+            </dl>
+          </div>
+        </div>
+
+        <div
+         class="section">
+          <hr>
+
+          <h2
+           class="section"><a
+           name="ntp.boot"></a>4.5. Настройка автозапуска демона <span
+           class="acronym">NTP</span> при загрузке</h2>
+
+          <p>Вы можете захотеть, чтобы <span
+           class="acronym">NTP</span> работал все время, даже если вы
+          перезагрузитесь. Тогда на каждой машине выполните такую
+          команду:</p>
+
+          <table
+           border="0"
+           bgcolor="#E0E0E0"
+           width="100%">
+            <tr>
+              <td>
+<pre
+ class="screen">
+<tt
+ class="prompt">bash#</tt> <strong
+ class="command">chkconfig --level 2345 ntpd on</strong>
+</pre>
+              </td>
+            </tr>
+          </table>
+
+          <p>В результате демон ntp будет автоматически запускаться
+          при загрузке.</p>
+
+          <p>Если ваша машина работает длительное время (месяцы, года)
+          работает без перезагрузок, вы обнаружите значительное
+          расхождение между аппаратными и (теперь очень точными)
+          системными часами. Современные дистрибутивы Linux копируют
+          системное время в аппаратные часы каждый раз при останове
+          системы, с помощью <a
+           href="#set.hwclock">механизма, аналогичного команде <strong
+           class="command">setclock</strong></a>. Таким образом, при
+          следующей загрузку системное время будет практически точным,
+          как в момент останова системы.</p>
+        </div>
+      </div>
+
+      <div
+       class="appendix">
+        <hr>
+
+        <h1
+         class="appendix"><a
+         name="about"></a>A. Об этом документе</h1>
+
+        <p>Copyright 2002, Avi Alkalay.</p>
+
+        <p>Этот документ должен распространяться согласно <a
+         href="http://www.gnu.org/copyleft/fdl.html"
+         target="_top">GNU Free Documentation License</a>.</p>
+
+        <p>Этот документ опубликован в следующих местах:</p>
+
+        <ul>
+          <li>
+            <p><a
+             href="http://avi.alkalay.net/linux/docs/TimePrecision/"
+             target="_top">Официальный сайт</a> [<a
+             href=
+            "http://avi.alkalay.net/linux/docs/TimePrecision/timeprecision.tar.gz"
+             target="_top">Исходный код в XML (DocBook)</a>]</p>
+          </li>
+
+          <li>
+            <p><a
+             href="http://en.tldp.org/HOWTO/TimePrecision-HOWTO/"
+             target="_top">LinuxDoc, в качестве документа HOWTO</a> [<a
+             href=
+            "http://www.ibiblio.org/pub/Linux/docs/HOWTO/other-formats/html_single/TimePrecision-HOWTO.html"
+             target="_top">одной страницей</a>] [<a
+             href=
+            "http://www.ibiblio.org/pub/Linux/docs/HOWTO/other-formats/pdf/TimePrecision-HOWTO.pdf"
+             target="_top">PDF</a>]</p>
+          </li>
+
+          <li>
+            <p>Takeo Nakano &lt;nakano at apm.seikei.ac.jp&gt; <a
+             href=
+            "http://www.linux.or.jp/JF/JFdocs/TimePrecision-HOWTO/"
+             target="_top">японский перевод</a> [<a
+             href=
+            "http://www.linux.or.jp/JF/JFdocs/TimePrecision-HOWTO.txt"
+             target="_top">текстовая версия</a>]</p>
+          </li>
+        </ul>
+        <br>
+        <br>
+      </div>
+    </div>
+
+    <hr
+     noshade="noshade">
+
+    <p
+     class="c1"><small><strong>Copyright &copy; 2002-2003, Avi Alkalay</strong></small></p>
+    <!-- *** END copyright *** -->
+    <hr
+     noshade="noshade">
+
+    <p
+     class="c1"><a
+     href="../../index.html">Вернуться на главную страницу</a></p>
+    <hr
+     noshade="noshade">
+
+  </body>
+</html>
+

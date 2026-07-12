@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.10">
+<meta name="author" content="Ivan Pesin">
+<title>My ssh story</title>
+<link rel="stylesheet" href="./asciidoc-ip.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body class="article">
+<div id="header">
+<h1>My ssh story</h1>
+<div class="details">
+<span id="author" class="author">Ivan Pesin</span><br>
+<span id="revnumber">version 1.0,</span>
+<span id="revdate">2020-05-29 00:07:51 +0300</span>
+</div>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This article was inspired by the talk I gave at
+<a href="https://www.meetup.com/TBDevOps/">Tampa Bay DevOps</a> group on using <code>ssh</code>
+efficiently with jumphosts, proxies, and firewalls. Both the talk, and this
+article is following my experience of learning what <code>ssh</code> can do, how to use it
+productively, and how it can be combined with other tools to solve nontrivial
+tasks. At the same time, I tried to make this article useful as a reference of
+approaches and solutions, both for people looking how to implement something,
+and to myself as a reminder. If you have time and are in a mood, you can read
+it in full as a story; otherwise, just use the table of contents, and jump to
+the section covering your problem.</p>
+</div>
+<div id="toc" class="toc">
+<div id="toctitle" class="title">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_how_it_all_started">How it all started</a>
+<ul class="sectlevel2">
+<li><a href="#_expect">Expect</a></li>
+<li><a href="#_sshpass">sshpass</a></li>
+<li><a href="#_pdsh">pdsh</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_how_it_all_started"><a class="anchor" href="#_how_it_all_started"></a>How it all started</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>My acquaintance with <code>ssh</code> has begun around 2000, when it started to be used as
+a secure replacement for <code>telnet</code>&#8201;&#8212;&#8201;a standard way to remotely access unix
+machines over the network back in the day. My view of it, just as that of its
+many users, was as of a &#8220;secure telnet&#8221;, and so was the way I used it&#8201;&#8212;&#8201;connecting remotely to a few dozens of servers that I was supporting.</p>
+</div>
+<div id="dagger1" class="openblock marginnote">
+<div class="content">
+<div class="paragraph">
+<p>&dagger; An infamous pair:<br>
+<code>tar cf - . | ssh dest_host 'tar xvf -'</code><br>
+and<br>
+<code>ssh src_host 'tar cf - /dir' | tar xvf -</code></p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Gradually, I was learning various tricks you can do with <code>ssh</code>, for example
+copying directory trees with <code>tar</code> and <code>scp</code>.<a href="#dagger1">&dagger;</a> That was exciting, and it was
+contibuting to my fondness towards <code>ssh</code>, but that still did not affect the way
+I percieved it.</p>
+</div>
+<div class="paragraph">
+<p>Then, quite suddenly, I found myself in a support position that dealt with tens
+of thousands of unix boxes, and my ability to use tools effectively became
+crucial for being productive. That is when my learning of what was possible to
+do with <code>ssh</code> began, which continues to this day, and never seases to amaze me.</p>
+</div>
+<div class="sect2">
+<h3 id="_expect"><a class="anchor" href="#_expect"></a>Expect</h3>
+<div class="paragraph">
+<p>One of the first things that gets under your skin when you deal with hundreds of
+servers daily is the need to enter the password every time you need to get onto
+a box. <code>ssh</code> has an immediate answer to this woe: a <em>key-based authentication</em>
+which does not require much advertising these days.</p>
+</div>
+<div class="paragraph">
+<p>The challenge is that when you support a really large fleet with machines
+belonging to different organizational branches, it&#8217;s very likely that you will
+not be allowed to install personal ssh keys on each and every unix box. And so
+you are stuck with entering passwords at the prompt.</p>
+</div>
+<div class="paragraph">
+<p>SAs are a resourceful bunch with a visceral aversion to repetative and dull
+tasks. Oviously, no one wanted to type in their password, that had to adhere to
+security requirements of having lower and upper case letters, numbers, and
+non-alphanumberic characters, literally hundreds of times every day.</p>
+</div>
+<div class="paragraph">
+<p>And so, a solution was to use <code>expect</code>, a <code>Tcl</code> extension that let&#8217;s automate
+interaction with text-based interfaces. At the very basic level, expect allows
+you to specify what output to expect from a program, and what input to provide
+in response. In these "DevOpsy" days, I don&#8217;t see it much used, but back then it
+was a quite popular tool, especially for establishing dial-up connections.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example of expect script <code>assh</code></div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="tcl"><span class="c1">#!/usr/bin/expect -f</span>
+#
+#
+
+set timeout 30
+set prompt <span class="s2">"(%|#|</span><span class="se">\\</span>$<span class="s2">|%</span><span class="se">\]</span><span class="s2">) </span>$<span class="s2">"</span>
+
+set HOST <span class="s2">"</span><span class="p">[</span>lindex $argv 0<span class="p">]</span><span class="s2">"</span>      <i class="conum" data-value="1"></i><b>(1)</b>
+set USER <span class="s2">"</span><span class="p">[</span>lindex $argv 1<span class="p">]</span><span class="s2">"</span>      <i class="conum" data-value="2"></i><b>(2)</b>
+set PASS $env<span class="p">(</span>SSHPASS<span class="p">)</span>           <i class="conum" data-value="3"></i><b>(3)</b>
+
+if <span class="p">{</span>$USER eq <span class="s2">""</span><span class="p">}</span> then <span class="p">{</span>
+    set USER $env<span class="p">(</span>USER<span class="p">)</span>
+<span class="p">}</span>
+
+spawn ssh -o StrictHostKeyChecking=no $USER@$HOST <i class="conum" data-value="4"></i><b>(4)</b>
+expect <span class="p">{</span>
+  <span class="s2">"assword:"</span> <span class="p">{</span>                   <i class="conum" data-value="5"></i><b>(5)</b>
+    send -- <span class="s2">"</span>$<span class="s2">PASS</span><span class="se">\r</span><span class="s2">"</span>            <i class="conum" data-value="6"></i><b>(6)</b>
+  <span class="p">}</span>
+  <span class="s2">"you sure you want to continue connecting"</span> <span class="p">{</span>
+    send -- <span class="s2">"yes</span><span class="se">\r</span><span class="s2">"</span>
+    expect <span class="s2">"assword:"</span>
+    send -- <span class="s2">"</span>$<span class="s2">PASS</span><span class="se">\r</span><span class="s2">"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+expect -re <span class="s2">"</span><span class="nv">$prompt</span><span class="s2">"</span>             <i class="conum" data-value="7"></i><b>(7)</b>
+
+interact                         <i class="conum" data-value="8"></i><b>(8)</b></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This script takes as command line parameters:</p>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>the host to connect to</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>optionally, a username</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>reads the password from an environment variable</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>spawns the ssh process</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>waits for password prompt</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>sends the password</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="7"></i><b>7</b></td>
+<td>waits for command line prompt</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="8"></i><b>8</b></td>
+<td>and then surrenders control to the user</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Now, with that script you can assign your password to a variable, and connect to
+hosts very easily, as if you had keys conifgured:</p>
+</div>
+<div class="openblock marginnote">
+<div class="content">
+<div class="paragraph">
+<p>The <code>read</code>'s option <strong>-s</strong> suppresses echoing input charaters.
+Very useful
+when someone looks at your screen, for example during demos.</p>
+</div>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">export </span>SSHPASS<span class="p">;</span> <span class="nb">read</span> <span class="nt">-p</span> <span class="s2">"Your SSH password: "</span> <span class="nt">-s</span> SSHPASS<span class="p">;</span> <span class="nb">echo</span>
+<span class="go">Your SSH password:
+</span><span class="gp">$</span><span class="w"> </span>assh tb-c0 tbdemo
+<span class="go">spawn ssh -o StrictHostKeyChecking=no tbdemo@tb-c0
+tbdemo@tb-c0's password:
+Last login: Mon Feb 18 22:20:26 2019 from bastion
+</span><span class="gp">[tbdemo@tb-c0 ~]$</span></code></pre>
+</div>
+</div>
+<div class="openblock marginnote">
+<div class="content">
+<div class="paragraph">
+<p><code>interact</code> keyword tells <code>expect</code> to hand over control of the current process to
+the user, so that keystrokes are sent to the process, and the output is displayed.</p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Now, that is a progress! By modifying the above script one could easily perform
+mass-actions over the list of hosts. For example, if we replace <code>interact</code> with
+something like:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="tcl">send -- <span class="s2">"uptime</span><span class="se">\r</span><span class="s2">"</span>
+expect -re <span class="s2">"</span><span class="nv">$prompt</span><span class="s2">"</span>
+send <span class="s2">"exit</span><span class="se">\r</span><span class="s2">"</span>
+expect eof</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>We can collect the uptime statistics across many hosts.</p>
+</div>
+<div class="openblock marginnote">
+<div class="content">
+<div class="paragraph">
+<p><br>
+The <em>for</em> loop cycles over 3 hostnames: <code>tb-c0</code>, <code>tb-c1</code>, and <code>tb-c2</code>. <code>tbdemo</code> is
+a username for logging into hosts.</p>
+</div>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Mass collection of uptime statistics</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="k">for </span>i <span class="k">in</span> <span class="o">{</span>0..2<span class="o">}</span><span class="p">;</span> <span class="k">do</span> ./uptimessh tb-c<span class="nv">$i</span> tbdemo<span class="p">;</span> <span class="k">done</span>
+<span class="go">spawn ssh -o StrictHostKeyChecking=no tbdemo@tb-c0
+tbdemo@tb-c0's password:
+Last login: Mon Feb 18 22:24:25 2019 from bastion
+</span><span class="gp">[tbdemo@tb-c0 ~]$</span><span class="w"> </span><span class="nb">uptime</span>
+<span class="go"> 22:24:34 up 21 days, 22:47,  1 user,  load average: 0.15, 0.05, 0.06
+</span><span class="gp">[tbdemo@tb-c0 ~]$</span><span class="w"> </span><span class="nb">exit</span>
+<span class="go">logout
+Connection to tb-c0 closed.
+spawn ssh -o StrictHostKeyChecking=no tbdemo@tb-c1
+tbdemo@tb-c1's password:
+Last login: Mon Feb 18 22:24:25 2019 from bastion
+</span><span class="gp">[tbdemo@tb-c1 ~]$</span><span class="w"> </span><span class="nb">uptime</span>
+<span class="go"> 22:24:34 up 21 days, 22:47,  1 user,  load average: 0.15, 0.05, 0.06
+</span><span class="gp">[tbdemo@tb-c1 ~]$</span><span class="w"> </span><span class="nb">exit</span>
+<span class="go">logout
+Connection to tb-c1 closed.
+spawn ssh -o StrictHostKeyChecking=no tbdemo@tb-c2
+tbdemo@tb-c2's password:
+Last login: Mon Feb 18 22:24:25 2019 from bastion
+</span><span class="gp">[tbdemo@tb-c2 ~]$</span><span class="w"> </span><span class="nb">uptime</span>
+<span class="go"> 22:24:35 up 21 days, 22:46,  1 user,  load average: 0.15, 0.05, 0.06
+</span><span class="gp">[tbdemo@tb-c2 ~]$</span><span class="w"> </span><span class="nb">exit</span>
+<span class="go">logout
+Connection to tb-c2 closed.
+</span><span class="gp">$</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Granted, the output is a bit messy, but you can work with it. In many cases a
+simple <code>grep</code> would do the trick, but for more complex cases, the <code>awk</code> is the
+most wonderous of things:</p>
+</div>
+<div class="listingblock marginwide">
+<div class="title">Get the list of hosts with uptime more than 20 days</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="k">for </span>i <span class="k">in</span> <span class="o">{</span>0..5<span class="o">}</span><span class="p">;</span> <span class="k">do</span> ./uptimessh tb-c<span class="nv">$i</span> tbdemo<span class="p">;</span> <span class="k">done</span> | <span class="se">\</span>
+    <span class="nb">awk</span> <span class="s1">'/spawn ssh/{ h=$NF; sub(/\r$/,"",h) }          <i class="conum" data-value="1"></i><b>(1)</b>
+</span><span class="gp">         /days/ &amp;&amp; $</span><span class="s1">3 &gt; 20 { print h, $0 }'</span>             <i class="conum" data-value="2"></i><b>(2)</b>
+<span class="go">tbdemo@tb-c0  02:21:26 up 22 days,  2:44,  1 user,  load average: 0.00, 0.01, 0.05
+tbdemo@tb-c1  02:21:26 up 22 days,  2:43,  1 user,  load average: 0.00, 0.01, 0.05
+tbdemo@tb-c2  02:21:26 up 22 days,  2:43,  1 user,  load average: 0.00, 0.01, 0.05
+tbdemo@tb-c3  21:21:27 up 22 days,  2:43,  1 user,  load average: 0.00, 0.01, 0.05</span></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Saves the hostname from the <code>spawn ssh &#8230;&#8203;</code> output string to variable <code>h</code>,
+and then trims the extra <code>\r</code> character at the end of it. <code>$NF</code>&#8201;&#8212;&#8201;is the last
+word on the line.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Selects lines with the word <code>days</code> in them, and the third word being a number
+larger than 20. Prints the host name stored in variable <code>h</code> and the while line
+(<code>$0</code>) matching the condition.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Most importantly, however, is that with these tools at hand, you can run pretty
+sizable queries in an automated fashion.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_sshpass"><a class="anchor" href="#_sshpass"></a>sshpass</h3>
+<div id="dagger2" class="openblock marginnote">
+<div class="content">
+<div class="paragraph">
+<p>† Yep, in a regulated industry you can&#8217;t just install whatever package
+or tool you like! Only what is available in coporate software repository, and
+even &#8220;well-known&#8221; repositories, such as <em>EPEL</em> weren&#8217;t allowed for quite some
+time.</p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Sometime after getting used to the <code>expect</code>+<code>ssh</code> combination, the &#8220;approved&#8221;
+repository<a href="#dagger2">†</a> for our linux boxes received the <code>sshpass</code> tool. This tool is a
+beauty&#8201;&#8212;&#8201;small, simple, smart, and reliable.</p>
+</div>
+<div class="paragraph">
+<p><code>sshpass</code> is essentially a better version of the above <code>expect</code> script&#8201;&#8212;&#8201;but more
+reliable and easier to handle. As soon as it became available, it replaced the
+<code>expect</code> script almost entirely:</p>
+</div>
+<div id="ddagger1" class="openblock marginnote">
+<div class="content">
+<div class="paragraph">
+<p>‡ Always use <code>UTC</code> timezone on your servers. Time is a difficult beast, try
+not to get involved with it. But this is a topic for a separate story.</p>
+</div>
+<div class="paragraph">
+<p>✻ Note how <code>sed</code> is used to insert the hostname prefix to each output, and how
+a period character is used in <code>grep</code> to match space and avoid typing quotes
+(I&#8217;m lazy).</p>
+</div>
+<div class="paragraph">
+<p>❖ A keen eye might notice that this example uses <code>timedatectl</code> command which
+is a part of <code>systemd</code> ecosystem which was introduced to RHEL with version 7,
+in 2014 and I couldn&#8217;t have used it in RHEL6 which was the most widespread
+version in our environment. This is because I have re-tested all of the
+commands I used back then on current versions of the software and grabbed the
+output for this article.</p>
+</div>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Using <code>sshpass</code> to check the time zones<a href="#ddagger1">‡</a> across list of hosts.</div>
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">export </span>SSHPASS<span class="p">;</span> <span class="nb">read</span> <span class="nt">-p</span> <span class="s2">"Your SSH password: "</span> <span class="nt">-s</span> SSHPASS<span class="p">;</span> <span class="nb">echo</span>
+<span class="go">Your SSH password:
+</span><span class="gp">$</span><span class="w"> </span><span class="k">for </span>i <span class="k">in</span> <span class="o">{</span>0..10<span class="o">}</span><span class="p">;</span> <span class="k">do</span>
+<span class="gp">  sshpass -e ssh tbdemo@tb-c$</span>i timedatectl | <span class="se">\</span>
+  <span class="nb">sed</span> <span class="s1">'s/^/tb-c'</span><span class="nv">$i</span><span class="s1">'/'</span><span class="p">;</span>
+<span class="go">  done | grep Time.zone
+tb-c0       Time zone: UTC (UTC, +0000)
+tb-c1       Time zone: UTC (UTC, +0000)
+tb-c2       Time zone: UTC (UTC, +0000)
+tb-c3       Time zone: EST (EST, -0500)
+tb-c4       Time zone: UTC (UTC, +0000)
+tb-c5       Time zone: UTC (UTC, +0000)
+tb-c6       Time zone: UTC (UTC, +0000)
+tb-c7       Time zone: UTC (UTC, +0000)
+tb-c8       Time zone: Europe/Kiev (EET, +0200)
+tb-c9       Time zone: America/Los_Angeles (PST, -0800)
+tb-c10       Time zone: UTC (UTC, +0000)</span></code></pre>
+</div>
+</div>
+<div class="openblock marginnote">
+<div class="title">sshpass and MacOS brew</div>
+<div class="content">
+<div class="paragraph">
+<p>MacOS package manager <code>brew</code> is special in that it refuses to install <code>sshpass</code>
+with the following reasoning:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code>$ brew search sshpass
+We won't add sshpass because it makes it too easy for novice SSH users to
+ruin SSH's security.</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This is an example of solving a non-existing problem. If a novice user knows
+about <code>sshpass</code>, they will easily find another way to install it. Don&#8217;t do like
+<code>brew</code> does.</p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>The life was bright with <code>sshpass</code>, ssh&#8217;ing was a breeze, and I could fairly
+quickly collect large sets of data and sift through to get the information I
+needed.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_pdsh"><a class="anchor" href="#_pdsh"></a>pdsh</h3>
+<div class="paragraph">
+<p>As the number of systems I was supporting grew, so did the time required to
+gather information or execute some command across them. Naturally, some way of
+parallelizing <code>ssh</code> execution was in order. After initial attempts to write a
+script that would loop over the list of hosts, and control the number of
+processes working in the background, managing their stdout, doing error
+handling, and so on and so forth, the appreciation for the amount of time
+necessary to write such instrument properly descended upon me. To save time, I
+looked for existing tools to do this job.</p>
+</div>
+<div class="paragraph">
+<p>The first tool I found was <strong>GNU Parallel</strong>&#8201;&#8212;&#8201;which is an amazing work of art with
+countless features, making it essentially a swiss-army-knife for parallelizing
+processes. With it you could do something like:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="k">for </span>i <span class="k">in</span> <span class="o">{</span>0..5<span class="o">}</span><span class="p">;</span> <span class="k">do </span><span class="nb">echo</span> <span class="s2">"tb-c</span><span class="nv">$i</span><span class="s2">"</span><span class="p">;</span> <span class="k">done</span> | <span class="se">\</span>
+  parallel <span class="nt">--tag</span> <span class="nt">-j</span> +4 sshpass <span class="nt">-e</span> ssh tbdemo@<span class="o">{}</span> <span class="nb">ls</span> <span class="nt">-l</span> .bash_history
+<span class="go">tb-c5	-rw-------. 1 tbdemo tbdemo 503 Feb 19 02:35 .bash_history
+tb-c1	-rw-------. 1 tbdemo tbdemo 72 Feb 19 02:35 .bash_history
+tb-c2	-rw-------. 1 tbdemo tbdemo 72 Feb 19 02:35 .bash_history
+tb-c4	-rw-------. 1 tbdemo tbdemo 24 Feb 19 02:35 .bash_history
+tb-c0	-rw-------. 1 tbdemo tbdemo 206 Feb 19 02:35 .bash_history
+tb-c3	-rw-------. 1 tbdemo tbdemo 81 Feb 18 21:35 .bash_history</span></code></pre>
+</div>
+</div>
+<div class="sidebarblock marginwide">
+<div class="content">
+<div class="title">Aside: GNU parallel</div>
+<div class="paragraph">
+<p><code>parallel</code> can parallelize any process, not only ssh. For example, when working
+with a large number of files containing command output I often ran <code>grep</code> in
+parallel:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>find /data -name "*.dat" | parallel --xargs grep -Hi "inet addr"</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This would run <code>grep</code> in parallel resulting in much faster processing of
+files. The modern versions of <code>xargs</code> eventually received rudimental support
+of parallel execution (<code>-P</code> option), but it is nowhere close to the power and
+flexibility of <code>parallel</code>. For example, <code>xargs -P</code> does not manage the output of
+parallel processes, resulting in situations when the first part of a line comes
+from one process and the other part is from another process.</p>
+</div>
+<div class="paragraph">
+<p>But this is just the basics. Among my favourite features of <code>parallel</code> are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Splitting of a single file into parts, and then processing each part in
+parallel:</p>
+<div class="literalblock">
+<div class="content">
+<pre>parallel --pipepart --block 100M -a bigfile grep -f ./regexps.lst</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Using multiple inputs for the commands. Just recently I have used <code>parallel</code>
+to run multiple <code>rsync</code> processes <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup> during
+a massive migration between data centers where source and destination
+directories had different names:</p>
+<div class="literalblock">
+<div class="content">
+<pre>parallel -j 3 -t -a ./src-dirs.lst -a /dst-dirs.lst
+'/usr/bin/rsync -azv --del {1} dst-box:/dst-location/{2}'</pre>
+</div>
+</div>
+</li>
+<li>
+<p>It can even run parallelize execution <em>across hosts</em> (via <code>ssh</code>, of course!)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If you have never heard of <strong>GNU parallel</strong>, you should check it out, it is
+fantastic. Start with
+<a href="https://www.gnu.org/software/parallel/man.html#EXAMPLE:-Working-as-xargs&#8212;&#8203;n1.-Argument-appending">examples</a>
+and <a href="https://www.gnu.org/software/parallel/parallel_tutorial.html">the tutorial</a>.</p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>I could not use the <strong>GNU parallel</strong> in my environment, though, as it was absent
+from the &#8220;approved&#8221; repository of tools. A secondary concern involved the fact
+that owing to its power and flexibility, <code>parallel</code> required spending time on
+the documentation again and again, and still, it was easy to make mistakes. And
+when you deal with lots of servers, you don&#8217;t want to make mistakes. So I looked
+for some other tool and discovered the <code>pdsh</code>.</p>
+</div>
+<div class="paragraph">
+<p><code>pdsh</code> is yet another absolutely fantastic tool, which is very thoughtfully made.
+You can use it to run commands in parallel over a list of hosts. In combination
+with <code>sshpass</code> it is a tool of tremendous power:</p>
+</div>
+<div class="listingblock marginwide">
+<div class="title">Collecting uptime information in parallel with <code>pdsh</code>.</div>
+<div class="content">
+<pre>$ time pdsh -R exec -w tb-c[0-15] sshpass -e ssh tbdemo@%h uptime
+tb-c1:  04:18:15 up 22 days,  4:40,  0 users,  load average: 0.63, 0.27, 0.13
+tb-c14:  04:18:15 up 22 days,  4:11,  2 users,  load average: 0.63, 0.27, 0.13
+tb-c4:  04:18:15 up 22 days,  4:40,  0 users,  load average: 0.63, 0.27, 0.13
+tb-c13:  04:18:15 up 22 days,  4:11,  0 users,  load average: 0.63, 0.27, 0.13
+tb-c9:  20:18:15 up 22 days,  4:39,  0 users,  load average: 0.63, 0.27, 0.13
+tb-c12:  04:18:15 up 22 days,  4:11,  0 users,  load average: 0.63, 0.27, 0.13
+tb-c0:  04:18:15 up 22 days,  4:41,  0 users,  load average: 0.63, 0.27, 0.13
+tb-c6:  04:18:15 up 22 days,  4:39,  1 user,  load average: 0.63, 0.27, 0.13
+tb-c7:  04:18:15 up 22 days,  4:39,  0 users,  load average: 0.63, 0.27, 0.13
+tb-c10:  04:18:15 up 22 days,  4:39,  1 user,  load average: 0.63, 0.27, 0.13
+tb-c2:  04:18:15 up 22 days,  4:40,  0 users,  load average: 0.63, 0.27, 0.13
+tb-c11:  04:18:15 up 22 days,  4:11,  1 user,  load average: 0.63, 0.27, 0.13
+tb-c3:  23:18:15 up 22 days,  4:40,  0 users,  load average: 0.63, 0.27, 0.13
+tb-c5:  04:18:15 up 22 days,  4:40,  1 user,  load average: 0.63, 0.27, 0.13
+tb-c15:  04:18:15 up 22 days,  4:11,  0 users,  load average: 0.63, 0.27, 0.13
+tb-c8:  06:18:15 up 22 days,  4:39,  0 users,  load average: 0.63, 0.27, 0.13
+
+real  0m0.818s
+user  0m0.177s
+sys   0m0.140s</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>As you can see, <code>pdsh</code> automatically prepends lines with a hostname which
+produced it. This makes processing the output with <code>awk</code> a picnic. The proper
+handling of <code>stdout</code> and <code>stderr</code> allows to nicely handle cases when you need
+to collect information present only on a subset of hosts:</p>
+</div>
+<div class="openblock marginnote">
+<div class="content">
+<div class="paragraph">
+<p><br>
+Infosec insisted it wasn&#8217;t safe to disclose webserver version and OS it was
+running on in production. This is while the documentation says:<br>
+<em>disabling the "Server:" header does nothing at all to make your server more
+secure. The idea of "security through obscurity" is a myth and leads to a
+false sense of
+safety.</em><br>
+Oh well.</p>
+</div>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Getting the list of hosts with the non-compliant configuration setting.</div>
+<div class="content">
+<pre>$ pdsh -R exec -w tb-c[0-15] sshpass -e ssh tbdemo@%h \
+  "grep -v Prod /apache/conf/tokens.conf" 2&gt;/dev/null
+tb-c10: ServerTokens OS
+tb-c9: ServerTokens OS
+$</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the example above, <code>grep</code> on hosts which didn&#8217;t have
+<code>/apache/conf/tokens.conf</code> generated errors like:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>tb-c13: grep: /apache/conf/tokens.conf: No such file or directory
+pdsh@bastion: tb-c13: sshpass exited with exit code 2
+tb-c11: grep: /apache/conf/tokens.conf: No such file or directory
+pdsh@bastion: tb-c11: sshpass exited with exit code 2
+tb-c14: grep: /apache/conf/tokens.conf: No such file or directory</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>pdsh</code> is smart in that it redirects to local <code>stderr</code> file any output that the
+command it runs generated to the remote host&#8217;s <code>stderr</code>. This really helps a lot
+in handling such output, and simple redirection as in the example can filter out
+unnecessary noise.</p>
+</div>
+<div class="openblock marginnote">
+<div class="content">
+<div class="paragraph">
+<p>Note how <code>sshpass</code> is used to supply password to <code>ansible</code> in this example.</p>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Aside: are the tools we use getting better?</div>
+<div class="paragraph">
+<p>It is curious to compare performance of <code>pdsh</code> and <code>ansible</code>:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>$ wc -l inv
+16 inv
+$ time sshpass -e ansible -i ./inv all -u tbdemo -k -a "uptime"
+...snip...
+tb-c13 | CHANGED | rc=0 &gt;&gt;
+ 04:18:25 up 22 days,  4:12,  1 user,  load average: 0.53, 0.26, 0.13
+
+tb-c14 | CHANGED | rc=0 &gt;&gt;
+ 04:18:25 up 22 days,  4:12,  3 users, load average: 0.53, 0.26, 0.13
+
+tb-c15 | CHANGED | rc=0 &gt;&gt;
+ 04:18:25 up 22 days,  4:11,  1 user,  load average: 0.53, 0.26, 0.13
+
+real  0m4.228s
+user  0m1.748s
+sys   0m1.297s</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>ansible</code> took <em>more than 4 seconds</em> to run <code>uptime</code> across 16 hosts. This is
+with <em>ssh pipelining</em> enabled, and ansible runs tasks in parallel
+by default. Compare this with <u>less than a second</u> in which <code>pdsh</code>
+did the same job.</p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p><span style="background-color: gold">&nbsp; <strong>TODO</strong> </span>: improve example to show why <code>scp</code> won&#8217;t work</p>
+</div>
+<div class="paragraph">
+<p>An interesting side-use of <code>pdsh</code> was an improved mass-collection of files. And
+its ability to run any binary, not just ssh, allowed to use it in a very similar
+way to <strong>GNU parallel</strong>:</p>
+</div>
+<div class="listingblock">
+<div class="title">Collect /etc/passwd from hosts</div>
+<div class="content">
+<pre>$ pdsh -R exec -w tb-c[0-15] sshpass -e \
+  ssh tbdemo@%h cat /etc/passwd &gt; passwd.combined               <i class="conum" data-value="1"></i><b>(1)</b>
+$ head -3 passwd.combined; tail -3 passwd.combined              <i class="conum" data-value="2"></i><b>(2)</b>
+tb-c2: root:x:0:0:root:/root:/bin/bash
+tb-c2: bin:x:1:1:bin:/bin:/sbin/nologin
+tb-c2: daemon:x:2:2:daemon:/sbin:/sbin/nologin
+tb-c9: sshd:x:74:74:Privilege-separated SSH:/var/empty/sshd:/sbin/nologin
+tb-c9: tbdemo:x:1000:1000::/home/tbdemo:/bin/bash
+tb-c9: app-agent:x:1001:1001::/home/app-agent:/bin/bash
+$ pdsh -N -R exec -w tb-c[0-15] \
+  bash -c "grep ^%h: passwd.combined | sed 's/.*: //' &gt; %h.pass" <i class="conum" data-value="3"></i><b>(3)</b>
+$ head -3 tb-c2.pass                                             <i class="conum" data-value="4"></i><b>(4)</b>
+root:x:0:0:root:/root:/bin/bash
+bin:x:1:1:bin:/bin:/sbin/nologin
+daemon:x:2:2:daemon:/sbin:/sbin/nologin</pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><code>cat /etc/passwd</code> to standard output which is redirected into local file
+<code>passwd.combined</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td><code>pdsh</code> prepends each line with the hostname that generated them</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td><code>pdsh</code> runs <code>grep</code> processes for each hostname (<code>%h</code>) in parallel, the
+output is piped into <code>sed</code> that removes the hostname prefix, and the output is
+saved into local file with the name of the hostname from which the data was
+collected and extension <code>.pass</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>resulting files have the content of the files on respective hosts</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<hr>
+<div class="footnote" id="_footnotedef_1">
+<a href="#_footnoteref_1">1</a>. <span style="background-color: gold">&nbsp; <strong>TODO</strong> </span>: why to parallel rsync
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Version 1.0<br>
+Last updated 2020-05-29 00:07:51 +0300
+</div>
+</div>
+<link rel="stylesheet" href="./rouge-github.css">
+</body>
+</html>

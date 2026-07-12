@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Ivan Pesin | 
+      Links: 24th Oct
+      </title>
+    <meta name="description" content="">
+
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/custom.css">
+    
+    
+    
+    
+
+    
+    <meta property="og:locale" content="en_US">
+    <meta property="og:title" content="Links: 24th Oct">
+    
+    <meta property="og:description" content="Articles, Translations, and Blog">
+    <meta property="og:site_name" content="Ivan Pesin">
+
+  </head>
+
+
+<body>
+  <nav class="navbar navbar-default">
+    <div class="container">
+      
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        
+        <a class="navbar-brand" href="/">Articles, Translations, and Blog</a>
+      </div>
+  
+      
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="/posts/">Blog</a></li>
+            <li><a href="/photos/">Photos</a></li>
+            <li><a href="/#articles-translations">Articles & Translations</a></li>
+            <li><a href="/talks/">Talks</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Links <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="/phonetic-alphabet">Phonetic Alphabet</a></li>
+                <li><a href="/emoji">Emoji shortcuts</a></li>
+                <li><a href="/vim-cheatsheet">VIM cheatsheet</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="/articles/kb/">Assorted tips&trciks</a></li>
+              </ul>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+  <div class="container">
+    <article>
+      
+
+    <div class="row">
+        <div class="col-md-9">
+
+        <div class="text-muted">
+    October 24, 2014
+</div>
+<h2 class="title" style="margin-top: 0">Links: 24th Oct</h2>
+<div>
+     
+     <span class="text-muted">&sect;
+     
+             <a href="/categories/links/">links</a>
+    </span>
+
+    &nbsp;&nbsp;&nbsp;<span class="text-muted"> # 
+    
+      <a href="/tags/bedford/">Bedford</a>
+      <span class="separator">•</span>
+      <a href="/tags/cpuset/">cpuset</a>
+      <span class="separator">•</span>
+      <a href="/tags/netcat/">netcat</a>
+      <span class="separator">•</span>
+      <a href="/tags/pidtree/">pidtree</a>
+      <span class="separator">•</span>
+      <a href="/tags/fraser/">Fraser</a>
+      <span class="separator">•</span>
+      <a href="/tags/progressbar/">progressbar</a>
+      <span class="separator">•</span>
+      <a href="/tags/rpm/">rpm</a>
+      <span class="separator">•</span>
+      <a href="/tags/shell/">shell</a>
+      <span class="separator">•</span>
+      <a href="/tags/spinner/">spinner</a>
+    </span>
+
+</div>
+
+
+        <div style="margin-top: 10px">
+        
+
+        <blockquote>
+    <p>
+        Computer Science is no more about computers than astronomy is about telescopes.
+    </p>
+    <footer style="padding-left: 1em;">
+        
+        
+            
+            Edsger Dijkstra
+        
+
+        
+    </footer>
+</blockquote>
+<p>Let me start this post with two very powerful articles in The Economist:</p>
+<ul>
+<li><a href="http://www.economist.com/news/business/21621778-business-leaders-would-benefit-studying-great-writers-philosopher-kings">Philosopher kings</a>. Business leaders would benefit from studying great writers. This resonates a lot with me, and is easily transposed onto politics. I can’t get rid of despair how shallow and primitive our politicians are en mass; all the more lame sound our journalists referring to them as ‘elite’.</li>
+<li><a href="http://www.economist.com/news/leaders/21621800-digital-revolution-bringing-sweeping-change-labour-markets-both-rich-and-poor.">Wealth without workers, workers without wealth</a>. The digital revolution is bringing sweeping change to labour markets in both rich and poor worlds. The overview of a silent revolution that is happening around us. Engaging parallels with two previous Industrial revolutions, opportunities, trends, and the role of IT knowledge in the future.</li>
+</ul>
+<h3 id="technology">Technology</h3>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Benford%27s_law">Bedford’s law</a> (<a href="http://habrahabr.ru/post/240853/">here</a> in Russian), something I was unknowingly bumping into before when trying to fairly evenly split the list of hostname. First thought of splitting by first character was obviously naive as hostnames tend to follow some patterns. Then I decided to calculate some hash function on the hostname and pick the first figure. I thought that would be fairly evenly distributed, but to my surprise it wasn’t. Now I have an explanation — Bedford’s law.</li>
+<li>On rpm-based system you can use following commands to restore file’s permissions and ownerships:
+<pre><code class="language-console" data-lang="console"># rpm --setperms 
+# rpm --setugids 
+</code></pre></li>
+<li>To reserve a CPU core for some particular process and make the scheduler avoid placing other processes on that CPU you need to use <a href="http://man7.org/linux/man-pages/man7/cpuset.7.html">cpusets</a>. There is a generic tutorial <a href="https://rt.wiki.kernel.org/index.php/CPU_shielding_using_/proc_and_/dev/cpuset">here</a> on shielding a CPU (Serge, thanks:), but it’s much more fun to use <a href="https://code.google.com/p/cpuset/"><code>cset</code></a> tool. Just look how cool it is in the examples on <a href="http://stackoverflow.com/questions/11111852/how-to-shield-a-cpu-from-the-linux-scheduler-prevent-it-scheduling-threads-onto">stackoverflow</a> and in <a href="https://rt.wiki.kernel.org/index.php/Cpuset_Management_Utility/tutorial">this</a> tutorial.
+<pre><code class="language-console" data-lang="console">[zuul:cpuset-trunk]# cset shield -c 1-3
+cset: --&gt; activating shielding:
+cset: moving 176 tasks from root into system cpuset...
+[==================================================]%
+cset: &quot;system&quot; cpuset of CPUSPEC(0) with 176 tasks running
+cset: &quot;user&quot; cpuset of CPUSPEC(1-3) with 0 tasks running
+</code></pre></li>
+<li>Some <a href="http://wiki.bash-hackers.org/howto/edit-ed">handy information</a> on editing with ed, an undeservedly underused tool these days</li>
+<li>A standard way to implement Redis sharding and (!) make Redis utilise multiple cores: <a href="https://github.com/twitter/twemproxy">twemproxy</a>.</li>
+<li>Compact 100-line implementation of <a href="https://code.google.com/p/pmptools/source/browse/bin/netcat.pl">netcat in perl</a>. Works perfectly in pair with <code>ssh ProxyCommand</code>.</li>
+<li>HTTP/2 is coming: <a href="https://www.mnot.net/blog/2014/06/07/rfc2616_is_dead">RFC2616 is dead</a>.</li>
+<li>In the light of recent security vulnerabilities, even more useful site with instructions on web-server encryption configuration: <a href="https://cipherli.st/">cipher.st</a></li>
+<li>Say ‘Hello’ to <code>hidepid=</code> <a href="http://www.cyberciti.biz/faq/linux-hide-processes-from-other-users/">option in Linux</a>; a way to hide processes from other users.</li>
+<li>And as a titbit, shell niceties:
+<ul>
+<li>Progress bars and spinners: <a href="http://stackoverflow.com/questions/11592583/bash-progress-bar">here</a> and <a href="http://stackoverflow.com/questions/238073/how-to-add-a-progress-bar-to-a-shell-script">here</a>, my favourite is this:
+<pre><code class="language-console" data-lang="console"># progress 30G 9G 30
+# 30G [================&gt;.................................] 30% (9G)
+</code></pre></li>
+<li>Best ever <code>pidtree</code> shell implementation (from <a href="http://superuser.com/questions/363169/ps-how-can-i-recursively-get-all-child-process-for-a-given-pid">superuser</a>):
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/bash
+</span><span style="color:#75715e"></span>
+pidtree<span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+echo -n $1 <span style="color:#e6db74">&#34; &#34;</span>
+<span style="color:#66d9ef">for</span> _child in <span style="color:#66d9ef">$(</span>ps -o pid --no-headers --ppid $1<span style="color:#66d9ef">)</span>; <span style="color:#66d9ef">do</span>
+    echo -n $_child <span style="color:#e6db74">`</span>pidtree $_child<span style="color:#e6db74">`</span> <span style="color:#e6db74">&#34; &#34;</span>
+<span style="color:#66d9ef">done</span>
+<span style="color:#f92672">}</span>
+
+ps f <span style="color:#e6db74">`</span>pidtree 4378<span style="color:#e6db74">`</span>
+</code></pre></div></li>
+</ul>
+</li>
+</ul>
+<h3 id="english">English</h3>
+<ul>
+<li><a href="http://www.nationsonline.org/oneworld/international-spelling-alphabet.htm">International Spelling Alphabet</a> for reference. I do prefer ‘Yellow’ over ‘Yankee’, ‘Zebra’ over ‘Zulu’, and ‘Water’ over ‘Wiskey’. :-)</li>
+<li>Nice table of <a href="http://www.sixthsense.ru/proverbs/?SHOWALL_1=1">proverb equivalence</a> in Russian and English</li>
+</ul>
+<hr>
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="https://www.youtube.com/embed/nqQIKHPHXhc" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
+</div>
+
+        </div>
+    </div>
+</div>
+
+
+    </article>
+
+    <hr>
+<div class="text-muted text-center small">
+    <i>
+        &mdash; `If you knew Time as well as I do,' said the Hatter, `you wouldn't talk about wasting IT. It's HIM.'
+    </i>
+</div>
+<div class="text-muted text-center m-20 small">
+<samp>$ Last updated: Feb 7, 2021 at 13:38 (EET) $</samp>
+</div>
+  </div>
+      
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+    
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+  
+  
+
+</body>
+
+</html>

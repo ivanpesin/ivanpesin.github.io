@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>monitoring &#8211; Ivan Pesin</title>
+	<atom:link href="/blog/tag/monitoring/feed/" rel="self" type="application/rss+xml" />
+	<link>https://pesin.space/blog</link>
+	<description>Articles &#38; Translations</description>
+	<lastBuildDate>
+	Wed, 19 Oct 2016 02:08:18 +0000	</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=5.1.1</generator>
+	<item>
+		<title>Links: Jun 3</title>
+		<link>/blog/2014/06/links-jun-3/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=links-jun-3</link>
+				<pubDate>Tue, 03 Jun 2014 12:05:36 +0000</pubDate>
+		<dc:creator><![CDATA[ivan]]></dc:creator>
+				<category><![CDATA[Links]]></category>
+		<category><![CDATA[bash]]></category>
+		<category><![CDATA[cfengine]]></category>
+		<category><![CDATA[English]]></category>
+		<category><![CDATA[expect]]></category>
+		<category><![CDATA[lavabit]]></category>
+		<category><![CDATA[monitoring]]></category>
+		<category><![CDATA[thinking]]></category>
+
+		<guid isPermaLink="false">https://pesin.space/blog/2014/06/links-jun-3/</guid>
+				<description><![CDATA[Writing is nature&#8217;s way of telling you how sloppy your thinking is.  Technology: Shocking post-mortem from Joyent: operator mistake and a tool which reboots the whole datacenter without requesting additional confirmation. Defensive BASH programming &#8212; an excellent post on scripting techniques! Thinking for programmers by Leslie Lamport. The epigraph comes from this talk. The best expect script [&#8230;]]]></description>
+								<content:encoded><![CDATA[<p id="top" />
+<blockquote><p>Writing is nature&#8217;s way of telling you how sloppy your thinking is.</p></blockquote>
+<h3> Technology:</h3>
+<ul>
+<li><a href="http://www.joyent.com/blog/postmortem-for-outage-of-us-east-1-may-27-2014">Shocking post-mortem</a> from Joyent: operator mistake and a tool which reboots the whole datacenter without requesting additional confirmation.</li>
+<li><a href="http://www.kfirlavi.com/blog/2012/11/14/defensive-bash-programming/">Defensive BASH programming</a> &#8212; an excellent post on scripting techniques!</li>
+<li><a href="http://channel9.msdn.com/Events/Build/2014/3-642">Thinking for programmers</a> by <a href="http://en.wikipedia.org/wiki/Leslie_Lamport">Leslie Lamport</a>. The epigraph comes from this talk.</li>
+<li><a href="http://www.security-portal.cz/clanky/expect-script-which-can-execute-commands-multiple-servers-ssh">The best expect script</a> I found to execute commands on servers remotely via ssh. This is really handy when one does not have key-based authentication set up. The downside is that it&#8217;s slow, so one need to parallelise it if one has over few dozen of servers to crawl.</li>
+<li><a href="http://www.ncf.io">ncf</a> &#8212; CFEngine framework for small installations, runs in pure CFEngine language, to help structure your CFEngine policy and provide reusable, single purpose components distributed under the GPLv3 license.</li>
+<li>The same guys are behind <a href="http://www.rudder-project.org/site/">the Rudder</a> &#8212; web-driven, role-based solution for IT Infrastructure Automation &amp; Compliance.</li>
+<li>&#8220;Law of Murphy for devops: if thing can able go wrong, is mean is already wrong but you not have Nagios alert of it yet&#8221;. Therefore, don&#8217;t forget to monitor <a href="http://word.bitly.com/post/74839060954/ten-things-to-monitor">these things</a>.</li>
+<li>Interesting <a href="http://blog.dataloop.io/2014/01/30/what-we-learnt-talking-to-60-companies-about-monitoring/">stats</a> on monitoring tools &#8212; Nagios is the king, Sensu and Zabbix have a large chunk of large deployments.</li>
+</ul>
+<h3>English:</h3>
+<ul>
+<li><a href="http://stilldrinking.org/programming-sucks">Hilarious story</a> about why programming sucks. Careful and exact observations put in a lively and funny language. It definitely made my day!</li>
+<li><a href="http://theweek.com/article/index/256169/aunt-adult-pajama-why-cant-we-agree-how-to-pronounce-common-words">Quirks</a> with pronunciation of some borrowed words:<br />
+<blockquote><p>Another word that the British Anglicized from French is harass and its related noun harassment. They shifted the accent to the first syllable, sounding like &#8220;harris.&#8221; The Americans preferred the French-style second-syllable stress, no doubt further encouraged by the double s. But the British style is becoming more popular with people who don&#8217;t want to sound like they&#8217;re saying &#8220;her ass&#8221; — sort of like how the British &#8220;urine-us&#8221; pronunciation of Uranus, based on the Latin and Greek stress pattern, is sometimes preferred by Americans who don&#8217;t like how the American say-it-like-it-looks version sounds like &#8220;your anus.&#8221;</p></blockquote>
+</li>
+<li>Stop new wordage? Never gonna happen. <a href="http://stancarey.wordpress.com/2014/02/06/in-defence-of-unnecessary-words/">In defence of unnecessary words</a>.</li>
+<li>Corporate speak &#8212; <a href="http://www.economist.com/blogs/prospero/2014/02/corporate-speak-0">speaking strategically</a> without a strategy.</li>
+</ul>
+<hr />
+<blockquote><p>As languages go, English is particularly extreme in differentiating between stressed and unstressed syllables; the stressed syllables play a disproportionately big role in making words identifiable, and because unstressed syllables are out of the spotlight, and don’t contribute much to the exact identity of words, it doesn’t really matter exactly what they sound like. For example, some people pronounce the first syllable of believe as /bɪ/, others as /bə/, and in fact it would often be hard to tell exactly which vowel sound is used. Even if you use a different one – if you say, for example, /bʊ/ or /be/ – the identity of the word will be clear; the important thing is to pronounce the stressed second syllable with a clear /iː/ vowel.</p></blockquote>
+<p style="text-align: right;">&#8212; <a href="http://www.macmillandictionaryblog.com/schwa-syllables-and-words-in-different-guises-part-1">http://www.macmillandictionaryblog.com/schwa-syllables-and-words-in-different-guises-part-1</a></p>
+<h3>Other:</h3>
+<p><a href="http://lavabit.com">The story</a> behind lavabit shut down.</p>
+<hr />
+<p><center><br />
+<iframe width="625" height="352" src="https://www.youtube.com/embed/h_bX0T76X8U?feature=oembed" frameborder="0" allowfullscreen></iframe><br />
+</center></p>
+]]></content:encoded>
+										</item>
+		<item>
+		<title>Links: Feb 16</title>
+		<link>/blog/2014/02/links-feb-16/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=links-feb-16</link>
+				<pubDate>Sun, 16 Feb 2014 15:47:49 +0000</pubDate>
+		<dc:creator><![CDATA[ivan]]></dc:creator>
+				<category><![CDATA[Links]]></category>
+		<category><![CDATA[blockade]]></category>
+		<category><![CDATA[English]]></category>
+		<category><![CDATA[flapjack]]></category>
+		<category><![CDATA[java]]></category>
+		<category><![CDATA[limoncelli]]></category>
+		<category><![CDATA[monitoring]]></category>
+		<category><![CDATA[nagios]]></category>
+		<category><![CDATA[sensu]]></category>
+		<category><![CDATA[syscalls]]></category>
+		<category><![CDATA[systemd]]></category>
+		<category><![CDATA[systemtap]]></category>
+		<category><![CDATA[vector]]></category>
+		<category><![CDATA[was]]></category>
+
+		<guid isPermaLink="false">https://pesin.space/blog/2014/02/links-feb-16/</guid>
+				<description><![CDATA[Change of plan! Will now try to write shorter posts but more often. With bigger posts, if I miss a date, they start to scare me off writing them as I know that would require substantial time investment. Recently I have discovered how once never-failing task prioritisation strategy can backfire. You most certainly know the [&#8230;]]]></description>
+								<content:encoded><![CDATA[<p id="top" />Change of plan! Will now try to write shorter posts but more often. With bigger posts, if I miss a date, they start to scare me off writing them as I know that would require substantial time investment.</p>
+<p>Recently I have discovered how once never-failing task prioritisation strategy can backfire. You most certainly know the strategy: an interesting, engaging, and enjoyable task should be stashed and used as a treat after one sorts out boring or urgent assignments.</p>
+<p>You&#8217;d wonder how this could possibly go wrong? Here&#8217;s what happened with me: one of the tasks, which I long wanted to implement myself, was finally approved and assigned to me with low priority. I revelled and carefully set it aside so I could come back to it with enough time to do it neat and proper. Alas! For the next three (!) weeks, due to routine, urgent, and other business, I haven&#8217;t got enough time to tackle it.</p>
+<p>Eventually, the task received medium priority and I had to implement it within certain time constraints. This obviously meant it wasn&#8217;t as neat as I wanted it to be; this also meant it wasn&#8217;t a treat anymore! Broken hopes and bad mood instead of delight and satisfaction! Horrible experience, beware. Now I&#8217;m trying to get back to it and rework the way I would at least be content with.</p>
+<p>Okay, let&#8217;s shove in some of the interesting links I came across last month:</p>
+<h2>Other:</h2>
+<p><a href="http://everythingsysadmin.com/2013/12/avoiding-the-cost-center-menta.html?utm_source=feedburner&amp;utm_medium=feed&amp;utm_campaign=Feed%3A+EverythingSysadmin+%28Everything+Sysadmin%29">Tom Limoncelli referred</a> an interesting article that defines five stages of how management, owners, and investors treat IT in their businesses:</p>
+<ol>
+<li>Cost center</li>
+<li>Service Provider</li>
+<li>IT Partner</li>
+<li>Business Peer</li>
+<li>Business Game Changer</li>
+</ol>
+<p>Implication is the further stage you&#8217;re in, the better it is. It struck me though that some firms actually may advance in a backward direction! I would not want to stay with the firm that made more than one step backwards (one step might be a coincidence, two &#8212; a pattern).</p>
+<p>Why would someone writing in Python and Ruby want to learn Java? Here&#8217;s an explanation: <a href="http://devopsanywhere.blogspot.co.uk/2013/11/why-im-learning-java.html">Why I&#8217;m Learning Java</a>.</p>
+<h2>Technology:</h2>
+<ul>
+<ul>
+<li>Valuable bookmark: how to count and quantify the number of syscalls a program makes? Here&#8217;s <a href="https://access.redhat.com/site/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/SystemTap_Beginners_Guide/syscallsbyprocpidsect.html">an example using SystemTap</a>.</li>
+<li>Very good explanation why systemd raises so many questions and fires heated debate &#8212; <a href="http://ewontfix.com/14/">systemd: broken by design</a>.</li>
+<li><a href="https://github.com/instructure/vector">Vector</a> &#8212; an interesting tool for predictive scaling and flexible downscaling of your AWS environments.</li>
+<li><a href="http://blockade.readthedocs.org">Blockade</a> &#8212; a <span style="line-height: 1.5em;">utility for testing network failures and partitions in distributed applications.</span></li>
+<li>Provocatively titled post &#8216;<a href="http://word.bitly.com/post/74839060954/ten-things-to-monitor">10 things we forgot to monitor</a>&#8216; lists some of the things you shouldn&#8217;t be missing in your monitoring. Included mostly for scripts examples.</li>
+<li><a href="http://flapjack.io">Flapjack</a> &#8212; monitoring notification routing + event processing system. More details on <a href="http://fractio.nl/2014/01/03/the-how-and-why-of-flapjack/">how and why</a> and <a href="http://fractio.nl/2014/02/12/data-driven-alerting-with-flapjack-puppet-hiera/">a live demo</a>.</li>
+<li>Very expressive presentation on how to build a modern monitoring subsystem:</li>
+</ul>
+</ul>
+<p><center><br />
+<iframe style="border: 1px solid #CCC; border-width: 1px 1px 0; margin-bottom: 5px; max-width: 100%;" src="http://www.slideshare.net/slideshow/embed_code/31168250" height="356" width="427" allowfullscreen="" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe></center>&nbsp;</p>
+<div style="margin-bottom: 5px;" align="center"><a title="Stop using Nagios (so it can die peacefully)" href="https://www.slideshare.net/superdupersheep/stop-using-nagios-so-it-can-die-peacefully" target="_blank">Stop using Nagios (so it can die peacefully)</a> from <strong><a href="http://www.slideshare.net/superdupersheep" target="_blank">Andy Sykes</a></strong></div>
+<p>&nbsp;</p>
+<h2>English</h2>
+<ul>
+<li><a href="http://www.theguardian.com/media/mind-your-language/2014/jan/31/mind-your-language-no-english-words">The Guardian&#8217;s article</a> dwelling on language devices summarising a relatively complex concept in a single word.</li>
+<li>Language purism seems to be an omnipresent phenomenon. The Economist&#8217;s article describing <a href="http://www.economist.com/blogs/prospero/2014/01/english-purism">purism in English language</a>.</li>
+<li>Yet another post on reduplications: <a href="http://www.macmillandictionaryblog.com/willy-nilly-word-development">willy-nilly word development</a>.</li>
+<li>Few ways of saying <a href="http://www.macmillandictionaryblog.com/life-skills-tip-of-the-week-ways-of-saying-i-dont-know">&#8220;I don&#8217;t know&#8221;</a>.</li>
+</ul>
+<hr>
+Seems I&#8217;ve failed to make this post short. Have so many interesting things in my drafts that it&#8217;s challenging to stop once started. Will improve next time. That&#8217;ll be all for today, folks.</p>
+<p><span style="line-height: 1.5em;"> </span></p>
+]]></content:encoded>
+										</item>
+	</channel>
+</rss>

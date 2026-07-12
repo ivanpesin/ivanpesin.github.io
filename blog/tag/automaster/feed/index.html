@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>auto.master &#8211; Ivan Pesin</title>
+	<atom:link href="/blog/tag/automaster/feed/" rel="self" type="application/rss+xml" />
+	<link>https://pesin.space/blog</link>
+	<description>Articles &#38; Translations</description>
+	<lastBuildDate>
+	Wed, 19 Oct 2016 02:08:18 +0000	</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=5.1.1</generator>
+	<item>
+		<title>Где найти дополнительную информацию для отладки autofs?</title>
+		<link>/blog/2009/05/where-can-i-find-additional-system-information-about-autofs-for-troubleshooting/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=where-can-i-find-additional-system-information-about-autofs-for-troubleshooting</link>
+				<pubDate>Tue, 26 May 2009 18:23:58 +0000</pubDate>
+		<dc:creator><![CDATA[ivan]]></dc:creator>
+				<category><![CDATA[RedHat KB]]></category>
+		<category><![CDATA[auto.master]]></category>
+		<category><![CDATA[autofs]]></category>
+		<category><![CDATA[automount]]></category>
+		<category><![CDATA[automounter]]></category>
+		<category><![CDATA[basics]]></category>
+		<category><![CDATA[networking]]></category>
+
+		<guid isPermaLink="false">http://www.n-ix.com/ipesin/?p=31</guid>
+				<description><![CDATA[Copyright (c) 2009 by Red Hat, Inc. This material may be distributed only subject to the terms and conditions set forth in the Open Publication License, v1.0 or later (available at http://www.opencontent.org/openpub/). Original article: http://kbase.redhat.com/faq/docs/DOC-1993.pdf Translated by Ivan Pesin, May 2009 Использование ключа --debug системы automounter может помочь получить полезную информацию при отладке, но при [&#8230;]]]></description>
+								<content:encoded><![CDATA[<p id="top" />
+<div class="copyright">Copyright (c) 2009 by Red Hat, Inc. This material may be distributed only subject to the terms and conditions set forth in  the Open Publication License, v1.0 or later (available at http://www.opencontent.org/openpub/).<br />
+Original article: <a href="http://kbase.redhat.com/faq/docs/DOC-1993.pdf">http://kbase.redhat.com/faq/docs/DOC-1993.pdf</a></p>
+<p>Translated by Ivan Pesin, May 2009</p></div>
+<p>Использование ключа <code>--debug</code> системы automounter может помочь получить полезную информацию при отладке, но при этом генерируется большой объём журнальных записей. Поэтому, использование этого ключа рекомендуется лишь во время отладки конкретной проблемы.</p>
+<p>Сначала настройте syslog писать сообщения уровня daemon.debug в отдельный файл. Это поможет в дальнейшем отбирать необходимые сообщения. Добавьте такую строку в файл <code>/etc/syslog.conf</code>:</p>
+<blockquote><p><code>daemon.debug                    /var/log/autofs</code></p></blockquote>
+<p>Перегрузите syslog:</p>
+<blockquote><p><code>service syslog reload</code></p></blockquote>
+<p>Разрешите режим отладки демона automount. В карте <code>auto.master</code> добавьте флаг <code>--debug</code> в нужной строке.</p>
+<p>Например, у нас есть такая строка в файле auto.master:</p>
+<blockquote><p><code>/autofoo          auto.foo     --timeout=60</code></p></blockquote>
+<p>Измените её на следующую:</p>
+<blockquote><p><code>/autofoo          auto.foo     --timeout=60 --debug</code></p></blockquote>
+<p>Перегрузите autofs:</p>
+<blockquote><p><code>service autofs reload</code></p></blockquote>
+<p>В результате, autofs начнёт писать подробную информацию о своей работе в журнальный файл <code>/var/log/autofs</code>.</p>
+<p>После того, как вы получили необходимую информацию, стоит отменить внесённые изменения. Удалите строки, добавленные в конфигурационные файлы, и перезапустите сервисы autofs и syslog.</p>
+]]></content:encoded>
+										</item>
+	</channel>
+</rss>

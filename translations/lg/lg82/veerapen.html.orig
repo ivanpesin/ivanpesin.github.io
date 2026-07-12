@@ -1,0 +1,752 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+  <head>
+    <meta
+     name="generator"
+     content=
+    "HTML Tidy for Linux/x86 (vers 1st May 2002), see www.w3.org">
+
+    <title>[lg82]: Адаптируемые межсетевые экраны на базе Linux</title>
+    <meta
+     http-equiv="Content-Type"
+     content="text/html; charset=koi8-r">
+    <link
+     rel="stylesheet"
+     href="../rus-lg.css"
+     type="text/css">
+    <style
+     type="text/css">
+     p.c1 {text-align: center}
+            </style>
+  </head>
+
+  <body>
+    <hr>
+
+    <p
+     class="c1"><!-- Article Title --><big><strong>Адаптируемые
+    межсетевые экраны на базе Linux</strong></big><br>
+     Автор: (C) <!-- Author --><a
+     href="mailto:dive_mauritius@killspam.hotmail.com">Vasoo
+    Veerapen</a> <!-- Author -->
+    <br>
+     Перевод: (C) <!-- Translator --><a
+     href="mailto:ipesin@post.Lviv.UA">Иван Песин</a> 
+    <!-- Translator --><br>
+    </p>
+    <hr>
+
+    <p><strong>Введение.</strong></p>
+
+    <p>Автоматическое ужесточение правил фильтрации -- это технология,
+    которой пользуются многие коммерческие брандмауэры для защиты сетей
+    от несанкционированного доступа. Назначение этого документа --
+    продемонстрировать метод реализации данной технологии в режиме
+    реального времени c помощью утилиты iptables.</p>
+
+    <p>По умолчанию, iptables протоколирует сообщения при помощи демона
+    syslogd. Файлы протоколов достаточно хороши для обеспечения базовой
+    защиты, но не могут помочь в организации сложных межсетевых
+    экранов. Для этого нужно, чтобы система реагировала на сообщения
+    сразу же после их поступления. В зависимости от уровня опасности,
+    систему можно запрограммировать на различные защитные действия,
+    такие, например, как блокирование атакующего IP-адреса. Подход,
+    применяемый в этом документе, не ограничивается утилитой iptables и
+    может быть применен, с соответствующими изменениями, к любой
+    системе, протоколирующей события при помощи syslog. Примером может
+    служить система обнаружения вторжений SNORT.</p>
+
+    <p>Примеры, приведенные в этом документе, проверялись только на
+    системах Red Hat 7.2/7.3. Тогда я обитал на острове Маврикий,
+    который чертовски далек от цивилизации, и все мы носили скудную
+    одежду, на подобие зулусских воинов :-) Дополнительную информации
+    по острову Маврикий и подводному плаванью можно найти по адресу <a
+     href="http://www.islandsoft.net/">www.islandsoft.net</a></p>
+
+    <p>Великолепный документ, описывающий возможности брандмауэра
+    Linux, это Iptables Tutorial Оскара Андреасона (Oskar Andreasson).
+    Прочесть его можно по адресу <a
+     href=
+    "http://iptables-tutorial.haringstad.com/">http://iptables-tutorial.haringstad.com/</a>
+    (<em>перевод этого документа, сделанный Андреем Киселёвым, вы
+    найдёте на сайте <a
+     href="http://gazette.linux.ru.net">Russian Linux Gazette</a> по
+    адресу <a
+     href=
+    "http://gazette.linux.ru.net/rus/articles/index-iptables-tutorial.html">
+    http://gazette.linux.ru.net/rus/articles/index-iptables-tutorial.html</a>
+    - Прим.пер.</em>).</p>
+    <hr>
+
+    <p><strong>Рекомендуемая литература</strong></p>
+
+    <p>Вот список некоторых книг по Linux, которые могут быть вам
+    интересны. Пожалуйста, открывайте ссылки в новом окне. <em>[Следует
+    заметить, что речь идёт не об электронных версиях книг, а о ссылках
+    на книги в интернет-магазине Amazon, где их можно заказать --
+    прим.ред.]</em></p>
+
+    <p><a
+     href=
+    "http://www.amazon.com/exec/obidos/ASIN/0201774232/scubadivingtheis">
+    Advanced Linux Networking</a><br>
+     <a
+     href=
+    "http://www.amazon.com/exec/obidos/ASIN/0471232823/scubadivingtheis">
+    Hack Attacks Revealed: A Complete Reference</a><br>
+     <a
+     href=
+    "http://www.amazon.com/exec/obidos/ASIN/0072127732/scubadivingtheis">
+    Hacking Linux Exposed</a><br>
+     <a
+     href=
+    "http://www.amazon.com/exec/obidos/ASIN/0735710996/scubadivingtheis">
+    Linux Firewalls (2nd Edition)</a><br>
+     <a
+     href=
+    "http://www.amazon.com/exec/obidos/ASIN/0130861138/scubadivingtheis">
+    Linux Routers</a><br>
+     <a
+     href=
+    "http://www.amazon.com/exec/obidos/ASIN/0735710082/scubadivingtheis">
+    Network Intrusion Detection (An Analysts Handbook, 2nd
+    Edition)</a><br>
+     <a
+     href=
+    "http://www.amazon.com/exec/obidos/ASIN/0672323826/scubadivingtheis">
+    PHP and PostgreSQL Advanced Web Programming</a><br>
+     <a
+     href=
+    "http://www.amazon.com/exec/obidos/ASIN/0130281875/scubadivingtheis">
+    Real World Linux Security: Intrusion Prevention, Detection and
+    Recovery</a><br>
+     <a
+     href=
+    "http://www.amazon.com/exec/obidos/ASIN/0764549413/scubadivingtheis">
+    Red Hat Linux 7.3 Bible</a></p>
+    <hr>
+
+    <p><strong>Теория.</strong></p>
+
+    <p>Демон syslogd имеет интересную возможность, которая позволяет
+    перенаправлять его вывод в определяемый пользователем именованный
+    канал (pipe) <em>[Точнее программный канал. Другое дело, что в статье ведётся 
+    речь именно о named pipe, поэтому в переводе фигурирует термин именованный 
+    канал  -- прим.ред.]</em>. Для обработки поступаемых сообщений и 
+    динамической перенастройки брандмауэра я буду использовать скрипт на 
+    Perl.</p>
+    <hr>
+
+    <p><strong>Что вам понадобится.</strong></p>
+
+    <p>Примеры в данном документе используют сервер БД postgresql.
+    Много людей хорошо знакомы с сервером MySQL, портирование на
+    который не должно быть проблемой. Мне больше нравится Postgres, так
+    как он включает в себя много возможностей присущих коммерческим
+    СУБД. За детальной информацией по PostgreSQL обращайтесь на <a
+     href="http://www.postgresql.org/">http://www.postgresql.org/</a>.
+    Кроме того, на брандмауэре вам понадобятся пакеты postgresql-perl,
+    Perl и iptables.</p>
+
+    <p>На сервере postgreSQL создайте базу данных &quot;adaptive&quot;
+    и таблицу &quot;iptables&quot;. Определите такие поля:</p>
+
+    <ol>
+      <li>ipaddress тип char 16</li>
+
+      <li>severity тип int4</li>
+
+      <li>time тип datetime</li>
+    </ol>
+    <hr>
+
+    <p><strong>Основная безопасность.</strong></p>
+
+    <p>TO DO: более детально рассмотреть MAC-адреса и ложные ARP
+    ответы.</p>
+
+    <p>По моему мнению, на брандмауэре должны быть запущены только
+    сервисы syslog и cron. Стоит также организовать дублирование
+    системных протоколов на печать. Причина в том, что взломав
+    межсетевой экран, нарушитель может переписать протоколы и вы не
+    сможете узнать, какая уязвимость была использована. В случае
+    наличия твердой копии протоколов этот вариант исключается.
+    Желательно, чтобы межсетевой экран загружался с CD-ROM, а правила
+    фильтрации считывались с дискеты, защищенной от записи.</p>
+
+    <p>Очень важно знать MAC-адреса вашей сети. Межсетевой экран должен
+    быть на чеку в отношении неизвестных MAC-адресов, которые могут
+    принадлежать машинам, несанкционированно подключенным к вашей
+    сети.</p>
+    <hr>
+
+    <p><strong>Блокировка межсетевого экрана во время
+    загрузки.</strong></p>
+
+    <p>Первый шаг, который вы должны выполнить -- это обеспечить
+    безопасность брандмауэра. По умолчанию, iptables разрешает
+    прохождение пакетов по цепочкам INPUT, OUTPUT и FORWARD. Это
+    является угрозой безопасности во время загрузки и открывает вашу
+    сеть для разных типов атак. Во избежания этого, необходимо
+    &quot;проинструктировать&quot; iptables блокировать все пакеты еще
+    ДО инициализации интерфейсов.</p>
+
+    <p>В Redhat-подобных дистрибутивах, символическая ссылка
+    &quot;S10network&quot; в каталоге &quot;/etc/rc.d/rc3.d&quot;
+    отвечает за запуск сети (<em>Автор рассматривает только случай
+    третьего уровня инициализации системы. Это не всегда так.
+    Правильней было бы сказать, что за запуск сети отвечает скрипт
+    /etc/rc.d/init.d/network. - Прим.пер.</em>). Там же может
+    находиться и ссылка &quot;S08iptables&quot;, которая отвечает за
+    инициализацию межсетевого экрана. Я предпочитаю удалять эту ссылку
+    и создавать собственную, имя которой начинается с символов
+    &quot;S08&quot;. Скрипт, начинающийся с символов &quot;S08&quot;
+    выполняется перед теми, которые начинаются с символов
+    &quot;S10&quot;. Тем самым мы будем уверены в том, что ни один
+    пакет не пройдет сквозь брандмауэр.</p>
+
+    <p>(<em>Не совсем понятна авторская неприязнь к штатным средствам
+    RedHat. Как указывает сам автор, индекс позиции скрипта iptables
+    равен 08, а индекс позиции скрипта network -- 10. Значит
+    <strong>сперва</strong> выполняется настройка брандмауэра и лишь
+    <strong>потом</strong> инициализируются интерфейсы. Собственно,
+    чего и добивается автор. - Прим.пер.</em>)</p>
+
+    <p>Есть разные настройки ядра, которые можно использовать для
+    увеличения уровня безопасности. Некоторые из них приведены ниже.</p>
+
+    <p>Для обеспечения безопасности во время загрузки, сделайте
+    следующее:</p>
+
+    <ol>
+      <li>Перейдите в каталог &quot;/etc/rc.d&quot;</li>
+
+      <li>Создайте файл &quot;rc.autofwinit&quot;</li>
+
+      <li>Перенесите в него нижеприведенный скрипт.</li>
+
+      <li>Выполните команду &quot;chmod 755 rc.autofwinit&quot;</li>
+
+      <li>Перейдите в каталог &quot;/etc/rc.d/rc3.d&quot;</li>
+
+      <li>Выполните команду &quot;rm -f S08iptables&quot;</li>
+
+      <li>Выполните команду &quot;ln -s /etc/rc.d/rc.autofwinit
+      S08iptables_start&quot;</li>
+
+      <li>Выполните команду &quot;./S08iptables_start&quot;</li>
+    </ol>
+
+    <table
+     border="0"
+     cellspacing="0">
+      <tbody>
+        <tr>
+          <td>
+          </td>
+        </tr>
+      </tbody>
+
+      <tbody>
+        <tr>
+          <td>
+            <p
+             class="c1">Скрипт rc.autofwinit</p>
+          </td>
+        </tr>
+
+        <tr>
+          <td
+           bgcolor="#c0c0c0">
+<pre>
+#!/bin/sh
+#
+# rc.autofwinit - Инициализирует брандмауэр во время загрузки
+#
+# Copyright (C) 2001,2002 Vasoo Veerapen (dive_mauritius@killspamforever.hotmail.com);
+# <a
+ href=
+"http://www.islandsoft.net/veerapen.html">http://www.islandsoft.net/veerapen.html</a>
+#
+# This program is free software; you can distribute it and/or modify it under the terms of
+# the GNU General Public License as published by the Free Software Foundation; version 2
+# of the License.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+# even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along with this program
+# or from the site that you downloaded it from; if not, write to 
+# the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston MA 02111-1307, USA
+#
+#
+# Maybe you are more interested in scuba diving, marine conservation or my
+# homeland, the paradise island of Mauritius where the Dodo used to live?
+# Its simply <a
+ href="http://www.islandsoft.net/">http://www.islandsoft.net/</a>
+#
+# ----------------------------------------------------------------------
+
+echo &quot;Initialising firewalling...Dropping all packets&quot;
+
+IPT=/sbin/iptables
+
+# Блокирование ICMP пакетов-перенаправлений
+for CONF in /proc/sys/net/ipv4/conf/*/accept_redirects; do
+        echo 0 &gt; $CONF
+done
+
+# Блокирование маршрутизации источником
+for CONF in /proc/sys/net/ipv4/conf/*/accept_source_route; do
+        echo 0 &gt; $CONF
+done
+
+# Блокирование IP-спуфинга
+for CONF in /proc/sys/net/ipv4/conf/*/rp_filter; do
+        echo 1 &gt; $CONF
+done
+
+# Очистка таблиц
+for TABLE in filter nat; do
+        $IPT -t $TABLE -F
+        $IPT -t $TABLE -X
+done
+
+# Отбрасывание всех пакетов
+$IPT -P INPUT DROP
+$IPT -P OUTPUT DROP
+$IPT -P FORWARD DROP
+
+echo &quot;Done initialising.&quot;
+sleep 2
+</pre>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p><em>Вместо всех этих удалений и добавлений, можно просто один
+    раз настроить защитный экран (Это вы должны будете сделать в любом
+    случае. Автор это делает в следующем разделе). После чего выполнить
+    команду: service iptables save. Все. - Прим.пер.</em></p>
+    <hr>
+
+    <p><strong>Создание скрипта Iptables.</strong></p>
+
+    <p>После того как процесс загрузки межсетевого экрана будет обезопасен,
+    следует создать сценарий, который позволит протоколировать
+    подозрительные пакеты средствами syslog. Скрипт iptables,
+    приведенный ниже, очень прост. Если вам хочется приключений --
+    попробуйте доработать и использовать DMZ-скрипт из &quot;Iptables
+    Tutorial&quot;.</p>
+
+    <ol>
+      <li>Перейдите в каталог &quot;/etc/rc.d&quot;</li>
+
+      <li>Создайте файл &quot;rc.autofirewall&quot;</li>
+
+      <li>Скопируйте в него указанный ниже скрипт.</li>
+
+      <li>Выполните команду &quot;chmod 755 rc.autofirewall&quot;</li>
+
+      <li>Выполните скрипт &quot;./rc.autofirewall&quot;</li>
+
+      <li>Выполнение должно пройти без ошибок. Если они всё же были,
+      проверьте скрипт на синтаксические ошибки, а также настройки 
+      iptables и ядра.</li>
+    </ol>
+
+    <table
+     border="0"
+     cellspacing="0">
+      <tbody>
+        <tr>
+          <td>
+          </td>
+        </tr>
+      </tbody>
+
+      <tbody>
+        <tr>
+          <td>
+            <p
+             class="c1">Скрипт rc.autofwrules</p>
+          </td>
+        </tr>
+
+        <tr>
+          <td
+           bgcolor="#c0c0c0">
+<pre>
+#!/bin/sh
+#
+# rc.autofwrules - Скрипт автоматического ужесточения правил брандмауэра
+#
+# Copyright (C) 2001,2002 Vasoo Veerapen (dive_mauritius@killspamforever.hotmail.com)
+# <a
+ href=
+"http://www.islandsoft.net/veerapen.html">http://www.islandsoft.net/veerapen.html</a>
+#
+# This program is free software; you can distribute it and/or modify it under the terms of
+# the GNU General Public License as published by the Free Software Foundation; version 2
+# of the License.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+# even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along with this program
+# or from the site that you downloaded it from; if not, write to 
+# the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston MA 02111-1307, USA
+#
+# Maybe you are more interested in scuba diving, marine conservation or my
+# homeland, the paradise island of Mauritius where the Dodo used to live?
+# Its simply <a
+ href="http://www.islandsoft.net/">http://www.islandsoft.net/</a>
+#
+# ----------------------------------------------------------------------
+
+IPT=&quot;/sbin/iptables&quot;
+
+INT_IF=&quot;eth0&quot;
+EXT_IF=&quot;ppp0&quot;
+
+LOG_LEVEL=&quot;notice&quot;
+#
+$IPT -P INPUT ACCEPT
+$IPT -P OUTPUT ACCEPT
+$IPT -P FORWARD ACCEPT
+
+
+
+#*******************************************************************************
+#FILTER_FLAGS
+#*******************************************************************************
+echo Entering FILTER_FLAGS
+$IPT -N FILTER_FLAGS
+$IPT -F FILTER_FLAGS
+##----------------------------------------------------------------------------##
+$IPT -A FILTER_FLAGS -p tcp --tcp-flags ALL FIN -m limit \
+        --limit 5/minute -j LOG --log-level $LOG_LEVEL \
+        --log-prefix &quot;iptables:SCAN:&quot;
+$IPT -A FILTER_FLAGS -p tcp --tcp-flags ALL FIN -j DROP
+
+##----------------------------------------------------------------------------##
+echo Leaving FILTER_FLAGS
+
+#*******************************************************************************
+# BANNED
+#*******************************************************************************
+echo Entering BANNED
+$IPT -N BANNED
+$IPT -F BANNED
+##----------------------------------------------------------------------------##
+# Leave blank
+##----------------------------------------------------------------------------##
+echo Leaving BANNED
+
+        $IPT -A INPUT -j BANNED
+        $IPT -A INPUT -j FILTER_FLAGS
+
+        $IPT -A OUTPUT -j BANNED
+        $IPT -A OUTPUT -j FILTER_FLAGS
+
+#------------- Конец скрипта
+</pre>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <hr>
+
+    <p><strong>Создание поименованного канала.</strong></p>
+
+    <p>Поименованный канал -- это интерфейс между syslog и блокирующим
+    скриптом.</p>
+
+    <ol>
+      <li>Перейдите в каталог &quot;/etc/rc.d&quot; <em>(хотелось бы
+      заметить, что есть более логичные места для размещения
+      поименованного канала. - Прим.пер.)</em></li>
+
+      <li>Выполните &quot;mknod /etc/rc.d/syslog_auth p&quot;</li>
+
+      <li>Выполните &quot;chmod 600 /etc/rc.d/syslog_auth&quot;</li>
+    </ol>
+
+    <p>В поисках более детальной информации вам поможет
+    &quot;man mknod&quot;.</p>
+    <hr>
+
+    <p><strong>Настройка блокирующего скрипта.</strong></p>
+
+    <p>После настройки iptables и поименованного канала, нужно создать
+    скрипт, обрабатывающий сообщения демона syslog. Этот скрипт
+    является основой процесса ужесточения настроек межсетевого экрана.
+    Нижеприведенный скрипт демонстрирует автоматическую блокировку
+    машины и работу с сервером СУБД PostgreSQL.</p>
+
+    <ol>
+      <li>Перейдите в каталог &quot;/etc/rc.d&quot;</li>
+
+      <li>Создайте файл &quot;rc.autoharden&quot;</li>
+
+      <li>Скопируйте в него приведенный ниже скрипт.</li>
+
+      <li>Выполните &quot;chmod 755 rc.autoharden&quot;</li>
+
+      <li>Выполните &quot;./rc.autoharden&quot;</li>
+
+      <li>Вы можете увидеть некоторые сообщения ядра, но никаких
+      сообщений об ошибках. Если они все же были, проверьте скрипт на
+      правильный синтаксис и настройки Perl.</li>
+
+      <li>Откройте новую консоль, нажав, например, Alt-F2. Войдите в
+      систему пользователем root.</li>
+
+      <li>Выполните &quot;/sbin/iptables -L&quot; и посмотрите на
+      выводимые данные. Обратите внимание на цепочку
+      &quot;BANNED&quot;.</li>
+    </ol>
+
+    <table
+     border="0"
+     cellspacing="0">
+      <tbody>
+        <tr>
+          <td>
+          </td>
+        </tr>
+      </tbody>
+
+      <tbody>
+        <tr>
+          <td>
+            <p
+             class="c1">Скрипт rc.autofwharden</p>
+          </td>
+        </tr>
+
+        <tr>
+          <td
+           bgcolor="#c0c0c0">
+<pre>
+#!/usr/bin/perl -w
+#
+# rc.autofwharden - Обработка сообщений от демона syslogd
+#
+# Copyright (C) 2001,2002 Vasoo Veerapen (dive_mauritius@killspamforever.hotmail.com);
+# <a
+ href=
+"http://www.islandsoft.net/veerapen.html">http://www.islandsoft.net/veerapen.html</a>
+#
+# This program is free software; you can distribute it and/or modify it under the terms of
+# the GNU General Public License as published by the Free Software Foundation; version 2
+# of the License.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+# even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along with this program
+# or from the site that you downloaded it from; if not, write to 
+# the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston MA 02111-1307, USA
+#
+#
+# Maybe you are more interested in scuba diving, marine conservation or my
+# homeland, the paradise island of Mauritius where the Dodo used to live?
+# Its simply <a
+ href="http://www.islandsoft.net/">http://www.islandsoft.net/</a>
+#
+# ----------------------------------------------------------------------
+
+use Pg;
+use strict;
+
+my $log_datetime=&quot;&quot;;
+my $log_address=&quot;&quot;;
+
+my @parms = ();
+my $msgSource = &quot;&quot;;
+my $sourceIP = &quot;&quot;;
+my $sourcefile = &quot;dump&quot;;
+my $tmprec = &quot;&quot;;
+my $conn=&quot;&quot;;
+my $result=&quot;&quot;;
+my $temp=&quot;&quot;;
+
+
+# Открываем базу данных
+$conn=Pg::connectdb(&quot;dbname=adaptive user=postgres password=password&quot;);
+( PGRES_CONNECTION_OK eq $conn-&gt;status )
+    and print &quot;Pg::connectdb ok:\n&quot;
+    or  die   &quot;Pg::connectdb failed: &quot;, $conn-&gt;errorMessage, &quot;\n&quot;;
+
+#Открываем поименованный канал
+#open(FIFO, &quot;&lt; /etc/rc.d/syslog_auth&quot;) or die $!;
+#printf &quot;Pipe opened. \n&quot;;
+#while(&lt;FIFO&gt;) {
+
+#Возможно вы хотите открыть тестовый файл?
+open(SOURCE, &quot;&lt; $sourcefile&quot;) or die $!;
+printf &quot;File opened. \n&quot;;
+while (&lt;SOURCE&gt;) {
+        
+        @parms = split(/ /, $_);
+        $msgSource = $parms[5];
+        
+        if ($msgSource eq &quot;iptables:SCAN:&quot;)
+        {
+                #Set date and time
+                $log_datetime=&quot;$parms[1]-$parms[0]-2002 $parms[2]&quot;;
+                
+                #Set source address
+                $temp = $parms[9];
+                $log_address = substr($temp, 4, length($temp) -4);
+                printf &quot;Adding address %s to database. \n&quot;, $log_address;       
+
+                $result = $conn-&gt;exec(&quot;INSERT INTO iptables (ipaddress, severity, time) VALUES (&#39;$log_address&#39;, &#39;1&#39;,&#39;$log_datetime&#39;)&quot;);
+                die $conn-&gt;errorMessage unless PGRES_COMMAND_OK eq $result-&gt;resultStatus;
+                
+                $temp = &quot;/sbin/iptables -A BANNED -s $log_address -j DROP&quot;;
+                printf &quot;%s \n&quot;, $temp;
+                system($temp);
+        }
+}
+
+#close(FIFO);
+
+#Закрываем тестовый файл.
+close(SOURCE);
+
+$result=$conn-&gt;exec(&quot;DROP DATABASE adaptive&quot;);
+die $conn-&gt;errorMessage unless PGRES_COMMAND_OK eq $result-&gt;resultStatus;
+#--------------- Конец скрипта rc.autofwharden
+</pre>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <hr>
+
+    <p><strong>Настройка Syslogd.</strong></p>
+
+    <p>Последний шаг -- это настройка демона syslog. Обычно, сообщения
+    записываются в файл &quot;/var/log/messages&quot;, а некоторые
+    дублируются на консоль. Мы настроим syslog на посылку сообщений в
+    поименованный канал.</p>
+
+    <ul>
+      <li>Перейдите в каталог /etc</li>
+
+      <li>Сохраните текущий файл syslog.conf</li>
+
+      <li>Откройте syslog.conf в редакторе</li>
+    </ul>
+
+    <p>Найдите строку, начинающуюся со слов<br>
+     *.info;mail.none;authpriv.none</p>
+
+    <p>Измените ее так, чтобы она выглядела следующим образом (если вы
+    не нашли такой строки, то просто добавьте ее):<br>
+     *.info;mail.none;authpriv.none |/etc/rc.d/syslog_auth<br>
+     <em>(Если вы исправите существующую строку, то соответствующие
+    протоколы перестанут вестись. Наверное, лучше добавить эту строчку.
+    - Прим.пер.)</em></p>
+
+    <ul>
+      <li>Не используйте пробелы между словами authpriv.none и
+      вертикальной чертой (&quot;|&quot;). Только символ
+      табуляции.</li>
+
+      <li>Между вертикальной чертой (&quot;|&quot;) и строкой
+      /etc/rc.d/syslog_auth не должно быть пробелов.</li>
+
+      <li>Сохраните файл syslog.conf</li>
+
+      <li>Выполните команду &quot;ps -eaf | grep syslogd&quot;, чтобы
+      определить номер процесса syslogd.</li>
+
+      <li>Выполните команду &quot;kill -1&quot; для процесса syslogd
+      (Т.е. &quot;kill -1 698&quot;).</li>
+    </ul>
+    <hr>
+
+    <p><strong>Просмотр результатов.</strong></p>
+
+    <p>Запустите с удаленной системы программу nmap, указав опцию
+    FIN-сканирования. Саму программу можно получить по адресу <a
+     href=
+    "http://www.insecure.org/nmap">http://www.insecure.org/nmap</a>.</p>
+
+    <p>На машине с брандмауэром, выполните команду &quot;/sbin/iptables
+    -L&quot; и обратите внимание на различия в цепочке
+    &quot;Banned&quot;.</p>
+
+    <p>Для просмотра базы данных брандмауэра, зарегистрируйтесь как
+    пользователь postgresql и введите:</p>
+
+    <ul>
+      <li>psql adaptive</li>
+
+      <li>select * from iptables;</li>
+    </ul>
+
+    <p>Эти команды выведут список всех заблокированных адресов,
+    сохраненных в базе.</p>
+    <hr>
+
+    <p><strong>Часто задаваемые вопросы по адаптируемым межсетевым
+    экранам.</strong></p>
+
+    <p>В. Насколько безопасны скрипты, использованные в этом
+    документе&quot;?</p>
+
+    <p>О. Блокирующий скрипт, который я здесь использовал очень (<em>ну
+    ОЧЕНЬ - Прим.пер.</em>) простой. Поскольку он автоматически
+    блокирует адреса, можете представить себе что произойдет если
+    кто-то будет проводить сканирование с измененным адресом источника.
+    В этом случае, будет заблокирован ни в чем не повинный IP-адрес.
+    Однако, если адреса не подменены, вы сможете идентифицировать
+    источник атаки и заблокировать попытки соединений.</p>
+
+    <p>В. Мой брандмауэр постоянно протоколирует пакеты ACK, FIN,
+    URGP=0 ?</p>
+
+    <p>О. В 99.99% случаев -- это нормальное поведение. Происходит это
+    из-за того, что Iptables &quot;помнит&quot; о каждом соединении в
+    течении 60 секунд. Если соединение не активно на протяжении этого
+    времени, Iptables вытирает его из таблицы активных соединений. Но
+    ведь &quot;другой конец&quot; соединения об этом ничего не знает и
+    когда он пытается закрыть соединение со
+    своей стороны, то посылает пакет с такими флагами. Этот пакет и
+    перехватывается брандмауэром.</p>
+    <hr>
+
+    <p><strong>Благодарности.</strong></p>
+
+    <p>Я хочу поблагодарить Оскара Андреасона за вклад, внесенный им в
+    создание этого документа.</p>
+    <!-- *** BEGIN bio *** --><!-- *** END bio *** -->
+    <!-- *** BEGIN copyright *** -->
+    <hr>
+    <small><strong><center>Copyright (c) 2002, Vasoo Veerapen. Copying license
+    <a
+     href=
+    "http://www.linuxgazette.com/copying.html">http://www.linuxgazette.com/copying.html</a><br>
+
+     Published in Issue 82 of <em>Linux Gazette</em>, September
+    2002</center></strong></small>
+     <!-- *** END copyright *** -->
+     
+    <hr>
+
+    <p
+     class="c1"><a
+     href="../index.html">Вернуться на главную страницу</a></p>
+    <hr>
+  </body>
+</html>
+

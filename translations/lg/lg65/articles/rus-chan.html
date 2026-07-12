@@ -1,0 +1,598 @@
+<HTML><HEAD><meta charset="utf-8">
+<title>[lg65]: R. Chan - Собственный домен с помощью технологии ADSL</title>
+
+</HEAD>
+
+<body bgcolor="white" link="red" vlink="#473c8b" alink="blue">
+
+<table align="center" border="0" cellspacing="0" width="80%">
+
+<tr><td align="center">
+
+<hr noshade size="2">
+
+<b>Собственный домен с помощью технологии ADSL
+</b><br>
+<p>&nbsp;
+
+Автор: &copy; <a href="mailto:rayxtra@hotmail.com">Ray Chan</a>
+
+<br>Перевод: &copy; Иван Песин.
+
+<hr noshade size="2">
+</td></tr>
+
+
+<tr><td>
+<p>&nbsp;
+
+<p> 
+<p> <em>Заметка: Имена доменов и IP адреса в этой статье изменены. Я не имею никакого 
+  отношения к myfakedomain.com и myhome.net -- будьте добры, не шлите к ним вопросы 
+  и замечания.</em> 
+<p> <b>Официальное заявление</b> 
+<p> В этой статье мы рассмотрим шаги, которые мне пришлось выполнить для того, 
+  чтобы заработал домен, размещенный у меня дома. Это не руководство по указанной 
+  теме. Уже существует множество соответствующих файлов HOWTO и справочников. Это 
+  просто работающий пример, для вашего сведения. Также здесь приведены полезные 
+  ссылки. 
+<p> <b>Подоплека</b> 
+<p> В славном 2000 году, когда все говорили или использовали широкополосные сети, 
+  я продолжал использовать мой 28.8kbps модем для нет-серфинга. Причина проста 
+  - не один из провайдеров широкополосного доступа не предоставлял услугу фиксированных 
+  I.P. адресов. У меня же было несколько зарегистрированных доменных имен, расположенных 
+  у разных провайдеров. Услуга хостинга сводится к предоставлению таких сервисов, 
+  как html, perl cgi, pop server и, возможно, mod_rewrite. И никогда не предоставляются 
+  сервисы SMTP(<font size="-1">автор ошибается, или не знает - самый известный 
+  провайдер этой услуги в России и странах СНГ, это, конечно же, mail.ru</font> 
+  - <i><font size="-1">Прим.пер</font></i>), MySQL, PHP4, и вообще все полезное, 
+  разве только за соответствующую плату. Вот почему я искал провайдера, который 
+  бы предоставил мне услугу фиксированных I.P. адресов - я бы смог создать свой 
+  веб-сайт и все, что захочу. 
+<p> Наконец, в январе 2001, один из провайдеров, работающих в моей области объявил, 
+  что он будет за дополнительную плату предоставлять услугу фиксированных I.P. 
+  адресов. Это было действительно дорого, но, ребята, это то, что мне нужно!!! 
+  Я буду платить за тот сервис, который удовлетворяет моим запросам. Кроме того, 
+  я смогу сэкономить много денег, перестав платить за хостинг. Почему же все-таки 
+  не динамический I.P.? Да, динамический I.P. адрес может покрыть те же требования, 
+  при использовании некоторых ухищрений динамического DNS, например no-ip или 
+  DynDNS, но это все слишком проблематично, и не очень хорошо, если вы планируете 
+  запускать собственный сервер электронной почты. 
+<p> <b>Планирование сети</b> 
+<p> Итак, наконец, я получил услугу широкополосного канала. Две недели ушло на 
+  то, что бы прибыл парень и установил мне сплиттер и ADSL модем. Вообще-то я 
+  сам мог бы все это сделать, но компания была не согласна. В любом случае, это 
+  хорошее время для того, чтобы построить сеть и приготовить ее к высокоскоростному 
+  подключению. Перед тем как строить сеть, неплохо бы подумать о ее топологии. 
+  Я воспользовался моими запчастями и потратил немного денег для того, чтобы 
+  сделать две <br>
+  линукс-машины. Одна из них будет межсетевым экраном с запущенными серверами 
+  FTP, WWW, SMTP и MySQL. Эта машина будет работать как внешний маршрутизатор 
+  между internet и intranet. Другая машина будет выполнять внутренние приложения, 
+  и работать в качестве внутреннего маршрутизатора. Кто-то может спросить: &quot;Почему 
+  два компьютера?&quot;. Конечно же, по причине безопасности. Обратитесь к вашим 
+  техническим книгам о межсетевом экранировании для объяснений. Рис 1 демонстрирует 
+  диаграмму моей домашней сети. 
+<p> <img src="misc/chan/raynet.jpg" vspace="20" border="2">
+<p> Так как я получил лишь один фиксированный IP, я не буду создавать вебсайт 
+  с высоким трафиком. Только один бастионный хост может хорошо выполнять свою 
+  работу, так как это простейшая сеть. Это решение для меня, не обязательно для 
+  всех, кто читает эту статью. Опять таки, думайте о своем плане. 
+<p> <b>Построение сети</b> 
+<p> Я выкачал и установил RedHat 7.0 (<font size="-1">вообще оригинальный подход 
+  устанавливать .0 версии, когда автор так печется о безопасности [см. выше]. 
+  Я бы рекомендовал устанавливать версии .2, или, хотя бы .1 со всеми заплатками</font> 
+  - <i><font size="-1">Прим.пер</font></i>) на обе машины. Выберите нужные пакеты. 
+  Можно использовать и другие дистрибутивы. Естественно, вам следует выбрать при 
+  установке необходимые пакеты. Помните, что есть необходимые для установки интернет 
+  сервера компоненты. Обратитесь к секции HOW-TO на linuxdocs.org. Я настоятельно 
+  рекомендую вам ознакомиться со следующими документами: 
+<p> 
+<ul>
+  <li><a href="http://linuxdocs.org/HOWTOs/ISP-Setup-RedHat.html">ISP-Setup-ReadHat</a> 
+  <li><a href="http://linuxdocs.org/HOWTOs/DSL-HOWTO/index.html">DSL HOWTO for 
+    Linux</a> 
+    <p> И следующими мини-HOWTO: 
+    <p> 
+  <li><a href="http://linuxdocs.org/HOWTOs/mini/Domain.html">Setting Up Your New 
+    Domain Mini-HOWTO</a> 
+  <li><a href="http://linuxdocs.org/HOWTOs/mini/Home-Network-mini-HOWTO.html">Home-Network-mini-HOWTO</a> 
+  <li><a href="http://linuxdocs.org/HOWTOs/mini/IP-Subnetworking.html">IP-Subnetworking</a> 
+    <p> Если вы не представляете того, что может выполнять линукс, вам необходимо 
+      прочесть '<a href="http://www.linuxdoc.org/HOWTO/Networking-Overview-HOWTO.html">The 
+      Linux Networking Overview HOWTO</a>'. 
+    <p> <b>Защита бастионного хоста при помощи пакетной фильтрации</b> 
+    <p> Так, у меня есть установленный RedHat на двух машинах, однако они еще 
+      не защищены. Мне необходимо установить межсетевой экран и настроить таблицы 
+      маршрутизации, чтобы защитить мои машины от Интернет, и что бы ликвидировать 
+      возможность выхода пакетов моей локальной сети вовне. Это очень сложная работа 
+      для домашнего пользователя, меня в том числе. Я потратил уйму времени на 
+      поиски в freshmeat.net, google и sourceforge. Попробовал множество скриптов 
+      создания фаервольных правил, и ни один из них не обеспечивает должной надежности 
+      и простоты в изменении настроек. Да, я слишком ленивый для написания собственных 
+      правил фильтрации и маршрутизации. Вам повезло, я нашел действительно хороший 
+      скрипт @ <a href="http://iceberg.als.cx/">ICEBERG</a>. Результат его работы 
+      легко изменять и настраивать. На обеих моих машинах работают скрипты, сгенерированные 
+      ICEBERG. Вот список полезной информации касательно фильтрации и маршрутизации: 
+    <p> 
+  <li><a href="http://www.linuxdoc.org/HOWTO/Firewall-HOWTO.html">Firewall-HOWTO</a><br>
+  <li><a href="http://www.linuxdoc.org/HOWTO/IP-Masquerade-HOWTO.html">IP-Masquerade-HOWTO</a><br>
+  <li><a href="http://www.linuxdoc.org/HOWTO/IPCHAINS-HOWTO.html">IPCHAINS-HOWTO</a> 
+    <p> Если вы хотите использовать Napster за фаерволом, вам нужно прочесть <a href="http://www.linuxdoc.org/HOWTO/mini/IPMasquerading+Napster.html">IPMasquerading+Napster 
+      mini-HOWTO</a><br>
+    <p>&nbsp; 
+    <p><b> Настройка внешнего DNS сервера на бастионном хосте</b> </p>
+</ul>
+<blockquote> 
+  <p> Несмотря на то, что я собираюсь использовать <a href="http://www.hn.org">HAMMER 
+    NODE</a> для хостирования записи моего доменного имени, мне необходим кэширующий 
+    сервер имен. Вот конфигурационные файлы: </p>
+  <p> <a href="misc/chan/baston/named.boot.txt">/etc/named.boot</a><br>
+    <a href="misc/chan/baston/named.conf.txt">/etc/named.conf</a><br>
+    <a href="misc/chan/baston/named.ca.txt">/var/named/named.ca</a><br>
+    <a href="misc/chan/baston/named.local.txt">/var/named/named.local</a><br>
+    <a href="misc/chan/baston/named.myfakedomain.com.txt">/var/named/named.myfakedomain.com</a><br>
+    <a href="misc/chan/baston/named.myhome.net.txt">/var/named/named.myhome.net</a><br>
+    <a href="misc/chan/baston/named.rev.3.txt">/var/named/named.rev.3</a><br>
+    <a href="misc/chan/baston/named.rev.2.txt">/var/named/named.rev.2</a><br>
+  </p>
+  <p> <b>Соединение с ADSL модемом</b> </p>
+  <p> Соединение с ADSL модемом под линуксом весьма просто - загрузите RPM программы 
+    <a href="http://www.roaringpenguin.com/pppoe/">RP-PPPOE</a> от Roaring Penguin 
+    Software Inc, установите его и запустите adsl-setup, вот и все. Просто как 
+    веник. </p>
+  <p> <b>Связывание имени домена с бастионным хостом</b> </p>
+  <p> К этому моменту web сервер еще работать не должен. Исправляется эта ситуация 
+    добавлением в файл /etc/httpd/conf/httpd.conf следующих строк: </p>
+  <p> ServerName www.myfakedomain.com (для бастионного хоста)<br>
+    ServerName www.myhome.net (для внутреннего сервера) </p>
+  <p> Итак, web сервера запущены на обоих серверах. Что теперь? Я запустил мой 
+    любимый браузер Netscape и задал запрос на Google относительно свободного 
+    сервиса DNS. Наконец я нашел <a href="http://www.hn.org">HAMMER NODE</a>. 
+    Мне посчастливилось, что я нашел hn.org. Они предлагают сервис, как для динамических, 
+    так и для статических I.P. адресов. У них хороший и простой интерфейс пользователя. 
+    Я создал следующую конфигурацию: </p>
+  <p>&nbsp; </p>
+  <p><form> </p>
+</blockquote>
+<ul>
+  <li> 
+    <table border=2 cellspacing=0 cellpadding=3>
+      <tr> 
+        <td>Rec FQDN</td>
+        <td>Rec Type</td>
+        <td>Rec Value</td>
+        <td>DynDNS</td>
+        <td>MX Pref</td>
+        <td>Commands</td>
+      </tr>
+      <tr> 
+        <td>myfakedomain.com 
+        <td>NS</td>
+        <td>ns1.hn.org</td>
+        <td>0</td>
+        <td>0</td>
+        <td> 
+          <input type=BUTTON value="Delete" name="BUTTON">
+        </td>
+      </tr>
+      <input type=HIDDEN name="dom_m" value="2750">
+      <input type=HIDDEN name="d_rr_idno" value="16131">
+      <tr> 
+        <td>myfakedomain.com</td>
+        <td>NS</td>
+        <td>aux1.hn.org</td>
+        <td>0</td>
+        <td>0</td>
+        <td> 
+          <input type=BUTTON value="Delete" name="BUTTON2">
+        </td>
+      </tr>
+      <input type=HIDDEN name="dom_m" value="2750">
+      <input type=HIDDEN name="d_rr_idno" value="16132">
+      <tr> 
+        <td>www.myfakedomain.com</td>
+        <td>CNAME</td>
+        <td>myfakedomain.com</td>
+        <td>0</td>
+        <td>0</td>
+        <td> 
+          <input type=BUTTON value="Delete" name="BUTTON2">
+        </td>
+      </tr>
+      <input type=HIDDEN name="dom_m" value="2750">
+      <input type=HIDDEN name="d_rr_idno" value="16134">
+      <tr> 
+        <td>myfakedomain.com</td>
+        <td>A</td>
+        <td>202.xxx.xxx.xxx</td>
+        <td>0</td>
+        <td>0</td>
+        <td> 
+          <input type=BUTTON value="Delete" name="BUTTON2">
+        </td>
+      </tr>
+      <input type=HIDDEN name="dom_m" value="2750">
+      <input type=HIDDEN name="d_rr_idno" value="16135">
+      <tr> 
+        <td>mail.myfakedomain.com</td>
+        <td>MX</td>
+        <td>202.xxx.xxx.xxx</td>
+        <td>0</td>
+        <td>0</td>
+        <td> 
+          <input type=BUTTON value="Delete" name="BUTTON2">
+        </td>
+      </tr>
+      <input type=HIDDEN name="dom_m" value="2750">
+      <input type=HIDDEN name="d_rr_idno" value="16136">
+      <tr> 
+        <td>ns.myfakedomain.com</td>
+        <td>NS</td>
+        <td>myfakedomain.com</td>
+        <td>0</td>
+        <td>0</td>
+        <td> 
+          <input type=BUTTON value="Delete" name="BUTTON2">
+        </td>
+      </tr>
+      <input type=HIDDEN name="dom_m" value="2750">
+      <input type=HIDDEN name="d_rr_idno" value="16138">
+      <tr> 
+        <td>mail.myfakedomain.com</td>
+        <td>CNAME</td>
+        <td>myfakedomain.com</td>
+        <td>0</td>
+        <td>0</td>
+        <td> 
+          <input type=BUTTON value="Delete" name="BUTTON2">
+        </td>
+      </tr>
+      <input type=HIDDEN name="dom_m" value="2750">
+      <input type=HIDDEN name="d_rr_idno" value="18787">
+      <tr> 
+        <td>ns.myfakedomain.com</td>
+        <td>CNAME</td>
+        <td>myfakedomain.com</td>
+        <td>0</td>
+        <td>0</td>
+        <td> 
+          <input type=BUTTON value="Delete" name="BUTTON2">
+        </td>
+      </tr>
+      <input type=HIDDEN name="dom_m" value="2750">
+      <input type=HIDDEN name="d_rr_idno" value="18823"></FORM>
+    </table>
+    <p> После настройки учетной записи в DNS на узле hn.org, я поменял настройку 
+      DNS на обоих моих серверах на сервер предоставленный hn.org. Может понадобиться 
+      некоторое время, пока обновиться система DNS. 
+    <p> Великолепно! Теперь все запросы к www.myfakedomain.com будут пересылаться 
+      моему бастионному хосту. Просто, да? Все это благодаря отменной работе hn.org. 
+      Для более детальной информации о настройке DNS, обращайтесь к <a href="http://www.linuxdoc.org/HOWTO/DNS-HOWTO.html">DNS-HOWTO</a>. 
+    <p> Машина, подключенная с помощью ADSL модема, обеспечивает общий доступ 
+      к ресурсам. Это означает что, кто угодно, откуда угодно может до него доступиться. 
+      Соответственно, я должен принять какие-то меры безопасности. Я указал следующие 
+      правила в файлах /etc/hosts.allow и /etc/hosts.deny: 
+    <p> /etc/hosts.allow 
+    <p> ALL: 127.0.0.1<br>
+      in.telnetd: 192.168.2.2<br>
+      in.ftpd: 192.168.2.2<br>
+      sshd: 192.168.2.2 203.xxx.xxx.xxx 
+    <p> /etc/hosts.deny 
+    <p> ALL: ALL : spawn (echo Попытка доступа с %h %a to %d at `date` | tee -a 
+      /xxx/xxx/tcp.deny.log | mail my@email.com ) 
+    <p> Как видно из вышеприведенных конфигурационных файлов, все машины из внутренней 
+      сети могут соединяться по протоколам telnet, ftp, ssh и sftp с бастионным 
+      хостом. Адрес 203.xxx.xxx.xxx - это I.P. адрес моей офисной машины, которой 
+      разрешено подключаться по ssh и обмениваться файлами при помощи sftp. Доступ 
+      по протоколам telnet и ftp к бастионному хосту из вне всегда запрещен. Это 
+      связано с тем, что имя пользователя и пароль передаются в незашифрованном 
+      виде. Как следствие эта пара может быть легко перехвачена хакерами. HTTPD 
+      не включен в конфигурацию, потому что он не контролируется демоном INETD. 
+    <p> <b>Безопасное соединение с бастионным хостом при помощи SSH</b> 
+    <p> Из внутренней сети к бастионному хосту можно подсоединятся по протоколам 
+      Telnet и FTP. Для соединения из внешней сети вы должны использовать SSH 
+      и SFTP. Обратитесь к статье '<a href="http:/gazette.linux.ru.net/lg61/articles/rus-dellomodarme.html">Применение 
+      ssh</a>' из <i>Linux Gazette</i> для информации о настройке и использовании 
+      SSH. Для работы SSH вы должны установить и запустить SSHD. SFTP можно загрузить 
+      с узла <a href="http://enigma.xbill.org/sftp/">http://enigma.xbill.org/sftp/</a>. 
+      SFTP очень просто устанавливается и настраивается - прочтите файл readme, 
+      размещенный на веб сервере. 
+    <p> <b>Настройка внутреннего сервера</b> 
+    <p> Для того, чтобы защитить внутреннюю сеть я запретил любой доступ из внешней 
+      сети к машинам моей внутренней сети: 
+    <p> /etc/hosts.allow 
+    <p> ALL: LOCAL 192.168.1.2 192.168.1.7 
+    <p> /etc/hosts.deny 
+    <p> ALL: ALL : spawn (echo Попытка доступа с машиныh %a к %d `date` | tee 
+      -a /xxx/xxx/tcp.deny.log | mail my@email.com ) 
+    <p> В случае какой-либо попытки доступиться к моим внутренним машинам, мне 
+      будет отправлена электронная почта.
+    <p> Как показано на рис. 1, все внутренние машины имеют свое имя. Вы можете 
+      использовать любое имя хоста и домена для внутренней сети, даже если это 
+      имя уже зарегистрировано в NIC. Однако, необходимо проявить некоторую осторожность 
+      при установке внутреннего DNS сервера. 
+    <p> <b>Настройка внутреннего DNS сервера - named</b> 
+    <p> Опять таки, для настройки DNS сервера обратитесь к соответствующим HOWTO 
+      и техническим руководствам. Ниже представлены мои конфигурационные файлы 
+      для внутреннего сервера: 
+    <p> <a href="misc/chan/intraserver/named.boot.txt">/etc/named.boot</a><br>
+      <a href="misc/chan/intraserver/named.conf.txt">/etc/named.conf</a><br>
+      <a href="misc/chan/intraserver/named.ca.txt">/var/named/named.ca</a><br>
+      <a href="misc/chan/intraserver/named.local.txt">/var/named/named.local</a><br>
+      <a href="misc/chan/intraserver/named.myhome.net.txt">/var/named/named.myhome.net</a><br>
+      <a href="misc/chan/intraserver/named.rev.1.txt">/var/named/named.rev.1</a><br>
+      <a href="misc/chan/intraserver/named.rev.2.txt">/var/named/named.rev.2</a><br>
+    <p>&nbsp; 
+    <p><b>Еще о безопасности</b> </p>
+</ul>
+<blockquote> 
+  <p> Воруг вас множество хакеров. Применение лишь пакетной фильтрации и контроля 
+    доступа из hosts.allow/hosts.deny не достаточно. Новые дыры обнаруживаются 
+    каждый день. Вы должны подписаться на соответствующие рассылки и обновлять 
+    ваш линукс постоянно. Еще немного статей и программ, относящихся к безопасности: 
+  </p>
+  <p>&nbsp; </p>
+</blockquote>
+<ul>
+  <li><a href="http://www.linuxgazette.com/issue46/pollman.html">Security for the Home Network LG #46</a><br>
+  <li><a href="http://www.linux-firewall-tools.com/linux/">Linux Firewall and 
+    Security Site</a><br>
+  <li><a href="http://users.dhp.com/~whisper/mason/">Mason - the automated firewall 
+    builder for Linux</a><br>
+  <li><a href="http://www.astaro.com">Astaro AG (Great firewall linux distribution 
+    with web interface)</a><br>
+  <li><a href="http://www.ethereal.com/">The Ethereal Network Analyzer</a><br>
+  <li><a href="http://www.nessus.org/">Nessus - The Security Scanner</a><br>
+  <li><a href="http://www.stunnel.org/">Stunnel - Universal SSL Wrapper</a><br>
+    <p> <b>Как на счет POP3 и SMTP серверов?</b> 
+    <p> POP3, так же как и TELNET с FTP, передает имя и пароль в открытом виде. 
+      SPOP может быть настроен для шифрования данных POP. Однако, я не желаю сохранять 
+      мою почту нигде за пределами моей внутренней сети. Потому я не собираюсь 
+      настраивать на бастионном хосте сервер POP3. Причина запрета SMTP проста 
+      - открытая доставка опасна, ее могут использовать спаммеры для рассылки 
+      своего ненавистного спама. С другой стороны, установка SMTP сервера без 
+      отрытой доставки бессмысленно, так как я не смогу отправлять почту ниоткуда, 
+      кроме как из своей сети. Я могу просто зарегистрироваться на моем бастионном 
+      хосте при помощи ssh и запустить pine для проверки почты. 
+    <p> <b>Поддомен для вебсервера</b> 
+    <p> Ух! Похоже, все заработало. Теперь я могу разместить мой веб, емейл и 
+      ftp сервер на моем домашнем линуксе. Теперь мне нужен поддомен resume.myfakedomain.com 
+      для размещения моего онлайнового резюме. Просто добавьте следующие строки 
+      в файл /etc/httpd/conf/httpd.conf: 
+    <p> RewriteEngine on<br>
+      ## Игнорировать www.myfakedomain.com<br>
+      RewriteCond %{HTTP_HOST} !^www\.myfakedomain\.com [NC]<br>
+      ## Каталог с именем &quot;поддомен&quot; должен существовать<br>
+      RewriteCond %{DOCUMENT_ROOT}/%1 -d<br>
+      ## Добавить затребованный &quot;поддомен&quot; в URL<br>
+      ## [C] означает, что следующее правило Rewrite будет использовать это<br>
+      RewriteRule ^(.+) %{HTTP_HOST}/$1 [C]<br>
+      ## Перевести abc.myfakedomain.com/foo в myfakedomain.com/abc/foo<br>
+      RewriteRule ^([a-z-]+)\.myfakedomain\.com/?(.*)$ http://www.myfakedomain.com/$1/$2 
+      [L]<br>
+    <p>&nbsp; 
+    <p><b>Другие конфигурационные файлы</b> </p>
+  
+</ul>
+<blockquote> 
+  <p> /etc/hosts (бастионный хост) </p>
+  <p>&nbsp; </p>
+  <pre>
+127.0.0.1	localhost.localdomain 	localhost
+192.168.2.1	router.myhome.net	router
+192.168.2.2	gateway.myhome.net	gateway
+202.xxx.xxx.xxx	www.myfakedomain.com	www
+</pre>
+  <p> /etc/hosts (внутренний шлюз) </p>
+  <p>&nbsp; </p>
+  <pre>
+127.0.0.1	localhost.localdomain 	localhost
+192.168.1.1	server.myhome.net	server
+192.168.1.2	devel.myhome.net 	devel
+192.168.1.3	php.myhome.net	php
+192.168.1.4	asp.myhome.net	asp
+192.168.1.7	be.myhome.net	be
+192.168.2.1	router.myhome.net	router
+192.168.2.2	gateway.myhome.net	gateway
+</pre>
+  <p> /etc/resolv.conf (бастионный хост) </p>
+  <p>&nbsp; </p>
+  <pre>
+search myfakedomain.com
+nameserver	127.0.0.1
+</pre>
+  <p> /etc/resolv.conf (внутренний шлюз) </p>
+  <p>&nbsp; </p>
+  <pre>
+search	myhome.net
+nameserver	127.0.0.1
+</pre>
+  <p> <b>Установки сетевых карт</b> </p>
+  <p> Установки порта Ethernet: </p>
+  <p> <img src="misc/chan/serverport.jpg" border="2"> </p>
+  <p> Остальные конфигурационные файлы: </p>
+  <p> <a href="misc/chan/baston/network.txt">/etc/sysconfig/network</a> (бастионный 
+    хост)<br>
+    <a href="misc/chan/baston/ifcfg-eth0.txt">/etc/sysconfig/network-scripts/ifcfg-eth0</a> 
+    (бастионный хост)<br>
+    <a href="misc/chan/baston/ifcfg-eth1.txt">/etc/sysconfig/network-scripts/ifcfg-eth1</a> 
+    (бастионный хост) </p>
+  <p> <a href="misc/chan/intraserver/network.txt">/etc/sysconfig/network</a> (внутренний 
+    шлюз)<br>
+    <a href="misc/chan/intraserver/ifcfg-eth0.txt">/etc/sysconfig/network-scripts/ifcfg-eth0</a> 
+    (внутренний шлюз)<br>
+    <a href="misc/chan/intraserver/ifcfg-eth1.txt">/etc/sysconfig/network-scripts/ifcfg-eth1</a> 
+    (внутренний шлюз) </p>
+  <p> <a href="misc/chan/rc.local.txt">/etc/rc.d/rc.local</a> (бастионный хост 
+    и внутренний шлюз)<br>
+  </p>
+  <p> <b>Настройки TCP/IP</b> </p>
+  <p>&nbsp; </p>
+</blockquote>
+<ul>
+  <li> 
+    <table border=1>
+      <tr> 
+        <td colspan=2><b>Бастионный хост</b></td>
+      </tr>
+      <tr> 
+        <td>Основной шлюз:</td>
+        <td>ppp0</td>
+      </tr>
+      <tr> 
+        <td>Сервер имен:</td>
+        <td>127.0.0.1</td>
+      </tr>
+      <tr> 
+        <td colspan=2>&nbsp;</td>
+      </tr>
+      <tr> 
+        <td>Сетевой интерфейс:</td>
+        <td>eth0</td>
+      </tr>
+      <tr> 
+        <td>I.P. адрес:</td>
+        <td>192.168.3.1</td>
+      </tr>
+      <tr> 
+        <td>Маска подсети:</td>
+        <td>255.255.255.0</td>
+      </tr>
+      <tr> 
+        <td colspan=2>&nbsp;</td>
+      </tr>
+      <tr> 
+        <td>Сетевой интерфейс:</td>
+        <td>eth1</td>
+      </tr>
+      <tr> 
+        <td>I.P. адрес:</td>
+        <td>192.168.2.1</td>
+      </tr>
+      <tr> 
+        <td>Маска подсети:</td>
+        <td>255.255.255.0</td>
+      </tr>
+    </table>
+    <p> 
+    <table border=1>
+      <tr> 
+        <td colspan=2><b>Внутренний сервер</b></td>
+      </tr>
+      <tr> 
+        <td>Основной шлюз:</td>
+        <td>192.168.2.1</td>
+      </tr>
+      <tr> 
+        <td>Сервер имен:</td>
+        <td>127.0.0.1</td>
+      </tr>
+      <tr> 
+        <td colspan=2>&nbsp;</td>
+      </tr>
+      <tr> 
+        <td>Сетевой интерфейс:</td>
+        <td>eth0</td>
+      </tr>
+      <tr> 
+        <td>I.P. адрес:</td>
+        <td>192.168.1.1</td>
+      </tr>
+      <tr> 
+        <td>Маска подсети:</td>
+        <td>255.255.255.0</td>
+      </tr>
+      <tr> 
+        <td colspan=2>&nbsp;</td>
+      </tr>
+      <tr> 
+        <td>Сетевой интерфейс:</td>
+        <td>eth1</td>
+      </tr>
+      <tr> 
+        <td>I.P. адрес:</td>
+        <td>192.168.2.2</td>
+      </tr>
+      <tr> 
+        <td>Маска подсети:</td>
+        <td>255.255.255.0</td>
+      </tr>
+    </table>
+    <p> 
+    <table border=1>
+      <tr> 
+        <td colspan=2><b>Рабочие станции внутренней сети</b></td>
+      </tr>
+      <tr> 
+        <td>Основной шлюз:</td>
+        <td>192.168.1.1</td>
+      </tr>
+      <tr> 
+        <td>Сервер имен:</td>
+        <td>192.168.1.1</td>
+      </tr>
+      <tr> 
+        <td colspan=2>&nbsp;</td>
+      </tr>
+      <tr> 
+        <td>Сетевой интерфейс:</td>
+        <td>eth0</td>
+      </tr>
+      <tr> 
+        <td>I.P. адрес:</td>
+        <td>192.168.1.X</td>
+      </tr>
+      <tr> 
+        <td>Маска подсети:</td>
+        <td>255.255.255.0</td>
+      </tr>
+    </table>
+    <p> <b>Долнейшая установка</b> 
+    <p> Что, если вы хотите доступиться до вашей внутренней машины под управлением 
+      windowsz извне, при том, что между вами находиться межсетевой экран? Ответ 
+      - используйте технологию Виртуальной Частной Сети (Virtual Private Network 
+      <a href="http://whatis.techtarget.com/WhatIs_Definition_Page/0,4152,213324,00.html">VPN</a>). 
+      Линукс текущей версии поддерживает технологию VPN. Просмотрите также <a href="http://linuxdocs.org/HOWTOs/mini/VPN.html">VPN 
+      HOWTO</a>. Если вы хотите разместить на одном бастионном хосте несколько 
+      разных доменов, вам потребуются специальные настройки для веб и емейл серверов. 
+      Следующая моя статья будет рассматривать технологию VPN и настойку виртуальных 
+      доменов. 
+    <p> Если у вас имеются пожелания или комментарии относительно этого документа, 
+      обращайтесь ко мне по адресу <a href="mailto:rayxtra@hotmail.com">rayxtra@hotmail.com</a>. 
+
+
+
+
+<p>&nbsp;
+
+</td></tr>
+
+
+<tr><td align="center">
+
+<hr noshade size="2">
+Copyright © 2001, Ray Chan.<br>
+Copying license <a href="http://www.linuxgazette.com/copying.html">http://www.linuxgazette.com/copying.html</a><br>
+Published in Issue 65 of <a href="http://www.linuxgazette.com">Linux Gazette</a>, April 2001<br>
+
+</td></tr>
+
+
+
+
+<tr><td align="center">
+<hr noshade size="2">
+
+<a href="http://gazette.linux.ru.net">Вернуться на главную страницу</a>
+
+<hr noshade size="2">
+
+</td></tr>
+
+
+</table>
+</html>
+
+
+

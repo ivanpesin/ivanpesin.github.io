@@ -1,0 +1,1380 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Ivan Pesin | 
+      Posts
+      </title>
+    <meta name="description" content="">
+
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/custom.css">
+    
+    
+    
+    
+
+    
+    <meta property="og:locale" content="en_US">
+    <meta property="og:title" content="Posts">
+    
+    <meta property="og:description" content="Articles, Translations, and Blog">
+    <meta property="og:site_name" content="Ivan Pesin">
+
+  </head>
+
+
+<body>
+  <nav class="navbar navbar-default">
+    <div class="container">
+      
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        
+        <a class="navbar-brand" href="/">Articles, Translations, and Blog</a>
+      </div>
+  
+      
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="/posts/">Blog</a></li>
+            <li><a href="/photos/">Photos</a></li>
+            <li><a href="/#articles-translations">Articles & Translations</a></li>
+            <li><a href="/talks/">Talks</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Links <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="/phonetic-alphabet">Phonetic Alphabet</a></li>
+                <li><a href="/emoji">Emoji shortcuts</a></li>
+                <li><a href="/vim-cheatsheet">VIM cheatsheet</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="/articles/kb/">Assorted tips&trciks</a></li>
+              </ul>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+  <div class="container">
+    <article>
+      
+
+  
+
+  <div class="row">
+    <div class="col-md-9"><div class="text-muted">
+    July 2, 2019
+</div>
+<h2 class="title" style="margin-top: 0">AWK vs Big Data</h2>
+<div>
+     
+     <span class="text-muted">&sect;
+     
+             <a href="/categories/tech/">tech</a>
+    </span>
+
+    &nbsp;&nbsp;&nbsp;<span class="text-muted"> # 
+    
+      <a href="/tags/awk/">awk</a>
+      <span class="separator">•</span>
+      <a href="/tags/bigdata/">bigdata</a>
+      <span class="separator">•</span>
+      <a href="/tags/quotes/">quotes</a>
+    </span>
+
+</div>
+
+
+      <div style="margin-top: 10px">
+        
+
+        <div class="bs-callout bs-callout-info">
+    Don’t sleep on the basics. Someone probably solved your problem in the 80s.
+</div>
+<p>There&rsquo;s been a lot of talk about big data recently. Lots of people just shove data into
+whatever software is currently all the rage (think Hadoop some time ago, Spark, etc) and
+get excited with results that actually aren&rsquo;t that amazing. You can get very decent results
+by using the standard data processing toolset (<code>awk/grep/sed/sort/xargs/find</code>) paired with
+understanding of what data you process and how the software works.</p>
+<p>One of the best pieces of software I wrote was a data mining tool working on a dataset of
+approximately .5TB which is not that much. The trick was that it was completing queries on
+that dataset in subsecond timeframe. And I did spend quite a bit of time working on performance
+to achieve that result.</p>
+<p>Thus being involved with this sort of tasks, I was amused to stumble upon this tweet:</p>
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Recently I got put in change of wrangling 25+ TB of raw genotyping data for my lab. When I started, using spark took 8 min &amp; cost $20 to query a SNP. After using AWK + <a href="https://twitter.com/hashtag/rstats?src=hash&amp;ref_src=twsrc%5Etfw">#rstats</a> to process, it now takes less than a 10th of a second and costs $0.00001. My personal <a href="https://twitter.com/hashtag/BigData?src=hash&amp;ref_src=twsrc%5Etfw">#BigData</a> win. <a href="https://t.co/ANOXVGrmkk">pic.twitter.com/ANOXVGrmkk</a></p>&mdash; Nick Strayer (@NicholasStrayer) <a href="https://twitter.com/NicholasStrayer/status/1134151057385369600?ref_src=twsrc%5Etfw">May 30, 2019</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<!-- Recently I got put in change of wrangling 25+ TB of raw genotyping data for my lab. When I started, using spark took 8 min & cost $20 to query a SNP. After using AWK + #rstats to process, it now takes less than a 10th of a second and costs $0.00001. My personal #BigData win. -->
+<p><a href="https://livefreeordichotomize.com/2019/06/04/using_awk_and_r_to_parse_25tb/">The full story</a> behind this tweet is a very nice reading of how the author was re-discovering plain-text
+tools with some fun and insightful quotes and other tweets like:</p>
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Me taking algorithms class in college: &quot;Ugh, no one cares about computational complexity of all these sorting algorithms&quot; <br><br>Me trying to sort on a column in a 20TB <a href="https://twitter.com/hashtag/spark?src=hash&amp;ref_src=twsrc%5Etfw">#spark</a> table: &quot;Why is this taking so long?&quot; <a href="https://twitter.com/hashtag/DataScience?src=hash&amp;ref_src=twsrc%5Etfw">#DataScience</a> struggles.</p>&mdash; Nick Strayer (@NicholasStrayer) <a href="https://twitter.com/NicholasStrayer/status/1105127759318319105?ref_src=twsrc%5Etfw">March 11, 2019</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<!-- Me taking algorithms class in college: "Ugh, no one cares about computational complexity of all these sorting algorithms" 
+
+Me trying to sort on a column in a 20TB #spark table: "Why is this taking so long?" -->
+<p>and, a very true one:</p>
+<blockquote>
+<p>gnu parallel is magic and everyone should use it.</p>
+</blockquote>
+<hr>
+<p>Frankly, I think that quite a number of so-called <em>Big Data</em> applications can be re-done using
+venerable text-processing tools and produce cheaper and faster results in the end. Which reminds
+me <a href="https://adamdrake.com/command-line-tools-can-be-235x-faster-than-your-hadoop-cluster.html">another article</a> where the author re-did a Hadoop task to process ~2Gb file with <code>awk</code> and ended up with 235x
+speed increase:</p>
+<blockquote>
+<p>I tried this out, and for the same amount of data I was able to use my laptop to get the results in about 12 seconds (processing speed of about 270MB/sec), while the Hadoop processing took about 26 minutes (processing speed of about 1.14MB/sec).</p>
+</blockquote>
+
+      </div>
+
+      <hr><div class="text-muted">
+    November 14, 2018
+</div>
+<h2 class="title" style="margin-top: 0">Review: Have you tried turning it off and on again?</h2>
+<div>
+     
+     <span class="text-muted">&sect;
+     
+             <a href="/categories/tech/">tech</a>
+    </span>
+
+    &nbsp;&nbsp;&nbsp;<span class="text-muted"> # 
+    
+      <a href="/tags/lisa/">lisa</a>
+      <span class="separator">•</span>
+      <a href="/tags/conf/">conf</a>
+      <span class="separator">•</span>
+      <a href="/tags/dependencies/">dependencies</a>
+      <span class="separator">•</span>
+      <a href="/tags/scale/">scale</a>
+    </span>
+
+</div>
+
+
+      <div style="margin-top: 10px">
+        
+
+        <div class="bs-callout bs-callout-info">
+    This is the LISA2017 conference talk review I wrote for <a href="https://www.usenix.org/blog/review-disaster-recovery">their official blog</a>. Just saving a copy here in case they decide to rework their blog and content disappears or something.
+</div>
+<p>Submitted by ipesin on November 7, 2017 - 11:38 am</p>
+<p>When you attend a talk that starts with a Google engineer asking, “What would happen if all of the machines you are running on restarted right now?” you might get really worried. Think about the Google services we use on a daily basis and what would happen if they suddenly stopped working—Google Maps, for example. Hopefully, we’d be able to get home from the office, but if we were travelling or looking for a business location, that would become a disaster. What about Google Search? Would we be able to even do our job if it went down? I actually got scared for a moment, as thoughts like these raced through my mind. But then I realised that it is good that engineers at Google actually ask these same questions. This gives me hope.</p>
+<p>Tanya Reilly’s talk on disaster recovery <a href="https://www.usenix.org/conference/lisa17/conference-program/presentation/reilly">“Have You Tried Turning It Off and Turning It On Again?”</a> was the best talk I attended at <a href="https://www.usenix.org/conference/lisa17">LISA17</a>. It contained everything that makes a technical talk great: good natured humor, engaging speaking style, thoughtful analysis, shocking real-life examples, and nerdy stuff about handy tools. Even more: the talk was filled with phrases you just wanted to write down, so good they were. Jon Kuroda, who later delivered the <a href="https://www.usenix.org/conference/lisa17/conference-program/presentation/kuroda">closing plenary</a>, couldn’t resist including one of them: “Because humans are terrible.”</p>
+<p>People are extremely bad at dealing with complex systems, tedious and routine processes, repeatable processes; you name it, and we’re usually bad at it. Most of us know this, but do we do enough to mitigate this? For some years already there has been tribal knowledge that backups must be regularly tested to be sure you can recover from them. But how many organizations are actually doing it? And how many of those are doing it properly, i.e. not simply making sure you can read or extract backups, but actually starting all of their systems from the backup and then checking that everything works as it should? As Tanya said: “I’m not going to ask for show of hands, because it’s kind of embarrassing.”</p>
+<p>The backup discussion is decades old, and it is still in quite bad shape. But the world is changing, and we are building more and more complex systems that consist of hundreds and thousands interdependent subsystems. These systems are also becoming increasingly reliable and failure resistant. The problem is that such systems are built gradually, and their complexity grows quite unnoticeably until no one really understands its interdependencies. At that point you realize that you can run the system, possibly even extend it, but if it really goes down, no one is sure how to bring it up again from the ground zero or how long it would take.</p>
+<p>I had a similar experience about a decade ago, when the firm I worked for expanded from a dozen of servers to a hundred plus. Back then power outages were not uncommon where the firm’s office was located, and one day it took us more than four hours to bring the infrastructure back online because of dependencies, sometimes circular ones, that we hadn’t realized were there. After that event, we set up a task force to map all the dependencies we had, document them, make sure there were no circular dependencies, and create a recovery plan detailing in which order the infrastructure had to be powered back up. To steal another quote from the talk: “you don’t need a backup plan; you need a recovery plan.”</p>
+<p>As you gather the dependencies, if there are more than a couple of dozens of them, you will find that it becomes difficult to process all of them and determine what shouldn’t be there (“because, you know, people are terrible”). As a nerdy diversion, Tanya spoke about and shared one of her favourite tools, which I happen to be fan of as well, <strong>graphviz</strong>. It’s so easy to visualize dependencies with it, you just put them one per line and surround with <strong>digraph { }</strong>:</p>
+<pre><code class="language-console" data-lang="console">$ cat sysexample.dot 
+digraph {
+   app1 -&gt; db1
+   app1 -&gt; cache1
+   app1 -&gt; ldap
+   app1 -&gt; dns
+   dns -&gt; ldap
+   db1 -&gt; ldap
+   db1 -&gt; storage
+   ldap -&gt; storage        
+   storage -&gt; dns
+}
+$ dot sysexample.dot -Tpng &gt; sysex.png
+</code></pre><p><img src="/imgs/posts/pesin_sysex_image.png" alt=""></p>
+<p>You get the visual representation which is easier to comprehend and notice a vicious cycle.</p>
+<p>In my case, we really were looking for dependencies between the machines. These days, however, more and more functions are abstracted as microservices which run in containers, so dependencies are becoming more about services, and their interaction complexity continues to grow.</p>
+<p>It is phenomenal how Tanya managed to make a talk on what I would call “the dark realms of the industry,” which are intrinsically sad and scary, fun and hope-inducing instead. It made me less scared and inspired to venture into and tackle these problems, which is essentially the point of the talk. Even better, start thinking about component dependencies before it becomes a problem, know them, include them into design phase, and constrain them.</p>
+<p>Go and see the recording of this talk if you missed it. I am sure this is one of the talks which will have lasting effect and maybe at some point will help you in your career. The best way to listen to such talks is at the conference, certainly: you get the atmosphere, you get other people to talk to about it, and you have time to think about it while not being distracted by work. So if you missed the conference this year, come to the next LISA. Experiencing talks like this one first-hand makes you charged up with desire to fix things, address issues, and make the world a better place.</p>
+
+      </div>
+
+      <hr><div class="text-muted">
+    November 7, 2018
+</div>
+<h2 class="title" style="margin-top: 0">Review: Getting started with Docker and containers</h2>
+<div>
+     
+     <span class="text-muted">&sect;
+     
+             <a href="/categories/tech/">tech</a>
+    </span>
+
+    &nbsp;&nbsp;&nbsp;<span class="text-muted"> # 
+    
+      <a href="/tags/lisa/">lisa</a>
+      <span class="separator">•</span>
+      <a href="/tags/conf/">conf</a>
+      <span class="separator">•</span>
+      <a href="/tags/docker/">docker</a>
+      <span class="separator">•</span>
+      <a href="/tags/figlet/">figlet</a>
+      <span class="separator">•</span>
+      <a href="/tags/ascii/">ascii</a>
+      <span class="separator">•</span>
+      <a href="/tags/asciiart/">asciiart</a>
+      <span class="separator">•</span>
+      <a href="/tags/review/">review</a>
+    </span>
+
+</div>
+
+
+      <div style="margin-top: 10px">
+        
+
+        <div class="bs-callout bs-callout-info">
+    This is the LISA2017 conference talk review I wrote for
+<a href="https://www.usenix.org/blog/review-disaster-recovery">their official blog</a>. Just saving a copy here in case they decide to rework their blog and content disappears or something.
+</div>
+<p>Submitted by ipesin on November 1, 2017 - 3:38 pm</p>
+<p>What makes a good conference so special? With vast amounts of information available virtually on any topic imaginable at a click’s distance, would it not be more efficient to spend time in comfortable home setting learning new technology?</p>
+<p>Jérôme Petazzo’s <a href="https://www.usenix.org/conference/lisa17/training-program/session/getting-started-docker-and-containers">“Getting Started with Docker and Containers”</a> tutorial at <a href="https://www.usenix.org/conference/lisa17">LISA17</a> was a great example of the fact that despite all the online content and self-paced trainings, an outstanding lecturer can pass on a whole lot more information in limited amount of time than you could possibly hope to learn on your own. What is even more important, by listening to a person keen on the topic, you often pick up the same excitement yourself.</p>
+<p>That was definitely the case with me. Containers are not a new concept under the sun: <a href="https://openvz.org/">OpenVZ</a> container technology is more than a decade old. In 2008, I led an effort at a firm where I worked back then to introduce containers for infrastructure services like LDAP, DNS, NTP, etc. A year ago, a project required simulation of thousands of Puppet nodes and to do so with reasonable resources, I opted for <a href="https://linuxcontainers.org/lxd/">LXC/LXD</a> containers with great success.</p>
+<p>Being a long-time container user, however, Docker is something I was missing out on. For some odd reason, projects I have been working on lately do not leverage containers. I decided to catch up on it during LISA17. I did not anticipate how Jérôme’s training would affect me though.</p>
+<p>To start, training was packed with outstanding educational approaches. Participants received access to personal cloud Cocker instances. This meant no one needed to litter their laptops with files and binaries, training time was not spent on resolving issues with tools not being correctly installed. There was no wifi collapse, because instances were provisioned ahead of time, and everyone was using low-bandwidth ssh access to work with them.</p>
+<p>Next, Jérôme started to explain Docker capabilities and used <code>fidget</code> for that. This is a well known tool for generating nice renderings of text in ASCII art. I am using this tool to put hostnames or host functions in <code>/etc/motd</code>, so it is displayed when people log on to machines via <code>ssh</code>. The demo resonated with me so much, that an idea hatched in my mind how to improve the way I generate these titles for <code>/etc/motd</code>: a simple web application, that takes a font name and text as parameters and returns rendered ASCII caption. Then I could simply do a curl request during host provisioning or from Puppet and capture the output into <code>/etc/motd</code> file.</p>
+<p>Finally, you hardly can get such a holistic end-to-end explanation and demonstration of container pipeline online &ndash; from coding on a developer’s workstation, through the build and test process, to the deployment in production.</p>
+<p>My idea of a web app was so burning, that I simply went online during the first break and bought <a href="figlet.me">figlet.me</a> domain, then wrote <a href="https://github.com/ivanpesin/figlet.me">a simple web application</a> in Go which takes parameters in URL and sends rendering back:</p>
+<pre><code class="language-console" data-lang="console">$ curl localhost:8080/?text=LISA17
+
+#       ###  #####     #      #   #######
+#        #  #     #   # #    ##   #    # 
+#        #  #        #   #  # #       #  
+#        #   #####  #     #   #      # 
+#        #        # #######   #     # 
+#        #  #     # #     #   #     #  
+####### ###  #####  #     # #####   # 
+</code></pre><p>The only remaining thing was to put knowledge from the training to use and build a container with this application. In the evening I wrote a multistage <a href="https://github.com/ivanpesin/figlet.me/blob/master/Dockerfile">Dockerfile</a>, pushed it to Docker Hub, and then started it on a Docker host. Just 3 hours of training and not only I was able to set up the whole Docker development pipeline, I wanted to do it!</p>
+<p>Now the web service is available for everyone to use (<a href="http://figlet.me/?font=slant&amp;text=bonjour">give it a try</a>):</p>
+<pre><code class="language-console" data-lang="console">$ curl -d &quot;font=slant&quot; -d &quot;text=USENIX LISA17 San Francisco&quot; http://figlet.me/
+
+   __  _______ _______   _______  __    __    _________ ___   ________
+  / / / / ___// ____/ | / /  _/ |/ /   / /   /  _/ ___//   | &lt;  /__  /
+ / / / /\__ \/ __/ /  |/ // / |   /   / /    / / \__ \/ /| | / /  / / 
+/ /_/ /___/ / /___/ /|  // / /   |   / /____/ / ___/ / ___ |/ /  / /   
+\____//____/_____/_/ |_/___//_/|_|  /_____/___//____/_/  |_/_/  /_/   
+   
+                                                                      
+   _____                ______                      _                 
+  / ___/____ _____     / ____/________ _____  _____(_)_____________   
+  \__ \/ __ `/ __ \   / /_  / ___/ __ `/ __ \/ ___/ / ___/ ___/ __ \  
+ ___/ / /_/ / / / /  / __/ / /  / /_/ / / / / /__/ (__  ) /__/ /_/ /  
+/____/\__,_/_/ /_/  /_/   /_/   \__,_/_/ /_/\___/_/____/\___/\____/   
+</code></pre><pre><code class="language-console" data-lang="console">$ curl -d &quot;font=straight&quot; -d &quot;text=USENIX LISA17 San Francisco&quot; figlet.me
+
+     __ __               __        ___   __         __                 
+/  \(_ |_ |\ ||\_/  |  |(_  /\  /|   /  (_  _  _   |__ _  _  _. _ _ _  
+\__/__)|__| \||/ \  |__|__)/--\  |  /   __)(_|| )  || (_|| )(_|_)(_(_) 
+</code></pre><p>Would I do this if I watched YouTube video of a lecture sitting at home? Frankly, I doubt it. And this is why LISA is so special.</p>
+
+      </div>
+
+      <hr><div class="text-muted">
+    August 3, 2018
+</div>
+<h2 class="title" style="margin-top: 0">Conway&#39;s Life simulation in Go</h2>
+<div>
+     
+     <span class="text-muted">&sect;
+     
+             <a href="/categories/tech/">tech</a>
+    </span>
+
+    &nbsp;&nbsp;&nbsp;<span class="text-muted"> # 
+    
+      <a href="/tags/model/">model</a>
+      <span class="separator">•</span>
+      <a href="/tags/ascii/">ascii</a>
+      <span class="separator">•</span>
+      <a href="/tags/golang/">golang</a>
+      <span class="separator">•</span>
+      <a href="/tags/life/">life</a>
+      <span class="separator">•</span>
+      <a href="/tags/conway/">conway</a>
+    </span>
+
+</div>
+
+
+      <div style="margin-top: 10px">
+        
+
+        <p>Implemeting Conway&rsquo;s life is one of the first things I do when exploring a new programming language.</p>
+<p>Conway&rsquo;s Game of Life, also known as the Game of Life or simply Life, is a cellular automaton devised by the British mathematician John Horton Conway in 1970. It is the best-known example of a cellular automaton. Ever since its publication, Conway&rsquo;s Game of Life has attracted much interest because of the surprising ways in which the patterns can evolve.</p>
+<p>This time I wrote a version that can generate text-mode and animated GIF representations and load predefined starting configuration from LIF files:</p>
+<figure>
+    <img src="https://github.com/ivanpesin/golang-life/raw/master/images/piheptomino-terminal.gif"
+         alt="Pi-heptomino is a common heptomino that stabilizes at generation 173, leaving behind six blocks, five blinkers and two ponds."/> <figcaption>
+            <p>Pi-heptomino is a common heptomino that stabilizes at generation 173, leaving behind six blocks, five blinkers and two ponds.</p>
+        </figcaption>
+</figure>
+
+<hr>
+<figure>
+    <img src="https://github.com/ivanpesin/golang-life/raw/master/images/thunderbird.gif"
+         alt="Thunderbird is a methuselah that stabilizes after 243 generations. Its stable pattern has 46 cells and consists of four blinkers, four beehives and two boats."/> <figcaption>
+            <p>Thunderbird is a methuselah that stabilizes after 243 generations. Its stable pattern has 46 cells and consists of four blinkers, four beehives and two boats.</p>
+        </figcaption>
+</figure>
+
+<hr>
+
+      </div>
+
+      <hr><div class="text-muted">
+    August 3, 2018
+</div>
+<h2 class="title" style="margin-top: 0">The Schelling Model of Ethnic Residential Dynamics</h2>
+<div>
+     
+     <span class="text-muted">&sect;
+     
+             <a href="/categories/tech/">tech</a>
+    </span>
+
+    &nbsp;&nbsp;&nbsp;<span class="text-muted"> # 
+    
+      <a href="/tags/model/">model</a>
+      <span class="separator">•</span>
+      <a href="/tags/ascii/">ascii</a>
+      <span class="separator">•</span>
+      <a href="/tags/golang/">golang</a>
+      <span class="separator">•</span>
+      <a href="/tags/segregation/">segregation</a>
+      <span class="separator">•</span>
+      <a href="/tags/schelling/">schelling</a>
+    </span>
+
+</div>
+
+
+      <div style="margin-top: 10px">
+        
+
+        <p>In 1971, the American economist Thomas Schelling created an agent-based model that might help explain why segregation is so difficult to combat. His model of segregation showed that even when individuals (or &ldquo;agents&rdquo;) didn&rsquo;t mind being surrounded or living by agents of a different race, they would still choose to segregate themselves from other agents over time! Although the model is quite simple, it gives a fascinating look at how individuals might self-segregate, even when they have no explicit desire to do so.</p>
+<p><a href="http://nifty.stanford.edu/2014/mccown-schelling-model-segregation/">Source</a></p>
+<p>Models are my favourite coding excercises. Often not too difficult to implement, but almost always very  captivating. This time it&rsquo;s the segregation model in two alogrithm variations:</p>
+<ol>
+<li>when the agent becomes dissatisfied, it moves to a vacant spot where it will be satisfied</li>
+<li>when the agent becomes dissatisfied, it moves to a random vacant spot</li>
+</ol>
+<figure>
+    <img src="https://github.com/ivanpesin/golang-segregation-model/raw/master/seg-model.gif"
+         alt="Dissatisfied agent moves to a vacant spot where it will be satisfied"/> <figcaption>
+            <p>Dissatisfied agent moves to a vacant spot where it will be satisfied</p>
+        </figcaption>
+</figure>
+
+<hr>
+<figure>
+    <img src="https://github.com/ivanpesin/golang-segregation-model/raw/master/seg-model-random.gif"
+         alt="Dissatisfied agent moves to a random vacant spot"/> <figcaption>
+            <p>Dissatisfied agent moves to a random vacant spot</p>
+        </figcaption>
+</figure>
+
+<hr>
+<p>I find it fascinating to observe how these clusters are formed even without a clear agent preference for uniformity!</p>
+
+      </div>
+
+      <hr></div> 
+
+    
+    <div class="col-md-3">
+      <h4><small>➶</small> Navigation</h4>
+      <div class="row"><div class="col-md-offset-1 col-md-11">
+           
+            <a href="/posts/page/5/">← Older posts</a>
+          
+        </a>
+      </div></div>
+      <div class="row"><div class="col-md-offset-1 col-md-11">
+        <a href="/posts/archive">Archive (57 posts)</a>
+      </div></div>
+      <div class="row"><div class="col-md-offset-1 col-md-11">
+           
+            <a href="/posts/page/3/">Newer posts →</a>
+          
+      </div></div>
+
+      <h4><small>&sect;</small> Categories</h4>
+      <div class="row"><div class="col-md-offset-1 col-md-11">
+        
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+  <a href="/categories/english">english</a> 
+
+   <span class="separator">•</span> 
+  <a href="/categories/fun">fun</a> 
+
+   <span class="separator">•</span> 
+  <a href="/categories/general">general</a> 
+
+   <span class="separator">•</span> 
+  <a href="/categories/howto">howto</a> 
+
+   <span class="separator">•</span> 
+  <a href="/categories/links">links</a> 
+
+   <span class="separator">•</span> 
+  <a href="/categories/poetry">poetry</a> 
+
+   <span class="separator">•</span> 
+  <a href="/categories/quotes">quotes</a> 
+
+   <span class="separator">•</span> 
+  <a href="/categories/talks">talks</a> 
+
+   <span class="separator">•</span> 
+  <a href="/categories/tech">tech</a> 
+
+
+
+
+      </div></div>
+
+      <h4><small>#</small> Tags</h4>
+      <div class="row"><div class="col-md-offset-1 col-md-11">
+        
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+  <a href="/tags/air">air</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/airline">airline</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/aldrich">aldrich</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/alphabet">alphabet</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/ansible">ansible</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/apple">apple</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/ascii">ascii</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/asciiart">asciiart</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/autossh">autossh</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/awk">awk</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/bash">bash</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/bedford">bedford</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/big-o">big-o</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/bigdata">bigdata</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/bleep">bleep</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/book">book</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/bootstrap">bootstrap</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/bugs">bugs</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/burns">burns</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/cfengine">cfengine</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/chance">chance</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/cheatsheet">cheatsheet</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/cli">cli</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/clouds">clouds</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/coe">coe</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/collectd3">collectd3</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/colors">colors</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/colours">colours</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/conf">conf</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/console">console</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/conway">conway</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/corporate">corporate</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/coursera">coursera</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/cpuset">cpuset</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/crc32">crc32</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/dependencies">dependencies</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/devops">devops</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/dilbert">dilbert</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/dns">dns</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/docker">docker</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/doctors">doctors</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/dou">dou</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/education">education</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/ejf">ejf</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/emoji">emoji</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/english">english</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/europe">europe</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/excellence">excellence</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/expect">expect</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/experience">experience</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/figlet">figlet</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/firmware">firmware</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/fraser">fraser</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/fry">fry</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/fun">fun</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/ganalytics">ganalytics</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/glissade">glissade</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/gnuplot">gnuplot</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/golang">golang</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/google">google</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/gphotos">gphotos</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/graphdb">graphdb</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/grep">grep</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/highlighting">highlighting</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/histograms">histograms</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/ifconfig">ifconfig</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/ios">ios</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/iphone">iphone</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/israel">israel</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/iterm">iterm</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/k8s">k8s</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/keyboard">keyboard</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/kids">kids</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/knockd">knockd</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/latency">latency</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/lavabit">lavabit</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/less">less</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/lgbt">lgbt</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/life">life</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/links">links</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/lisa">lisa</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/load-testing">load-testing</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/loc">loc</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/locale">locale</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/logs">logs</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/lviv">lviv</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/lxc">lxc</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/macos">macos</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/maidan">maidan</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/management">management</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/marshak">marshak</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/math">math</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/media">media</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/meetup">meetup</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/mlodinov">mlodinov</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/model">model</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/monitoring">monitoring</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/mosh">mosh</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/mysql">mysql</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/nagios">nagios</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/netcat">netcat</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/nulp">nulp</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/numbers">numbers</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/oom">oom</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/osx">osx</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/outlook">outlook</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/palette">palette</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/paper">paper</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/passenger">passenger</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/pax">pax</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/peter">peter</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/phoenix-project">phoenix-project</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/photos">photos</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/pidtree">pidtree</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/poetry">poetry</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/politics">politics</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/profit">profit</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/progressbar">progressbar</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/punctuation">punctuation</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/putty">putty</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/quality">quality</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/quotes">quotes</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/random">random</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/recording">recording</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/redhat">redhat</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/refresher">refresher</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/regex">regex</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/religion">religion</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/review">review</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/rpm">rpm</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/rpmdb">rpmdb</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/ruby">ruby</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/russian">russian</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/sa">sa</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/scale">scale</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/schelling">schelling</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/security">security</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/segregation">segregation</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/shell">shell</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/sher">sher</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/shortcuts">shortcuts</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/signals">signals</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/sleep">sleep</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/snowden">snowden</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/solaris">solaris</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/spinner">spinner</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/ssl">ssl</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/sunlight">sunlight</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/surge">surge</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/syntax">syntax</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/systemd">systemd</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/talks">talks</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/targets">targets</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/techtalks2012">techtalks2012</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/ted">ted</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/terminal">terminal</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/thinking">thinking</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/time">time</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/tor">tor</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/tracking">tracking</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/travel">travel</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/troubleshooting">troubleshooting</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/twain">twain</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/ukraine">ukraine</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/ukrainian">ukrainian</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/vi">vi</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/videos">videos</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/vim">vim</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/war">war</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/wolfram">wolfram</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/writing">writing</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/yac">yac</a> 
+
+
+
+
+      </div>
+    </div> 
+  </div> 
+
+  
+  <div class="row">
+    <div class="col-md-4">
+       
+        <a href="/posts/page/5/">← Older posts</a>
+      
+    </a></div>
+    <div class="col-md-4 text-center">
+      <a href="/posts/archive/">Archive (57 posts)</a>
+    </div>
+    <div class="col-md-4 text-right" >
+       
+        <a href="/posts/page/3/">Newer posts →</a>
+      
+    </div>
+  </div>
+
+
+    </article>
+
+    <hr>
+<div class="text-muted text-center small">
+    <i>
+        &mdash; `If you knew Time as well as I do,' said the Hatter, `you wouldn't talk about wasting IT. It's HIM.'
+    </i>
+</div>
+<div class="text-muted text-center m-20 small">
+<samp>$ Last updated: Feb 7, 2021 at 13:38 (EET) $</samp>
+</div>
+  </div>
+      
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+    
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+  
+  
+
+</body>
+
+</html>

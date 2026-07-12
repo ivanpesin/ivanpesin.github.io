@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>bigdata on Articles, Translations, and Blog</title>
+    <link>http://pesin.space/tags/bigdata/</link>
+    <description>Recent content in bigdata on Articles, Translations, and Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 02 Jul 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://pesin.space/tags/bigdata/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>AWK vs Big Data</title>
+      <link>http://pesin.space/posts/2019-07-02/</link>
+      <pubDate>Tue, 02 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2019-07-02/</guid>
+      <description>Don’t sleep on the basics. Someone probably solved your problem in the 80s.  There&amp;rsquo;s been a lot of talk about big data recently. Lots of people just shove data into whatever software is currently all the rage (think Hadoop some time ago, Spark, etc) and get excited with results that actually aren&amp;rsquo;t that amazing. You can get very decent results by using the standard data processing toolset (awk/grep/sed/sort/xargs/find) paired with understanding of what data you process and how the software works.</description>
+    </item>
+    
+  </channel>
+</rss>

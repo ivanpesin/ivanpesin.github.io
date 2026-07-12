@@ -1,0 +1,224 @@
+<HTML><HEAD>
+<title>[lg64]: Mark Fevola - Критические размышления о Linux Router Project</title>
+
+</HEAD>
+
+<body bgcolor="white" link="red" vlink="#473c8b" alink="blue">
+
+<table align="center" border="0" cellspacing="0" width="80%">
+
+<tr><td align="center">
+
+<hr noshade size="2">
+
+<b>Отображение контрольных номеров версий CVS на Web страницах
+</b><br>
+<p>&nbsp;
+Автор: &copy; <a href="mailto:info@gnujobs.com">Mark Nielsen</a>
+<br>Перевод: &copy; Иван Песин.
+
+<hr noshade size="2">
+</td></tr>
+
+
+<tr><td>
+<p>&nbsp;
+
+
+
+
+
+<ol>
+  <li> <a href="#Introduction">Введение</a></li>
+  <li><a href="#perl"> Perl скрипт для отображения номеров версий</a></li>
+  <li><a href="#security"> Безопасность</a></li>
+  <li> <a href="#Conclusion">Вывод</a></li>
+  <li> <a href="#REF">Ссылки</a></li>
+</ol>
+
+
+<h3> <a NAME="Introduction"></a>Введение</h3>
+Несколько лет я пишу статьи. Простой парень, имя которого Фил Хантер (Phil Hunter) 
+из <a href="http://www.colug.net">Central Ohio Linux User Group</a> советовал 
+мне несколько раз вести контроль версий моих статей. Конечно, это лишь еще один 
+пункт в длинном списке того, что стоило бы сделать. Как обычно, при невероятном 
+стечении обстоятельств, я решил воплотить разные идеи в жизнь. Предпосылки были 
+следующими: 
+<ol>
+  <li> После моей работы в Cisco (группы EMAN и INFOSEC), я изучил достаточно 
+    детально использование CVS. Распечатал руководство по CVS <a href="http://genericbooks.com/Literature/Documents/pdf/Books/cvs_book.pdf"> 
+    доступное с genericbooks.com</a>. . Теперь я использую CVS для всего, что 
+    я делаю. </li>
+  <li> После использования SSI, PHP, Mason, ASP, EmbPerl, ePerl, и других серверных 
+    включаемых модулей для Apache в течении нескольких лет, написание скрипта 
+    на Perl, который бы открывал файл CVS, читал его и выводил результат, становится 
+    совершенно тривиальной задачей. </li>
+  <li> У меня множество документов, и вот пришло время вести контроль за их версиями. </li>
+</ol>
+
+<h3> <a NAME="perl"></a>Perl скрипт для отображения номеров версий</h3>
+Для упрощения, так что бы каждый документ мог использовать одну и ту же команду, 
+я использовал следующую серверную включаемую команду, которая работает с Apache. 
+PHP, Perl ASP, Mason. Другие серверные скриптовые языки включают похожие команды: 
+<pre>
+&lt;!--#include virtual="/ssi/cvs_version.pl"  --&gt;
+</pre>
+<p> Также необходимо настроить сервер так, чтобы все страницы могли использовать 
+  серверные включаемые команды. Я это сделал, указав в файле httpd.conf следующие 
+  вещи: 
+<pre>
+
+&lt;Directory "/usr/local/apache_gnujobs/htdocs"&gt;
+
+    Options All Indexes FollowSymLinks MultiViews ExecCGI Includes 
+
+    AllowOverride All
+
+    Order allow,deny
+    Allow from all
+&lt;/Directory&gt;
+
+AddType text/html .shtml
+AddHandler server-parsed .shtml .html .htm .shtm
+</pre>
+<p><a href="misc/nielsen/cvs_version.pl.txt">Тут находится текстовая версия скрипта</a>, 
+  а можно просто вырезать его из этого документа. 
+<pre>
+#!/usr/bin/perl
+
+print "Content-type: text/html\n\n\n\n";
+
+  ### Получаем имя затребованного файла.
+my $Temp = $ENV{'REQUEST_URI'};
+my $Cvs = $Temp;
+
+  ### Разбиваем URL на части по "/".
+my (@Junk) = split(/\//, $Cvs);
+
+  ### Получаем конец URL, который является именем файла.
+my $File = pop @Junk;
+$Cvs =~ s/[^\/]+$//g;
+
+  ### Присоединяем корневой каталог документов, так, что получаем полный путь к 
+  ### файлу на нашем сервере. Так же подсоединяем имя CVS/Entries, что бы получить
+  ### информацию CVS.
+$Cvs = $ENV{'DOCUMENT_ROOT'} . $Cvs . "CVS/Entries"; 
+
+  ### Открываем файл, и если находим соответствие, записываем в  $Match
+my $Match = "";
+open(FILE,$Cvs);
+while (my $Line = &lt;FILE&gt;) 
+  {
+  if ($Line =~ /$File/) {$Match = $Line; chomp $Line}
+  }
+close FILE;
+
+   ### если соответствие не найдено, печатаем "не найдено", иначе получаем информацию.
+if ($Match eq "") {print "Информация CVS не найдена.  '$File'\n";}
+else 
+  {
+     ### Получаем необходимую информацию и выводим ее.
+  my ($Junk,$File,$Version,$Date,@Junk) = split(/\//, $Match);
+  print "Версия &lt;b&gt;$Version&lt;/b&gt; : Дата последнего изменения &lt;b&gt;$Date&lt;/b&gt;\n";
+  }
+
+</pre>
+<h3> <a NAME="security"></a> Безопасность</h3>
+Есть потенциальная проблема с безопасностью при использовании моего скрипта. Кто 
+угодно может получить доступ к вашим файлам, находящихся в каталоге CVS. Я не знаю, 
+будет ли это сильно беспокоить большинство людей, и я совершенно точно знаю, что 
+это не будет беспокоить меня, но на всякий случай я блокировал чтение файлов в 
+каждом каталоге CVS, использовав нижеприведённые команды в моём httpd.conf файле. 
+Это простой вариант. У меня нет и не будет файлов, имена которых будут заканчиваться 
+на "Root", "CVS", "Repository" или "Entries", так что для меня всё подходит. 
+<pre>
+&lt;Files ~ "CVS$"&gt;
+    Order allow,deny
+    Deny from all
+&lt;/Files&gt;
+&lt;Files ~ "Root$"&gt;
+    Order allow,deny
+    Deny from all
+&lt;/Files&gt;
+&lt;Files ~ "Repository$"&gt;
+    Order allow,deny
+    Deny from all
+&lt;/Files&gt;
+&lt;Files ~ "Entries$"&gt;
+    Order allow,deny
+    Deny from all
+&lt;/Files&gt;
+</pre>
+<h3> <a NAME="Conclusion"></a>Выводы</h3>
+Применение CVS для управления версиями документов, программ и скриптов очень удобно. 
+Использование CVS и моего скрипта на perl, выводящего версии, очень хороший и 
+приятный путь для контроля версий ваших документов. У меня не было необходимости 
+в более сложном контроле, и то, что я написал мне совершенно подходит. 
+<p> Несколько простых вещей, которые стоило бы сделать: 
+<ol>
+  <li> Проверять, существует ли каталог CVS и соответствующие файлы до их открытия. 
+    Не имеет значения, что я полагаю осознанность действий человека использующего 
+    серверные включаемые команды. И не имеет значения, что даже в случае отсутствия 
+    вышеупомянутых файлов, либо каталога ничего особенно плохого не произойдёт. 
+  </li>
+  <li> Использовать улучшенное регулярное соответствие, которое бы не давало возможности 
+    получить файлы из каталога "/CVS/", если запрос пришёл от клиентского браузера. 
+    Это было бы лучше, чем запрет только на определённые файлы. Хотя мне, в общем-то, 
+    всё равно.</li>
+  <li> Скрипт не работает с опцией Alias в файле httpd.conf. Во всяком случае, 
+    я не думаю, что работает </li>
+  <li> Проверять соответствие между датой изменения файла и датой в CVS. Это даст 
+    возможность определять находится ли документ в соответствии с данными в хранилище 
+    CVS. Для меня это не важно. </li>
+</ol>
+<p>
+
+<h3> <a NAME="REF"></a>Ссылки</h3>
+
+<ol>
+  <li> Если эта статья будет изменена, она будет доступна с <a href="http://www.gnujobs.com/Articles/16/CVS_SSI.html"> 
+    http://www.gnujobs.com/Articles/15/CVS_SSI.html.</a></li>
+  <li><a href ="issue57/nielsen.html"> CVS: Система согласования версий</a> 
+    by Mark Nielsen 
+</ol>
+
+
+<p> <i> Марк (Mark) работает в качестве независимого консультанта, а свободное 
+  время использует для таких благих дел, как GNUJobs.com, написания статей, написания 
+  свободного ПО и работает добровольцем на <a href="http://www.eastmont.net">eastmont.net</a>.</i> 
+<p> <i>Copyright &copy; 1/2001 Mark Nielsen</i> <br>
+  Версия статьи <b>1.3</b> : Дата последнего изменения<b> Воскресенье, Февраль 
+  25 21:13:16 2001</b> <!-- *** BEGIN copyright *** --> 
+
+
+<p>&nbsp;
+
+</td></tr>
+
+
+<tr><td align="center">
+
+<hr noshade size="2">
+Copyright © 2001, Mark Nielsen.<br>
+Copying license <a href="http://www.linuxgazette.com/copying.html">http://www.linuxgazette.com/copying.html</a><br>
+Published in Issue 64 of <a href="http://www.linuxgazette.com">Linux Gazette</a>, March 2001<br>
+
+</td></tr>
+
+
+
+
+<tr><td align="center">
+<hr noshade size="2">
+
+<a href="http://gazette.linux.ru.net">Вернуться на главную страницу</a>
+
+<hr noshade size="2">
+
+</td></tr>
+
+
+</table>
+</html>
+
+

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>security &#8211; Ivan Pesin</title>
+	<atom:link href="/blog/tag/security/feed/" rel="self" type="application/rss+xml" />
+	<link>https://pesin.space/blog</link>
+	<description>Articles &#38; Translations</description>
+	<lastBuildDate>
+	Wed, 19 Oct 2016 02:08:18 +0000	</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=5.1.1</generator>
+	<item>
+		<title>Links: Apr 4</title>
+		<link>/blog/2014/04/links-apr-4/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=links-apr-4</link>
+				<pubDate>Fri, 04 Apr 2014 16:19:21 +0000</pubDate>
+		<dc:creator><![CDATA[ivan]]></dc:creator>
+				<category><![CDATA[Links]]></category>
+		<category><![CDATA[corporate]]></category>
+		<category><![CDATA[google]]></category>
+		<category><![CDATA[LXC]]></category>
+		<category><![CDATA[nagios]]></category>
+		<category><![CDATA[outlook]]></category>
+		<category><![CDATA[security]]></category>
+		<category><![CDATA[solaris]]></category>
+		<category><![CDATA[systemd]]></category>
+		<category><![CDATA[vim]]></category>
+		<category><![CDATA[wolfram]]></category>
+
+		<guid isPermaLink="false">https://pesin.space/blog/2014/04/links-apr-4/</guid>
+				<description><![CDATA[My, when they would finally invent a direct interface from a brain to computer? Can&#8217;t wait, really. Technology Outlook is freaking evil: if you open a plain text email, it would happily ignore some of the new-line breaks. Crumbs! Appears that is a &#8216;feature&#8217;! If you need to make sure your email with command&#8217;s output [&#8230;]]]></description>
+								<content:encoded><![CDATA[<p id="top" />My, when they would finally invent a direct interface from a brain to computer? Can&#8217;t wait, really.</p>
+<h3>Technology</h3>
+<ul>
+<li>Outlook is freaking evil: if you open a plain text email, it would happily ignore some of the new-line breaks. Crumbs! Appears that is a &#8216;feature&#8217;! If you need to make sure your email with command&#8217;s output will have new-lines preserved, the rule of thumb is either to have 2 spaces in front or 3 spaces at the end of each line.  <a href="http://stackoverflow.com/questions/136052/how-do-i-format-a-string-in-an-email-so-outlook-will-print-the-line-breaks/1638608#1638608">Stackoverflow rules</a>.</li>
+<li><span style="line-height: 1.5em;">You might know I&#8217;m passionate about Solaris. Have just got more reasons for my passion. Reason one: </span><code style="line-height: 1.5em;">sed</code><span style="line-height: 1.5em;"> can&#8217;t replace a character with &#8216;\n&#8217;. Seriously, you need to </span><strong style="line-height: 1.5em;">actually</strong><span style="line-height: 1.5em;"> </span><a style="line-height: 1.5em;" href="http://stackoverflow.com/a/8991356">type in <em>Enter<strong> </strong></em>to get it working.</a><span style="line-height: 1.5em;"> As if that was not enough, Solaris&#8217;s </span><code style="line-height: 1.5em;">mail</code><span style="line-height: 1.5em;"> tool doesn&#8217;t have an option to specify subject line (yes, I know about </span><code style="line-height: 1.5em;">mailx</code><span style="line-height: 1.5em;">, but that complicates writing cross platform code).</span></li>
+<li><span style="line-height: 1.5em;">Google cancelled underlining of links, what&#8217;s the world coming to?!</span></li>
+<li><span style="line-height: 1.5em;">And a response to &#8220;Let Nagios die peacefully&#8221; &#8212; &#8220;</span><a style="line-height: 1.5em;" href="https://laur.ie/blog/2014/02/why-ill-be-letting-nagios-live-on-a-bit-longer-thank-you-very-much/">I&#8217;ll be letting Nagios live on</a><span style="line-height: 1.5em;">&#8220;, which I back.</span></li>
+<li>systemd development culture seems to have a <a href="https://lkml.org/lkml/2014/4/2/420">detrimental effect on the mental health</a> of people being involved. Have heard many times a range of complaints about Linus&#8217;s harsh management manners, but I&#8217;m inclined to think that Linux became possible in its current form in many ways thanks to such streaks in Linus&#8217;s character.</li>
+</ul>
+<hr />
+<p>Putting my favourite vim cheat sheet here, so I don&#8217;t have to plough through google-results next time I need to recall how to use named registers.</p>
+<p><a href="/blog/wp-content/uploads/2014/04/vi-vim-cheat-sheet.gif"><img class="alignnone  wp-image-1283" title="VIM Cheat Sheet" alt="vi-vim-cheat-sheet" src="/blog/wp-content/uploads/2014/04/vi-vim-cheat-sheet.gif" width="922" height="600" /></a></p>
+<hr />
+<ul>
+<li>LXC v1.0.2 is <a href="http://linuxcontainers.org/news/">released</a> and a nice series of <a href="https://www.stgraber.org/2013/12/20/lxc-1-0-blog-post-series/">blog posts on LXC</a>.</li>
+<li>For horror fans &#8212; two zero-days vulnerabilities turn Avaya&#8217;s IP phones <a href="http://threatpost.com/avaya-to-patch-zero-days-that-turn-ip-phone-in-radio-transmitters/104506">into radio transmitters</a>.</li>
+<li>Something to drool over, if you haven&#8217;t seen it yet:</li>
+</ul>
+<p><center><br />
+<iframe width="625" height="352" src="https://www.youtube.com/embed/_P9HqHVPeik?feature=oembed" frameborder="0" allowfullscreen></iframe><br />
+</center></p>
+<hr/>
+<p>And to finish up on a cheerful note: How it feels to be an Engineer in the Corporate World<br />
+<center><br />
+http://www.youtube.com/watch?v=s1G6lNAE_XI<br />
+</center></p>
+<p>I&#8217;m happy I don&#8217;t feel like that, but it does ring some bells, doesn&#8217;t it? See ya.</p>
+]]></content:encoded>
+										</item>
+		<item>
+		<title>Каким угрозам подвергаются сетевые сервисы?</title>
+		<link>/blog/2009/07/%d0%ba%d0%b0%d0%ba%d0%b8%d0%bc-%d1%83%d0%b3%d1%80%d0%be%d0%b7%d0%b0%d0%bc-%d0%bf%d0%be%d0%b4%d0%b2%d0%b5%d1%80%d0%b3%d0%b0%d1%8e%d1%82%d1%81%d1%8f-%d1%81%d0%b5%d1%82%d0%b5%d0%b2%d1%8b%d0%b5-%d1%81/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=%25d0%25ba%25d0%25b0%25d0%25ba%25d0%25b8%25d0%25bc-%25d1%2583%25d0%25b3%25d1%2580%25d0%25be%25d0%25b7%25d0%25b0%25d0%25bc-%25d0%25bf%25d0%25be%25d0%25b4%25d0%25b2%25d0%25b5%25d1%2580%25d0%25b3%25d0%25b0%25d1%258e%25d1%2582%25d1%2581%25d1%258f-%25d1%2581%25d0%25b5%25d1%2582%25d0%25b5%25d0%25b2%25d1%258b%25d0%25b5-%25d1%2581</link>
+				<pubDate>Tue, 21 Jul 2009 14:53:32 +0000</pubDate>
+		<dc:creator><![CDATA[ivan]]></dc:creator>
+				<category><![CDATA[RedHat KB]]></category>
+		<category><![CDATA[getting_started]]></category>
+		<category><![CDATA[security]]></category>
+
+		<guid isPermaLink="false">http://www.n-ix.com/ipesin/?p=217</guid>
+				<description><![CDATA[Copyright (c) 2009 by Red Hat, Inc. This material may be distributed only subject to the terms and conditions set forth in the Open Publication License, v1.0 or later (available at http://www.opencontent.org/openpub/). Original article: http://kbase.redhat.com/faq/docs/DOC-9082.pdf Translated by Ivan Pesin, July 2009 Хотя доступ пользователей к средствам администрирования &#8212; важный вопрос безопасности для системных администраторов организации, [&#8230;]]]></description>
+								<content:encoded><![CDATA[<p id="top" />
+<div class="copyright">Copyright (c) 2009 by Red Hat, Inc. This material may be distributed only subject to the terms and conditions set forth in the Open Publication License, v1.0 or later (available at <a href="http://www.opencontent.org/openpub/">http://www.opencontent.org/openpub/</a>).<br />
+Original article: <a href="http://kbase.redhat.com/faq/docs/DOC-9082.pdf">http://kbase.redhat.com/faq/docs/DOC-9082.pdf</a></p>
+<p>Translated by Ivan Pesin, July 2009</p></div>
+<p>Хотя доступ пользователей к средствам администрирования &#8212; важный вопрос безопасности для системных администраторов организации, но учёт активных сетевых сервисов имеет первостепенное значение для всех, кто использует операционную систему Linux.</p>
+<p>Многие сервисы в Red Hat Enterprise Linux представляют собой сетевые сервера. Если на машине запущен сетевой сервис, то серверное приложение, которое называют &#8220;демоном&#8221;, слушает один или несколько сетевых портов, ожидая подключений. Каждый из таких серверов должен считаться потенциальной мишенью атаки.</p>
+<p>Сетевые сервисы могут подвергать Linux-системы многим опасностям. Вот список самых основных:</p>
+<ul>
+<li><strong>Атаки на переполнение буфера (Buffer Overflow Attacks)</strong> &#8211; Сервисы, которые работают с портами от нулевого до 1023-го должны выполняться с административными привилегиями. Если такой сервис содержит ошибку переполнения буфера, то злоумышленник может использовать её для получения доступа к системе с правами пользователя, под которым запущен данный сервис. Взломщики используют автоматические утилиты для поиска систем с уязвимостями, а после получения доступа к ним, они внедряют автоматизированные руткиты (rootkits), которые позволяют им сохранить доступ к системе в дальнейшем.</li>
+<li><strong>Атаки на отказ в обслуживании (Denial of Service Attacks, DoS)</strong> &#8211; Этот тип атак заключается в заваливании сервиса запросами на обслуживание. Получая необычайно большое количество запросов от злоумышленника, сервис пытается обработать каждый из них, растрачивая на это ресурсы системы. В результате новые запросы перестают обрабатываться из-за нехватки системных ресурсов.</li>
+<li><strong>Атаки на уязвимости в скриптах (Script Vulnerability Attacks)</strong> &#8211; Если сервис использует скрипты для выполнения различных действий на стороне сервера, что характерно для Web-сервисов, взломщик может построить свою атаку на плохо написанных скриптах. Уязвимости в скриптах могут приводить к состоянию переполнения буфера, либо позволять модифицировать файлы в системе.</li>
+</ul>
+<p>Чтобы ограничить подверженность системы сетевым атакам, все ненужные сервисы должны быть выключены.</p>
+]]></content:encoded>
+										</item>
+		<item>
+		<title>Как активировать маскарад в iptables?</title>
+		<link>/blog/2009/07/%d0%ba%d0%b0%d0%ba-%d0%b0%d0%ba%d1%82%d0%b8%d0%b2%d0%b8%d1%80%d0%be%d0%b2%d0%b0%d1%82%d1%8c-%d0%bc%d0%b0%d1%81%d0%ba%d0%b0%d1%80%d0%b0%d0%b4-%d0%b2-iptables/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=%25d0%25ba%25d0%25b0%25d0%25ba-%25d0%25b0%25d0%25ba%25d1%2582%25d0%25b8%25d0%25b2%25d0%25b8%25d1%2580%25d0%25be%25d0%25b2%25d0%25b0%25d1%2582%25d1%258c-%25d0%25bc%25d0%25b0%25d1%2581%25d0%25ba%25d0%25b0%25d1%2580%25d0%25b0%25d0%25b4-%25d0%25b2-iptables</link>
+				<pubDate>Fri, 10 Jul 2009 11:34:39 +0000</pubDate>
+		<dc:creator><![CDATA[ivan]]></dc:creator>
+				<category><![CDATA[RedHat KB]]></category>
+		<category><![CDATA[iptables]]></category>
+		<category><![CDATA[ipv4]]></category>
+		<category><![CDATA[ip_forward]]></category>
+		<category><![CDATA[masquerade]]></category>
+		<category><![CDATA[net]]></category>
+		<category><![CDATA[networking]]></category>
+		<category><![CDATA[security]]></category>
+		<category><![CDATA[sysctl]]></category>
+
+		<guid isPermaLink="false">http://www.n-ix.com/ipesin/?p=455</guid>
+				<description><![CDATA[Copyright (c) 2009 by Red Hat, Inc. This material may be distributed only subject to the terms and conditions set forth in the Open Publication License, v1.0 or later (available at http://www.opencontent.org/openpub/). Original article: http://kbase.redhat.com/faq/docs/DOC-6266.pdf Translated by Ivan Pesin, July 2009 Приведённые здесь инструкции активируют функциональность маскарада, но не обеспечивают полной настройки пакетного фильтра. В [&#8230;]]]></description>
+								<content:encoded><![CDATA[<p id="top" />
+<div class="copyright">Copyright (c) 2009 by Red Hat, Inc. This material may be distributed only subject to the terms and conditions set forth in the Open Publication License, v1.0 or later (available at <a href="http://www.opencontent.org/openpub/">http://www.opencontent.org/openpub/</a>).<br />
+Original article: <a href="http://kbase.redhat.com/faq/docs/DOC-6266.pdf">http://kbase.redhat.com/faq/docs/DOC-6266.pdf</a></p>
+<p>Translated by Ivan Pesin, July 2009</p></div>
+<p>Приведённые здесь инструкции активируют функциональность маскарада, но не обеспечивают полной настройки пакетного фильтра.</p>
+<p>В нашем примере, мы будем использовать устройство eth0. Следующая команда iptables добавляет цель MASQUERADE в послемаршрутизационную цепь обработки пакетов (т.е. непосредственно включает маскарад):</p>
+<blockquote><p></p><pre class="crayon-plain-tag">iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE</pre><p></p></blockquote>
+<p>После этого, нужно отредактировать файл <code>/etc/sysctl.conf</code>, чтобы настроить продвижение пакетов. Для этого измените строку:</p>
+<blockquote><p></p><pre class="crayon-plain-tag">net.ipv4.ip_forward=0</pre><p></p></blockquote>
+<p>на:</p>
+<blockquote><p></p><pre class="crayon-plain-tag">net.ipv4.ip_forward=1</pre><p></p></blockquote>
+<p>Если такой строки в файле нет, просто добавьте вышеприведённую строку, которая устанавливает значение параметра ip_forward равным 1 (единице). После этого, чтобы пересчитать файл конфигурации sysctl, запустите команду:</p>
+<blockquote><p></p><pre class="crayon-plain-tag">sysctl -p</pre><p></p></blockquote>
+]]></content:encoded>
+										</item>
+	</channel>
+</rss>

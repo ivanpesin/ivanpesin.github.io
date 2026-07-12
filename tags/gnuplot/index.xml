@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>gnuplot on Articles, Translations, and Blog</title>
+    <link>http://pesin.space/tags/gnuplot/</link>
+    <description>Recent content in gnuplot on Articles, Translations, and Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 31 Oct 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://pesin.space/tags/gnuplot/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Producing histograms in terminal</title>
+      <link>http://pesin.space/posts/2020-10-31-histograms/</link>
+      <pubDate>Sat, 31 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2020-10-31-histograms/</guid>
+      <description>&lt;p&gt;Quite often I end up with the need to quickly visualize information in a terminal as a histogram or a chart of some sort. Here are three methods I use most often.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

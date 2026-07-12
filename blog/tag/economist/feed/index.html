@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>economist &#8211; Ivan Pesin</title>
+	<atom:link href="/blog/tag/economist/feed/" rel="self" type="application/rss+xml" />
+	<link>https://pesin.space/blog</link>
+	<description>Articles &#38; Translations</description>
+	<lastBuildDate>
+	Wed, 19 Oct 2016 02:08:18 +0000	</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=5.1.1</generator>
+	<item>
+		<title>Links: Oct 27</title>
+		<link>/blog/2013/10/links-oct-27/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=links-oct-27</link>
+				<pubDate>Sun, 27 Oct 2013 18:40:46 +0000</pubDate>
+		<dc:creator><![CDATA[ivan]]></dc:creator>
+				<category><![CDATA[Links]]></category>
+		<category><![CDATA[base64]]></category>
+		<category><![CDATA[bash]]></category>
+		<category><![CDATA[capistrano]]></category>
+		<category><![CDATA[daemon]]></category>
+		<category><![CDATA[DNS]]></category>
+		<category><![CDATA[economist]]></category>
+		<category><![CDATA[English]]></category>
+		<category><![CDATA[evolution]]></category>
+		<category><![CDATA[honda]]></category>
+		<category><![CDATA[Krakauer]]></category>
+		<category><![CDATA[London]]></category>
+		<category><![CDATA[nohup]]></category>
+		<category><![CDATA[perl]]></category>
+		<category><![CDATA[pigs]]></category>
+		<category><![CDATA[pipes]]></category>
+		<category><![CDATA[religion]]></category>
+		<category><![CDATA[SSL]]></category>
+		<category><![CDATA[TLS]]></category>
+
+		<guid isPermaLink="false">https://pesin.space/blog/2013/10/links-oct-27/</guid>
+				<description><![CDATA[This has been a busy month and, what pleases me, very productive. Apple&#8217;s recent announcement managed to surprise in many ways, which is delightful as well; if you&#8217;re still on Mountain Lion consider upgrading, Mavericks got it right in so many places, that it&#8217;s even difficult to tell which changes are most compelling. I&#8217;ve lagged [&#8230;]]]></description>
+								<content:encoded><![CDATA[<p id="top" />
+<h3></h3>
+<p>This has been a busy month and, what pleases me, very productive. <a href="http://www.apple.com/apple-events/october-2013/">Apple&#8217;s recent announcement</a> managed to surprise in many ways, which is delightful as well; if you&#8217;re still on Mountain Lion consider upgrading, Mavericks got it right in so many places, that it&#8217;s even difficult to tell which changes are most compelling.</p>
+<p>I&#8217;ve lagged on links, however, so catching up:</p>
+<h3>Technology</h3>
+<ul>
+<li>Short and to-the-point document on <a href="https://www.ssllabs.com/projects/best-practices/">SSL/TLS deployment best practices</a></li>
+<li>SSL self-signed certificate creation <a href="https://raymii.org/s/snippets/OpenSSL_One_line_to_create_self_signed_certificate.html?utm_source=feedburner&amp;utm_medium=feed&amp;utm_campaign=Feed%3A+Raymiiorg+%28Raymii.org%29">one-liner</a>:</li>
+</ul>
+<blockquote><p>
+</p><pre class="crayon-plain-tag">openssl req -nodes -x509 -newkey rsa:4096 -keyout key.pem \
+   -out cert.pem -days 356</pre><p>
+</p></blockquote>
+<ul>
+<li>Don&#8217;t loose variables defined in a loop within a pipeline — <a href="http://mywiki.wooledge.org/BashFAQ/024">possible ways</a></li>
+<li>base64 implementations in <a href="https://sites.google.com/site/dannychouinard/Home/unix-linux-trinkets/little-utilities/base64-and-base85-encoding-awk-scripts">awk + od</a>, <a href="https://gist.github.com/markusfisch/2648733">bash augmented awk and pure bash</a></li>
+<li>Capistrano 3 — <a href="https://medium.com/p/ba896a142ac">what&#8217;s new</a></li>
+<li><a href="http://modernperlbooks.com/books/modern_perl/">Modern Perl</a> — Interesting on-line book on perl</li>
+<li><a href="http://stackoverflow.com/questions/958249/whats-the-difference-between-nohup-and-a-daemon#8915059">What exactly</a> does <code>nohup</code> and what it takes to become a daemon? Daemonizing summary:</li>
+</ul>
+<blockquote><p>
+</p><pre class="crayon-plain-tag">1. fork (first time) -- so we aren't a group leader, and let 
+   the parent exit.
+2. call setsid() -- to become leader of a new session. 
+   This call only works if we are not a group leader. 
+   This new session has no controlling terminal.
+3. fork (second time) -- so we aren't a session leader 
+   (and thus can't regain a controlling terminal), and let 
+   the parent exit.
+4. cd to root directory -- so we don't prevent other directories 
+   from being umount-ed.
+5. set umask to desired value (optional) -- because we could've 
+   inherited a mask we didn't want.
+6. close stdin, stdout, stderr (or just reopen them to point elsewhere)</pre><p>
+</p></blockquote>
+<ul>
+<li>What nohup does:</li>
+</ul>
+<blockquote><p>
+</p><pre class="crayon-plain-tag">- If stdout and stderr are connected to a terminal, 
+  redirects them to nohup.out
+- ignores SIGHUP</pre><p>
+</p></blockquote>
+<ul>
+<li><a href="http://samarudge.github.io/dnsyo/">Query</a> against over 1500 global DNS servers</li>
+</ul>
+<h3>English</h3>
+<ul>
+<li><a href="http://www.nytimes.com/newsgraphics/2013/10/13/russia/#">The Russia Left Behind.</a> A journey through a heartland on the slow road to ruin. — absolutely marvellous graphics representation of the article in New York Times.</li>
+<li><a href="http://theweek.com/article/index/250111/6-quests-to-fix-englishs-messed-up-spelling">6 quests</a> to fix English&#8217;s messed-up spelling Some succeeded. Some failed. Some made things worse.</li>
+<li>Style: Johnson: <a href="http://www.economist.com/blogs/prospero/2013/10/style">When is a rule not a rule</a>?</li>
+<li><a href="http://en.wikipedia.org/wiki/Into_the_Wild_(book)">Into the Wild by Jon Krakauer</a> — way too long, chewing over and over different aspects of impulsive and stupid act of overly naive and extremely self-confident young man in a futile attempt to idealise and glorify him. Read better <a href="http://www.online-literature.com/poe/101/">To Build the Fire by Jack London</a>: concise, well-balanced, thrilling novel that conveys incomparably more sense and wisdom.</li>
+<li>Harvard Business Review&#8217;s: <a href="http://blogs.hbr.org/2013/10/can-you-invent-something-new-if-your-words-are-old/">Can you invent something new if your words are old</a>? We&#8217;d better not reject new words.</li>
+</ul>
+<h3>Other</h3>
+<ul>
+<li>I&#8217;ve finally found where the phrase &#8220;With sufficient thrust, pigs fly just fine&#8221; comes from! Appears it&#8217;s from <a href="http://tools.ietf.org/html/rfc1925">RFC1925</a>:</li>
+</ul>
+<blockquote><p><code>(3) With sufficient thrust, pigs fly just fine. However, this is not<br />
+necessarily a good idea. It is hard to be sure where they<br />
+are going to land, and it could be dangerous sitting under them<br />
+as they fly overhead.<br />
+</code></p></blockquote>
+<p style="padding-left: 30px;">But references to flying pigs appear even in Lewis Carrol&#8217;s Alice:</p>
+<blockquote><p><code>"Thinking again?" the Duchess asked, with another dig of her sharp little chin.<br />
+"I've a right to think," said Alice sharply, for she was beginning to feel a little worried.<br />
+"Just about as much right," said the Duchess, "as pigs have to fly...." — Alice's Adventures in Wonderland, Chapter 9.<br />
+</code></p></blockquote>
+<ul>
+<li>Keeping fingers crossed for The Economists view to be true: <a href="http://www.economist.com/news/europe/21587260-russian-intransigence-has-helped-ukraines-integration-europe-looking-west">Russian intransigence has helped Ukraine’s integration into Europe</a></li>
+<li>Excellent post in Russian on <a href="http://botalex.livejournal.com/122329.html">evolution in life and as religion sees it</a></li>
+<li>Very cool Honda&#8217;s ad:</li>
+</ul>
+<blockquote><p><center><br />
+<iframe src="//www.youtube.com/embed/UelJZG_bF98" height="360" width="480" allowfullscreen="" frameborder="0"></iframe></center></p></blockquote>
+<p>&nbsp;</p>
+]]></content:encoded>
+										</item>
+	</channel>
+</rss>

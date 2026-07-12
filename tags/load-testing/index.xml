@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>load testing on Articles, Translations, and Blog</title>
+    <link>http://pesin.space/tags/load-testing/</link>
+    <description>Recent content in load testing on Articles, Translations, and Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 29 Sep 2013 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://pesin.space/tags/load-testing/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Links: 29th Sept</title>
+      <link>http://pesin.space/posts/2013-09-29-links/</link>
+      <pubDate>Sun, 29 Sep 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2013-09-29-links/</guid>
+      <description>&lt;blockquote&gt;
+    &lt;p&gt;
+        &lt;strong&gt;Acronyms&lt;/strong&gt; are new words formed from the initial letters (or parts) of a series of words, such as &lt;em&gt;RAM&lt;/em&gt; from &lt;em&gt;random access memory&lt;/em&gt;, and &lt;em&gt;radar&lt;/em&gt; from &lt;em&gt;radio detecting and ranging&lt;/em&gt;. &lt;strong&gt;Initialisms&lt;/strong&gt; are a similar sort of abbreviation but are pronounced by saying each letter separately, for example &lt;em&gt;BBC&lt;/em&gt;, &lt;em&gt;VHS&lt;/em&gt;, and the &lt;em&gt;FYI&lt;/em&gt; of this post’s title. The distinction, BTW, is not always strictly observed – initialisms are often loosely called acronyms. This imprecision is rarely problematic, but it’s good to know the difference. HTH.
+    &lt;/p&gt;
+    &lt;footer style=&#34;padding-left: 1em;&#34;&gt;
+        
+        
+
+        
+            
+                from
+             
+            &lt;cite&gt;
+                Macmillan Dictionary Blog
+            &lt;/cite&gt;
+        
+    &lt;/footer&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

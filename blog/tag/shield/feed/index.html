@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>shield &#8211; Ivan Pesin</title>
+	<atom:link href="/blog/tag/shield/feed/" rel="self" type="application/rss+xml" />
+	<link>https://pesin.space/blog</link>
+	<description>Articles &#38; Translations</description>
+	<lastBuildDate>
+	Wed, 19 Oct 2016 02:08:18 +0000	</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=5.1.1</generator>
+	<item>
+		<title>Links: Oct 24th</title>
+		<link>/blog/2014/10/links-oct-24th/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=links-oct-24th</link>
+				<pubDate>Fri, 24 Oct 2014 15:48:26 +0000</pubDate>
+		<dc:creator><![CDATA[ivan]]></dc:creator>
+				<category><![CDATA[Links]]></category>
+		<category><![CDATA[affinity]]></category>
+		<category><![CDATA[Benford]]></category>
+		<category><![CDATA[English]]></category>
+		<category><![CDATA[Fraser]]></category>
+		<category><![CDATA[netcat]]></category>
+		<category><![CDATA[pidtree]]></category>
+		<category><![CDATA[progressbar]]></category>
+		<category><![CDATA[redis]]></category>
+		<category><![CDATA[rpm]]></category>
+		<category><![CDATA[shell]]></category>
+		<category><![CDATA[shield]]></category>
+		<category><![CDATA[Spelling]]></category>
+		<category><![CDATA[spinner]]></category>
+
+		<guid isPermaLink="false">https://pesin.space/blog/2014/10/links-oct-24th/</guid>
+				<description><![CDATA[Computer Science is no more about computers than astronomy is about telescopes — Edsger Dijkstra Let me start this post with two very powerful articles in The Economist: Philosopher kings. Business leaders would benefit from studying great writers. This resonates a lot with me, and is easily transposed onto politics. I can&#8217;t get rid of despair [&#8230;]]]></description>
+								<content:encoded><![CDATA[<p id="top" />
+<blockquote>
+<p style="text-align: right;">Computer Science is no more about computers than astronomy is about telescopes<br />
+— Edsger Dijkstra</p>
+</blockquote>
+<p>Let me start this post with two very powerful articles in The Economist:</p>
+<ul>
+<li><a href="http://www.economist.com/news/business/21621778-business-leaders-would-benefit-studying-great-writers-philosopher-kings">Philosopher kings</a>. Business leaders would benefit from studying great writers.<br />
+This resonates a lot with me, and is easily transposed onto politics. I can&#8217;t get rid of despair how shallow and primitive our politicians are en mass; all the more lame sound our journalists referring to them as &#8216;elite&#8217;.</li>
+<li><a href="http://www.economist.com/news/leaders/21621800-digital-revolution-bringing-sweeping-change-labour-markets-both-rich-and-poor.">Wealth without workers, workers without wealth</a>. The digital revolution is bringing sweeping change to labour markets in both rich and poor worlds.<br />
+The overview of a silent revolution that is happening around us. Engaging parallels with two previous Industrial revolutions, opportunities, trends, and the role of IT knowledge in the future.</li>
+</ul>
+<h3>Technology</h3>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Benford%27s_law">Bedford&#8217;s law</a> (<a href="http://habrahabr.ru/post/240853/">here</a> in Russian), something I was unknowingly bumping into before when trying to fairly evenly split the list of hostname. First thought of splitting by first character was obviously naive as hostnames tend to follow some patterns. Then I decided to calculate some hash function on the hostname and pick the first figure. I thought that would be fairly evenly distributed, but to my surprise it wasn&#8217;t. Now I have an explanation — Benford&#8217;s law.</li>
+<li>On rpm-based system you can use following commands to restore file&#8217;s permissions and ownerships:<br />
+<pre class="crayon-plain-tag"># rpm --setperms 
+# rpm --setugids</pre>
+</li>
+<li>To reserve a CPU core for some particular process and make the scheduler avoid placing other processes on that CPU you need to use <a href="http://man7.org/linux/man-pages/man7/cpuset.7.html">cpusets</a>. There is a generic tutorial <a href="https://rt.wiki.kernel.org/index.php/CPU_shielding_using_/proc_and_/dev/cpuset">here</a> on shielding a CPU (Serge, thanks:), but it&#8217;s much more fun to use <a href="https://code.google.com/p/cpuset/">cset</a> tool. Just look how cool it is in the examples on <a href="http://stackoverflow.com/questions/11111852/how-to-shield-a-cpu-from-the-linux-scheduler-prevent-it-scheduling-threads-onto">stackoverflow</a> and in <a href="https://rt.wiki.kernel.org/index.php/Cpuset_Management_Utility/tutorial">this</a> tutorial.<br />
+<pre class="crayon-plain-tag">[zuul:cpuset-trunk]# cset shield -c 1-3
+cset: --&amp;gt; activating shielding:
+cset: moving 176 tasks from root into system cpuset...
+[==================================================]%
+cset: &quot;system&quot; cpuset of CPUSPEC(0) with 176 tasks running
+cset: &quot;user&quot; cpuset of CPUSPEC(1-3) with 0 tasks running</pre>
+</li>
+<li>Some <a href="http://wiki.bash-hackers.org/howto/edit-ed">handy information</a> on editing with <b>ed</b>, an undeservedly underused tool these days</li>
+<li>A standard way to implement Redis sharding and (!) make Redis utilise multiple cores: <a href="https://github.com/twitter/twemproxy">twemproxy</a>.</li>
+<li>Compact 100-line <a href="https://code.google.com/p/pmptools/source/browse/bin/netcat.pl">implementation of netcat</a> in perl. Works perfectly in pair with ssh ProxyCommand.</li>
+<li>HTTP/2 is coming: <a href="https://www.mnot.net/blog/2014/06/07/rfc2616_is_dead">RFC2616 is dead</a>.</li>
+<li>In the light of recent security vulnerabilities, even more useful site with instructions on web-server encryption configuration: <a href="https://cipherli.st">cipher.st</a></li>
+<li>Say &#8216;Hello&#8217; to hidepid= <a href="http://www.cyberciti.biz/faq/linux-hide-processes-from-other-users/">option in Linux</a>; a way to hide processes from other users.</li>
+<li>And as a titbit, shell niceties:
+<ul>
+<li>Progress bars and spinners: <a href="http://stackoverflow.com/questions/11592583/bash-progress-bar">here</a> and <a href="http://stackoverflow.com/questions/238073/how-to-add-a-progress-bar-to-a-shell-script">here</a>, my favourite is this:<br />
+<pre class="crayon-plain-tag"># progress 30G 9G 30
+# 30G [================&gt;.................................] 30% (9G)</pre>
+</li>
+<li>Best ever <code>pidtree</code> shell implementation (from <a href="http://superuser.com/questions/363169/ps-how-can-i-recursively-get-all-child-process-for-a-given-pid">superuser</a>):<br />
+<pre class="crayon-plain-tag">#!/bin/bash
+
+pidtree() {
+  echo -n $1 &quot; &quot;
+  for _child in $(ps -o pid --no-headers --ppid $1); do
+    echo -n $_child `pidtree $_child` &quot; &quot;
+  done
+}
+
+ps f `pidtree 4378`</pre>
+</li>
+</ul>
+</li>
+</ul>
+<h3>English</h3>
+<ul>
+<li><a href="http://www.nationsonline.org/oneworld/international-spelling-alphabet.htm">International Spelling Alphabet</a> for reference. I do prefer &#8216;Yellow&#8217; over &#8216;Yankee&#8217;, &#8216;Zebra&#8217; over &#8216;Zulu&#8217;, and &#8216;Water&#8217; over &#8216;Wiskey&#8217;. :-)</li>
+<li>Nice <a href="http://www.sixthsense.ru/proverbs/?SHOWALL_1=1">table of proverb equivalence</a> in Russian and English</li>
+</ul>
+<hr />
+<p><center><br />
+<iframe width="625" height="469" src="https://www.youtube.com/embed/nqQIKHPHXhc?feature=oembed" frameborder="0" allowfullscreen></iframe><br />
+</center></p>
+]]></content:encoded>
+										</item>
+	</channel>
+</rss>

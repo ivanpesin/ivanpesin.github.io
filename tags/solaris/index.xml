@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>solaris on Articles, Translations, and Blog</title>
+    <link>http://pesin.space/tags/solaris/</link>
+    <description>Recent content in solaris on Articles, Translations, and Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 04 Apr 2014 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://pesin.space/tags/solaris/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Links: 4th Apr</title>
+      <link>http://pesin.space/posts/2014-04-04-links/</link>
+      <pubDate>Fri, 04 Apr 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2014-04-04-links/</guid>
+      <description>&lt;p&gt;My, when would they finally invent a direct connection interface from a brain to computer? Can’t wait, really.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

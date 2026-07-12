@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>acl &#8211; Ivan Pesin</title>
+	<atom:link href="/blog/tag/acl/feed/" rel="self" type="application/rss+xml" />
+	<link>https://pesin.space/blog</link>
+	<description>Articles &#38; Translations</description>
+	<lastBuildDate>
+	Wed, 19 Oct 2016 02:08:18 +0000	</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=5.1.1</generator>
+	<item>
+		<title>Как пользоваться списками контроля доступа (Access Controls Lists, ACLs) в Red Hat Enterprise Linux 5?</title>
+		<link>/blog/2009/06/%d0%ba%d0%b0%d0%ba-%d0%bf%d0%be%d0%bb%d1%8c%d0%b7%d0%be%d0%b2%d0%b0%d1%82%d1%8c%d1%81%d1%8f-%d1%81%d0%bf%d0%b8%d1%81%d0%ba%d0%b0%d0%bc%d0%b8-%d0%ba%d0%be%d0%bd%d1%82%d1%80%d0%be%d0%bb%d1%8f-%d0%b4/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=%25d0%25ba%25d0%25b0%25d0%25ba-%25d0%25bf%25d0%25be%25d0%25bb%25d1%258c%25d0%25b7%25d0%25be%25d0%25b2%25d0%25b0%25d1%2582%25d1%258c%25d1%2581%25d1%258f-%25d1%2581%25d0%25bf%25d0%25b8%25d1%2581%25d0%25ba%25d0%25b0%25d0%25bc%25d0%25b8-%25d0%25ba%25d0%25be%25d0%25bd%25d1%2582%25d1%2580%25d0%25be%25d0%25bb%25d1%258f-%25d0%25b4</link>
+				<pubDate>Wed, 10 Jun 2009 18:27:49 +0000</pubDate>
+		<dc:creator><![CDATA[ivan]]></dc:creator>
+				<category><![CDATA[RedHat KB]]></category>
+		<category><![CDATA[acl]]></category>
+		<category><![CDATA[rhel5]]></category>
+
+		<guid isPermaLink="false">http://www.n-ix.com/ipesin/?p=67</guid>
+				<description><![CDATA[Copyright (c) 2009 by Red Hat, Inc. This material may be distributed only subject to the terms and conditions set forth in the Open Publication License, v1.0 or later (available at http://www.opencontent.org/openpub/). Original article: kbase.redhat.com/faq/docs/DOC-9977.pdf Translated by Ivan Pesin, June 2009 Списки контроля доступа (Access Control Lists, ACL) предоставляют дополнительные к традиционным правам возможности разграничения [&#8230;]]]></description>
+								<content:encoded><![CDATA[<p id="top" />
+<div class="copyright">Copyright (c) 2009 by Red Hat, Inc. This material may be distributed only subject to the terms and conditions set forth in the Open Publication License, v1.0 or later (available at <a href="http://www.opencontent.org/openpub/">http://www.opencontent.org/openpub/</a>).<br />
+Original article: <a href="http://kbase.redhat.com/faq/docs/DOC-9977.pdf">kbase.redhat.com/faq/docs/DOC-9977.pdf</a></p>
+<p>Translated by Ivan Pesin, June 2009</p></div>
+<p>Списки контроля доступа (Access Control Lists, ACL) предоставляют дополнительные к традиционным правам возможности разграничения доступа к файлам и каталогам. Для того, чтобы использовать ACL, файловая система должна быть смонтирована с параметром  <code>acl</code>:</p>
+<blockquote><p></p><pre class="crayon-plain-tag">mount -o acl /home</pre><p></p></blockquote>
+<p>Чтобы установить права доступа для для пользователя или группы, используйте команду <code>setfacl -m</code>.</p>
+<p>Формат команды для установки пользовательского ACL:</p>
+<blockquote><p></p><pre class="crayon-plain-tag">setfacl -m u:[имя пользователя]:[права] /каталог/файл
+
+Пример:
+setfacl -m u:ray:rx /home/foo.txt</pre><p></p></blockquote>
+<p>Указанная команда даст пользователю <code>ray</code> права на чтение и выполнение файла <code>/home/foo.txt</code>.</p>
+<p>Чтобы задать ACL для группы, используйте:</p>
+<blockquote><p></p><pre class="crayon-plain-tag">setfacl -m g:[имя группы]:[права] /каталог/файл
+
+Пример:
+setfacl -m g:accounting:rwx /finance/foo.txt</pre><p></p></blockquote>
+<p>Команда в примере даёт группе <code>accounting</code> права на чтение, запись и выполнение файла <code>/finance/foo.txt</code>.</p>
+<p>ACL по-умолчанию для каталога (этот ACL будет автоматически наследоваться любым файлом и каталогом, созданными в данном каталоге) устанавливается командой:</p>
+<blockquote><p></p><pre class="crayon-plain-tag">setfacl -m d:[ug]:[имя пользователя или группы]:[права] /каталог
+
+Пример:
+setfacl -m d:u:marketing:rwx /brochures</pre><p></p></blockquote>
+<p>Эта команда указывает, что любой файл или каталог, созданный в каталоге <code>brochures</code>, будет автоматически доступен пользователю <code>marketing</code> на чтение, запись и выполнение.</p>
+<p>Для удаления ACL используется команда:</p>
+<blockquote><p></p><pre class="crayon-plain-tag">setfacl -x u:[имя пользователя]:[права] /каталог/файл
+
+Пример:
+setfacl -x u:ray:rx /home/foo.txt</pre><p></p></blockquote>
+<p>Команда из примера убирает у пользователя <code>ray</code> права на чтение и выполнение файла <code>/home/foo.txt</code>.</p>
+<p>Для того, чтобы узнать текущий ACL файла или каталога, используйте команду:</p>
+<blockquote><p></p><pre class="crayon-plain-tag">getfacl /каталог/файл
+
+Пример:
+getfacl /home/foo.txt</pre><p></p></blockquote>
+<p>В результате выполнения этой команды выдаётся текущий ACL файла <code>/home/foo.txt</code>. Выглядит это приблизительно так:</p>
+<blockquote><p></p><pre class="crayon-plain-tag"># getfacl /home/foo.txt
+
+getfacl: Removing leading '/' from absolute path names
+# file: home/foo.txt
+# owner: root
+# group: root
+user::rw-
+user:ray:rx
+group::r--
+group:marketing:rwx
+mask::rwx
+other::r--</pre><p></p></blockquote>
+<p>За подробной информацией о списках контроля доступа обращайтесь к страницам руководства по командам <code>setfacl</code> и <code>getfacl</code>.</p>
+]]></content:encoded>
+										</item>
+	</channel>
+</rss>

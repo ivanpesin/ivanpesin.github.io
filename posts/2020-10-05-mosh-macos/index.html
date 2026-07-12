@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Ivan Pesin | 
+      Fixing mosh failing on MacOS
+      </title>
+    <meta name="description" content="">
+
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/custom.css">
+    
+    
+    
+    
+
+    
+    <meta property="og:locale" content="en_US">
+    <meta property="og:title" content="Fixing mosh failing on MacOS">
+    
+    <meta property="og:description" content="Articles, Translations, and Blog">
+    <meta property="og:site_name" content="Ivan Pesin">
+
+  </head>
+
+
+<body>
+  <nav class="navbar navbar-default">
+    <div class="container">
+      
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        
+        <a class="navbar-brand" href="/">Articles, Translations, and Blog</a>
+      </div>
+  
+      
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="/posts/">Blog</a></li>
+            <li><a href="/photos/">Photos</a></li>
+            <li><a href="/#articles-translations">Articles & Translations</a></li>
+            <li><a href="/talks/">Talks</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Links <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="/phonetic-alphabet">Phonetic Alphabet</a></li>
+                <li><a href="/emoji">Emoji shortcuts</a></li>
+                <li><a href="/vim-cheatsheet">VIM cheatsheet</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="/articles/kb/">Assorted tips&trciks</a></li>
+              </ul>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+  <div class="container">
+    <article>
+      
+
+    <div class="row">
+        <div class="col-md-9">
+
+        <div class="text-muted">
+    October 5, 2020
+</div>
+<h2 class="title" style="margin-top: 0">Fixing mosh failing on MacOS</h2>
+<div>
+     
+     <span class="text-muted">&sect;
+     
+             <a href="/categories/tech/">tech</a>
+    </span>
+
+    &nbsp;&nbsp;&nbsp;<span class="text-muted"> # 
+    
+      <a href="/tags/macos/">macos</a>
+      <span class="separator">•</span>
+      <a href="/tags/mosh/">mosh</a>
+      <span class="separator">•</span>
+      <a href="/tags/locale/">locale</a>
+      <span class="separator">•</span>
+      <a href="/tags/terminal/">terminal</a>
+      <span class="separator">•</span>
+      <a href="/tags/iterm/">iterm</a>
+      <span class="separator">•</span>
+      <a href="/tags/console/">console</a>
+    </span>
+
+</div>
+
+
+        <div style="margin-top: 10px">
+        
+
+        <p><strong>TLDR</strong></p>
+<p><em>Problem</em>: trying to connect to a remote server with <code>mosh</code> you see error messages like:</p>
+<pre><code>mosh-client needs a UTF-8 native locale to run.
+mosh-server needs a UTF-8 native locale to run.
+The locale requested by LC_CTYPE=UTF-8 isn't available here.
+locale: Cannot set LC_CTYPE to default locale: No such file or directory
+</code></pre>
+<p>OR when connecting with <code>ssh</code> from <code>iTerm2</code> you get the error message</p>
+<pre><code>-bash: warning: setlocale: LC_CTYPE: cannot change locale (UTF-8): No such file or directory
+</code></pre>
+<p><em>Solution</em>: If you are not in US/GB/CA/IE/AU/NZ, add the following line to your <code>.profile</code>  and restart the shell.</p>
+<pre><code>export LANG=en_US.UTF-8 LC_CTYPE=en_US.UTF-8
+</code></pre>
+<hr>
+<p>I am quite a user of <code>mosh</code> &ndash; a mobile shell that makes it really convenient to work via <code>ssh</code> over unstable Internet connection or when roaming across different wifi networks. It&rsquo;s one of the first tools I install on a new server and from then on I switch from <code>ssh</code> to <code>mosh</code>.</p>
+<p>This weekend I was doing an initial configuration to a new server I provisioned from OVH hosting. To my surprise, <code>mosh</code> failed to connect with the following error message:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ mosh myserver.at.ovh
+
+mosh-client needs a UTF-8 native locale to run.
+
+Unfortunately, the client<span style="color:#960050;background-color:#1e0010">&#39;</span>s environment <span style="color:#f92672">([</span>no charset variables<span style="color:#f92672">])</span> specifies
+the character set <span style="color:#e6db74">&#34;US-ASCII&#34;</span>.
+
+LANG<span style="color:#f92672">=</span>
+LC_COLLATE<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;C&#34;</span>
+LC_CTYPE<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;C&#34;</span>
+LC_MESSAGES<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;C&#34;</span>
+LC_MONETARY<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;C&#34;</span>
+LC_NUMERIC<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;C&#34;</span>
+LC_TIME<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;C&#34;</span>
+LC_ALL<span style="color:#f92672">=</span>
+$ 
+</code></pre></div><p>This was quite a surprise as surely the terminal in MacOS has a UTF-8 native locale. I changed to <strong>iTerm2</strong> and tried connecting again, and again ended up with the similar looking error:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ mosh myserver.at.ovh
+/etc/profile.d/lang.sh: line 19: warning: setlocale: LC_CTYPE: cannot change locale <span style="color:#f92672">(</span>UTF-8<span style="color:#f92672">)</span>: No such file or directory
+The locale requested by LC_CTYPE<span style="color:#f92672">=</span>UTF-8 isn<span style="color:#e6db74">&#39;t available here.
+</span><span style="color:#e6db74">Running `locale-gen UTF-8&#39;</span> may be necessary.
+
+The locale requested by LC_CTYPE<span style="color:#f92672">=</span>UTF-8 isn<span style="color:#e6db74">&#39;t available here.
+</span><span style="color:#e6db74">Running `locale-gen UTF-8&#39;</span> may be necessary.
+
+mosh-server needs a UTF-8 native locale to run.
+
+Unfortunately, the local environment <span style="color:#f92672">(</span>LC_CTYPE<span style="color:#f92672">=</span>UTF-8<span style="color:#f92672">)</span> specifies
+the character set <span style="color:#e6db74">&#34;US-ASCII&#34;</span>,
+
+The client-supplied environment <span style="color:#f92672">(</span>LC_CTYPE<span style="color:#f92672">=</span>UTF-8<span style="color:#f92672">)</span> specifies
+the character set <span style="color:#e6db74">&#34;US-ASCII&#34;</span>.
+
+locale: Cannot set LC_CTYPE to default locale: No such file or directory
+locale: Cannot set LC_ALL to default locale: No such file or directory
+LANG<span style="color:#f92672">=</span>
+LC_CTYPE<span style="color:#f92672">=</span>UTF-8
+LC_NUMERIC<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;POSIX&#34;</span>
+LC_TIME<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;POSIX&#34;</span>
+LC_COLLATE<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;POSIX&#34;</span>
+LC_MONETARY<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;POSIX&#34;</span>
+LC_MESSAGES<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;POSIX&#34;</span>
+LC_PAPER<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;POSIX&#34;</span>
+LC_NAME<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;POSIX&#34;</span>
+LC_ADDRESS<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;POSIX&#34;</span>
+LC_TELEPHONE<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;POSIX&#34;</span>
+LC_MEASUREMENT<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;POSIX&#34;</span>
+LC_IDENTIFICATION<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;POSIX&#34;</span>
+LC_ALL<span style="color:#f92672">=</span>
+Connection to myserver.at.ovh closed.
+/usr/local/bin/mosh: Did not find mosh server startup message. <span style="color:#f92672">(</span>Have you installed mosh on your server?<span style="color:#f92672">)</span>
+$
+</code></pre></div><p>Apparently, something was wrong my with locale. Here I realized I have recently done a complete clean re-install and never restored whatever locale settings I had in my <code>.bash_profile</code>.</p>
+<p>This actually only increased my curiosity: a freshly installed MacOS with still almost default configuration was causing <code>mosh</code> to fail on connection over locale settings. I googled a bit the <code>mosh</code> error message but didn&rsquo;t find anything illuminating; then I noticed that when I was connecting to the server with <code>ssh</code>, <strong>iTerm2</strong> would emit the following error message:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ ssh myserver.at.ovh
+Last login: Mon Oct  <span style="color:#ae81ff">5</span> 11:00:30 <span style="color:#ae81ff">2020</span> from 178.136.74.184
+-bash: warning: setlocale: LC_CTYPE: cannot change locale <span style="color:#f92672">(</span>UTF-8<span style="color:#f92672">)</span>: No such file or directory
+</code></pre></div><p>Interestingly, this message wasn&rsquo;t showing up if I was running <code>ssh</code> from <strong>Terminal</strong>. So I googled this message in connection with <code>iterm2</code> and found the issue <a href="https://gitlab.com/gnachman/iterm2/-/issues/5478#note_97121777">#5478</a> with the comment showing an excerpt from <code>iterm2</code> debug log:</p>
+<pre><code>getLocale: languageCode=en, countryCode=ZA
+Tentative locale is en_ZA.UTF-8
+Locale is NOT supported
+Set LC_CTYPE=UTF-8
+</code></pre><p>Now <em>this</em> was illuminating! <strong>iTerm2</strong> <em>calculates</em> the value for <code>LC_CTYPE</code> variable by getting the language and country codes from the MacOS. When it ends up with a combination which MacOS lacks locale definition for, it falls back to the default <code>LC_CTYPE=UTF-8</code>. <strong>Terminal</strong> just defaults to <code>LC_CTYPE=C</code> which is non-UTF8!</p>
+<p>Let&rsquo;s see what English locales MacOS does have the support for:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cd /usr/share/locale/
+$ ls -1d en_* | column -c <span style="color:#ae81ff">80</span>
+en_AU                   en_CA.UTF-8             en_NZ.ISO8859-1
+en_AU.ISO8859-1         en_GB                   en_NZ.ISO8859-15
+en_AU.ISO8859-15        en_GB.ISO8859-1         en_NZ.US-ASCII
+en_AU.US-ASCII          en_GB.ISO8859-15        en_NZ.UTF-8
+en_AU.UTF-8             en_GB.US-ASCII          en_US
+en_CA                   en_GB.UTF-8             en_US.ISO8859-1
+en_CA.ISO8859-1         en_IE                   en_US.ISO8859-15
+en_CA.ISO8859-15        en_IE.UTF-8             en_US.US-ASCII
+en_CA.US-ASCII          en_NZ                   en_US.UTF-8
+</code></pre></div><p>Aha, not that many countries are supported, just <a href="https://en.wikipedia.org/wiki/Five_Eyes">the Five Eyes</a> and Ireland! That explains why that person from South Africa ran into this issue with <code>en_ZA</code> and <strong>iTerm2</strong>: every combination of English as the OS language with an <em>odd</em> country will result in it. In my situation, the country was Ukraine with the country code <strong>UA</strong>, and of course there is no <code>en_UA</code> locale.</p>
+<p>How does this affect the <em>remote</em> side of <code>mosh</code> connection &ndash; the server I am connecting to, though? Well, <code>ssh</code> &ndash; and <code>mosh</code> uses it for authentication phase &ndash; by default forwards the <code>LANG</code> and <code>LC_*</code> environment variables to the remote server it is connecting to:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ grep -n -B1 SendEnv /etc/ssh/ssh_config
+48-Host *
+49:     SendEnv LANG LC_*
+</code></pre></div><p>This makes the <em>remote</em> side of the connection declare them, and then <code>mosh-server</code> refuses to start because it requires a UTF-8 native locale to run. When I was connecting from <strong>Terminal</strong>, the locale was set to <code>C</code> which is not UTF-8, as I mentioned above; when I was connecting from <strong>iTerm2</strong>, the locale was defaulted to <code>UTF-8</code> and this also irked <code>mosh-server</code> because there was no definition for it in the system.</p>
+<hr>
+<p><strong>How to fix it?</strong></p>
+<p>I could generate <code>en_UA.UTF-8</code> locale definition locally, and that would make terminals define correctly <code>LC_*</code> variables, but they will send them over to the servers I am connecting to, and there <code>mosh-server</code> (and probably some other commands) will fail. This is no good.</p>
+<p>Generating <code>en_UA.UTF-8</code> locale definitions on all the servers I am connecting to is out of question too. Just like declaring overriding <code>LANG/LC_*</code> variables in <code>.bash_profile</code> files on all the servers: this might break legitimate clients with non <code>en_UA.UTF-8</code> locales.</p>
+<p>First working solution would be to disable <code>LANG/LC_*</code> variable forwarding in <code>ssh</code> configuration. Unfortunately, it is set in system-wide <code>/etc/ssh/ssh_config</code> and cannot be overridden in per-user <code>~/.ssh/config</code>. I hate changing system-wide default setting with no good reason, and the problem with locale didn&rsquo;t seem to me as a good reason to warrant such change.</p>
+<p>Therefore I have opted for another option: just override <code>LANG/LC_*</code> variables in my user&rsquo;s <code>.bash_profile</code>. This is a more klugy option, but in my situation it looks as the most reasonable thing to do. I have just added the following line to my <code>~/.bash_profile</code> and it resolved the issue completely:</p>
+<pre><code>export LANG=en_US.UTF-8 LC_CTYPE=en_US.UTF-8</code></pre>
+
+        </div>
+    </div>
+</div>
+
+
+    </article>
+
+    <hr>
+<div class="text-muted text-center small">
+    <i>
+        &mdash; `If you knew Time as well as I do,' said the Hatter, `you wouldn't talk about wasting IT. It's HIM.'
+    </i>
+</div>
+<div class="text-muted text-center m-20 small">
+<samp>$ Last updated: Feb 7, 2021 at 13:38 (EET) $</samp>
+</div>
+  </div>
+      
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+    
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+  
+  
+
+</body>
+
+</html>

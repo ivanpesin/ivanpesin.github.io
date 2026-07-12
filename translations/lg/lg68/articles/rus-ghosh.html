@@ -1,0 +1,220 @@
+<HTML><HEAD><meta charset="utf-8">
+				<title>[lg68]: Subhasish Ghosh - Компиляция и установка ядра Linux
+
+
+</title>
+
+</HEAD>
+
+<body bgcolor="white" link="red" vlink="#473c8b" alink="blue">
+
+<table align="center" border="0" cellspacing="0" width="80%">
+
+<tr><td align="center">
+
+<hr noshade size="2">
+
+<b>
+Компиляция и установка ядра Linux
+</b><br>
+<p>&nbsp;
+
+Автор: &copy; <a href="mailto:auspicious_blessingsindia@hotmail.com">Subhasish Ghosh</a>
+
+
+<br>Перевод: &copy; Иван Песин.
+
+<hr noshade size="2">
+</td></tr>
+
+
+<tr><td>
+<p>&nbsp;
+
+
+
+  <h4> </h4>
+  
+  <h4><strong>Вступление:</strong></h4>
+<p>Всем привет! Эта статья представляет собой детальное, пошаговое руководство 
+  по компиляции, конфигурации и установки ядра на системе Red Hat Linux. Как все 
+  мы знаем, настраивать ядро приходится по многим причинам, и я не буду вдаваться 
+  в детали. Я лишь покажу, как скомпилировать, настроить и установить ядро. Несмотря 
+  на то, что нижеприведенные шаги ориентированы на пользователей Red Hat Linux, 
+  он подойдет пользователям других дистрибутивов Линукса, конечно же, с некоторыми 
+  изменениями. (Например, не все системы используют initrd.)</p>
+<h4><strong>Главное:</strong></h4>
+<p>Помните, что все шаги, описанные ниже я выполнял на компьютере следующей конфигурации: 
+  Compaq Presario 4010 Series computer system, 15.5 GB Hard Disk Space, 96 MB 
+  RAM, 400 MHz Intel Celeron Processor, Red Hat Linux 7.0 Distribution Release. 
+  Ядро версии: <strong>2.2.16-22</strong></p>
+<h4><strong>Цель:</strong></h4>
+<p>Нашей целью будет получение полностью рабочего ядра, как результат всех шагов, 
+  указанных ниже. Например, я получил ядро с именем &quot;2.2.16-22ghosh&quot; 
+  (потому что мое имя - Сабхасиш Гауш (Subhasish Ghosh), вы же можете указать 
+  все что хотите!). Так что, счастливой охоты и компиляции ядра Linux.</p>
+<h4><strong>Шаги для компиляции, конфигурации и установки ядра Red Hat Linux:</strong></h4>
+<p>Следующая инструкция должна выполнятся именно в том порядке, в котором указаны 
+  &quot;шаги&quot;:</p>
+<p>Шаг 1: Зарегистрируйтесь под именем &quot;<strong>root</strong>&quot;.</p>
+<p>Шаг 2: Выполните команду: &quot;<strong>rpm -q kernel-headers kernel-source 
+  make dev86</strong>&quot;</p>
+<p>Шаг 3: Если указанные RPM'ы установлены перейдите к Шагу 4. Иначе, смонтируйте 
+  Red Hat Linux 7.0 CD-ROM и выполните команды rpm -Uvh для инсталляции указанных 
+  RPM.</p>
+<p>Шаг 4: Если у вас установлена и настроена система X Window, введите команду 
+  &quot;<strong>startx</strong>&quot;. Если же X Window не установлена, то, лично 
+  я, очень советовал бы вам установить и настроить ее - она будет весьма полезна 
+  вам. Итак, если система X Window НЕ настроена, введите &quot;make config&quot; 
+  или &quot;make menuconfig&quot;. Далее я полагаю, что на вашей системе запущена 
+  X Window. </p>
+<p>Шаг 5: Теперь в оболочке GNOME откройте окно терминала и введите: &quot;<strong>cd 
+  /usr/src/linux</strong>&quot;.</p>
+<p>Шаг 6: Из каталога /usr/src/linux, выполните команду &quot;<strong>make xconfig</strong>&quot;. 
+</p>
+<p>Шаг 7: На экране появится графическая версия &quot;make config&quot;. Это позволит 
+  вам произвести настройку нового ядра.</p>
+<p>Шаг 8: Я посоветую вам оставить большинство значений как есть. Не пробуйте 
+  ничего менять без особых причин - большинство настроек очень чувствительны и 
+  требуют высокого профессионализма. Сделайте только следующие изменения: <br>
+  <font size="-1">(Трудно согласиться с автором - если вы ничего не будете пробовать, 
+  вы никогда не станете высококлассным специалистом/программистом/пользователем 
+  Линукс. Другой вопрос, если вам необходима просто работающая система, но тогда 
+  зачем копошиться в ядре?.. - <i>Прим. пер.</i>)</font></p>
+<p>1.<strong><u>Processor Type and Features</u></strong>(тип и возможности процессора): 
+  Выберите нужный процессор, в зависимости от того, с каким вы работаете - Pentium 
+  2, 3 или Intel Celeron. Например, я выбрал следующие настройки: Processor Family: 
+  PPro/686MX, Maximum Physical Memory: 1 GB, Math Emulation: Yes, MTRR: Yes, SMP: 
+  Yes.<br>
+</p>
+<p>2.Откройте диалог <strong><u>Filesystems</u></strong>(файловые системы) и сделайте 
+  следующие изменения: DOS FAT fs support: Yes(y), MSDOS fs support: Yes(y), UMSDOS: 
+  m, VFAT(Windows 95) support: Yes(y), NTFS filesystem support (read-only): Yes(y), 
+  NTFS read-write support(DANGEROUS): No(n). После того как вы сделали указанные 
+  изменения, удостоверьтесь, что вы не поменяли другие установки. Все вышеприведенные 
+  изменения совершенно безопасны и никак не отразятся на существующем ядре. </p>
+<p>3.Сохранитесь и выйдите из главного диалога. </p>
+<p>Шаг 9: Выполните команду &quot;<strong>ls -al</strong>&quot; из каталога /usr/src/linux.</p>
+<p>Шаг 10: Уверен, вы увидите файл &quot;<strong>Makefile</strong>&quot;. Это 
+  крайне важный файл для процесса компиляции. Потому уверьтесь в том, что вы создали 
+  копию этого файла: &quot;<strong>cp Makefile Makefile.bak</strong>&quot;</p>
+<p>Шаг 11: Теперь: (из /usr/src/linux) &quot;<strong>vi Makefile</strong>&quot;.</p>
+<p>Шаг 12: Перейдите к строке <strong>EXTRAVERSION</strong> и измените ее на что-нибудь. 
+  Я, например, заменил EXTRAVERSION=-22 на EXTRAVERSION=&quot;-22ghosh&quot;. 
+  Вообще, можно заменять, на что вам заблагорассудится. </p>
+<p>Шаг 13: Сохранитесь и выйдите из редактора.</p>
+<p>Шаг 14: Все следующие шаги должны быть выполнены из /usr/src/linux. Введите: 
+  &quot;<strong>make dep clean</strong>&quot; и нажмите enter.</p>
+<p>Шаг 15: Теперь введите: &quot;<strong>make bzImage modules</strong>&quot;. 
+  Это займет некоторое время, так что вы можете отправиться выпить что-нибудь, 
+  пока компилируются необходимые файлы. Я, обычно, в это время дремаю, так как 
+  все эти процедуры происходят у меня где-то около полуночи.</p>
+<p>Шаг 16: После выполнения предыдущего шага, в каталоге /usr/src/linux/arch/i386/boot 
+  появится файл &quot;<strong>bzImage</strong>&quot;. Просто смените текущий каталог, 
+  и проверьте, есть ли файл &quot;bzImage&quot;. ЕСЛИ, И ТОЛЬКО ЕСЛИ, все шаги 
+  компиляции были выполнены верно и все настройки, выполненные в окне команды 
+  &quot;make xconfig&quot;, корректны, появится данный файл. Если вы нашли этот 
+  файл, а я надеюсь, что нашли, вы уже можете начинать прыгать от счастья, так 
+  как 75% битвы вы уже выиграли. Если вы не видите указанный файл, мне жаль, но 
+  вы где-то допустили ошибку, и вам придется остановится и выполнить все шаги сначала. 
+  Я уверен, у вас все получится.</p>
+<p>Шаг 17: Введите (из каталога /usr/src/linux): &quot;<strong>cp ./arch/i386/boot/bzImage 
+  /boot/vmlinuz-2.2.16-22ghosh</strong>&quot; и нажмите enter.</p>
+<p>Шаг 18: Введите: &quot;<strong>cp System.map /boot/System.map-2.2.16-22ghosh</strong>&quot;</p>
+<p>Шаг 19: Введите: &quot;<strong>make modules_install</strong>&quot; и нажмите 
+  enter. Вы увидите, как происходит установка необходимых модулей в соответствующие 
+  каталоги. </p>
+<p>Шаг 20: Введите: &quot;<strong>mkinitrd /boot/initrd-2.2.16-22ghosh.img 2.2.16-22ghosh</strong>&quot;</p>
+<p>Шаг 21: Введите: &quot;<strong>vi /etc/lilo.conf</strong>&quot; и добавьте 
+  следующие строки: </p>
+<p><strong>image=/boot/vmlinuz-2.2.16-22ghosh </strong></p>
+<blockquote> 
+  <p><strong>label=GhoshKernel<br>
+    initrd=/boot/initrd-2.2.16-22ghosh.img<br>
+    root=/dev/hdc5<br>
+    read-only</strong></p>
+</blockquote>
+<p>Шаг 22: Сохранитесь и выйдите. Обратите внимание, что значения необходимо указывать 
+  в соответствии с вашей системой. Так, например, файловая система root должна 
+  соответствовать вашей системе root. На моей машине - это /dev/hdc5. Вы же должны 
+  указать ваше устройство с системой root.</p>
+<p>Шаг 23: Введите: &quot;<strong>/sbin/lilo -v -v</strong>&quot;</p>
+<p>Шаг 24: Прочитайте вывод предыдущей команды. Если ошибок нет - работа сделана. 
+  Поздравляю!!! </p>
+<p>Шаг 25: Перезагрузитесь, введя: &quot;<strong>/sbin/reboot</strong>&quot; или 
+  &quot;<strong>/sbin/shutdown -r now</strong>&quot;.</p>
+<p>Шаг 26: В диалоге начальной загрузки <font size="-1">(в ответ на приглашение 
+  &quot;Boot:&quot; - <i>Прим. пер</i>), нажмите </font> Tab (или Control-X, зависит 
+  от вашего загрузчика) и среди прочих ядер в списке вы увидите &quot;GhoshKernel&quot;. 
+</p>
+<p>Шаг 27: Введите: <strong>GhoshKernel</strong> и нажмите enter. Ваше новое ядро 
+  начнет загружаться. Ну, вот и все!</p>
+<h4><strong>Результат:</strong></h4>
+<p>После регистрации под именем &quot;root&quot;, введите: &quot;<strong>uname 
+  -r</strong>&quot; и нажмите Enter. Вы увидите текст, сообщающий версию ядра: 
+  <strong><u>2.2.16-22ghosh</u></strong>, которая означает, что вы работаете под 
+  новым ядром, а не с тем, с которого мы начинали. Все! Помните так же, что у 
+  вас может быть на одной машине столько ядер, сколько вам хочется. В случае если 
+  все это не сработало или же вы ребята (или девчата) столкнулись с проблемами, 
+  вы можете обратиться ко мне по адресу <a
+href="mailto:auspicious_blessingsindia@hotmail.com">auspicious_blessingsindia@hotmail.com</a> 
+  с вопросами и за советами. Мне будет очень приятно услышать отзывы и помочь 
+  вам. И, я надеюсь, что этот детальный HowTo поможет всем, кто захочет настроить 
+  собственное ядро.</p>
+<h4><strong>Ресурсы:</strong></h4>
+<p>Существует множество информационных ресурсов в Сети о том, как настраивать 
+  ядро. Советую обратиться на <a href="http://www.vmlinuz.nu">http://www.vmlinuz.nu</a> 
+  за дополнительной документацией по вопросам ядра Linux. </p>
+<!-- *** BEGIN bio *** --> <spacer type="vertical" size="30"> 
+<p> 
+<h4>Subhasish Ghosh</h4>
+<cite>Мне 20 лет, живу сейчас в Индии. 
+Я учусь на разработчика компьютерных информационных систем и
+являюсь сертифицированным специалистом в области
+информационных технологий.
+Я имею 6 сертификатов Microsoft Certified 
+Professional (MCP), а также являюсь обладателем звания Certified Professional 
+Certified on NT 4.0 Track. Длительное время работаю с Linux, в основном с Linux 
+Red Hat. Сейчас готовлюсь к сдаче экзамена на звание Red Hat Linux Certified Engineer(RHCE) 
+и планирую работать в будущем с ОС Linux.</cite> 
+
+
+
+
+
+
+
+<p>&nbsp;
+
+</td></tr>
+
+
+<tr><td align="center">
+
+<hr noshade size="2">
+Copyright © 2001, Subhasish Ghosh.<br>
+Copying license <a href="http://www.linuxgazette.com/copying.html">http://www.linuxgazette.com/copying.html</a><br>
+Published in Issue 68 of <a href="http://www.linuxgazette.com">Linux Gazette</a>, July 2001<br>
+
+</td></tr>
+
+
+
+
+<tr><td align="center">
+<hr noshade size="2">
+
+<a href="http://gazette.linux.ru.net">Вернуться на главную страницу</a>
+
+<hr noshade size="2">
+
+</td></tr>
+
+</table>
+</html>
+
+
+
+
+
+

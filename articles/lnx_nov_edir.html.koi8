@@ -1,0 +1,313 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+  <head>
+    <meta
+     name="generator"
+     content=
+    "HTML Tidy for Linux/x86 (vers 1st May 2002), see www.w3.org">
+
+    <title>[rus] Повесть о Linux и аутентификации пользователей через
+    Novell e-Directory.</title>
+    <meta
+     http-equiv="Content-Type"
+     content="text/html; charset=koi8-r">
+    <link
+     rel="stylesheet"
+     href="../../rus-lg.css"
+     type="text/css">
+    <style
+     type="text/css">
+     p.c1 {text-align: center}
+                            </style>
+  </head>
+
+  <body>
+    <hr>
+
+    <p
+     class="c1"><!-- Article Title --><big><strong>Повесть о Linux и
+    аутентификации пользователей через Novell
+    e-Directory.</strong></big><br>
+     Автор: <!-- Author --><a
+     href="../../team/i_pesin.html">Иван Песин</a> <!-- Author --><br>
+    </p>
+    <hr>
+
+    <h3>Введение</h3>
+
+    <p>Цель статьи - описать настройку системы аутентификации
+    пользователей Linux-систем в едином хранилище Novell e-Directory.
+    Примеры приведены для системы RedHat Linux 7.3 и Novell e-Directory
+    8.6.0 Предполагается, что у читателя имеется достаточный уровень
+    подготовки по освещаемому вопросу.</p>
+
+    <h3>Настройка Linux</h3>
+
+    <p>Аутентификация пользователя Linux-систем в хранилище Novell
+    e-Directory обеспечивается системой PAM, Pluggable Authentication
+    Modules. Дополнительно устанавливаются модули nss_ldap и pam_ldap,
+    которые поставляются вместе с операционной системой RedHat Linux
+    7.3</p>
+
+    <p>Процесс аутентификации пользователя и установки параметров
+    сессии протекает следующим образом:</p>
+
+    <ol>
+      <li>Введенный пользователем пароль вместе с именем используется
+      модулем pam_ldap для получения доступа к Novell e-Directory.
+      Отказ в доступе свидетельствует о неверном имени или пароле.</li>
+
+      <li>При помощи модуля nss_ldap система получает необходимые для
+      работы данные, как то: uid, gid, homeDirectory, shell и др.</li>
+
+      <li>При отсутствии каталога пользователя средствами системы PAM
+      обеспечивается автоматическое его создание.</li>
+    </ol>
+
+    <p>Итак, первым шагом является установка пакета nss_ldap. Он
+    содержит необходимые модули для работы с сервером Novell
+    e-Directory.</p>
+
+    <p>После установки пакета нужно отредактировать конфигурационный
+    файл /etc/ldap.conf:</p>
+<pre>
+server 192.168.0.1
+base ou=london,o=acme
+
+binddn cn=ndsbrowser,ou=london,o=acme
+bindpw ndspass
+
+ssl yes
+pam_password nds
+nss_map_attribute userPassword authPassword
+
+scope sub
+</pre>
+
+    <p>В каталоге /etc/openldap/ также находится файл ldap.conf. Он
+    должен содержать те же данные. Можно создать вместо него
+    символическую ссылку:</p>
+<pre>
+# cd /etc/openldap && rm -f ldap.conf && ln -s /etc/ldap.conf
+</pre>
+
+    <p>Рассмотрим конфигурационный файл более детально:</p>
+
+    <table
+     width="97%"
+     border="0"
+     align="center">
+      <tr>
+        <td
+         width="47%"><strong>server &lt;ip address&gt;</strong></td>
+
+        <td
+         width="53%">ip-адрес сервера Novell e-Directory</td>
+      </tr>
+
+      <tr>
+        <td><strong>base &lt;context&gt;</strong></td>
+
+        <td>Базовый контекст сервера, откуда начинается поиск</td>
+      </tr>
+
+      <tr>
+        <td><strong>binddn &lt;credentials&gt;</strong></td>
+
+        <td>Специальный пользователь для подключения системы к Novell
+        e-Directory. Должен иметь права на чтение всех атрибутов, а
+        если вы хотите иметь возможность изменять пароли командой
+        passwd, то и права на запись</td>
+      </tr>
+
+      <tr>
+        <td><strong>bindpw &lt;password&gt;</strong></td>
+
+        <td>Пароль специального пользователя</td>
+      </tr>
+
+      <tr>
+        <td><strong>ssl yes</strong></td>
+
+        <td>Использовать шифрование</td>
+      </tr>
+
+      <tr>
+        <td><strong>pam_password nds</strong></td>
+
+        <td>Указывает режим работы с Novell e-Directory</td>
+      </tr>
+
+      <tr>
+        <td><strong>nss_map_attribute userPassword
+        authPassword</strong></td>
+
+        <td>Задает отображение атрибутов</td>
+      </tr>
+
+      <tr>
+        <td><strong>scope sub</strong></td>
+
+        <td>Задает режим поиска</td>
+      </tr>
+    </table>
+
+
+    <p>Перейдем к настройке системы PAM (Pluggable Authentication
+    Modules), подключаемых модулей аутентификации. Файлы настроек в
+    системе RedHat Linux 7.3 расположены в каталоге /etc/pam.d/. Нам
+    будет нужно внести изменения в файл system-auth. После необходимых
+    настроек он должен выглядеть так:</p>
+<pre>
+#%PAM-1.0
+auth        required      /lib/security/pam_env.so
+auth        sufficient    /lib/security/pam_unix.so likeauth nullok
+auth        sufficient    /lib/security/pam_ldap.so try_first_pass
+
+auth        required      /lib/security/pam_deny.so
+
+account     sufficient    /lib/security/pam_unix.so
+account     [default=bad success=ok user_unknown=ignore service_err=ignore system_err=ignore] /lib/security/pam_ldap.so
+
+password    required      /lib/security/pam_cracklib.so retry=3 type=
+password    sufficient    /lib/security/pam_unix.so nullok use_authtok md5 shadow
+password    sufficient    /lib/security/pam_ldap.so use_authtok
+password    required      /lib/security/pam_deny.so
+
+session     required      /lib/security/pam_limits.so
+session     required      /lib/security/pam_unix.so
+session     required      /lib/security/pam_mkhomedir.so skel=/etc/skel/ umask=0077
+session     optional      /lib/security/pam_ldap.so
+</pre>
+
+    <p>Это содержимое сообщает системе, что пользователя необходимо
+    вначале проверить локальными средствами, а при ошибке попробовать
+    аутентифицировать через Novell e-Directory. Обратите внимание на
+    строку "session required /lib/security/pam_mkhomedir.so
+    skel=/etc/skel/ umask=0077". Она обеспечит создание каталога
+    пользователя и перенос базовых настроек.</p>
+
+    <p>Возможно, вам будет необходимо добавить свои специфические
+    настройки, если вы используете другие дополнительные механизмы
+    аутентификации. Учтите, что при запуске утилиты authconfig, данный
+    файл будет перегенерирован и его настройки уничтожатся.</p>
+
+    <p>Следующим шагом настройки является настройка модуля
+    nss_ldap.</p>
+
+    <p>Откройте файл /etc/nsswitch.conf в редакторе и найдите строки
+    начинающиеся с passwd, shadow и group. Добавьте в конец
+    соответствующих строк слово "ldap". Строки должны будут выглядеть
+    примерно так:</p>
+<pre>
+passwd: files ldap
+shadow: files ldap
+group:  files ldap
+</pre>
+
+    <p>Наконец, необходимо настроить систему шифрования SSL. Для этого
+    скопируйте с тома SYS: сертификат сервера (файл RootCert.der) в
+    каталог /usr/share/ssl/certs/. Выполните команду конвертации:</p>
+<pre>
+# openssl x509 -in /usr/share/ssl/certs/RootCert.der -inform DER -out  /usr/share/ssl/certs/RootCert.pem -outform PEM
+</pre>
+
+    <p>Теперь добавьте сконвертированный сертификат в конфигурационный
+    файл /usr/share/ssl/openssl.cnf. Для этого найдите в нем ключи
+    "value certificate", "my private key" и сопоставьте им значение
+    "/usr/share/ssl/certs/RootCert.pem". Например:</p>
+<pre>
+certificate     = /usr/share/ssl/certs/RootCert.pem # The CA certificate
+private_key     = /usr/share/ssl/certs/RootCert.pem # The private key
+</pre>
+
+    <h3>Настройка Novell e-Directory</h3>
+
+    <p>Переходим к настройке сервера Novell e-Directory. В конфигурации
+    по-умолчанию версии 8.6.0 существует ошибка в преобразовании
+    атрибутов NDS в атрибуты LDAP (Насколько мне известно, в версии
+    8.7.0 ошибка исправлена). Поэтому их нужно исправить вручную. Для
+    этого запустите утилиту ConsoleOne и откройте свойства объекта
+    "LDAP Group". Перейдите к закладке "Attribute Map" и добавьте такие
+    соответствия (если есть старые соответствия, удалите их):</p>
+
+    <table
+     width="50%"
+     border="0"
+     align="center">
+      <tr
+       bgcolor="#CCCCCC">
+        <td>
+          <h4>LDAP Attribute</h4>
+        </td>
+
+        <td>
+          <h4>NDS Attribute</h4>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <h4>loginShell</h4>
+        </td>
+
+        <td>
+          <h4>loginShell</h4>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <h4>uidNumber</h4>
+        </td>
+
+        <td>
+          <h4>uidNumber</h4>
+        </td>
+      </tr>
+
+      <tr>
+        <td
+         height="23">
+          <h4>gidNumber</h4>
+        </td>
+
+        <td>
+          <h4>gidNumber</h4>
+        </td>
+      </tr>
+    </table>
+
+    <p>Теперь создайте группу для пользователей Linux систем и укажите
+    ее номер (GID) в закладке свойств "UNIX Profile".</p>
+
+    <p>Добавьте необходимых пользователей, указав в закладке свойств
+    "UNIX Profile" необходимые значения UID, GID, shell,
+    homeDirectory.</p>
+
+    <p>Вот и все. Можно регистрироваться в Linux системе пользователем,
+    введенном на сервере Novell e-Directory.</p>
+
+    <h3>Заключение.</h3>
+
+    <p>Все упомянутые в статье торговые марки и продукты принадлежат их
+    владельцам. Исследования по организации аутентификации Linux
+    пользователей сервером Novell e-Directory велась в рамках моей
+    работы в компании <a
+     href="http://www.n-ix.com">N-iX Newcomp GmbH</a>.</p>
+    <hr>
+
+    <p
+     class="c1"><small><strong>Copyright (c) 2003, Ivan
+    Pesin</strong></small></p>
+    <!-- *** END copyright *** -->
+    <hr>
+
+    <p
+     class="c1"><a
+     href="../index.html">Вернуться на главную страницу</a></p>
+    <hr>
+  </body>
+</html>
+

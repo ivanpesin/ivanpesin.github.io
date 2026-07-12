@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>cfengine on Articles, Translations, and Blog</title>
+    <link>http://pesin.space/tags/cfengine/</link>
+    <description>Recent content in cfengine on Articles, Translations, and Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 03 Jun 2014 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://pesin.space/tags/cfengine/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Links: 3th Jun</title>
+      <link>http://pesin.space/posts/2014-06-03-links/</link>
+      <pubDate>Tue, 03 Jun 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2014-06-03-links/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;Writing is nature’s way of telling you how sloppy your thinking is.&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+    <item>
+      <title>vim syntax highlighting for cfengine3</title>
+      <link>http://pesin.space/posts/2012-07-21-cfenging-vim-highlighting/</link>
+      <pubDate>Sat, 21 Jul 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2012-07-21-cfenging-vim-highlighting/</guid>
+      <description>A major part of my work these days is connected with cfengine3 and writing promises. I’m kind of a vim-guy, so clearly I’m using it when writing cfengine promises and when you write a lot of code, you’d definitely want to make your development environment comfy and snug. Part of being comfy and sung in my understanding is syntax highlighting, which tremendously simplifies reading the code and makes you spot typos and other sorts of mistakes right away.</description>
+    </item>
+    
+  </channel>
+</rss>

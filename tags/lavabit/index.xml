@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>lavabit on Articles, Translations, and Blog</title>
+    <link>http://pesin.space/tags/lavabit/</link>
+    <description>Recent content in lavabit on Articles, Translations, and Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 03 Jun 2014 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://pesin.space/tags/lavabit/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Links: 3th Jun</title>
+      <link>http://pesin.space/posts/2014-06-03-links/</link>
+      <pubDate>Tue, 03 Jun 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2014-06-03-links/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;Writing is nature’s way of telling you how sloppy your thinking is.&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

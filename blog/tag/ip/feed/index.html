@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>ip &#8211; Ivan Pesin</title>
+	<atom:link href="/blog/tag/ip/feed/" rel="self" type="application/rss+xml" />
+	<link>https://pesin.space/blog</link>
+	<description>Articles &#38; Translations</description>
+	<lastBuildDate>
+	Wed, 19 Oct 2016 02:08:18 +0000	</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=5.1.1</generator>
+	<item>
+		<title>Как настроить дополнительные маршруты в Red Hat Enterprise Linux?</title>
+		<link>/blog/2009/06/%d0%ba%d0%b0%d0%ba-%d0%bd%d0%b0%d1%81%d1%82%d1%80%d0%be%d0%b8%d1%82%d1%8c-%d0%b4%d0%be%d0%bf%d0%be%d0%bb%d0%bd%d0%b8%d1%82%d0%b5%d0%bb%d1%8c%d0%bd%d1%8b%d0%b5-%d0%bc%d0%b0%d1%80%d1%88%d1%80%d1%83/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=%25d0%25ba%25d0%25b0%25d0%25ba-%25d0%25bd%25d0%25b0%25d1%2581%25d1%2582%25d1%2580%25d0%25be%25d0%25b8%25d1%2582%25d1%258c-%25d0%25b4%25d0%25be%25d0%25bf%25d0%25be%25d0%25bb%25d0%25bd%25d0%25b8%25d1%2582%25d0%25b5%25d0%25bb%25d1%258c%25d0%25bd%25d1%258b%25d0%25b5-%25d0%25bc%25d0%25b0%25d1%2580%25d1%2588%25d1%2580%25d1%2583</link>
+				<pubDate>Tue, 30 Jun 2009 20:16:37 +0000</pubDate>
+		<dc:creator><![CDATA[ivan]]></dc:creator>
+				<category><![CDATA[RedHat KB]]></category>
+		<category><![CDATA[ip]]></category>
+		<category><![CDATA[neworking]]></category>
+		<category><![CDATA[rhel3]]></category>
+		<category><![CDATA[rhel_basics]]></category>
+
+		<guid isPermaLink="false">http://www.n-ix.com/ipesin/?p=321</guid>
+				<description><![CDATA[Copyright (c) 2009 by Red Hat, Inc. This material may be distributed only subject to the terms and conditions set forth in the Open Publication License, v1.0 or later (available at http://www.opencontent.org/openpub/). Original article: http://kbase.redhat.com/faq/docs/DOC-6417.pdf Translated by Ivan Pesin, June 2009 Система: Red Hat Enterprise Linux 3.5, 4 and 5 Чтобы задать статические маршруты, используются [&#8230;]]]></description>
+								<content:encoded><![CDATA[<p id="top" />
+<div class="copyright">Copyright (c) 2009 by Red Hat, Inc. This material may be distributed only subject to the terms and conditions set forth in the Open Publication License, v1.0 or later (available at <a href="http://www.opencontent.org/openpub/">http://www.opencontent.org/openpub/</a>).<br />
+Original article: <a href="http://kbase.redhat.com/faq/docs/DOC-6417.pdf">http://kbase.redhat.com/faq/docs/DOC-6417.pdf</a></p>
+<p>Translated by Ivan Pesin, June 2009</p></div>
+<p><strong>Система:</strong> Red Hat Enterprise Linux 3.5, 4 and 5</p>
+<p>Чтобы задать статические маршруты, используются файлы <code>/etc/sysconfig/network-scripts/route-interface</code>. Они считываются при инициализации сетевых интерфейсов (ниже описывается синтаксис файлов).</p>
+<p>Существуют два варианта синтаксиса этих файлов. Первый &#8212; это аргументы к команде <code>ip</code>, второй состоит из директив &#8220;сеть/маска/шлюз&#8221;.</p>
+<p><strong>Синтаксис 1:</strong></p>
+<p>Если используется синтаксис с аргументами команды <code>ip</code>, скрипт <code>ifup-route</code> для каждой строки из файла выполняет команду <code>ip route add</code>. Строка в файле должна содержать все необходимые параметры для добавления маршрута. Например, чтобы задать маршрут по-умолчанию, файл должен содержать следующее:</p>
+<blockquote><p></p><pre class="crayon-plain-tag">default via X.X.X.X dev bond0
+10.10.10.0/24 via X.X.X.X dev bond0</pre><p></p></blockquote>
+<p>В приведённом примере, <code>X.X.X.X</code> &#8212; это IP-адрес шлюза. Вторая строка задаёт другой статический маршрут, где <code>X.X.X.X</code> это тоже IP-адрес шлюза. Каждая строка в файле обрабатывается как отдельный маршрут.</p>
+<p><strong>Синтаксис 2:</strong></p>
+<p>Альтернативный вариант синтаксиса следующий:</p>
+<blockquote><p></p><pre class="crayon-plain-tag">ADDRESS0=10.10.10.0
+NETMASK0=255.255.255.0
+GATEWAY0=X.X.X.X</pre><p></p></blockquote>
+<p>Где <code>X.X.X.X</code> это IP-адрес шлюза. Следующие записи должны быть последовательно пронумерованы (например <code>ADDRESS1=, NETMASK1=, GATEWAY1=</code>). Обратите внимание, что нумерация должна идти последовательно <strong>без пропусков</strong> (после 0 должна идти 1, а не любое число, большее 0).</p>
+]]></content:encoded>
+										</item>
+	</channel>
+</rss>

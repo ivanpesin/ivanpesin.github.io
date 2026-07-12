@@ -1,0 +1,1480 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Ivan Pesin | 
+      Posts
+      </title>
+    <meta name="description" content="">
+
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/custom.css">
+    
+    
+    
+    
+
+    
+    <meta property="og:locale" content="en_US">
+    <meta property="og:title" content="Posts">
+    
+    <meta property="og:description" content="Articles, Translations, and Blog">
+    <meta property="og:site_name" content="Ivan Pesin">
+
+  </head>
+
+
+<body>
+  <nav class="navbar navbar-default">
+    <div class="container">
+      
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        
+        <a class="navbar-brand" href="/">Articles, Translations, and Blog</a>
+      </div>
+  
+      
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="/posts/">Blog</a></li>
+            <li><a href="/photos/">Photos</a></li>
+            <li><a href="/#articles-translations">Articles & Translations</a></li>
+            <li><a href="/talks/">Talks</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Links <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="/phonetic-alphabet">Phonetic Alphabet</a></li>
+                <li><a href="/emoji">Emoji shortcuts</a></li>
+                <li><a href="/vim-cheatsheet">VIM cheatsheet</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="/articles/kb/">Assorted tips&trciks</a></li>
+              </ul>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+  <div class="container">
+    <article>
+      
+
+  
+
+  <div class="row">
+    <div class="col-md-9"><div class="text-muted">
+    October 5, 2020
+</div>
+<h2 class="title" style="margin-top: 0">Fixing mosh failing on MacOS</h2>
+<div>
+     
+     <span class="text-muted">&sect;
+     
+             <a href="/categories/tech/">tech</a>
+    </span>
+
+    &nbsp;&nbsp;&nbsp;<span class="text-muted"> # 
+    
+      <a href="/tags/macos/">macos</a>
+      <span class="separator">•</span>
+      <a href="/tags/mosh/">mosh</a>
+      <span class="separator">•</span>
+      <a href="/tags/locale/">locale</a>
+      <span class="separator">•</span>
+      <a href="/tags/terminal/">terminal</a>
+      <span class="separator">•</span>
+      <a href="/tags/iterm/">iterm</a>
+      <span class="separator">•</span>
+      <a href="/tags/console/">console</a>
+    </span>
+
+</div>
+
+
+      <div style="margin-top: 10px">
+        
+
+        <p><strong>TLDR</strong></p>
+<p><em>Problem</em>: trying to connect to a remote server with <code>mosh</code> you see error messages like:</p>
+<pre><code>mosh-client needs a UTF-8 native locale to run.
+mosh-server needs a UTF-8 native locale to run.
+The locale requested by LC_CTYPE=UTF-8 isn't available here.
+locale: Cannot set LC_CTYPE to default locale: No such file or directory
+</code></pre>
+<p>OR when connecting with <code>ssh</code> from <code>iTerm2</code> you get the error message</p>
+<pre><code>-bash: warning: setlocale: LC_CTYPE: cannot change locale (UTF-8): No such file or directory
+</code></pre>
+<p><em>Solution</em>: If you are not in US/GB/CA/IE/AU/NZ, add the following line to your <code>.profile</code>  and restart the shell.</p>
+<pre><code>export LANG=en_US.UTF-8 LC_CTYPE=en_US.UTF-8
+</code></pre>
+<hr>
+<p>I am quite a user of <code>mosh</code> &ndash; a mobile shell that makes it really convenient to work via <code>ssh</code> over unstable Internet connection or when roaming across different wifi networks. It&rsquo;s one of the first tools I install on a new server and from then on I switch from <code>ssh</code> to <code>mosh</code>.</p>
+<p>This weekend I was doing an initial configuration to a new server I provisioned from OVH hosting. To my surprise, <code>mosh</code> failed to connect with the following error message:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ mosh myserver.at.ovh
+
+mosh-client needs a UTF-8 native locale to run.
+
+Unfortunately, the client<span style="color:#960050;background-color:#1e0010">&#39;</span>s environment <span style="color:#f92672">([</span>no charset variables<span style="color:#f92672">])</span> specifies
+the character set <span style="color:#e6db74">&#34;US-ASCII&#34;</span>.
+
+LANG<span style="color:#f92672">=</span>
+LC_COLLATE<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;C&#34;</span>
+LC_CTYPE<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;C&#34;</span>
+LC_MESSAGES<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;C&#34;</span>
+LC_MONETARY<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;C&#34;</span>
+LC_NUMERIC<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;C&#34;</span>
+LC_TIME<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;C&#34;</span>
+LC_ALL<span style="color:#f92672">=</span>
+$ 
+</code></pre></div><p>This was quite a surprise as surely the terminal in MacOS has a UTF-8 native locale. I changed to <strong>iTerm2</strong> and tried connecting again, and again ended up with the similar looking error:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ mosh myserver.at.ovh
+/etc/profile.d/lang.sh: line 19: warning: setlocale: LC_CTYPE: cannot change locale <span style="color:#f92672">(</span>UTF-8<span style="color:#f92672">)</span>: No such file or directory
+The locale requested by LC_CTYPE<span style="color:#f92672">=</span>UTF-8 isn<span style="color:#e6db74">&#39;t available here.
+</span><span style="color:#e6db74">Running `locale-gen UTF-8&#39;</span> may be necessary.
+
+The locale requested by LC_CTYPE<span style="color:#f92672">=</span>UTF-8 isn<span style="color:#e6db74">&#39;t available here.
+</span><span style="color:#e6db74">Running `locale-gen UTF-8&#39;</span> may be necessary.
+
+mosh-server needs a UTF-8 native locale to run.
+
+Unfortunately, the local environment <span style="color:#f92672">(</span>LC_CTYPE<span style="color:#f92672">=</span>UTF-8<span style="color:#f92672">)</span> specifies
+the character set <span style="color:#e6db74">&#34;US-ASCII&#34;</span>,
+
+The client-supplied environment <span style="color:#f92672">(</span>LC_CTYPE<span style="color:#f92672">=</span>UTF-8<span style="color:#f92672">)</span> specifies
+the character set <span style="color:#e6db74">&#34;US-ASCII&#34;</span>.
+
+locale: Cannot set LC_CTYPE to default locale: No such file or directory
+locale: Cannot set LC_ALL to default locale: No such file or directory
+LANG<span style="color:#f92672">=</span>
+LC_CTYPE<span style="color:#f92672">=</span>UTF-8
+LC_NUMERIC<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;POSIX&#34;</span>
+LC_TIME<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;POSIX&#34;</span>
+LC_COLLATE<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;POSIX&#34;</span>
+LC_MONETARY<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;POSIX&#34;</span>
+LC_MESSAGES<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;POSIX&#34;</span>
+LC_PAPER<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;POSIX&#34;</span>
+LC_NAME<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;POSIX&#34;</span>
+LC_ADDRESS<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;POSIX&#34;</span>
+LC_TELEPHONE<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;POSIX&#34;</span>
+LC_MEASUREMENT<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;POSIX&#34;</span>
+LC_IDENTIFICATION<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;POSIX&#34;</span>
+LC_ALL<span style="color:#f92672">=</span>
+Connection to myserver.at.ovh closed.
+/usr/local/bin/mosh: Did not find mosh server startup message. <span style="color:#f92672">(</span>Have you installed mosh on your server?<span style="color:#f92672">)</span>
+$
+</code></pre></div><p>Apparently, something was wrong my with locale. Here I realized I have recently done a complete clean re-install and never restored whatever locale settings I had in my <code>.bash_profile</code>.</p>
+<p>This actually only increased my curiosity: a freshly installed MacOS with still almost default configuration was causing <code>mosh</code> to fail on connection over locale settings. I googled a bit the <code>mosh</code> error message but didn&rsquo;t find anything illuminating; then I noticed that when I was connecting to the server with <code>ssh</code>, <strong>iTerm2</strong> would emit the following error message:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ ssh myserver.at.ovh
+Last login: Mon Oct  <span style="color:#ae81ff">5</span> 11:00:30 <span style="color:#ae81ff">2020</span> from 178.136.74.184
+-bash: warning: setlocale: LC_CTYPE: cannot change locale <span style="color:#f92672">(</span>UTF-8<span style="color:#f92672">)</span>: No such file or directory
+</code></pre></div><p>Interestingly, this message wasn&rsquo;t showing up if I was running <code>ssh</code> from <strong>Terminal</strong>. So I googled this message in connection with <code>iterm2</code> and found the issue <a href="https://gitlab.com/gnachman/iterm2/-/issues/5478#note_97121777">#5478</a> with the comment showing an excerpt from <code>iterm2</code> debug log:</p>
+<pre><code>getLocale: languageCode=en, countryCode=ZA
+Tentative locale is en_ZA.UTF-8
+Locale is NOT supported
+Set LC_CTYPE=UTF-8
+</code></pre><p>Now <em>this</em> was illuminating! <strong>iTerm2</strong> <em>calculates</em> the value for <code>LC_CTYPE</code> variable by getting the language and country codes from the MacOS. When it ends up with a combination which MacOS lacks locale definition for, it falls back to the default <code>LC_CTYPE=UTF-8</code>. <strong>Terminal</strong> just defaults to <code>LC_CTYPE=C</code> which is non-UTF8!</p>
+<p>Let&rsquo;s see what English locales MacOS does have the support for:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cd /usr/share/locale/
+$ ls -1d en_* | column -c <span style="color:#ae81ff">80</span>
+en_AU                   en_CA.UTF-8             en_NZ.ISO8859-1
+en_AU.ISO8859-1         en_GB                   en_NZ.ISO8859-15
+en_AU.ISO8859-15        en_GB.ISO8859-1         en_NZ.US-ASCII
+en_AU.US-ASCII          en_GB.ISO8859-15        en_NZ.UTF-8
+en_AU.UTF-8             en_GB.US-ASCII          en_US
+en_CA                   en_GB.UTF-8             en_US.ISO8859-1
+en_CA.ISO8859-1         en_IE                   en_US.ISO8859-15
+en_CA.ISO8859-15        en_IE.UTF-8             en_US.US-ASCII
+en_CA.US-ASCII          en_NZ                   en_US.UTF-8
+</code></pre></div><p>Aha, not that many countries are supported, just <a href="https://en.wikipedia.org/wiki/Five_Eyes">the Five Eyes</a> and Ireland! That explains why that person from South Africa ran into this issue with <code>en_ZA</code> and <strong>iTerm2</strong>: every combination of English as the OS language with an <em>odd</em> country will result in it. In my situation, the country was Ukraine with the country code <strong>UA</strong>, and of course there is no <code>en_UA</code> locale.</p>
+<p>How does this affect the <em>remote</em> side of <code>mosh</code> connection &ndash; the server I am connecting to, though? Well, <code>ssh</code> &ndash; and <code>mosh</code> uses it for authentication phase &ndash; by default forwards the <code>LANG</code> and <code>LC_*</code> environment variables to the remote server it is connecting to:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ grep -n -B1 SendEnv /etc/ssh/ssh_config
+48-Host *
+49:     SendEnv LANG LC_*
+</code></pre></div><p>This makes the <em>remote</em> side of the connection declare them, and then <code>mosh-server</code> refuses to start because it requires a UTF-8 native locale to run. When I was connecting from <strong>Terminal</strong>, the locale was set to <code>C</code> which is not UTF-8, as I mentioned above; when I was connecting from <strong>iTerm2</strong>, the locale was defaulted to <code>UTF-8</code> and this also irked <code>mosh-server</code> because there was no definition for it in the system.</p>
+<hr>
+<p><strong>How to fix it?</strong></p>
+<p>I could generate <code>en_UA.UTF-8</code> locale definition locally, and that would make terminals define correctly <code>LC_*</code> variables, but they will send them over to the servers I am connecting to, and there <code>mosh-server</code> (and probably some other commands) will fail. This is no good.</p>
+<p>Generating <code>en_UA.UTF-8</code> locale definitions on all the servers I am connecting to is out of question too. Just like declaring overriding <code>LANG/LC_*</code> variables in <code>.bash_profile</code> files on all the servers: this might break legitimate clients with non <code>en_UA.UTF-8</code> locales.</p>
+<p>First working solution would be to disable <code>LANG/LC_*</code> variable forwarding in <code>ssh</code> configuration. Unfortunately, it is set in system-wide <code>/etc/ssh/ssh_config</code> and cannot be overridden in per-user <code>~/.ssh/config</code>. I hate changing system-wide default setting with no good reason, and the problem with locale didn&rsquo;t seem to me as a good reason to warrant such change.</p>
+<p>Therefore I have opted for another option: just override <code>LANG/LC_*</code> variables in my user&rsquo;s <code>.bash_profile</code>. This is a more klugy option, but in my situation it looks as the most reasonable thing to do. I have just added the following line to my <code>~/.bash_profile</code> and it resolved the issue completely:</p>
+<pre><code>export LANG=en_US.UTF-8 LC_CTYPE=en_US.UTF-8</code></pre>
+      </div>
+
+      <hr><div class="text-muted">
+    September 22, 2020
+</div>
+<h2 class="title" style="margin-top: 0">Latency numbers every engineer should know</h2>
+<div>
+     
+     <span class="text-muted">&sect;
+     
+             <a href="/categories/tech/">tech</a>
+    </span>
+
+    &nbsp;&nbsp;&nbsp;<span class="text-muted"> # 
+    
+      <a href="/tags/latency/">latency</a>
+      <span class="separator">•</span>
+      <a href="/tags/numbers/">numbers</a>
+    </span>
+
+</div>
+
+
+      <div style="margin-top: 10px">
+        
+
+        <p>I have been re-reading Tom Limoncelli&rsquo;s et al. <em>The Practice of Cloud System Administration</em> book (which is great and is well worth reading even 5 years after it has been published) and it has this wonderful reference table called <em>Latency Numbers Every Engineer/Programmer Should Know</em>. This table was popularized by Jeff Dean, and originally presented by Peter Norvig.</p>
+<p>I find it handy and wanted to copy it here, on my blog, but then realized it&rsquo;s almost a decade old as the data was from 2012. This made me do a little research (read: googling) to see how the decade affected the numbers listed. The answer: not much! The only noticeable changes are in disk and network performance thanks to better SSDs/NVMe and 10/100Gb networks.</p>
+<p>Which googling though I discovered two interesting bits though: some nice representations of data, and a <em>scaled</em> similar systems latency table from Brendan Gregg&rsquo;s <em>Systems Performance</em> book. Besides of nice scaling of the latency numbers, that table neatly arranges different subsystems by speed: cpu, memory, disk io, networking, and reboot times.</p>
+<p>I have added a scaling columns to the original latency table and updated numbers a bit in both tables to reflect current situations and putting them below for reference.</p>
+<h4 id="latency-numbers-every-engineer-should-know">Latency Numbers Every Engineer Should Know</h4>
+<pre>
+3GHz CPU cycle                     0.3 |   1 s    |
+L1 cache reference                 0.5 |   2 s    |    
+Branch mispredict                  3   |  10 s    |
+L2 cache reference                 5   |  20 s    | ~10x L1 cache
+Mutex lock/unlock                ~20   |   1 min  |
+Main memory reference            100   |   5 min  | 20x L2 cache, 200x L1 cache
+Compress 1K with Zippy         2,000   |   2 h    |
+Send 1K over 1Gbps network    10,000   |  10 h    | 10Gbps is 10x faster, duh
+Read 4K randomly from SSD    150,000   |   6 days | ~1GB/sec SSD
+Read 1 MB seq from memory    250,000   |  10 days |
+Round trip within same DC    500,000   |  20 days |
+Read 1 MB seq from SSD*    1,000,000   |   1 mo   | ~1GB/sec SSD, 4x memory
+Disk seek                 10,000,000   |  10 mo   | 20x DC roundtrip
+Read 1 MB seq from disk   20,000,000   |   2 yrs  | 80x memory, 20x SSD
+Send pkt CA->NL->CA      150,000,000   |  12 yrs  |
+                        |   |   | ns|  | ~scaled  |
+                        |   | us|
+                        | ms|
+</pre>
+<p>I have updated disk/net numbers with data from <a href="https://colin-scott.github.io/personal_website/research/interactive_latency.html">this handy site</a> which provides reference historical performance data over the last few decades.</p>
+<h4 id="example-time-scale-of-system-latencies">Example Time Scale of System Latencies</h4>
+<pre>
+3GHz CPU cycle                  0.3 ns  |   1 s    |
+L1 cache access                 0.5 ns  |   2 s    |    
+L2 cache access                 2.8 ns  |   9 s    |    
+L3 cache access                12.9 ns  |  43 s    |    
+Main memory access            120   ns  |   6 min  | 
+Solid-state disk IO       150,000   ns  |   6 days |
+Rotational disk IO             10   ms  |  12 mo   |
+Internet: SF to NY             40   ms  |   4 yrs  |
+Internet: SF to UK             80   ms  |   8 yrs  |
+Internet: SF to AU            185   ms  |  19 yrs  |
+TCP packet retransmit           3   s   | 317 yrs  |
+Container OS reboot             4   s   | 423 yrs  |
+SCSI command time-out          30   s   |  3k yrs  |
+VM reboot                      40   s   |  4k yrs  |
+Physical system reboot          5   min | 32k yrs  |
+</pre>
+<p>References:</p>
+<ul>
+<li><a href="http://norvig.com/21-days.html#answers">Peter Norvig&rsquo;s original source</a></li>
+<li><a href="https://gist.github.com/jboner/2841832">Latency Comparison Numbers (~2012)</a></li>
+<li><a href="https://stackoverflow.com/questions/47300647/python-real-time-streaming-data/47307727#47307727">Python: Real-Time Streaming Data</a></li>
+<li><a href="https://twitter.com/rzezeski/status/398306728263315456">Brendan Gregg&rsquo;s table 1</a> and <a href="https://twitter.com/piecalculus/status/459485747842523136">2</a></li>
+</ul>
+
+      </div>
+
+      <hr><div class="text-muted">
+    August 14, 2020
+</div>
+<h2 class="title" style="margin-top: 0">Interesting bits and bobs: 2020-08-14</h2>
+<div>
+     
+     <span class="text-muted">&sect;
+     
+             <a href="/categories/links/">links</a>
+    </span>
+
+    &nbsp;&nbsp;&nbsp;<span class="text-muted"> # 
+    
+      <a href="/tags/quotes/">quotes</a>
+      <span class="separator">•</span>
+      <a href="/tags/loc/">loc</a>
+      <span class="separator">•</span>
+      <a href="/tags/bugs/">bugs</a>
+      <span class="separator">•</span>
+      <a href="/tags/doctors/">doctors</a>
+      <span class="separator">•</span>
+      <a href="/tags/religion/">religion</a>
+      <span class="separator">•</span>
+      <a href="/tags/gphotos/">gphotos</a>
+      <span class="separator">•</span>
+      <a href="/tags/israel/">Israel</a>
+      <span class="separator">•</span>
+      <a href="/tags/targets/">targets</a>
+      <span class="separator">•</span>
+      <a href="/tags/tracking/">tracking</a>
+    </span>
+
+</div>
+
+
+      <div style="margin-top: 10px">
+        
+
+        <p>Google Photos on iOS does <em>not</em> have a slideshow function! 😱 They did however roll out a new designed and killed off <em>For You</em> feature.</p>
+<ul>
+<li>The American state of New Jersey bans doctors from declaring someone dead on the basis of irreversible brain damage if they have reason to believe it would contravene the patient’s religious convictions.</li>
+<li><a href="https://www.economist.com/business/2020/07/18/why-companies-struggle-with-recalcitrant-it">Why companies struggle with recalcitrant IT</a>
+<ul>
+<li>Airlines are, for instance, now advised to turn the plane off and on again every 51 days, to stop its computers displaying false data in mid-flight. A similar problem found in 2017 in some aeroplanes made by Airbus, Boeing’s European rival, prompted the European Union Aviation Safety Agency to require that such aircraft be rebooted at least every 149 hours.</li>
+<li>An industry rule of thumb is that, depending on how carefully they work, programmers make between 0.5 and 50 errors in every 1,000 lines of code they write.</li>
+<li>According to Motor Authority a Ford GT has <strong>over 10 million</strong> lines of code, that is much more than what an aircraft needs to fly (2 million lines of code for the Lockheed F-22 Raptor and 7 million lines for the 787 Dreamliner).</li>
+<li>At CES 2016, Ford indicated that they have <strong>150 million lines of code</strong> in their new pickup, the F150</li>
+</ul>
+</li>
+<li><a href="https://www.defensecode.com/public/DefenseCode_Unix_WildCards_Gone_Wild.txt">Unix Wildcards gone wild</a> &ndash; a list of unexpected behaviour you can run into when using wildcards</li>
+</ul>
+<h3 id="targets">Targets</h3>
+<p>Targets create three common problems:</p>
+<ol>
+<li>They produce perverse results when people focus excessively on them.</li>
+<li>They tempt managers to manipulate numbers.</li>
+<li>The obsession with measurement diverts people from useful activity to filling in forms.</li>
+</ol>
+<p>The department of health provided a fine example of the first when it penalised hospitals whose emergency departments took too long to treat patients after ambulances had dropped them off. <strong>Hospitals responded by keeping patients waiting in ambulances rather than in emergency departments</strong>. The Metropolitan Police illustrated the second, after it linked pay and promotion to achieving a crime-reduction target. A police whistle-blower told a parliamentary committee that <strong>downgrading or underreporting crime had become “an ingrained part of police culture”</strong>. The universities to which a-level students are struggling to get admitted provide an example of the third. <strong>Tenure and promotion are awarded on the basis of the production of articles (which can be measured) rather than teaching (which can’t), so students suffer</strong>.</p>
+<h3 id="tracking">Tracking</h3>
+<p>Mr Netanyahu is instead banking on a controversial mobile-phone surveillance program created by Shin Bet, the security service. The program, designed to track terrorists, was used early in the outbreak, then halted. In June the prime minister brought it back over objections from the head of Shin Bet. The program is meant to identify those who have recently been in contact with an infected person. The health ministry then sends them a text message telling them to quarantine. <strong>But there has been a high number of false positives, say experts, and the public’s trust in the government is so low that many Israelis leave their mobile phones at home to avoid being tracked and ordered to quarantine.</strong></p>
+      </div>
+
+      <hr><div class="text-muted">
+    July 28, 2020
+</div>
+<h2 class="title" style="margin-top: 0">Fixing home/end behaviour on macos</h2>
+<div>
+     
+     <span class="text-muted">&sect;
+     
+             <a href="/categories/tech/">tech</a>
+                 <span class="separator">•</span>
+             <a href="/categories/howto/">howto</a>
+    </span>
+
+    &nbsp;&nbsp;&nbsp;<span class="text-muted"> # 
+    
+      <a href="/tags/macos/">macos</a>
+      <span class="separator">•</span>
+      <a href="/tags/keyboard/">keyboard</a>
+    </span>
+
+</div>
+
+
+      <div style="margin-top: 10px">
+        
+
+        <p>This is just a quick note for how to make <code>Home</code> and <code>End</code> keys behave sensibly, i.e. take you to the beginning or end of a line:</p>
+<p><code>mkdir ~/Library/KeyBindings &amp;&amp; touch ~/Library/KeyBindings/DefaultKeyBinding.dict</code></p>
+<p>Then paste into <code>DefaultKeyBinding.dict</code> the following content:</p>
+<pre><code>{
+  &quot;\UF729&quot;  = moveToBeginningOfParagraph:; // home
+  &quot;\UF72B&quot;  = moveToEndOfParagraph:; // end
+  &quot;$\UF729&quot; = moveToBeginningOfParagraphAndModifySelection:; // shift-home
+  &quot;$\UF72B&quot; = moveToEndOfParagraphAndModifySelection:; // shift-end
+  &quot;^\UF729&quot; = moveToBeginningOfDocument:; // ctrl-home
+  &quot;^\UF72B&quot; = moveToEndOfDocument:; // ctrl-end
+  &quot;^$\UF729&quot; = moveToBeginningOfDocumentAndModifySelection:; // ctrl-shift-home
+  &quot;^$\UF72B&quot; = moveToEndOfDocumentAndModifySelection:; // ctrl-shift-end
+}
+</code></pre><p>Some also like to remap <code>ctrl-</code> keybindings:</p>
+<pre><code>  &quot;^\UF702&quot;  = (moveWordLeft:); // ctrl-left 
+  &quot;^$\UF702&quot; = (moveWordLeftAndModifySelection:); // ctrl-shift-left
+  &quot;^\UF703&quot;  = (moveWordRight:); // ctrl-right
+  &quot;^$\UF703&quot; = (moveWordRightAndModifySelection:); // ctrl-shift-right
+</code></pre><p>You&rsquo;ll need to restart MacOS for the change to take effect.</p>
+<p>Sources:</p>
+<ul>
+<li><a href="https://damieng.com/blog/2015/04/24/make-home-end-keys-behave-like-windows-on-mac-os-x">https://damieng.com/blog/2015/04/24/make-home-end-keys-behave-like-windows-on-mac-os-x</a></li>
+<li><a href="https://coderwall.com/p/ikyhag/fixing-home-and-end-keys-and-more-on-macos">https://coderwall.com/p/ikyhag/fixing-home-and-end-keys-and-more-on-macos</a></li>
+<li><a href="http://cobus.io/osx/2017/02/09/OSX_Home_End_Keys.html">http://cobus.io/osx/2017/02/09/OSX_Home_End_Keys.html</a></li>
+</ul>
+      </div>
+
+      <hr><div class="text-muted">
+    July 25, 2020
+</div>
+<h2 class="title" style="margin-top: 0">Epigrams in English and Russian</h2>
+<div>
+     
+     <span class="text-muted">&sect;
+     
+             <a href="/categories/english/">english</a>
+    </span>
+
+    &nbsp;&nbsp;&nbsp;<span class="text-muted"> # 
+    
+      <a href="/tags/burns/">burns</a>
+      <span class="separator">•</span>
+      <a href="/tags/aldrich/">aldrich</a>
+      <span class="separator">•</span>
+      <a href="/tags/marshak/">marshak</a>
+      <span class="separator">•</span>
+      <a href="/tags/english/">english</a>
+      <span class="separator">•</span>
+      <a href="/tags/russian/">russian</a>
+    </span>
+
+</div>
+
+
+      <div style="margin-top: 10px">
+        
+
+        <p>Wonderful Burns&rsquo; epigram in Marshak&rsquo;s translation:</p>
+<table>
+<tr><td>
+    <b>On Andrew Turner</b>
+    <pre style="background: #fff; border: 0">
+In se’enteen hunder’n forty-nine, 
+The deil gat stuff to mak a swine, 
+An’ coost it in a corner; 
+But wilily he chang’d his plan, 
+An’ shap’d it something like a man, 
+An’ ca’d it Andrew Turner.
+    </pre>
+</td><td>
+    <b>О происхождении одной особы</b>
+    <pre style="background: #fff; border: 0">
+В году семьсот сорок девятом 
+(Точнее я не помню даты) 
+Лепить свинью задумал чёрт. 
+Но вдруг в последнее мгновенье 
+Он изменил свое решенье, 
+И вас он вылепил, милорд!
+    </pre>
+</td></tr>
+</table>
+<p>And here is an epigraph of Henry Aldrich:</p>
+<table>
+<tr><td style="vertical-align: top">
+    <pre style="background: #fff; border: 0">
+If on my theme I rightly think,  
+There are five reasons why men drink:  
+Good wine; a friend; because I'm dry;   
+Or lest I should be by and by;  
+Or – any other reason why. 
+    </pre>
+</td><td>
+    <pre style="background: #fff; border: 0">
+Для пьянства есть такие поводы:
+Поминки, праздник, встреча, проводы,
+Крестины, свадьба и развод,
+Мороз, охота, Новый год,
+Выздоровленье, новоселье,
+Печаль, раскаянье, веселье,
+Успех, награда, новый чин
+И просто пьянство - без причин! 
+    </pre>
+</td></tr>
+</table>
+<p>Links:</p>
+<ul>
+<li><a href="https://soloalgunaspalabras.wordpress.com/2019/01/25/epigrams-and-epitaphs/">https://soloalgunaspalabras.wordpress.com/2019/01/25/epigrams-and-epitaphs/</a></li>
+</ul>
+      </div>
+
+      <hr></div> 
+
+    
+    <div class="col-md-3">
+      <h4><small>➶</small> Navigation</h4>
+      <div class="row"><div class="col-md-offset-1 col-md-11">
+           
+            <a href="/posts/page/3/">← Older posts</a>
+          
+        </a>
+      </div></div>
+      <div class="row"><div class="col-md-offset-1 col-md-11">
+        <a href="/posts/archive">Archive (57 posts)</a>
+      </div></div>
+      <div class="row"><div class="col-md-offset-1 col-md-11">
+           
+            <a href="/posts/">Newer posts →</a>
+          
+      </div></div>
+
+      <h4><small>&sect;</small> Categories</h4>
+      <div class="row"><div class="col-md-offset-1 col-md-11">
+        
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+  <a href="/categories/english">english</a> 
+
+   <span class="separator">•</span> 
+  <a href="/categories/fun">fun</a> 
+
+   <span class="separator">•</span> 
+  <a href="/categories/general">general</a> 
+
+   <span class="separator">•</span> 
+  <a href="/categories/howto">howto</a> 
+
+   <span class="separator">•</span> 
+  <a href="/categories/links">links</a> 
+
+   <span class="separator">•</span> 
+  <a href="/categories/poetry">poetry</a> 
+
+   <span class="separator">•</span> 
+  <a href="/categories/quotes">quotes</a> 
+
+   <span class="separator">•</span> 
+  <a href="/categories/talks">talks</a> 
+
+   <span class="separator">•</span> 
+  <a href="/categories/tech">tech</a> 
+
+
+
+
+      </div></div>
+
+      <h4><small>#</small> Tags</h4>
+      <div class="row"><div class="col-md-offset-1 col-md-11">
+        
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+  <a href="/tags/air">air</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/airline">airline</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/aldrich">aldrich</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/alphabet">alphabet</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/ansible">ansible</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/apple">apple</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/ascii">ascii</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/asciiart">asciiart</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/autossh">autossh</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/awk">awk</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/bash">bash</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/bedford">bedford</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/big-o">big-o</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/bigdata">bigdata</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/bleep">bleep</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/book">book</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/bootstrap">bootstrap</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/bugs">bugs</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/burns">burns</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/cfengine">cfengine</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/chance">chance</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/cheatsheet">cheatsheet</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/cli">cli</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/clouds">clouds</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/coe">coe</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/collectd3">collectd3</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/colors">colors</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/colours">colours</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/conf">conf</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/console">console</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/conway">conway</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/corporate">corporate</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/coursera">coursera</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/cpuset">cpuset</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/crc32">crc32</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/dependencies">dependencies</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/devops">devops</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/dilbert">dilbert</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/dns">dns</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/docker">docker</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/doctors">doctors</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/dou">dou</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/education">education</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/ejf">ejf</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/emoji">emoji</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/english">english</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/europe">europe</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/excellence">excellence</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/expect">expect</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/experience">experience</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/figlet">figlet</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/firmware">firmware</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/fraser">fraser</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/fry">fry</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/fun">fun</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/ganalytics">ganalytics</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/glissade">glissade</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/gnuplot">gnuplot</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/golang">golang</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/google">google</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/gphotos">gphotos</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/graphdb">graphdb</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/grep">grep</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/highlighting">highlighting</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/histograms">histograms</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/ifconfig">ifconfig</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/ios">ios</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/iphone">iphone</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/israel">israel</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/iterm">iterm</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/k8s">k8s</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/keyboard">keyboard</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/kids">kids</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/knockd">knockd</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/latency">latency</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/lavabit">lavabit</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/less">less</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/lgbt">lgbt</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/life">life</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/links">links</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/lisa">lisa</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/load-testing">load-testing</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/loc">loc</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/locale">locale</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/logs">logs</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/lviv">lviv</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/lxc">lxc</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/macos">macos</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/maidan">maidan</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/management">management</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/marshak">marshak</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/math">math</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/media">media</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/meetup">meetup</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/mlodinov">mlodinov</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/model">model</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/monitoring">monitoring</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/mosh">mosh</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/mysql">mysql</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/nagios">nagios</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/netcat">netcat</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/nulp">nulp</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/numbers">numbers</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/oom">oom</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/osx">osx</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/outlook">outlook</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/palette">palette</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/paper">paper</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/passenger">passenger</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/pax">pax</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/peter">peter</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/phoenix-project">phoenix-project</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/photos">photos</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/pidtree">pidtree</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/poetry">poetry</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/politics">politics</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/profit">profit</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/progressbar">progressbar</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/punctuation">punctuation</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/putty">putty</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/quality">quality</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/quotes">quotes</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/random">random</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/recording">recording</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/redhat">redhat</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/refresher">refresher</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/regex">regex</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/religion">religion</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/review">review</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/rpm">rpm</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/rpmdb">rpmdb</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/ruby">ruby</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/russian">russian</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/sa">sa</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/scale">scale</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/schelling">schelling</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/security">security</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/segregation">segregation</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/shell">shell</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/sher">sher</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/shortcuts">shortcuts</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/signals">signals</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/sleep">sleep</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/snowden">snowden</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/solaris">solaris</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/spinner">spinner</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/ssl">ssl</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/sunlight">sunlight</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/surge">surge</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/syntax">syntax</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/systemd">systemd</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/talks">talks</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/targets">targets</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/techtalks2012">techtalks2012</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/ted">ted</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/terminal">terminal</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/thinking">thinking</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/time">time</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/tor">tor</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/tracking">tracking</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/travel">travel</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/troubleshooting">troubleshooting</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/twain">twain</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/ukraine">ukraine</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/ukrainian">ukrainian</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/vi">vi</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/videos">videos</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/vim">vim</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/war">war</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/wolfram">wolfram</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/writing">writing</a> 
+
+   <span class="separator">•</span> 
+  <a href="/tags/yac">yac</a> 
+
+
+
+
+      </div>
+    </div> 
+  </div> 
+
+  
+  <div class="row">
+    <div class="col-md-4">
+       
+        <a href="/posts/page/3/">← Older posts</a>
+      
+    </a></div>
+    <div class="col-md-4 text-center">
+      <a href="/posts/archive/">Archive (57 posts)</a>
+    </div>
+    <div class="col-md-4 text-right" >
+       
+        <a href="/posts/">Newer posts →</a>
+      
+    </div>
+  </div>
+
+
+    </article>
+
+    <hr>
+<div class="text-muted text-center small">
+    <i>
+        &mdash; `If you knew Time as well as I do,' said the Hatter, `you wouldn't talk about wasting IT. It's HIM.'
+    </i>
+</div>
+<div class="text-muted text-center m-20 small">
+<samp>$ Last updated: Feb 7, 2021 at 13:38 (EET) $</samp>
+</div>
+  </div>
+      
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+    
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+  
+  
+
+</body>
+
+</html>

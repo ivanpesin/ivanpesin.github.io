@@ -1,0 +1,941 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+  <meta content="text/html; charset=utf-8" http-equiv="content-type">
+
+
+
+
+
+
+
+  
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <title>Отладка кода с помощью strace</title>
+  <link rel="stylesheet" type="text/css" href="css/master.css">
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+  <link rel="stylesheet" type="text/css" href="css/rhmag11.css">
+</head>
+
+
+<body>
+
+
+
+
+
+
+
+
+<div id="rhmagCenter">
+<div class="article">
+<h1 id="content">Отладка кода с помощью&nbsp;strace</h1>
+
+
+
+
+
+
+<h4 class="byline">Мэт Фрей (Matt Frye)</h4>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+This article is protected by the <a href="http://www.opencontent.org/openpub/">Open Publication
+License, V1.0 or later</a>. <br>
+
+
+
+
+
+
+Copyright &copy; 2005 by Red Hat,
+Inc.<br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Original article: <a href="http://www.redhat.com/magazine/010aug05/features/strace/">http://www.redhat.com/magazine/010aug05/features/strace/<br>
+
+
+
+
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Перевод: &copy; Иван Песин
+<ul id="articleMenu">
+
+
+
+
+
+
+  <li><span class="sect1"><a href="#install">Установка&nbsp;strace</a> </span> </li>
+
+
+
+
+
+
+
+
+  <li> <span class="sect1"> <a href="#helloworld">Трассировка helloworld</a> </span> </li>
+
+
+
+
+
+
+
+
+  <li> <span class="sect1"> <a href="#date">Трассировка команды date</a> </span> </li>
+
+
+
+
+
+
+
+
+  <li> <span class="sect1"> <a href="#process">Трассировка по идентификатору процесса</a> </span> </li>
+
+
+
+
+
+
+
+
+  <li> <span class="sect1"> <a href="#conclusion">Заключение</a>
+    </span> </li>
+
+
+
+
+
+
+
+
+  <li> <span class="sect1"> <a href="#author">Об авторе</a> </span> </li>
+
+
+
+
+
+
+
+
+</ul>
+
+
+
+
+
+
+
+
+<p> Вы когда-нибудь ломали себе голову над поиском ошибки? Ошибки,
+которую вы не можете найти в исходном коде, но которая появляется с
+завидным постоянством после компиляции и запуска программы.
+Знакомьтесь: <code class="command">strace</code>. <code class="command">strace</code>&nbsp;&mdash; это утилита, которая позволяет вам трассировать системные вызовы
+и&nbsp;сигналы конкретной команды. Какой команды вы спросите? А какие у вас есть? </p>
+
+
+
+
+
+
+
+
+<p> <code class="command">strace</code> это свободное программное
+обеспечение, распространяемое под&nbsp;BSD-подобной лицензией.
+Изначально, утилита была написана Полом Краненбургом (Paul Kranenburg)
+для&nbsp;SunOS по мотивам другой&nbsp;утилиты SunOS <code class="command">trace</code>.
+На&nbsp;Linux ее портировал Бранко Ланкестер (Branko Lankester),
+который, кроме того, реализовал поддержку в ядре. В 1993, Рик Слэдки
+(Rick Sladkey) объединил&nbsp;strace 2.5 для SunOS
+со вторым релизом&nbsp;strace для Linux, добавив при этом много
+возможностей от <code class="command">truss(1)</code> из SVR4. В результате, появилась&nbsp;<code class="command">strace</code>, которая работала на обеих платформах. Сегодня,&nbsp;<code class="command">strace</code>
+поддерживается Уичертом Аккерманом (Wichert Akkerman) и Роландом МакГрасом (Roland McGrath). В Red
+Hat&reg; Enterprise Linux&reg; 4 включен <code class="command">strace</code> версии&nbsp;4.5.8,
+в Fedora&trade; Core 4&nbsp;&mdash; версии 4.5.11, а на сайте&nbsp;<a href="http://sourceforge.net/projects/strace/">SourceForge.net</a> доступна версия 4.5.12.
+В этой статье рассматривается версия&nbsp;4.5.12. </p>
+
+
+
+
+
+
+
+
+<h2 id="install">Установка strace</h2>
+
+
+
+
+
+
+
+
+<p> Если&nbsp;<code class="command">strace</code> у вас не установлена,
+а работаете вы в&nbsp;Red Hat Enterprise Linux 4, то для ее установки
+выполните следующую команду от пользователя root: </p>
+
+
+
+
+
+
+
+
+<pre><code class="command">up2date strace</code>
+</pre>
+
+
+
+
+
+
+
+
+<p>Для установки&nbsp;<code class="command">strace</code> в Fedora Core 4, выполните от пользователя root команду: </p>
+
+
+
+
+
+
+
+
+<pre><code class="command">yum install strace</code>
+</pre>
+
+
+
+
+
+
+
+
+<p>А можно просто собрать&nbsp;<code class="command">strace</code>
+из исходников. Загрузите&nbsp;<code class="filename">strace-4.5.12.tar.bz2</code>
+с ближайшего к вам зеркала сервера&nbsp;SourceForge.net. </p>
+
+
+
+
+
+
+
+
+<p>Распакуйте содержимое файла&nbsp;<code class="filename">strace-4.5.12.tar.bz2</code>: </p>
+
+
+
+
+
+
+
+
+<pre><code class="command">tar -xjvf strace-4.5.12.tar.bz2</code>
+</pre>
+
+
+
+
+
+
+
+
+<p>Перейдите в каталог <code class="filename">strace-4.5.12</code>:
+</p>
+
+
+
+
+
+
+
+
+<pre><code class="command">cd strace-4.5.12</code>
+</pre>
+
+
+
+
+
+
+
+
+<p>И запустите&nbsp;<code class="command">configure</code>:
+</p>
+
+
+
+
+
+
+
+
+<pre><code class="command">./configure</code>
+</pre>
+
+
+
+
+
+
+
+
+<p>Вы увидите следующий вывод:</p>
+
+
+
+
+
+
+
+
+<pre><code class="computeroutput">checking for a BSD-compatible install... /usr/bin/install -c<br>checking whether build environment is sane... yes<br>checking for gawk... gawk<br>checking whether make sets $(MAKE)... yes<br>checking whether to enable maintainer-specific portions of Makefiles... no<br>checking build system type...<br>&lt;snip&gt;<br>checking whether sys_siglist is declared... yes<br>checking whether _sys_siglist is declared... yes<br>checking for perl... /usr/bin/perl<br>configure: creating ./config.status<br>config.status: creating Makefile<br>config.status: creating config.h<br>config.status: executing depfiles commands</code>
+</pre>
+
+
+
+
+
+
+
+
+<p>Теперь запустите <code class="command">make</code>:
+</p>
+
+
+
+
+
+
+
+
+<pre><code class="command">make</code>
+</pre>
+
+
+
+
+
+
+
+
+<p> Для установки <code class="command">strace</code> выполните команду&nbsp;<code class="command">make install</code><code class="command"></code>:
+</p>
+
+
+
+
+
+
+
+
+<pre><code class="command">make install</code>
+</pre>
+
+
+
+
+
+
+
+
+<p>При установке <code class="command">strace</code> из исходников, по-умолчанию он будет находиться в каталоге <code class="filename">/usr/local/bin/</code>, но вы можете переопределить это значение с помощью опции&nbsp;<code class="command">--prefix=PATH</code> скрипта <code class="command">configure</code> (при установке из RPM-пакетов в системах Red Hat Enterprise Linux и Fedora Core <code class="command">strace</code> будет находиться в каталоге&nbsp;<code class="filename">/usr/bin/</code>). </p>
+
+
+
+
+
+
+
+
+<h2 id="helloworld">Трассировка helloworld</h2>
+
+
+
+
+
+
+
+
+<p> Работа&nbsp;<code class="command">strace</code> заключается в
+перехвате и записи системных вызовов, выполненных процессом, а также
+полученных им сигналов. Для каждого системного вызова в стандартный файл
+ошибок, или в другой заданный файл,&nbsp;выводится его имя, аргументы и
+код возврата. Как на счет пары примеров? </p>
+
+
+
+
+
+
+
+
+<p>Чтобы не усложнять работу&nbsp;<code class="command">strace</code>,
+я использовал простейшую из возможных программ. </p>
+
+
+
+
+
+
+
+
+<pre>#include "stdio.h"<br><br>main()<br>{<br> printf("Hello World \n");<br>}<br></pre>
+
+
+
+
+
+
+
+
+<p>Быстренько компилируем: </p>
+
+
+
+
+
+
+
+
+<pre><code class="command">cc -o helloworld helloworld.c</code>
+</pre>
+
+
+
+
+
+
+
+
+<p>Готово! Команда <code class="command"><span style="font-family: &quot;Lucida Grande&quot;,&quot;Luxi Sans&quot;,&quot;Bitstream Vera Sans&quot;,&quot;Trebuchet MS&quot;,helvetica,verdana,arial,sans-serif;">.</span>/helloworld</code>
+теперь выдает: </p>
+
+
+
+
+
+
+
+
+<pre><code class="computeroutput">Hello World</code>
+</pre>
+
+
+
+
+
+
+
+
+<p>Выглядит&nbsp;воплощением простоты, и это действительно так и есть. Но давайте теперь запустим <code class="command">strace</code>.
+<code class="command">strace</code> протрассирует и выведет в&nbsp;stderr все системные вызовы и сигналы: </p>
+
+
+
+
+
+
+
+
+<pre><code class="command">strace ./helloworld</code>
+</pre>
+
+
+
+
+
+
+
+
+<p> <a href="strace-output-helloworld.txt" onclick="return rhmpopwide('output-helloworld.txt')">Вывод команды <code class="command">strace ./helloworld</code></a>
+</p>
+
+
+
+
+
+
+
+
+<dl class="adnote">
+
+
+
+
+
+
+
+
+  <dt>Примечание:</dt>
+
+
+
+
+
+
+
+
+  <dd>я добавил номера строк в вывод&nbsp;<code class="command">strace</code> для лучшей читабельности, но в выводе&nbsp;<code class="command">strace</code> их нет.
+  </dd>
+
+
+
+
+
+
+
+
+</dl>
+
+
+
+
+
+
+
+
+<p>Первое, что мы видим&nbsp;&mdash; это&nbsp;<code class="computeroutput">execve</code>.
+<code class="command">execve()</code> выполняет программу, заданную именем файла. Далее,&nbsp;<code class="command">uname()</code>получает
+имя и тип системы, которую я использовал для теста. После этого, наша
+программа запрашивает некоторое количество памяти&nbsp;(<code class="command">brk</code>)
+и карты размещения разделяемых библиотек, необходимых для работы,
+например, динамический загрузчик и libc. Ко всей этой информации мы
+скоро вернемся, а пока посмотрим, что происходит дальше.
+Строка&nbsp;23 вывода&nbsp;<code class="command">strace</code>
+наконец нам открывает назначение нашей программы&nbsp;<code class="command">helloworld</code>
+(если бы мы не видели исходного кода): вывести в файловый дескриптор&nbsp;1
+(stdout), сообщить количество байт в выводе и их значение. Не сложно догадаться, что применение&nbsp;<code class="command">strace</code> может
+помочь вам отследить в программе конкретный вызов или сигнал. Чем же
+это полезно? &nbsp;Если вы пишете программу чуть более сложную, чем&nbsp;<code class="filename">helloworld.c</code>
+и она сбоит, выдавая минимум, или вообще не выдавая информации о том, что с ней случилось,&nbsp;<code class="command">strace</code> может вам помочь обнаружить что вызывает сбой в процессе работы. </p>
+
+
+
+
+
+
+
+
+<h2 id="date">Трассирование команды date</h2>
+
+
+
+
+
+
+
+
+<p>Давайте рассмотрим немного более сложный, но и более реальный пример. Программа <code class="command">date</code>, помимо вывода даты и времени, выполняет массу различных системных вызовов. Запустите&nbsp;<code class="command">strace</code>
+для команды <code class="command">date</code>: </p>
+
+
+
+
+
+
+
+
+<pre><code class="command">strace date</code>
+</pre>
+
+
+
+
+
+
+
+
+<p> <a href="strace-output-date.txt" onclick="return rhmpopwide('output-date.txt')">Вывод команды&nbsp;<code class="command">strace date</code></a>
+</p>
+
+
+
+
+
+
+
+
+<p> Мы видим вызовы&nbsp;<code class="computeroutput">execve()</code>,
+<code class="computeroutput">uname()</code> и все ту же
+информацию&nbsp;компоновщика и информацию о потоках (мы подразумеваем
+выполнение на одной и той же системе, что видно по вызову <code class="command">uname()</code>),
+после чего начинается непосредственно работа. Строка 44 показывает нам, что была вызвана&nbsp;<code class="computeroutput">local.archive</code> для определения нашей локали из списка доступных (строка 48). В строке&nbsp;61, date вызывает&nbsp; <code class="command">clock_gettime()</code>
+для определения "реального времени", после чего выясняется наш часовой пояс (строка&nbsp;62) с помощью вызова&nbsp;<code class="command">read</code>
+в строке&nbsp;66. Вся эта деятельность венчается вызовом&nbsp;<code class="command">write</code>
+в строке 73 в том же формате, что и в нашем примере&nbsp;Hello World, за исключением того, что в этом случае&nbsp;<code class="command">date</code>
+генерирует вывод, основываясь&nbsp;на конфигурации из файла, а не задаваемой пользователем. </p>
+
+
+
+
+
+
+
+
+<p>Теперь поговорим про вывод&nbsp;компоновщика, потоках и памяти. Мы
+видим
+несколько ссылок на разные компоненты&nbsp;ld. ld это
+компоновщик&nbsp;GNU, а его работа заключается в сборке объектных и
+ресурсных файлов, перемещении их данных и разрешении символических
+указателей. Вызов&nbsp;ld, как правило, является последним шагом в
+процессе компиляции программы. Кроме того, мы видим много вызовов,
+выделяющих и освобождающих память. Каждый раз, когда мы что-либо читаем
+или записываем, мы видим вызовы&nbsp;mmap (в нашем случае mmap2) и
+munmap. Таким образом, наша программа размещает в памяти файлы и
+устройства. Это особенно удобно для отладки программ, интенсивно
+использующих память, потому что вы можете&nbsp;по записи и чтению из
+памяти точно видеть, где конкретно в программе написаны вызовы,
+выполняющие операции размещения в памяти. Подробная информация
+по&nbsp;mmap2 доступна на сайте <a href="http://www.linuxinfor.com/english/man2/mmap2.html">linuxinfor.com</a>.
+</p>
+
+
+
+
+
+
+
+
+<h2 id="process">Трассировка по идентификатору процесса</h2>
+
+
+
+
+
+
+
+
+<p>Если вы системный администратор, то, возможно, вы сидите и думаете:
+"Какое отношение это все имеет ко мне?". Поскольку вы отвечаете за
+надежное функционирование систем, то должны тестировать системное ПО до
+и после обновления. Часто системным администраторам приходится быть
+внештатными отладчиками: найти ошибку, отправить отчет и все такое. И в
+этом деле&nbsp;<code class="command">strace</code> может сильно пригодиться. </p>
+
+
+
+
+
+
+
+
+<p> Одной из наиболее мощных возможностей&nbsp;<code class="command">strace</code>
+является присоединение к существующему процессу для трассировки его системных вызовов. Делается это с помощью ключа <code class="command">-p</code>
+с указанием идентификатора процесса, к которому нужно подключиться.
+Например, однажды вы обнаружили новую версию&nbsp;Bash. Вы обновили
+свою систему, а на следующий день продолжили выполнять свои рутинные
+задачи. Но вдруг вы обнаруживаете, что новая версия ведет себя
+неожиданным образом. </p>
+
+
+
+
+
+
+
+
+<p>Тогда, находясь в командном интерпретаторе,&nbsp;узнайте его идентификатор: </p>
+
+
+
+
+
+
+
+
+<pre><code class="command">echo $$</code>
+</pre>
+
+
+
+
+
+
+
+
+<p>Допустим, он равен&nbsp;12307. В другом интерпретаторе запустите&nbsp;<code class="command">strace</code> с ключом <code class="command">-p</code>&nbsp;: </p>
+
+
+
+
+
+
+
+
+<pre><code class="command">strace -p 12307</code>
+</pre>
+
+
+
+
+
+
+
+
+<p>в ответ вы увидите: </p>
+
+
+
+
+
+
+
+
+<pre><code class="computeroutput">Process 12307 attached - interrupt to quit<br>read(0,</code>
+</pre>
+
+
+
+
+
+
+
+
+<p>Незаконченная функция&nbsp;<code class="computeroutput">read()</code>
+ожидает ввода. Допустим, пользователь выполняет команду&nbsp;<code class="command">date</code>. Первое, что мы видим, поскольку уже подсоединены к процессу командного интерпретатора, это вводимые символы: </p>
+
+
+
+
+
+
+
+
+<pre>Process 12307 attached - interrupt to quit<br>read(0, "d", 1) = 1<br>write(2, "d", 1) = 1<br>rt_sigprocmask(SIG_BLOCK, NULL, [], 8) = 0<br>read(0, "a", 1) = 1<br>write(2, "a", 1) = 1<br>rt_sigprocmask(SIG_BLOCK, NULL, [], 8) = 0<br>read(0, "t", 1) = 1<br>write(2, "t", 1) = 1<br>rt_sigprocmask(SIG_BLOCK, NULL, [], 8) = 0<br>read(0, "e", 1) = 1<br>write(2, "e", 1) = 1<br>rt_sigprocmask(SIG_BLOCK, NULL, [], 8) = 0<br>read(0,<br></pre>
+
+
+
+
+
+
+
+
+<p>И снова&nbsp;<code class="computeroutput">read()</code>
+ожидает. Пользователь нажимает&nbsp;Enter. </p>
+
+
+
+
+
+
+
+
+<p>
+<a href="strace-read.txt" onclick="return rhmpopwide('strace-read.txt')">Вывод после нажатия клавиши enter</a>
+</p>
+
+
+
+
+
+
+
+
+<p>Пропустив вызовы <code class="computeroutput">rt_</code> и <code class="computeroutput">ioctl</code>,
+в строке 43 мы видим вывод нашего приглашения, записанного в сам
+командный интерпретатор в строке 18. Этот вызов&nbsp;write служит
+хорошим разделителем для всех остальных системных вызовов, включая
+недокументированные вызовы <code class="computeroutput">rt_</code>. Вы можете попробовать это дома. Вы разберетесь. С помощью <code class="command">strace</code> вы можете трассировать все типы ошибок.
+</p>
+
+
+
+
+
+
+
+
+<h2 id="conclusion">Заключение</h2>
+
+
+
+
+
+
+
+
+<p> <code class="command">strace</code>&nbsp;&mdash; очень полезная
+утилита диагностики и отладки. Программисты найдут ее полезной для
+локализации ошибок, а системные администраторы&nbsp;&mdash; бесценной
+при отслеживании проблем в общих программах. </p>
+
+
+
+
+
+
+
+
+<p>Мощь&nbsp;<code class="command">strace</code> заключается в
+возможности обнаружения ошибок, даже когда исходный код недоступен или
+невозможна перекомпиляция. Это может помочь при исследовании работы
+программного обеспечения с закрытым исходным кодом. И хотя некоторые
+считают это "отрицательным" свойством, в действительности, оно может
+служить лишь для углубления понимания программистом/администратором
+работы таких программ. В конце концов, методы и стили программирования,
+использованные при написании программного, обеспечения остаются в тайне,
+не требуя дальнейшего судебного рассмотрения. <code class="command">strace</code>-ируйте что-нибудь. </p>
+
+
+
+
+
+
+<h2 id="author">Об авторе</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<p class="authorblurb">Мэт Фрей является системным
+администратором&nbsp;Unix/Linux и живет в Серверной Каролине. Он
+председатель общества системных администраторов Северной Каролины и
+активный член группы пользователей "Triangle Linux User Group". В
+свободное время любит ловить рыбу на мух и заниматься умственным
+кунг-фу. </p>
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+</body>
+</html>

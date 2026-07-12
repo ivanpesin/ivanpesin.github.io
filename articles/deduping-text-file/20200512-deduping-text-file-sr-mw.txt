@@ -1,0 +1,3 @@
+mkfifo fifo{0..4}
+for i in {0..4}; do perl -ne 'print $_ unless($a{$_}++)' >> fifo$i.txt <fifo$i & done
+time <logs-popcount-org.txt perl -ne 'BEGIN{$wrks=5;for($i=0;$i<$wrks;$i++){open($fifos[$i],">./fifo$i")}} $class=substr($_,0,2)%$wrks;print {$fifos[$class]} $_;'

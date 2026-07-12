@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>arch &#8211; Ivan Pesin</title>
+	<atom:link href="/blog/tag/arch/feed/" rel="self" type="application/rss+xml" />
+	<link>https://pesin.space/blog</link>
+	<description>Articles &#38; Translations</description>
+	<lastBuildDate>
+	Wed, 19 Oct 2016 02:08:18 +0000	</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=5.1.1</generator>
+	<item>
+		<title>Как определить архитектуру установленного пакета?</title>
+		<link>/blog/2009/06/%d0%ba%d0%b0%d0%ba-%d0%be%d0%bf%d1%80%d0%b5%d0%b4%d0%b5%d0%bb%d0%b8%d1%82%d1%8c-%d0%b0%d1%80%d1%85%d0%b8%d1%82%d0%b5%d0%ba%d1%82%d1%83%d1%80%d1%83-%d1%83%d1%81%d1%82%d0%b0%d0%bd%d0%be%d0%b2%d0%bb/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=%25d0%25ba%25d0%25b0%25d0%25ba-%25d0%25be%25d0%25bf%25d1%2580%25d0%25b5%25d0%25b4%25d0%25b5%25d0%25bb%25d0%25b8%25d1%2582%25d1%258c-%25d0%25b0%25d1%2580%25d1%2585%25d0%25b8%25d1%2582%25d0%25b5%25d0%25ba%25d1%2582%25d1%2583%25d1%2580%25d1%2583-%25d1%2583%25d1%2581%25d1%2582%25d0%25b0%25d0%25bd%25d0%25be%25d0%25b2%25d0%25bb</link>
+				<pubDate>Sat, 20 Jun 2009 16:28:32 +0000</pubDate>
+		<dc:creator><![CDATA[ivan]]></dc:creator>
+				<category><![CDATA[RedHat KB]]></category>
+		<category><![CDATA[arch]]></category>
+		<category><![CDATA[basics]]></category>
+		<category><![CDATA[getting_started]]></category>
+		<category><![CDATA[queryformat]]></category>
+		<category><![CDATA[rpm]]></category>
+
+		<guid isPermaLink="false">http://www.n-ix.com/ipesin/?p=218</guid>
+				<description><![CDATA[Copyright (c) 2009 by Red Hat, Inc. This material may be distributed only subject to the terms and conditions set forth in the Open Publication License, v1.0 or later (available at http://www.opencontent.org/openpub/). Original article: http://kbase.redhat.com/faq/docs/DOC-1957.pdf Translated by Ivan Pesin, June 2009 По-умолчанию, если вы сделаете запрос командой rpm -q, архитектура пакета отображаться не будет. Чтобы [&#8230;]]]></description>
+								<content:encoded><![CDATA[<p id="top" />
+<div class="copyright">Copyright (c) 2009 by Red Hat, Inc. This material may be distributed only subject to the terms and conditions set forth in the Open Publication License, v1.0 or later (available at <a href="http://www.opencontent.org/openpub/">http://www.opencontent.org/openpub/</a>).<br />
+Original article: <a href="http://kbase.redhat.com/faq/docs/DOC-1957.pdf">http://kbase.redhat.com/faq/docs/DOC-1957.pdf</a></p>
+<p>Translated by Ivan Pesin, June 2009</p></div>
+<p>По-умолчанию, если вы сделаете запрос командой <code>rpm -q</code>, архитектура пакета отображаться не будет. Чтобы узнать архитектуру пакета, используйте команду <code>rpm</code> с такими параметрами:</p>
+<blockquote><p></p><pre class="crayon-plain-tag">rpm -q --queryformat=&quot;%{n}-%{v}-%{r}.%{arch}.rpm\n&quot; &amp;lt;имя пакета&amp;gt;</pre><p></p></blockquote>
+<p>Замените <code>&lt;имя пакета&gt;</code> названием пакета, архитектуру которого нужно узнать. Если вы не знаете точного имени пакета, то та же опция <code>--queryformat</code> может использоваться с командой <code>rpm -qa</code>, а вывод пропустите через фильтр <code>grep</code>, чтобы найти все пакеты, соответствующие шаблону:</p>
+<blockquote><p></p><pre class="crayon-plain-tag">rpm -qa --queryformat=&quot;%{n}-%{v}-%{r}.%{arch}.rpm\n&quot; | grep &amp;lt;имя пакета&amp;gt;</pre><p></p></blockquote>
+<p>Чтобы вывод команды <code>rpm</code> всегда включал архитектуру пакета, отредактируйте файл <code>/etc/rpm/macros.prelink</code> и добавьте в конце следующую строку:</p>
+<blockquote><p></p><pre class="crayon-plain-tag">%_query_all_fmt %{n}-%{v}-%{r}.%{arch}</pre><p></p></blockquote>
+]]></content:encoded>
+										</item>
+	</channel>
+</rss>

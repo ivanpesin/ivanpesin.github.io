@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>bash &#8211; Ivan Pesin</title>
+	<atom:link href="/blog/tag/bash/feed/" rel="self" type="application/rss+xml" />
+	<link>https://pesin.space/blog</link>
+	<description>Articles &#38; Translations</description>
+	<lastBuildDate>
+	Wed, 19 Oct 2016 02:08:18 +0000	</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=5.1.1</generator>
+	<item>
+		<title>Links: Jun 3</title>
+		<link>/blog/2014/06/links-jun-3/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=links-jun-3</link>
+				<pubDate>Tue, 03 Jun 2014 12:05:36 +0000</pubDate>
+		<dc:creator><![CDATA[ivan]]></dc:creator>
+				<category><![CDATA[Links]]></category>
+		<category><![CDATA[bash]]></category>
+		<category><![CDATA[cfengine]]></category>
+		<category><![CDATA[English]]></category>
+		<category><![CDATA[expect]]></category>
+		<category><![CDATA[lavabit]]></category>
+		<category><![CDATA[monitoring]]></category>
+		<category><![CDATA[thinking]]></category>
+
+		<guid isPermaLink="false">https://pesin.space/blog/2014/06/links-jun-3/</guid>
+				<description><![CDATA[Writing is nature&#8217;s way of telling you how sloppy your thinking is.  Technology: Shocking post-mortem from Joyent: operator mistake and a tool which reboots the whole datacenter without requesting additional confirmation. Defensive BASH programming &#8212; an excellent post on scripting techniques! Thinking for programmers by Leslie Lamport. The epigraph comes from this talk. The best expect script [&#8230;]]]></description>
+								<content:encoded><![CDATA[<p id="top" />
+<blockquote><p>Writing is nature&#8217;s way of telling you how sloppy your thinking is.</p></blockquote>
+<h3> Technology:</h3>
+<ul>
+<li><a href="http://www.joyent.com/blog/postmortem-for-outage-of-us-east-1-may-27-2014">Shocking post-mortem</a> from Joyent: operator mistake and a tool which reboots the whole datacenter without requesting additional confirmation.</li>
+<li><a href="http://www.kfirlavi.com/blog/2012/11/14/defensive-bash-programming/">Defensive BASH programming</a> &#8212; an excellent post on scripting techniques!</li>
+<li><a href="http://channel9.msdn.com/Events/Build/2014/3-642">Thinking for programmers</a> by <a href="http://en.wikipedia.org/wiki/Leslie_Lamport">Leslie Lamport</a>. The epigraph comes from this talk.</li>
+<li><a href="http://www.security-portal.cz/clanky/expect-script-which-can-execute-commands-multiple-servers-ssh">The best expect script</a> I found to execute commands on servers remotely via ssh. This is really handy when one does not have key-based authentication set up. The downside is that it&#8217;s slow, so one need to parallelise it if one has over few dozen of servers to crawl.</li>
+<li><a href="http://www.ncf.io">ncf</a> &#8212; CFEngine framework for small installations, runs in pure CFEngine language, to help structure your CFEngine policy and provide reusable, single purpose components distributed under the GPLv3 license.</li>
+<li>The same guys are behind <a href="http://www.rudder-project.org/site/">the Rudder</a> &#8212; web-driven, role-based solution for IT Infrastructure Automation &amp; Compliance.</li>
+<li>&#8220;Law of Murphy for devops: if thing can able go wrong, is mean is already wrong but you not have Nagios alert of it yet&#8221;. Therefore, don&#8217;t forget to monitor <a href="http://word.bitly.com/post/74839060954/ten-things-to-monitor">these things</a>.</li>
+<li>Interesting <a href="http://blog.dataloop.io/2014/01/30/what-we-learnt-talking-to-60-companies-about-monitoring/">stats</a> on monitoring tools &#8212; Nagios is the king, Sensu and Zabbix have a large chunk of large deployments.</li>
+</ul>
+<h3>English:</h3>
+<ul>
+<li><a href="http://stilldrinking.org/programming-sucks">Hilarious story</a> about why programming sucks. Careful and exact observations put in a lively and funny language. It definitely made my day!</li>
+<li><a href="http://theweek.com/article/index/256169/aunt-adult-pajama-why-cant-we-agree-how-to-pronounce-common-words">Quirks</a> with pronunciation of some borrowed words:<br />
+<blockquote><p>Another word that the British Anglicized from French is harass and its related noun harassment. They shifted the accent to the first syllable, sounding like &#8220;harris.&#8221; The Americans preferred the French-style second-syllable stress, no doubt further encouraged by the double s. But the British style is becoming more popular with people who don&#8217;t want to sound like they&#8217;re saying &#8220;her ass&#8221; — sort of like how the British &#8220;urine-us&#8221; pronunciation of Uranus, based on the Latin and Greek stress pattern, is sometimes preferred by Americans who don&#8217;t like how the American say-it-like-it-looks version sounds like &#8220;your anus.&#8221;</p></blockquote>
+</li>
+<li>Stop new wordage? Never gonna happen. <a href="http://stancarey.wordpress.com/2014/02/06/in-defence-of-unnecessary-words/">In defence of unnecessary words</a>.</li>
+<li>Corporate speak &#8212; <a href="http://www.economist.com/blogs/prospero/2014/02/corporate-speak-0">speaking strategically</a> without a strategy.</li>
+</ul>
+<hr />
+<blockquote><p>As languages go, English is particularly extreme in differentiating between stressed and unstressed syllables; the stressed syllables play a disproportionately big role in making words identifiable, and because unstressed syllables are out of the spotlight, and don’t contribute much to the exact identity of words, it doesn’t really matter exactly what they sound like. For example, some people pronounce the first syllable of believe as /bɪ/, others as /bə/, and in fact it would often be hard to tell exactly which vowel sound is used. Even if you use a different one – if you say, for example, /bʊ/ or /be/ – the identity of the word will be clear; the important thing is to pronounce the stressed second syllable with a clear /iː/ vowel.</p></blockquote>
+<p style="text-align: right;">&#8212; <a href="http://www.macmillandictionaryblog.com/schwa-syllables-and-words-in-different-guises-part-1">http://www.macmillandictionaryblog.com/schwa-syllables-and-words-in-different-guises-part-1</a></p>
+<h3>Other:</h3>
+<p><a href="http://lavabit.com">The story</a> behind lavabit shut down.</p>
+<hr />
+<p><center><br />
+<iframe width="625" height="352" src="https://www.youtube.com/embed/h_bX0T76X8U?feature=oembed" frameborder="0" allowfullscreen></iframe><br />
+</center></p>
+]]></content:encoded>
+										</item>
+		<item>
+		<title>Links: Oct 27</title>
+		<link>/blog/2013/10/links-oct-27/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=links-oct-27</link>
+				<pubDate>Sun, 27 Oct 2013 18:40:46 +0000</pubDate>
+		<dc:creator><![CDATA[ivan]]></dc:creator>
+				<category><![CDATA[Links]]></category>
+		<category><![CDATA[base64]]></category>
+		<category><![CDATA[bash]]></category>
+		<category><![CDATA[capistrano]]></category>
+		<category><![CDATA[daemon]]></category>
+		<category><![CDATA[DNS]]></category>
+		<category><![CDATA[economist]]></category>
+		<category><![CDATA[English]]></category>
+		<category><![CDATA[evolution]]></category>
+		<category><![CDATA[honda]]></category>
+		<category><![CDATA[Krakauer]]></category>
+		<category><![CDATA[London]]></category>
+		<category><![CDATA[nohup]]></category>
+		<category><![CDATA[perl]]></category>
+		<category><![CDATA[pigs]]></category>
+		<category><![CDATA[pipes]]></category>
+		<category><![CDATA[religion]]></category>
+		<category><![CDATA[SSL]]></category>
+		<category><![CDATA[TLS]]></category>
+
+		<guid isPermaLink="false">https://pesin.space/blog/2013/10/links-oct-27/</guid>
+				<description><![CDATA[This has been a busy month and, what pleases me, very productive. Apple&#8217;s recent announcement managed to surprise in many ways, which is delightful as well; if you&#8217;re still on Mountain Lion consider upgrading, Mavericks got it right in so many places, that it&#8217;s even difficult to tell which changes are most compelling. I&#8217;ve lagged [&#8230;]]]></description>
+								<content:encoded><![CDATA[<p id="top" />
+<h3></h3>
+<p>This has been a busy month and, what pleases me, very productive. <a href="http://www.apple.com/apple-events/october-2013/">Apple&#8217;s recent announcement</a> managed to surprise in many ways, which is delightful as well; if you&#8217;re still on Mountain Lion consider upgrading, Mavericks got it right in so many places, that it&#8217;s even difficult to tell which changes are most compelling.</p>
+<p>I&#8217;ve lagged on links, however, so catching up:</p>
+<h3>Technology</h3>
+<ul>
+<li>Short and to-the-point document on <a href="https://www.ssllabs.com/projects/best-practices/">SSL/TLS deployment best practices</a></li>
+<li>SSL self-signed certificate creation <a href="https://raymii.org/s/snippets/OpenSSL_One_line_to_create_self_signed_certificate.html?utm_source=feedburner&amp;utm_medium=feed&amp;utm_campaign=Feed%3A+Raymiiorg+%28Raymii.org%29">one-liner</a>:</li>
+</ul>
+<blockquote><p>
+</p><pre class="crayon-plain-tag">openssl req -nodes -x509 -newkey rsa:4096 -keyout key.pem \
+   -out cert.pem -days 356</pre><p>
+</p></blockquote>
+<ul>
+<li>Don&#8217;t loose variables defined in a loop within a pipeline — <a href="http://mywiki.wooledge.org/BashFAQ/024">possible ways</a></li>
+<li>base64 implementations in <a href="https://sites.google.com/site/dannychouinard/Home/unix-linux-trinkets/little-utilities/base64-and-base85-encoding-awk-scripts">awk + od</a>, <a href="https://gist.github.com/markusfisch/2648733">bash augmented awk and pure bash</a></li>
+<li>Capistrano 3 — <a href="https://medium.com/p/ba896a142ac">what&#8217;s new</a></li>
+<li><a href="http://modernperlbooks.com/books/modern_perl/">Modern Perl</a> — Interesting on-line book on perl</li>
+<li><a href="http://stackoverflow.com/questions/958249/whats-the-difference-between-nohup-and-a-daemon#8915059">What exactly</a> does <code>nohup</code> and what it takes to become a daemon? Daemonizing summary:</li>
+</ul>
+<blockquote><p>
+</p><pre class="crayon-plain-tag">1. fork (first time) -- so we aren't a group leader, and let 
+   the parent exit.
+2. call setsid() -- to become leader of a new session. 
+   This call only works if we are not a group leader. 
+   This new session has no controlling terminal.
+3. fork (second time) -- so we aren't a session leader 
+   (and thus can't regain a controlling terminal), and let 
+   the parent exit.
+4. cd to root directory -- so we don't prevent other directories 
+   from being umount-ed.
+5. set umask to desired value (optional) -- because we could've 
+   inherited a mask we didn't want.
+6. close stdin, stdout, stderr (or just reopen them to point elsewhere)</pre><p>
+</p></blockquote>
+<ul>
+<li>What nohup does:</li>
+</ul>
+<blockquote><p>
+</p><pre class="crayon-plain-tag">- If stdout and stderr are connected to a terminal, 
+  redirects them to nohup.out
+- ignores SIGHUP</pre><p>
+</p></blockquote>
+<ul>
+<li><a href="http://samarudge.github.io/dnsyo/">Query</a> against over 1500 global DNS servers</li>
+</ul>
+<h3>English</h3>
+<ul>
+<li><a href="http://www.nytimes.com/newsgraphics/2013/10/13/russia/#">The Russia Left Behind.</a> A journey through a heartland on the slow road to ruin. — absolutely marvellous graphics representation of the article in New York Times.</li>
+<li><a href="http://theweek.com/article/index/250111/6-quests-to-fix-englishs-messed-up-spelling">6 quests</a> to fix English&#8217;s messed-up spelling Some succeeded. Some failed. Some made things worse.</li>
+<li>Style: Johnson: <a href="http://www.economist.com/blogs/prospero/2013/10/style">When is a rule not a rule</a>?</li>
+<li><a href="http://en.wikipedia.org/wiki/Into_the_Wild_(book)">Into the Wild by Jon Krakauer</a> — way too long, chewing over and over different aspects of impulsive and stupid act of overly naive and extremely self-confident young man in a futile attempt to idealise and glorify him. Read better <a href="http://www.online-literature.com/poe/101/">To Build the Fire by Jack London</a>: concise, well-balanced, thrilling novel that conveys incomparably more sense and wisdom.</li>
+<li>Harvard Business Review&#8217;s: <a href="http://blogs.hbr.org/2013/10/can-you-invent-something-new-if-your-words-are-old/">Can you invent something new if your words are old</a>? We&#8217;d better not reject new words.</li>
+</ul>
+<h3>Other</h3>
+<ul>
+<li>I&#8217;ve finally found where the phrase &#8220;With sufficient thrust, pigs fly just fine&#8221; comes from! Appears it&#8217;s from <a href="http://tools.ietf.org/html/rfc1925">RFC1925</a>:</li>
+</ul>
+<blockquote><p><code>(3) With sufficient thrust, pigs fly just fine. However, this is not<br />
+necessarily a good idea. It is hard to be sure where they<br />
+are going to land, and it could be dangerous sitting under them<br />
+as they fly overhead.<br />
+</code></p></blockquote>
+<p style="padding-left: 30px;">But references to flying pigs appear even in Lewis Carrol&#8217;s Alice:</p>
+<blockquote><p><code>"Thinking again?" the Duchess asked, with another dig of her sharp little chin.<br />
+"I've a right to think," said Alice sharply, for she was beginning to feel a little worried.<br />
+"Just about as much right," said the Duchess, "as pigs have to fly...." — Alice's Adventures in Wonderland, Chapter 9.<br />
+</code></p></blockquote>
+<ul>
+<li>Keeping fingers crossed for The Economists view to be true: <a href="http://www.economist.com/news/europe/21587260-russian-intransigence-has-helped-ukraines-integration-europe-looking-west">Russian intransigence has helped Ukraine’s integration into Europe</a></li>
+<li>Excellent post in Russian on <a href="http://botalex.livejournal.com/122329.html">evolution in life and as religion sees it</a></li>
+<li>Very cool Honda&#8217;s ad:</li>
+</ul>
+<blockquote><p><center><br />
+<iframe src="//www.youtube.com/embed/UelJZG_bF98" height="360" width="480" allowfullscreen="" frameborder="0"></iframe></center></p></blockquote>
+<p>&nbsp;</p>
+]]></content:encoded>
+										</item>
+		<item>
+		<title>Links: 20 Sep</title>
+		<link>/blog/2013/09/links-20-sep/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=links-20-sep</link>
+				<pubDate>Fri, 20 Sep 2013 13:26:27 +0000</pubDate>
+		<dc:creator><![CDATA[ivan]]></dc:creator>
+				<category><![CDATA[Links]]></category>
+		<category><![CDATA[bash]]></category>
+		<category><![CDATA[glissade]]></category>
+		<category><![CDATA[logs]]></category>
+		<category><![CDATA[lviv]]></category>
+		<category><![CDATA[mysql]]></category>
+		<category><![CDATA[oom]]></category>
+		<category><![CDATA[punctuation]]></category>
+		<category><![CDATA[redhat]]></category>
+		<category><![CDATA[regex]]></category>
+		<category><![CDATA[religion]]></category>
+		<category><![CDATA[time]]></category>
+
+		<guid isPermaLink="false">https://pesin.space/blog/2013/09/links-20-sep/</guid>
+				<description><![CDATA[Technology Regex101 — create, test and have your regular expressions explained. I think I already mentioned this article on regular expressions speed, but missed to mention even more interesting papers on regexes. My favourite world-clock tool: http://www.worldtimebuddy.com Released! Red Hat Software Collections now GA! Ruby 1.9.3, Python 2.7, Python 3.3, PHP 5.4, Perl 5.16.3, Technology Preview of node.js 0.10, MariaDB 5.5, MySQL 5.5, PostgreSQL [&#8230;]]]></description>
+								<content:encoded><![CDATA[<p id="top" />
+<h3>Technology</h3>
+<ul>
+<li><a href="http://regex101.com">Regex101</a> — create, test and have your regular expressions explained.</li>
+<li>I think I already mentioned <a href="http://swtch.com/~rsc/regexp/regexp1.html">this article</a> on regular expressions speed, but missed to mention <a href="http://swtch.com/~rsc/regexp/">even more interesting papers on regexes</a>.</li>
+<li>My favourite world-clock tool: <a href="http://www.worldtimebuddy.com">http://www.worldtimebuddy.com</a></li>
+<li><span style="line-height: 14px;">Released! <a href="http://developerblog.redhat.com/2013/09/12/rhscl1-ga/">Red Hat Software Collections</a> now GA! </span>Ruby 1.9.3, Python 2.7, Python 3.3, PHP 5.4, Perl 5.16.3, Technology Preview of node.js 0.10, MariaDB 5.5, MySQL 5.5, PostgreSQL 9.2.</li>
+<li>Bash bits: <a href="https://raymii.org/s/snippets/Bash_Bits_Add_Color_Output_To_Your_Scripts.html">color output</a>, <a href="https://raymii.org/s/snippets/Bash_Bits_Debug_Logging.html">debug messages</a>, and <a href="https://raymii.org/s/snippets/">other neat snippets</a></li>
+<li>iOS7 <a href="http://9to5mac.com/2013/09/19/ios-7-becomes-first-commercial-software-to-support-multipath-tcp-allowing-simultaneous-wi-fi-and-cell-network-connections/?utm_source=feedburner&amp;utm_medium=feed&amp;utm_campaign=Feed%3A+9To5Mac-MacAllDay+%289+to+5+Mac+-+Apple+Intelligence%29">supports</a> multipath TCP</li>
+<li><a href="http://highscalability.com/blog/2013/9/18/if-youre-programming-a-cell-phone-like-a-server-youre-doing.html">Don&#8217;t program</a> for a phone like for a server</li>
+<li>From conversation on log processing:
+<ul>
+<li>if you have money, use <a href="http://www.splunk.com">Splunk</a></li>
+<li>if you have little money, use <a href="https://www.splunkstorm.com">Splunk Storm</a></li>
+<li>if you&#8217;re short on money, use <a href="http://logstash.net">Logstash</a> + <a href="http://www.elasticsearch.org/">ElasticSearch</a> + <a href="http://www.elasticsearch.org/overview/kibana/">Kibana</a></li>
+</ul>
+</li>
+<li>Just a peek at web interfaces to think — <a href="http://blog.serverfault.com/2013/09/05/homegrown-devops-tools-at-stack-exchange/">StackExchange&#8217;s DevOps tools</a></li>
+<li>Restore single database from full mysql backup:</p><pre class="crayon-plain-tag">mysql -u root -p --one-database destdbname &amp;lt; alldatabases.sql</pre><p>or <a href="http://www.darrenmothersele.com/blog/2012/01/10/restore-single-db-from-complete-mysql-dump/">cut relevant part with sed</a></li>
+</ul>
+<h3>Other</h3>
+<ul>
+<li>New Yorker&#8217;s <a href="http://www.newyorker.com/online/blogs/books/2013/09/origins-of-hashtag-manicule-diple-pilcrow-ampersand-explained.html">The Ancient Roots of Punctuation</a></li>
+<li><a href="http://www.huffingtonpost.com/2013/09/11/lviv_n_3906920.html">Lviv on Huffington Post</a></li>
+<li>Amusing and witty <a href="http://lwn.net/Articles/104185/?utm_source=buffer&amp;utm_campaign=Buffer&amp;utm_content=buffer7d0e2&amp;utm_medium=twitter">airplane analogy for OOM</a> mechanism in Linux kernel:</li>
+</ul>
+<blockquote><p>&gt; How about a sysctl that does &#8220;for the love of kbaek, don&#8217;t ever kill these<br />
+&gt; processes when OOM. If nothing else can be killed, I&#8217;d rather you panic&#8221;?</p>
+<p>An aircraft company discovered that it was cheaper to fly its planes with less fuel on board. The planes would be lighter and use less fuel and money was saved. On rare occasions however the amount of fuel was insufficient, and the plane would crash. This problem was solved by the engineers of the company by the development of a special OOF (out-of-fuel) mechanism. In emergency cases a passenger was selected and thrown out of the plane. (When necessary, the procedure was repeated.) A large body of theory was developed and many publications were devoted to the problem of properly selecting the victim to be ejected. Should the victim be chosen at random? Or should one choose the heaviest person? Or the oldest? Should passengers pay in order not to be ejected, so that the victim would be the poorest on board? And if for example the heaviest person was chosen, should there be a special exception in case that was the pilot? Should first class passengers be exempted? Now that the OOF mechanism existed, it would be activated every now and then, and eject passengers even when there was no fuel shortage. The engineers are still studying precisely how this malfunction is caused.</p></blockquote>
+<ul>
+<li><span style="line-height: 14px;"><span style="line-height: 14px;">The religious rights anti vaccine hysteria is <a href="http://www.vice.com/read/the-religious-rights-anti-vaccine-hysteria-is-reviving-dead-diseases">reviving dead diseases</a>:</span></span></li>
+</ul>
+<blockquote><p>Remember measles? That old-timey disease we officially eliminated in the United States 13 years ago? Thanks to the wonder of inoculation, measles should be entirely nonexistent in this country, but yesterday the Center for Disease Control reported 159 cases from January through August of this year.</p>
+<p>What’s unique about this year&#8217;s outbreak is that the CDC has finally admitted the spread of this “eliminated” disease is based on religious communities’ philosophical aversion to vaccines and reliance on divine healing through the Word of God. According to the report, 91 percent of the reported cases were in people who were unvaccinated, or didn’t know their vaccination status, and “of those who were unvaccinated, 79 percent had philosophical objections to vaccination.”</p></blockquote>
+<ul>
+<li>London Heathrow&#8217;s glissade timelapse:</li>
+</ul>
+<blockquote><p><iframe src="//www.youtube.com/embed/fgHjVvqLXV8" height="315" width="560" allowfullscreen="" frameborder="0"></iframe></p></blockquote>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+]]></content:encoded>
+										</item>
+		<item>
+		<title>Как запретить интерпретатору bash сохранять некоторые команды в истории команд?</title>
+		<link>/blog/2009/06/%d0%ba%d0%b0%d0%ba-%d0%b7%d0%b0%d0%bf%d1%80%d0%b5%d1%82%d0%b8%d1%82%d1%8c-%d0%b8%d0%bd%d1%82%d0%b5%d1%80%d0%bf%d1%80%d0%b5%d1%82%d0%b0%d1%82%d0%be%d1%80%d1%83-bash-%d1%81%d0%be%d1%85%d1%80%d0%b0%d0%bd/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=%25d0%25ba%25d0%25b0%25d0%25ba-%25d0%25b7%25d0%25b0%25d0%25bf%25d1%2580%25d0%25b5%25d1%2582%25d0%25b8%25d1%2582%25d1%258c-%25d0%25b8%25d0%25bd%25d1%2582%25d0%25b5%25d1%2580%25d0%25bf%25d1%2580%25d0%25b5%25d1%2582%25d0%25b0%25d1%2582%25d0%25be%25d1%2580%25d1%2583-bash-%25d1%2581%25d0%25be%25d1%2585%25d1%2580%25d0%25b0%25d0%25bd</link>
+				<pubDate>Thu, 04 Jun 2009 06:58:28 +0000</pubDate>
+		<dc:creator><![CDATA[ivan]]></dc:creator>
+				<category><![CDATA[RedHat KB]]></category>
+		<category><![CDATA[bash]]></category>
+		<category><![CDATA[getting_started]]></category>
+
+		<guid isPermaLink="false">http://www.n-ix.com/ipesin/?p=167</guid>
+				<description><![CDATA[Copyright (c) 2009 by Red Hat, Inc. This material may be distributed only subject to the terms and conditions set forth in the Open Publication License, v1.0 or later (available at http://www.opencontent.org/openpub/). Original article: http://kbase.redhat.com/faq/docs/DOC-9477.pdf Translated by Ivan Pesin, June 2009 Переменная окружения HISTCONTROL задаёт параметры сохранения команд в истории команд интерпретатора bash. HISTCONTROL состоит [&#8230;]]]></description>
+								<content:encoded><![CDATA[<p id="top" />
+<div class="copyright">Copyright (c) 2009 by Red Hat, Inc. This material may be distributed only subject to the terms and conditions set forth in the Open Publication License, v1.0 or later (available at <a href="http://www.opencontent.org/openpub/">http://www.opencontent.org/openpub/</a>).<br />
+Original article: <a href="http://kbase.redhat.com/faq/docs/DOC-9477.pdf">http://kbase.redhat.com/faq/docs/DOC-9477.pdf</a></p>
+<p>Translated by Ivan Pesin, June 2009</p></div>
+<p>Переменная окружения HISTCONTROL задаёт параметры сохранения команд в истории команд интерпретатора bash.</p>
+<p>HISTCONTROL состоит из списка опций, разделённых двоеточием. Опции могут принимать следующие четыре значения:</p>
+<ul>
+<li>Если список опций содержит <strong>ignorespace</strong>, то команды, начинающиеся с пробела, сохраняться в истории не будут.</li>
+<li>Опция <strong>ignoredups</strong> указывает, что строки совпадающие с последней строкой истории, сохранятся не будут.</li>
+<li>Опция <strong>ignoreboth</strong> &#8212; сокращение для ignorespace и ignoredups.</li>
+<li>Опция <strong>erasedups</strong> говорит интерпретатору, что перед добавлением новой строки в историю команд, нужно удалить все старые строки, совпадающие с добавляемой.</li>
+</ul>
+<p>Любое другое значение, кроме указанных, будет игнорироваться.</p>
+<p>Если переменная HISTCONTROL не определена, или не содержит допустимого значения, все команды, вводимые в интерпретаторе, будут сохранены в истории команд.</p>
+<p>Заметьте, что вторая и последующие строки многострочной команды не проверяются и добавляются в историю команд вне зависимости от значения переменной HISTCONTROL.</p>
+<p>Переменная HISTCONTROL может определяться и для конкретного пользователя, и на всю систему, аналогично всем другим переменным окружения интерпретатора bash. Например, чтобы задать опцию <strong>ignorespace</strong> для всей системы, добавьте следующую строку в файл <code>/etc/bashrc</code>:</p>
+<blockquote><p><code>export HISTCONTROL=ignorespace<br />
+</code></p></blockquote>
+<p>Чтобы задать опцию для конкретного пользователя, укажите необходимую строку в файле <code>.bash_profile</code> в домашнем каталоге пользователя. Обратите внимание, что изменения не будут активизированы до тех пор, пока пользователь полностью не выйдет из интерпретатора и не зайдёт повторно.</p>
+]]></content:encoded>
+										</item>
+	</channel>
+</rss>

@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<!--[if IE 7]>
+<html class="ie ie7" lang="en-US">
+<![endif]-->
+<!--[if IE 8]>
+<html class="ie ie8" lang="en-US">
+<![endif]-->
+<!--[if !(IE 7) & !(IE 8)]><!-->
+<html lang="en-US">
+<!--<![endif]-->
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width" />
+<title>core_dump | Ivan Pesin</title>
+<link rel="profile" href="http://gmpg.org/xfn/11" />
+<!--[if lt IE 9]>
+<script src="/blog/wp-content/themes/twentytwelve/js/html5.js" type="text/javascript"></script>
+<![endif]-->
+<link rel='dns-prefetch' href='https://fonts.googleapis.com/' />
+<link rel='dns-prefetch' href='https://s.w.org/' />
+<link rel="alternate" type="application/rss+xml" title="Ivan Pesin &raquo; Feed" href="../../feed/index.html" />
+<script type="text/javascript">//<![CDATA[
+            // Google Analytics for WordPress by Yoast v4.3.3 | http://yoast.com/wordpress/google-analytics/
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-27760168-1']);
+				            _gaq.push(['_trackPageview']);
+            (function () {
+                var ga = document.createElement('script');
+                ga.type = 'text/javascript';
+                ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(ga, s);
+            })();
+            //]]></script>
+			<link rel="alternate" type="application/rss+xml" title="Ivan Pesin &raquo; core_dump Tag Feed" href="feed/index.html" />
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/11.2.0\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/11.2.0\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/pesin.space\/blog\/wp-includes\/js\/wp-emoji-release.min.js?ver=5.1.1"}};
+			!function(a,b,c){function d(a,b){var c=String.fromCharCode;l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,a),0,0);var d=k.toDataURL();l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,b),0,0);var e=k.toDataURL();return d===e}function e(a){var b;if(!l||!l.fillText)return!1;switch(l.textBaseline="top",l.font="600 32px Arial",a){case"flag":return!(b=d([55356,56826,55356,56819],[55356,56826,8203,55356,56819]))&&(b=d([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]),!b);case"emoji":return b=d([55358,56760,9792,65039],[55358,56760,8203,9792,65039]),!b}return!1}function f(a){var c=b.createElement("script");c.src=a,c.defer=c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var g,h,i,j,k=b.createElement("canvas"),l=k.getContext&&k.getContext("2d");for(j=Array("flag","emoji"),c.supports={everything:!0,everythingExceptFlag:!0},i=0;i<j.length;i++)c.supports[j[i]]=e(j[i]),c.supports.everything=c.supports.everything&&c.supports[j[i]],"flag"!==j[i]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[j[i]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(h=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",h,!1),a.addEventListener("load",h,!1)):(a.attachEvent("onload",h),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),g=c.source||{},g.concatemoji?f(g.concatemoji):g.wpemoji&&g.twemoji&&(f(g.twemoji),f(g.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+	<link rel='stylesheet' id='collapseomatic-css-css'  href='../../wp-content/plugins/jquery-collapse-o-matic/light_style.css' type='text/css' media='all' />
+<link rel='stylesheet' id='llynx_style-css'  href='../../wp-content/plugins/wp-lynx/wp_lynx_style.min.css' type='text/css' media='all' />
+<link rel='stylesheet' id='crayon-css'  href='../../wp-content/plugins/crayon-syntax-highlighter/css/min/crayon.min.css' type='text/css' media='all' />
+<link rel='stylesheet' id='crayon-theme-solarized-light-css'  href='../../wp-content/plugins/crayon-syntax-highlighter/themes/solarized-light/solarized-light.css' type='text/css' media='all' />
+<link rel='stylesheet' id='crayon-font-monaco-css'  href='../../wp-content/plugins/crayon-syntax-highlighter/fonts/monaco.css' type='text/css' media='all' />
+<link rel='stylesheet' id='wp-block-library-css'  href='../../wp-includes/css/dist/block-library/style.min.css' type='text/css' media='all' />
+<link rel='stylesheet' id='gllr_stylesheet-css'  href='../../wp-content/plugins/gallery-plugin/css/style.css' type='text/css' media='all' />
+<link rel='stylesheet' id='gllr_fancybox_stylesheet-css'  href='../../wp-content/plugins/gallery-plugin/fancybox/jquery.fancybox-1.3.4.css' type='text/css' media='all' />
+<link rel='stylesheet' id='twentytwelve-fonts-css'  href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700&#038;subset=latin,latin-ext' type='text/css' media='all' />
+<link rel='stylesheet' id='twentytwelve-style-css'  href='../../wp-content/themes/twentytwelve/style.css' type='text/css' media='all' />
+<!--[if lt IE 9]>
+<link rel='stylesheet' id='twentytwelve-ie-css'  href='/blog/wp-content/themes/twentytwelve/css/ie.css?ver=20121010' type='text/css' media='all' />
+<![endif]-->
+<script type='text/javascript' src='../../wp-includes/js/jquery/jquery.js'></script>
+<script type='text/javascript' src='../../wp-includes/js/jquery/jquery-migrate.min.js'></script>
+<script type='text/javascript' src='../../wp-content/plugins/jquery-collapse-o-matic/js/collapse.min.js'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var CrayonSyntaxSettings = {"version":"2.6.8","is_admin":"0","ajaxurl":"https:\/\/pesin.space\/blog\/wp-admin\/admin-ajax.php","prefix":"crayon-","setting":"crayon-setting","selected":"crayon-setting-selected","changed":"crayon-setting-changed","special":"crayon-setting-special","orig_value":"data-orig-value","debug":""};
+var CrayonSyntaxStrings = {"copy":"Press %s to Copy, %s to Paste","minimize":"Click To Expand Code"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='../../wp-content/plugins/crayon-syntax-highlighter/js/min/crayon.min.js'></script>
+<script type='text/javascript' src='../../wp-content/plugins/gallery-plugin/fancybox/jquery.mousewheel-3.0.4.pack.js'></script>
+<script type='text/javascript' src='../../wp-content/plugins/gallery-plugin/fancybox/jquery.fancybox-1.3.4.pack.js'></script>
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="../../wp-includes/wlwmanifest.xml" /> 
+<meta name="generator" content="WordPress 5.1.1" />
+		<!-- Start ios -->
+		<script type="text/javascript">
+			(function($){
+				$(document).ready( function() {
+					$( '#fancybox-overlay' ).css({
+						'width' : $(document).width()
+					});	
+				});	
+			})(jQuery);
+		</script>
+		<!-- End ios -->
+	<script type='text/javascript'>
+var colomatduration = 'fast';
+var colomatslideEffect = 'slideFade';
+</script></head>
+
+<body class="archive tag tag-core_dump tag-19 custom-font-enabled single-author">
+<div id="page" class="hfeed site">
+	<header id="masthead" class="site-header" role="banner">
+		<hgroup>
+			<h1 class="site-title"><a href="/blog/2009/05/%d0%ba%d0%b0%d0%ba-%d0%be%d0%b1%d1%8a%d0%b5%d0%b4%d0%b8%d0%bd%d0%b8%d1%82%d1%8c-%d0%bd%d0%b5%d1%81%d0%ba%d0%be%d0%bb%d1%8c%d0%ba%d0%be-%d1%81%d0%b5%d1%82%d0%b5%d0%b2%d1%8b%d1%85-%d0%b8%d0%bd%d1%82/" title="Ivan Pesin" rel="home">Ivan Pesin</a></h1>
+			<h2 class="site-description">Articles &amp; Translations</h2>
+		</hgroup>
+
+		<nav id="site-navigation" class="main-navigation" role="navigation">
+			<button class="menu-toggle">Menu</button>
+			<a class="assistive-text" href="index.html#content" title="Skip to content">Skip to content</a>
+					</nav><!-- #site-navigation -->
+
+			</header><!-- #masthead -->
+
+	<div id="main" class="wrapper">
+	<section id="primary" class="site-content">
+		<div id="content" role="main">
+
+					<header class="archive-header">
+				<h1 class="archive-title">Tag Archives: <span>core_dump</span></h1>
+
+						</header><!-- .archive-header -->
+
+			
+	<article id="post-193" class="post-193 post type-post status-publish format-standard hentry category-redhat-kb tag-core_dump tag-kdump tag-kexec tag-rhel5">
+				<header class="entry-header">
+			
+						<h1 class="entry-title">
+				<a href="/blog/2009/06/%d0%ba%d0%b0%d0%ba-%d0%bd%d0%b0%d1%81%d1%82%d1%80%d0%be%d0%b8%d1%82%d1%8c-kexeckdump-%d0%b2-red-hat-enterprise-linux-5/" rel="bookmark">Как настроить kexec/kdump в Red Hat Enterprise Linux 5?</a>
+			</h1>
+								</header><!-- .entry-header -->
+
+				<div class="entry-content">
+			<p id="top" />
+<div class="copyright">Copyright (c) 2009 by Red Hat, Inc. This material may be distributed only subject to the terms and conditions set forth in the Open Publication License, v1.0 or later (available at <a href="http://www.opencontent.org/openpub/" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://www.opencontent.org']);">http://www.opencontent.org/openpub/</a>).<br />
+Original article: <a href="http://kbase.redhat.com/faq/docs/DOC-6039.pdf" onclick="javascript:_gaq.push(['_trackEvent','download','http://kbase.redhat.com/faq/docs/DOC-6039.pdf']);">http://kbase.redhat.com/faq/docs/DOC-6039.pdf</a>.</p>
+<p>Translated by Ivan Pesin, June 2009.</p></div>
+<h5>Общее представление</h5>
+<p><code>Kexec</code> это механизм быстрой загрузки, который позволяет загружать ядро Linux из контекста уже запущенного ядра без передачи управления BIOS. Процедуры инициализации BIOS-а могут занимать очень много времени, особенно на больших серверах со множеством периферийных устройств. Механизм <code>kexec</code> позволяет сэкономить массу времени разработчикам, которые должны многократно перезагружать систему.</p>
+<p><code>Kdump</code> это новый очень надёжный механизм получения дампа памяти при крахе ядра. Дамп захватывается в контексте свежезагруженного ядра, а не в контексте сбойного ядра. <code>Kdump</code> использует <code>kexec</code> чтобы загрузить второе ядро при сбое основного ядра. Это второе ядро, которое часто называют &#8220;ядром захвата&#8221; (capture kernel), загружается в небольшой участок памяти и создаёт образ памяти основного ядра.</p>
+<p>Первое ядро резервирует часть памяти, которая используется вторым ядром при загрузке. Учтите, что <code>kdump</code> резервирует значительную часть памяти при загрузке, что меняет фактические минимальные требования к оперативной памяти Red Hat Enterprise Linux 5. Чтобы рассчитать их, обратитесь к документу <a href="http://www.redhat.com/rhel/details/limits/" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://www.redhat.com']);">http://www.redhat.com/rhel/details/limits/</a>, где указаны минимальные требования к ОЗУ и прибавьте к ним количество памяти, необходимое для <code>kdump</code>.</p>
+<p><code>Kexec</code> реализует загрузку ядра захвата без передачи управления BIOS-у, а значит сохраняется содержимое памяти основного ядра, что и представляет собой дамп памяти ядра при крахе.</p>
+<h5>Установка Kdump</h5>
+<p>Проверьте, что пакет <code>kexec-tools</code> установлен:</p>
+<blockquote><p></p><!-- Crayon Syntax Highlighter v2.6.8 -->
+
+		<div id="crayon-6a527c794b1cd626508171" class="crayon-syntax crayon-theme-solarized-light crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;">
+ # rpm -q kexec-tools</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-6a527c794b1cd626508171-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-6a527c794b1cd626508171-1"><span class="crayon-h"> </span><span class="crayon-p"># rpm -q kexec-tools</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0002 seconds] -->
+<p></p></blockquote>
+<p>Если он не установлен, установите его с помощью yum:</p>
+<blockquote><p></p><!-- Crayon Syntax Highlighter v2.6.8 -->
+
+		<div id="crayon-6a527c794b1e1094990633" class="crayon-syntax crayon-theme-solarized-light crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;">
+ # yum install kexec-tools</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-6a527c794b1e1094990633-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-6a527c794b1e1094990633-1"><span class="crayon-h"> </span><span class="crayon-p"># yum install kexec-tools</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0001 seconds] -->
+<p></p></blockquote>
+<h5>Расположение дампа Kdump</h5>
+<p>В файле <code>/etc/kdump.conf</code> должно быть указано место для сохранения дампа памяти ядра при крахе. Отсутствие этого параметра ведёт к неопределённому поведению <code>Kdump</code>. Есть возможность сохранять дамп непосредственно на устройство, в файл, или через сеть по протоколам NFS и SSH.</p>
+<h6>Дампирование на устройство</h6>
+<p>Вы можете настроить <code>Kdump</code> выполнять дамп непосредственно на устройство, указав директиву raw в файле kdump.conf. Синтаксис этой директивы такой:</p>
+<blockquote><p></p><!-- Crayon Syntax Highlighter v2.6.8 -->
+
+		<div id="crayon-6a527c794b1e3897282325" class="crayon-syntax crayon-theme-solarized-light crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;">
+raw имя_устройства</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-6a527c794b1e3897282325-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-6a527c794b1e3897282325-1"><span class="crayon-i">raw</span><span class="crayon-h"> </span>имя<span class="crayon-i">_</span>устройства</div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0001 seconds] -->
+<p></p></blockquote>
+<p>Например:</p>
+<blockquote><p></p><!-- Crayon Syntax Highlighter v2.6.8 -->
+
+		<div id="crayon-6a527c794b1e6195597839" class="crayon-syntax crayon-theme-solarized-light crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;">
+ raw /dev/sda1</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-6a527c794b1e6195597839-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-6a527c794b1e6195597839-1"><span class="crayon-h"> </span><span class="crayon-v">raw</span><span class="crayon-h"> </span><span class="crayon-o">/</span><span class="crayon-v">dev</span><span class="crayon-o">/</span><span class="crayon-v">sda1</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0002 seconds] -->
+<p></p></blockquote>
+<p>Пожалуйста учтите, что эта конфигурация уничтожит все данные, которые находятся на этом устройстве.</p>
+<h6>Дампирование в файл на диске</h6>
+<p><code>Kdump</code> может быть настроен монтировать раздел и сохранять дамп в файл на диске. Это делается указанием типа файловой системы и раздела в файле <code>kdump.conf</code>. Раздел может быть задан именем устройства, меткой файловой системы или UUID, аналогично тому, как это указывается в файле <code>/etc/fstab</code>.</p>
+<p>По-умолчанию, каталог в котором будет сохранятся дамп, называется <code>/var/crash/%DATE/</code>, где %DATE &#8212; это текущая дата на момент создания дампа. Например, конфигурация:</p>
+<blockquote><p></p><!-- Crayon Syntax Highlighter v2.6.8 -->
+
+		<div id="crayon-6a527c794b1e8911988741" class="crayon-syntax crayon-theme-solarized-light crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;">
+ext3 /dev/sda1</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-6a527c794b1e8911988741-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-6a527c794b1e8911988741-1"><span class="crayon-v">ext3</span><span class="crayon-h"> </span><span class="crayon-o">/</span><span class="crayon-v">dev</span><span class="crayon-o">/</span><span class="crayon-v">sda1</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0001 seconds] -->
+<p></p></blockquote>
+<p>смонтирует /dev/sda1, как устройство с файловой системой ext3, и запишет дамп в каталог /var/crash/, тогда как</p>
+<blockquote><p></p><!-- Crayon Syntax Highlighter v2.6.8 -->
+
+		<div id="crayon-6a527c794b1eb829861035" class="crayon-syntax crayon-theme-solarized-light crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;">
+ext3 LABEL=/boot</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-6a527c794b1eb829861035-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-6a527c794b1eb829861035-1"><span class="crayon-e">ext3 </span><span class="crayon-v">LABEL</span><span class="crayon-o">=</span><span class="crayon-o">/</span><span class="crayon-v">boot</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0001 seconds] -->
+<p></p></blockquote>
+<p>смонтирует устройство с файловой системой ext3 и меткой /boot. На большинстве инсталляций Red Hat Enterprise Linux, это будет каталог /boot. Самый простой способ узнать, какое устройство нужно указать в конфигурации &#8212; посмотреть файл <code>/etc/fstab</code>. Как уже говорилось, каталог по-умолчанию для сохранения дампов называется <code>/var/crash/%DATE/</code>. Изменить его можно с помощью директивы path в файле <code>kdump.conf</code>. Например:</p>
+<blockquote><p></p><!-- Crayon Syntax Highlighter v2.6.8 -->
+
+		<div id="crayon-6a527c794b1ed031164288" class="crayon-syntax crayon-theme-solarized-light crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;">
+ext3 UUID=f15759be-89d4-46c4-9e1d-1b67e5b5da82 
+path /usr/local/cores</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-6a527c794b1ed031164288-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-6a527c794b1ed031164288-2">2</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-6a527c794b1ed031164288-1"><span class="crayon-e">ext3 </span><span class="crayon-v">UUID</span><span class="crayon-o">=</span><span class="crayon-v">f15759be</span><span class="crayon-o">-</span><span class="crayon-cn">89d4</span><span class="crayon-o">-</span><span class="crayon-cn">46c4</span><span class="crayon-o">-</span><span class="crayon-cn">9e1d</span><span class="crayon-o">-</span><span class="crayon-cn">1b67e5b5da82</span><span class="crayon-h"> </span></div><div class="crayon-line crayon-striped-line" id="crayon-6a527c794b1ed031164288-2"><span class="crayon-v">path</span><span class="crayon-h"> </span><span class="crayon-o">/</span><span class="crayon-v">usr</span><span class="crayon-o">/</span><span class="crayon-v">local</span><span class="crayon-o">/</span><span class="crayon-v">cores</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0002 seconds] -->
+<p></p></blockquote>
+<p>Эта конфигурация указывает, что сохранять файлы дампов нужно в каталоге <code>/usr/local/cores/</code> вместо <code>/var/crash/</code>.</p>
+<h6>Дампирование на сетевое устройство по NFS</h6>
+<p>Чтобы настроить kdump для дампирования на том NFS, отредатируйте файл <code>/etc/kdump.conf</code> и добавьте в него строку в формате:</p>
+<blockquote><p></p><!-- Crayon Syntax Highlighter v2.6.8 -->
+
+		<div id="crayon-6a527c794b1ef709392122" class="crayon-syntax crayon-theme-solarized-light crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;">
+net &amp;lt;nfs-сервер&amp;gt;:/nfs/mount</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-6a527c794b1ef709392122-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-6a527c794b1ef709392122-1"><span class="crayon-v">net</span><span class="crayon-h"> </span><span class="crayon-o">&amp;</span><span class="crayon-v">lt</span><span class="crayon-sy">;</span><span class="crayon-v">nfs</span><span class="crayon-o">-</span>сервер<span class="crayon-o">&amp;</span><span class="crayon-v">gt</span><span class="crayon-sy">;</span><span class="crayon-o">:</span><span class="crayon-o">/</span><span class="crayon-v">nfs</span><span class="crayon-o">/</span><span class="crayon-v">mount</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0002 seconds] -->
+<p></p></blockquote>
+<p>Например:</p>
+<blockquote><p></p><!-- Crayon Syntax Highlighter v2.6.8 -->
+
+		<div id="crayon-6a527c794b1f1956057147" class="crayon-syntax crayon-theme-solarized-light crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;">
+net nfs.example.com:/export/vmcores</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-6a527c794b1f1956057147-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-6a527c794b1f1956057147-1"><span class="crayon-e">net </span><span class="crayon-v">nfs</span><span class="crayon-sy">.</span><span class="crayon-v">example</span><span class="crayon-sy">.</span><span class="crayon-v">com</span><span class="crayon-o">:</span><span class="crayon-o">/</span><span class="crayon-v">export</span><span class="crayon-o">/</span><span class="crayon-v">vmcores</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0001 seconds] -->
+<p></p></blockquote>
+<p>Эта директива указывает, что дамп памяти нужно сохранять в файл <code>/export/vmcores/var/crash/[имя_хоста]-[дата]</code> на сервере <code>nfs.example.com</code>. Система-клиент должна иметь права на запись для этого тома.</p>
+<h6>Дампирование на сетевое устройство по SSH</h6>
+<p>Преимущество SSH &#8212; шифрование передаваемого по сети трафика. По этой причине, этот метод является наилучшим в ситуации, когда дамп памяти нужно передавать через сеть с общем доступом, такую как Internet или корпоративную WAN.</p>
+<blockquote><p></p><!-- Crayon Syntax Highlighter v2.6.8 -->
+
+		<div id="crayon-6a527c794b1f2866688914" class="crayon-syntax crayon-theme-solarized-light crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;">
+net user@&amp;lt;ssh-сервер&amp;gt;</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-6a527c794b1f2866688914-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-6a527c794b1f2866688914-1"><span class="crayon-e">net </span><span class="crayon-v">user</span><span class="crayon-sy">@</span><span class="crayon-o">&amp;</span><span class="crayon-v">lt</span><span class="crayon-sy">;</span><span class="crayon-v">ssh</span><span class="crayon-o">-</span>сервер<span class="crayon-o">&amp;</span><span class="crayon-v">gt</span><span class="crayon-sy">;</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0001 seconds] -->
+<p></p></blockquote>
+<p>Например:</p>
+<blockquote><p></p><!-- Crayon Syntax Highlighter v2.6.8 -->
+
+		<div id="crayon-6a527c794b1f4850797529" class="crayon-syntax crayon-theme-solarized-light crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;">
+net kdump@crash.example.com</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-6a527c794b1f4850797529-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-6a527c794b1f4850797529-1"><span class="crayon-e">net </span><span class="crayon-v">kdump</span><span class="crayon-sy">@</span><span class="crayon-v">crash</span><span class="crayon-sy">.</span><span class="crayon-v">example</span><span class="crayon-sy">.</span><span class="crayon-v">com</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0001 seconds] -->
+<p></p></blockquote>
+<p>В этом случае, kdump будет использовать <code>scp</code> для подключения к серверу <code>crash.example.com</code> под пользователем <code>kdump</code>. Дамп памяти будет скопирован в каталог <code>/var/crash/[имя_хоста]-[дата]/</code>. Пользователь kdump должен иметь необходимые права для записи на удалённом сервере.</p>
+<p>Чтобы активировать внесённые в настройку изменения, выполните команду <code>service kdump propagate</code>, которая должна выдать примерно следующий вывод:</p>
+<blockquote><p></p><!-- Crayon Syntax Highlighter v2.6.8 -->
+
+		<div id="crayon-6a527c794b1f6826046614" class="crayon-syntax crayon-theme-solarized-light crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;">
+Generating new ssh keys... done,
+kdump@crash.example.com's password:
+/root/.ssh/kdump_id_rsa.pub has been added to
+~kdump/.ssh/authorized_keys2 on crash.example.com</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-6a527c794b1f6826046614-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-6a527c794b1f6826046614-2">2</div><div class="crayon-num" data-line="crayon-6a527c794b1f6826046614-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-6a527c794b1f6826046614-4">4</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-6a527c794b1f6826046614-1"><span class="crayon-e">Generating </span><span class="crayon-r">new</span><span class="crayon-h"> </span><span class="crayon-e">ssh </span><span class="crayon-v">keys</span><span class="crayon-sy">.</span><span class="crayon-sy">.</span><span class="crayon-sy">.</span><span class="crayon-h"> </span><span class="crayon-v">done</span><span class="crayon-sy">,</span></div><div class="crayon-line crayon-striped-line" id="crayon-6a527c794b1f6826046614-2"><span class="crayon-v">kdump</span><span class="crayon-sy">@</span><span class="crayon-v">crash</span><span class="crayon-sy">.</span><span class="crayon-v">example</span><span class="crayon-sy">.</span><span class="crayon-i">com</span>'<span class="crayon-i">s</span><span class="crayon-h"> </span><span class="crayon-v">password</span><span class="crayon-o">:</span></div><div class="crayon-line" id="crayon-6a527c794b1f6826046614-3"><span class="crayon-o">/</span><span class="crayon-v">root</span><span class="crayon-o">/</span><span class="crayon-sy">.</span><span class="crayon-v">ssh</span><span class="crayon-o">/</span><span class="crayon-v">kdump_id_rsa</span><span class="crayon-sy">.</span><span class="crayon-e">pub </span><span class="crayon-e">has </span><span class="crayon-e">been </span><span class="crayon-e">added </span><span class="crayon-st">to</span></div><div class="crayon-line crayon-striped-line" id="crayon-6a527c794b1f6826046614-4"><span class="crayon-o">~</span><span class="crayon-v">kdump</span><span class="crayon-o">/</span><span class="crayon-sy">.</span><span class="crayon-v">ssh</span><span class="crayon-o">/</span><span class="crayon-e">authorized_keys2 </span><span class="crayon-e">on </span><span class="crayon-v">crash</span><span class="crayon-sy">.</span><span class="crayon-v">example</span><span class="crayon-sy">.</span><span class="crayon-v">com</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0004 seconds] -->
+<p></p></blockquote>
+<h5>Задание выборки страниц и сжатие</h5>
+<p>На системах с большим объемом оперативной памяти рекомендуется не дампировать ненужные страницы памяти и сжимать остальные. Это настраивается в файле <code>kdump.conf</code> командой <code>core_collector</code>. На текущий момент единственным полностью поддерживаемым коллектором является  <code>makedumpfile</code>. Его опции можно посмотреть командой <code>makedumpfile --help</code>. Опция <code>-d</code> указывает какие типы страниц не нужно дампировать. Параметр этой опции представляет битовую маску следующих типов:</p>
+<blockquote><p></p><!-- Crayon Syntax Highlighter v2.6.8 -->
+
+		<div id="crayon-6a527c794b1f9380739751" class="crayon-syntax crayon-theme-solarized-light crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;">
+ zero pages   = 1
+cache pages   = 2
+cache private = 4
+user  pages   = 8
+free  pages   = 16</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-6a527c794b1f9380739751-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-6a527c794b1f9380739751-2">2</div><div class="crayon-num" data-line="crayon-6a527c794b1f9380739751-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-6a527c794b1f9380739751-4">4</div><div class="crayon-num" data-line="crayon-6a527c794b1f9380739751-5">5</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-6a527c794b1f9380739751-1"><span class="crayon-h"> </span><span class="crayon-e">zero </span><span class="crayon-v">pages</span><span class="crayon-h">&nbsp;&nbsp; </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-cn">1</span></div><div class="crayon-line crayon-striped-line" id="crayon-6a527c794b1f9380739751-2"><span class="crayon-e">cache </span><span class="crayon-v">pages</span><span class="crayon-h">&nbsp;&nbsp; </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-cn">2</span></div><div class="crayon-line" id="crayon-6a527c794b1f9380739751-3"><span class="crayon-e">cache </span><span class="crayon-m">private</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-cn">4</span></div><div class="crayon-line crayon-striped-line" id="crayon-6a527c794b1f9380739751-4"><span class="crayon-e">user&nbsp;&nbsp;</span><span class="crayon-v">pages</span><span class="crayon-h">&nbsp;&nbsp; </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-cn">8</span></div><div class="crayon-line" id="crayon-6a527c794b1f9380739751-5"><span class="crayon-e">free&nbsp;&nbsp;</span><span class="crayon-v">pages</span><span class="crayon-h">&nbsp;&nbsp; </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-cn">16</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0002 seconds] -->
+<p></p></blockquote>
+<p>Вообще говоря, все эти страницы не содержат ценной для отладки информации. Чтобы исключить их из дампа, укажите параметр <code>-d 31</code>.  Опция <code>-c</code> говорит makedumpfile сжимать остальные страницы памяти.</p>
+<blockquote><p></p><!-- Crayon Syntax Highlighter v2.6.8 -->
+
+		<div id="crayon-6a527c794b1fb516018993" class="crayon-syntax crayon-theme-solarized-light crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;">
+#core_collector makedumpfile -d 1          # throw out zero pages (containing no data)
+#core_collector makedumpfile -d 31         # throw out all trival pages
+#core_collector makedumpfile -c            # compress all pages, but leave them all
+core_collector makedumpfile -d 31 -c       # throw out trival pages and compress (recommended)</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-6a527c794b1fb516018993-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-6a527c794b1fb516018993-2">2</div><div class="crayon-num" data-line="crayon-6a527c794b1fb516018993-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-6a527c794b1fb516018993-4">4</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-6a527c794b1fb516018993-1"><span class="crayon-p">#core_collector makedumpfile -d 1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# throw out zero pages (containing no data)</span></div><div class="crayon-line crayon-striped-line" id="crayon-6a527c794b1fb516018993-2"><span class="crayon-p">#core_collector makedumpfile -d 31&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # throw out all trival pages</span></div><div class="crayon-line" id="crayon-6a527c794b1fb516018993-3"><span class="crayon-p">#core_collector makedumpfile -c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# compress all pages, but leave them all</span></div><div class="crayon-line crayon-striped-line" id="crayon-6a527c794b1fb516018993-4"><span class="crayon-e">core_collector </span><span class="crayon-v">makedumpfile</span><span class="crayon-h"> </span><span class="crayon-o">-</span><span class="crayon-i">d</span><span class="crayon-h"> </span><span class="crayon-cn">31</span><span class="crayon-h"> </span><span class="crayon-o">-</span><span class="crayon-v">c</span><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="crayon-p"># throw out trival pages and compress (recommended)</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0002 seconds] -->
+<p></p></blockquote>
+<p>Помните, что использование ключей <code>-d</code> и <code>-c</code> немного увеличивает время, необходимое для создания дампа памяти.</p>
+<h5>Добавление параметров загрузки</h5>
+<p>Необходимо модифицировать параметры загрузки основного ядра, чтобы зарезервировать память для ядра захвата. Для архитектур i386 и x86_64 отредактируйте файл  <code>/etc/grub.conf</code> и добавьте <code>crashkernel=128M@16M</code> в конец строки с параметрами ядра.</p>
+<p>Примечание: вы можете указать размер резервируемой памяти меньше 128M, но тестирование показало, что уже при 64M <code>kdump</code> может работать ненадёжно. </p>
+<p>Пример файла <code>/etc/grub.conf</code> с добавленными параметрами kdump:</p>
+<blockquote><p></p><!-- Crayon Syntax Highlighter v2.6.8 -->
+
+		<div id="crayon-6a527c794b1fd854643413" class="crayon-syntax crayon-theme-solarized-light crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;">
+ # grub.conf generated by anaconda
+ #
+ # Note that you do not have to rerun grub after making changes to this file
+ # NOTICE:  You do not have a /boot partition.  This means that
+ #          all kernel and initrd paths are relative to /, eg.
+ #          root (hd0,0)
+ #          kernel /boot/vmlinuz-version ro root=/dev/hda1
+ #          initrd /boot/initrd-version.img
+ #boot=/dev/hda
+ default=0
+ timeout=5
+ splashimage=(hd0,0)/boot/grub/splash.xpm.gz
+ hiddenmenu
+ title Red Hat Enterprise Linux Client (2.6.17-1.2519.4.21.el5)
+         root (hd0,0)
+         kernel /boot/vmlinuz-2.6.17-1.2519.4.21.el5 ro root=LABEL=/ rhgb quiet crashkernel=128M@16M
+         initrd /boot/initrd-2.6.17-1.2519.4.21.el5.img</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-6a527c794b1fd854643413-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-6a527c794b1fd854643413-2">2</div><div class="crayon-num" data-line="crayon-6a527c794b1fd854643413-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-6a527c794b1fd854643413-4">4</div><div class="crayon-num" data-line="crayon-6a527c794b1fd854643413-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-6a527c794b1fd854643413-6">6</div><div class="crayon-num" data-line="crayon-6a527c794b1fd854643413-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-6a527c794b1fd854643413-8">8</div><div class="crayon-num" data-line="crayon-6a527c794b1fd854643413-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-6a527c794b1fd854643413-10">10</div><div class="crayon-num" data-line="crayon-6a527c794b1fd854643413-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-6a527c794b1fd854643413-12">12</div><div class="crayon-num" data-line="crayon-6a527c794b1fd854643413-13">13</div><div class="crayon-num crayon-striped-num" data-line="crayon-6a527c794b1fd854643413-14">14</div><div class="crayon-num" data-line="crayon-6a527c794b1fd854643413-15">15</div><div class="crayon-num crayon-striped-num" data-line="crayon-6a527c794b1fd854643413-16">16</div><div class="crayon-num" data-line="crayon-6a527c794b1fd854643413-17">17</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-6a527c794b1fd854643413-1"><span class="crayon-h"> </span><span class="crayon-p"># grub.conf generated by anaconda</span></div><div class="crayon-line crayon-striped-line" id="crayon-6a527c794b1fd854643413-2"><span class="crayon-h"> </span><span class="crayon-p">#</span></div><div class="crayon-line" id="crayon-6a527c794b1fd854643413-3"><span class="crayon-h"> </span><span class="crayon-p"># Note that you do not have to rerun grub after making changes to this file</span></div><div class="crayon-line crayon-striped-line" id="crayon-6a527c794b1fd854643413-4"><span class="crayon-h"> </span><span class="crayon-p"># NOTICE:&nbsp;&nbsp;You do not have a /boot partition.&nbsp;&nbsp;This means that</span></div><div class="crayon-line" id="crayon-6a527c794b1fd854643413-5"><span class="crayon-h"> </span><span class="crayon-p">#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;all kernel and initrd paths are relative to /, eg.</span></div><div class="crayon-line crayon-striped-line" id="crayon-6a527c794b1fd854643413-6"><span class="crayon-h"> </span><span class="crayon-p">#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;root (hd0,0)</span></div><div class="crayon-line" id="crayon-6a527c794b1fd854643413-7"><span class="crayon-h"> </span><span class="crayon-p">#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;kernel /boot/vmlinuz-version ro root=/dev/hda1</span></div><div class="crayon-line crayon-striped-line" id="crayon-6a527c794b1fd854643413-8"><span class="crayon-h"> </span><span class="crayon-p">#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;initrd /boot/initrd-version.img</span></div><div class="crayon-line" id="crayon-6a527c794b1fd854643413-9"><span class="crayon-h"> </span><span class="crayon-p">#boot=/dev/hda</span></div><div class="crayon-line crayon-striped-line" id="crayon-6a527c794b1fd854643413-10"><span class="crayon-h"> </span><span class="crayon-st">default</span><span class="crayon-o">=</span><span class="crayon-cn">0</span></div><div class="crayon-line" id="crayon-6a527c794b1fd854643413-11"><span class="crayon-h"> </span><span class="crayon-v">timeout</span><span class="crayon-o">=</span><span class="crayon-cn">5</span></div><div class="crayon-line crayon-striped-line" id="crayon-6a527c794b1fd854643413-12"><span class="crayon-h"> </span><span class="crayon-v">splashimage</span><span class="crayon-o">=</span><span class="crayon-sy">(</span><span class="crayon-v">hd0</span><span class="crayon-sy">,</span><span class="crayon-cn">0</span><span class="crayon-sy">)</span><span class="crayon-o">/</span><span class="crayon-v">boot</span><span class="crayon-o">/</span><span class="crayon-v">grub</span><span class="crayon-o">/</span><span class="crayon-v">splash</span><span class="crayon-sy">.</span><span class="crayon-v">xpm</span><span class="crayon-sy">.</span><span class="crayon-e">gz</span></div><div class="crayon-line" id="crayon-6a527c794b1fd854643413-13"><span class="crayon-e"> </span><span class="crayon-e">hiddenmenu</span></div><div class="crayon-line crayon-striped-line" id="crayon-6a527c794b1fd854643413-14"><span class="crayon-e"> </span><span class="crayon-e">title </span><span class="crayon-e">Red </span><span class="crayon-e">Hat </span><span class="crayon-e">Enterprise </span><span class="crayon-e">Linux </span><span class="crayon-e">Client</span><span class="crayon-h"> </span><span class="crayon-sy">(</span><span class="crayon-cn">2.6.17</span><span class="crayon-o">-</span><span class="crayon-cn">1.2519.4.21.el5</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-6a527c794b1fd854643413-15"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="crayon-e">root</span><span class="crayon-h"> </span><span class="crayon-sy">(</span><span class="crayon-v">hd0</span><span class="crayon-sy">,</span><span class="crayon-cn">0</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-6a527c794b1fd854643413-16"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="crayon-v">kernel</span><span class="crayon-h"> </span><span class="crayon-o">/</span><span class="crayon-v">boot</span><span class="crayon-o">/</span><span class="crayon-v">vmlinuz</span><span class="crayon-o">-</span><span class="crayon-cn">2.6.17</span><span class="crayon-o">-</span><span class="crayon-cn">1.2519.4.21.el5</span><span class="crayon-h"> </span><span class="crayon-e">ro </span><span class="crayon-v">root</span><span class="crayon-o">=</span><span class="crayon-v">LABEL</span><span class="crayon-o">=</span><span class="crayon-o">/</span><span class="crayon-h"> </span><span class="crayon-e">rhgb </span><span class="crayon-e">quiet </span><span class="crayon-v">crashkernel</span><span class="crayon-o">=</span><span class="crayon-cn">128M</span><span class="crayon-sy">@</span><span class="crayon-cn">16M</span></div><div class="crayon-line" id="crayon-6a527c794b1fd854643413-17"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="crayon-v">initrd</span><span class="crayon-h"> </span><span class="crayon-o">/</span><span class="crayon-v">boot</span><span class="crayon-o">/</span><span class="crayon-v">initrd</span><span class="crayon-o">-</span><span class="crayon-cn">2.6.17</span><span class="crayon-o">-</span><span class="crayon-cn">1.2519.4.21.el5.img</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0006 seconds] -->
+<p></p></blockquote>
+<h5>Тестирование</h5>
+<p>После внесения указанных изменений, перезагрузите систему. 128M памяти (начиная с 16M), зарезервированные для ядра захвата, не будут использоваться основной системой. Обратите внимание, что команда <code>free -m</code> покажет на 128M доступной памяти меньше, чем до настройки kdump.</p>
+<p>Теперь, когда необходимая память выделена и зарезервирована, включите скрипт автозапуска kdump и запустите сервис:</p>
+<blockquote><p></p><!-- Crayon Syntax Highlighter v2.6.8 -->
+
+		<div id="crayon-6a527c794b1ff815310886" class="crayon-syntax crayon-theme-solarized-light crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;">
+ #  chkconfig kdump on
+ #  service kdump start</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-6a527c794b1ff815310886-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-6a527c794b1ff815310886-2">2</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-6a527c794b1ff815310886-1"><span class="crayon-h"> </span><span class="crayon-p">#&nbsp;&nbsp;chkconfig kdump on</span></div><div class="crayon-line crayon-striped-line" id="crayon-6a527c794b1ff815310886-2"><span class="crayon-h"> </span><span class="crayon-p">#&nbsp;&nbsp;service kdump start</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0001 seconds] -->
+<p></p></blockquote>
+<p>В результате через <code>kexec</code> будет загружен образ ядра, что приготовит систему к захвату дампа памяти при крахе. Чтобы это проверить, вызовите крах системы с помощью sysrq:</p>
+<blockquote><p></p><!-- Crayon Syntax Highlighter v2.6.8 -->
+
+		<div id="crayon-6a527c794b201973071629" class="crayon-syntax crayon-theme-solarized-light crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;">
+ # echo "c" &amp;gt; /proc/sysrq-trigger</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-6a527c794b201973071629-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-6a527c794b201973071629-1"><span class="crayon-h"> </span><span class="crayon-p"># echo "c" &amp;gt; /proc/sysrq-trigger</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0001 seconds] -->
+<p></p></blockquote>
+<p>Эта команда вызовет панику ядра, после чего система должна загрузить ядро <code>kdump</code>. Когда процесс загрузки дойдёт до момента запуска сервиса <code>kdump</code>, дамп памяти основного ядра будет скопирован на диск или другое место, указанное в файле <code>/etc/kdump.conf</code>.</p>
+<p><strong>Примечание:</strong> kdump не поддерживает работу консоли в режиме frame-buffers или X-ов. В системах, обычно работающих с параметром ядра вроде &#8220;vga=791&#8221; или с запущенным сервером X, изображение на консоли при загрузке ядра через kexec будет искажено. Тем не менее, это не помешает ядру kdump создать дамп памяти, а изображение восстановится после перезагрузки системы.</p>
+					</div><!-- .entry-content -->
+		
+		<footer class="entry-meta">
+			This entry was posted in <a href="/blog/2009/05/%d0%ba%d0%b0%d0%ba-%d0%be%d0%b1%d1%8a%d0%b5%d0%b4%d0%b8%d0%bd%d0%b8%d1%82%d1%8c-%d0%bd%d0%b5%d1%81%d0%ba%d0%be%d0%bb%d1%8c%d0%ba%d0%be-%d1%81%d0%b5%d1%82%d0%b5%d0%b2%d1%8b%d1%85-%d0%b8%d0%bd%d1%82/" rel="category tag">RedHat KB</a> and tagged <a href="index.html" rel="tag">core_dump</a>, <a href="../kdump/index.html" rel="tag">kdump</a>, <a href="../kexec/index.html" rel="tag">kexec</a>, <a href="/blog/2009/05/%d0%ba%d0%b0%d0%ba-%d0%be%d0%b1%d1%8a%d0%b5%d0%b4%d0%b8%d0%bd%d0%b8%d1%82%d1%8c-%d0%bd%d0%b5%d1%81%d0%ba%d0%be%d0%bb%d1%8c%d0%ba%d0%be-%d1%81%d0%b5%d1%82%d0%b5%d0%b2%d1%8b%d1%85-%d0%b8%d0%bd%d1%82/" rel="tag">rhel5</a> on <a href="/blog/2009/06/%d0%ba%d0%b0%d0%ba-%d0%bd%d0%b0%d1%81%d1%82%d1%80%d0%be%d0%b8%d1%82%d1%8c-kexeckdump-%d0%b2-red-hat-enterprise-linux-5/" title="14:00" rel="bookmark"><time class="entry-date" datetime="2009-06-14T14:00:31+02:00">June 14, 2009</time></a><span class="by-author"> by <span class="author vcard"><a class="url fn n" href="/blog/2009/05/%d0%ba%d0%b0%d0%ba-%d0%be%d0%b1%d1%8a%d0%b5%d0%b4%d0%b8%d0%bd%d0%b8%d1%82%d1%8c-%d0%bd%d0%b5%d1%81%d0%ba%d0%be%d0%bb%d1%8c%d0%ba%d0%be-%d1%81%d0%b5%d1%82%d0%b5%d0%b2%d1%8b%d1%85-%d0%b8%d0%bd%d1%82/" title="View all posts by ivan" rel="author">ivan</a></span></span>.								</footer><!-- .entry-meta -->
+	</article><!-- #post -->
+
+		
+		</div><!-- #content -->
+	</section><!-- #primary -->
+
+
+			<div id="secondary" class="widget-area" role="complementary">
+			<aside id="pages-4" class="widget widget_pages"><h3 class="widget-title">Pages</h3>		<ul>
+			<li class="page_item page-item-1467"><a href="/blog/reference-phonetic-alphabet/">Reference Phonetic Alphabet</a></li>
+<li class="page_item page-item-44"><a href="/blog/%d0%bf%d0%be%d0%b4%d0%b1%d0%be%d1%80%d0%ba%d0%b0-%d0%b2%d0%be%d0%bf%d1%80%d0%be%d1%81%d0%be%d0%b2-%d0%b8-%d0%be%d1%82%d0%b2%d0%b5%d1%82%d0%be%d0%b2-1/">Подборка вопросов и ответов #1</a></li>
+<li class="page_item page-item-239"><a href="/blog/%d0%bf%d0%be%d0%b4%d0%b1%d0%be%d1%80%d0%ba%d0%b0-%d0%b2%d0%be%d0%bf%d1%80%d0%be%d1%81%d0%be%d0%b2-%d0%b8-%d0%be%d1%82%d0%b2%d0%b5%d1%82%d0%be%d0%b2-2/">Подборка вопросов и ответов #2</a></li>
+<li class="page_item page-item-468"><a href="/blog/questions-and-answers-issue-3/">Подборка вопросов и ответов #3</a></li>
+		</ul>
+			</aside><aside id="search-4" class="widget widget_search"></aside><aside id="tag_cloud-4" class="widget widget_tag_cloud"><h3 class="widget-title">Tags</h3><div class="tagcloud"><a href="../aws/index.html" class="tag-cloud-link tag-link-182 tag-link-position-1" style="font-size: 8pt;" aria-label="AWS (2 items)">AWS</a>
+<a href="../bash/index.html" class="tag-cloud-link tag-link-12 tag-link-position-2" style="font-size: 12.277777777778pt;" aria-label="bash (4 items)">bash</a>
+<a href="../basics/index.html" class="tag-cloud-link tag-link-13 tag-link-position-3" style="font-size: 12.277777777778pt;" aria-label="basics (4 items)">basics</a>
+<a href="../bootstrap/index.html" class="tag-cloud-link tag-link-113 tag-link-position-4" style="font-size: 10.333333333333pt;" aria-label="bootstrap (3 items)">bootstrap</a>
+<a href="../cfengine/index.html" class="tag-cloud-link tag-link-96 tag-link-position-5" style="font-size: 13.833333333333pt;" aria-label="cfengine (5 items)">cfengine</a>
+<a href="../cfengine3/index.html" class="tag-cloud-link tag-link-93 tag-link-position-6" style="font-size: 8pt;" aria-label="cfengine3 (2 items)">cfengine3</a>
+<a href="../configuration/index.html" class="tag-cloud-link tag-link-18 tag-link-position-7" style="font-size: 13.833333333333pt;" aria-label="configuration (5 items)">configuration</a>
+<a href="../coursera/index.html" class="tag-cloud-link tag-link-111 tag-link-position-8" style="font-size: 8pt;" aria-label="coursera (2 items)">coursera</a>
+<a href="../devops/index.html" class="tag-cloud-link tag-link-88 tag-link-position-9" style="font-size: 16.166666666667pt;" aria-label="devops (7 items)">devops</a>
+<a href="../dns/index.html" class="tag-cloud-link tag-link-163 tag-link-position-10" style="font-size: 8pt;" aria-label="DNS (2 items)">DNS</a>
+<a href="../english/index.html" class="tag-cloud-link tag-link-95 tag-link-position-11" style="font-size: 20.25pt;" aria-label="English (12 items)">English</a>
+<a href="../getting_started/index.html" class="tag-cloud-link tag-link-25 tag-link-position-12" style="font-size: 12.277777777778pt;" aria-label="getting_started (4 items)">getting_started</a>
+<a href="../hardware/index.html" class="tag-cloud-link tag-link-26 tag-link-position-13" style="font-size: 8pt;" aria-label="hardware (2 items)">hardware</a>
+<a href="../interviewing/index.html" class="tag-cloud-link tag-link-92 tag-link-position-14" style="font-size: 8pt;" aria-label="interviewing (2 items)">interviewing</a>
+<a href="../kdump/index.html" class="tag-cloud-link tag-link-34 tag-link-position-15" style="font-size: 8pt;" aria-label="kdump (2 items)">kdump</a>
+<a href="../kexec/index.html" class="tag-cloud-link tag-link-35 tag-link-position-16" style="font-size: 8pt;" aria-label="kexec (2 items)">kexec</a>
+<a href="../lun/index.html" class="tag-cloud-link tag-link-37 tag-link-position-17" style="font-size: 8pt;" aria-label="lun (2 items)">lun</a>
+<a href="../lviv/index.html" class="tag-cloud-link tag-link-143 tag-link-position-18" style="font-size: 8pt;" aria-label="lviv (2 items)">lviv</a>
+<a href="../maidan/index.html" class="tag-cloud-link tag-link-180 tag-link-position-19" style="font-size: 8pt;" aria-label="Maidan (2 items)">Maidan</a>
+<a href="../mysql/index.html" class="tag-cloud-link tag-link-141 tag-link-position-20" style="font-size: 8pt;" aria-label="mysql (2 items)">mysql</a>
+<a href="../networking/index.html" class="tag-cloud-link tag-link-44 tag-link-position-21" style="font-size: 16.166666666667pt;" aria-label="networking (7 items)">networking</a>
+<a href="../oom/index.html" class="tag-cloud-link tag-link-47 tag-link-position-22" style="font-size: 8pt;" aria-label="oom (2 items)">oom</a>
+<a href="../performance/index.html" class="tag-cloud-link tag-link-50 tag-link-position-23" style="font-size: 12.277777777778pt;" aria-label="performance (4 items)">performance</a>
+<a href="../presentation/index.html" class="tag-cloud-link tag-link-91 tag-link-position-24" style="font-size: 13.833333333333pt;" aria-label="presentation (5 items)">presentation</a>
+<a href="../religion/index.html" class="tag-cloud-link tag-link-144 tag-link-position-25" style="font-size: 8pt;" aria-label="religion (2 items)">religion</a>
+<a href="../rhel3/index.html" class="tag-cloud-link tag-link-56 tag-link-position-26" style="font-size: 8pt;" aria-label="rhel3 (2 items)">rhel3</a>
+<a href="../rhel4/index.html" class="tag-cloud-link tag-link-57 tag-link-position-27" style="font-size: 8pt;" aria-label="rhel4 (2 items)">rhel4</a>
+<a href="/blog/2009/05/%d0%ba%d0%b0%d0%ba-%d0%be%d0%b1%d1%8a%d0%b5%d0%b4%d0%b8%d0%bd%d0%b8%d1%82%d1%8c-%d0%bd%d0%b5%d1%81%d0%ba%d0%be%d0%bb%d1%8c%d0%ba%d0%be-%d1%81%d0%b5%d1%82%d0%b5%d0%b2%d1%8b%d1%85-%d0%b8%d0%bd%d1%82/" class="tag-cloud-link tag-link-58 tag-link-position-28" style="font-size: 22pt;" aria-label="rhel5 (15 items)">rhel5</a>
+<a href="../rhel_basics/index.html" class="tag-cloud-link tag-link-59 tag-link-position-29" style="font-size: 8pt;" aria-label="rhel_basics (2 items)">rhel_basics</a>
+<a href="../rpm/index.html" class="tag-cloud-link tag-link-62 tag-link-position-30" style="font-size: 8pt;" aria-label="rpm (2 items)">rpm</a>
+<a href="../sa/index.html" class="tag-cloud-link tag-link-89 tag-link-position-31" style="font-size: 18.888888888889pt;" aria-label="SA (10 items)">SA</a>
+<a href="../san/index.html" class="tag-cloud-link tag-link-63 tag-link-position-32" style="font-size: 8pt;" aria-label="san (2 items)">san</a>
+<a href="../scale/index.html" class="tag-cloud-link tag-link-121 tag-link-position-33" style="font-size: 8pt;" aria-label="scale (2 items)">scale</a>
+<a href="../scsi/index.html" class="tag-cloud-link tag-link-65 tag-link-position-34" style="font-size: 8pt;" aria-label="scsi (2 items)">scsi</a>
+<a href="../security/index.html" class="tag-cloud-link tag-link-66 tag-link-position-35" style="font-size: 10.333333333333pt;" aria-label="security (3 items)">security</a>
+<a href="../ssl/index.html" class="tag-cloud-link tag-link-155 tag-link-position-36" style="font-size: 10.333333333333pt;" aria-label="SSL (3 items)">SSL</a>
+<a href="../storage/index.html" class="tag-cloud-link tag-link-70 tag-link-position-37" style="font-size: 8pt;" aria-label="storage (2 items)">storage</a>
+<a href="../talks/index.html" class="tag-cloud-link tag-link-85 tag-link-position-38" style="font-size: 15.194444444444pt;" aria-label="talks (6 items)">talks</a>
+<a href="../terminal/index.html" class="tag-cloud-link tag-link-146 tag-link-position-39" style="font-size: 8pt;" aria-label="terminal (2 items)">terminal</a>
+<a href="../troubleshooting/index.html" class="tag-cloud-link tag-link-102 tag-link-position-40" style="font-size: 8pt;" aria-label="troubleshooting (2 items)">troubleshooting</a>
+<a href="../ukraine/index.html" class="tag-cloud-link tag-link-199 tag-link-position-41" style="font-size: 8pt;" aria-label="Ukraine (2 items)">Ukraine</a>
+<a href="../vim/index.html" class="tag-cloud-link tag-link-77 tag-link-position-42" style="font-size: 10.333333333333pt;" aria-label="vim (3 items)">vim</a>
+<a href="../virtualization/index.html" class="tag-cloud-link tag-link-79 tag-link-position-43" style="font-size: 12.277777777778pt;" aria-label="virtualization (4 items)">virtualization</a>
+<a href="../xen/index.html" class="tag-cloud-link tag-link-82 tag-link-position-44" style="font-size: 10.333333333333pt;" aria-label="xen (3 items)">xen</a>
+<a href="../yum/index.html" class="tag-cloud-link tag-link-83 tag-link-position-45" style="font-size: 8pt;" aria-label="yum (2 items)">yum</a></div>
+</aside><aside id="meta-4" class="widget widget_meta"><h3 class="widget-title">Meta</h3>			<ul>
+						<li><a href="../../feed/index.html">Entries <abbr title="Really Simple Syndication">RSS</abbr></a></li>
+			<li><a href="https://wordpress.org/" title="Powered by WordPress, state-of-the-art semantic personal publishing platform.">WordPress.org</a></li>			</ul>
+			</aside>		</div><!-- #secondary -->
+		</div><!-- #main .wrapper -->
+	<footer id="colophon" role="contentinfo">
+		<div class="site-info">
+						<a href="https://wordpress.org/" title="Semantic Personal Publishing Platform">Proudly powered by WordPress</a>
+		</div><!-- .site-info -->
+	</footer><!-- #colophon -->
+</div><!-- #page -->
+
+<script type='text/javascript' src='../../wp-content/themes/twentytwelve/js/navigation.js'></script>
+<script type='text/javascript' src='../../wp-includes/js/wp-embed.min.js'></script>
+</body>
+</html>

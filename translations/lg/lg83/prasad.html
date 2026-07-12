@@ -1,0 +1,283 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+  <head>
+
+    <title>[lg83]: Handling Power Status Using snmptrapd</title>
+    <meta
+     http-equiv="Content-Type"
+     content="text/html; charset=utf-8">
+    <link
+     rel="stylesheet"
+     href="../rus-lg.css"
+     type="text/css">
+  </head>
+
+  <body>
+    <table
+     align="center"
+     border="0"
+     cellspacing="0"
+     width="95%">
+      <tr>
+        <td
+         align="center">
+          <hr
+           noshade
+           size="2">
+
+          <p><strong>Обработка состояния питания при помощи
+          snmptrapd</strong><br>
+          <br>
+          Автор: (C) <a href="../authors/prasad.html">A B Prasad</a><br>
+          Перевод: (C) Иван Песин</p>
+          <hr
+           noshade
+           size="2">
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+    <h3>Если вы новичок в этой области</h3>
+
+    <p>Обратитесь к следующим документам, если вы не знакомы SNMP</p>
+
+    <ul>
+      <li>документация по net-snmp</li>
+
+      <li>rfc1678</li>
+
+      <li>UPSHowto</li>
+
+      <li>страницы руководства по snmptrapd(8), snmptrapd.conf(8) и
+      snmptrap(8)</li>
+    </ul>
+
+    <h3>Net-snmp</h3>
+
+    <p>Различные утилиты для протокола SNMP включают:</p>
+
+    <ul>
+      <li>Гибкий агент</li>
+
+      <li>Библиотеку SNMP</li>
+
+      <li>Утилиты для получения или установки информации от SNMP
+      агентов</li>
+
+      <li>Утилиты для генерации и обработки SNMP трэпов <span
+      class="comm-transl">(traps --  ловушки. -- <em>Прим. пер.</em>)</span></li>
+
+      <li>Вариант unix команды &#39;netstat&#39;, использующий
+      SNMP</li>
+
+      <li>Графический браузер базы MIB, основанный на Perl/Tk/SNMP
+      ....</li>
+    </ul>
+
+    <p>Обратитесь к <a
+     href="http://www.net-snmp.org/">сайту NET-SNMP</a>.</p>
+
+    <h3>snmptrapd</h3>
+
+    <p>Snmptrapd это SNMP-приложение, которое получает и протоколирует
+    snmp-трэпы, которые приходят на порт SNMP-TRAP (162). Можно сделать
+    настройку так, чтобы при получении snmp-трэпа запускалась
+    определенная программа.</p>
+
+    <h3>snmptrapd.conf</h3>
+
+    <p>snmptrapd.conf -- конфигурационный файл, который определяет
+    поведение snmp-демона при получении трэпа.</p>
+
+    <h3>ups-MIB</h3>
+
+    <p>Документ RFC1628 определяет объекты для источников
+    бесперебойного питания, которыми можно управлять по протоколу
+    SNMP.</p>
+
+    <h3>Как использовать snmptrapd с powerh</h3>
+
+    <p>Замечание: Я переименовал &#39;powerd&#39; в &#39;powerh&#39;,
+    потому что он будет выступать не как демон, а как процедура
+    обработки трэпов.</p>
+
+    <p>Программа powerh предназначена для обработки состояния электропитания
+    системы. Она связывается с ИБП через последовательный порт. Однако,
+    в сетевой системе, где большое количество компьютеров использует
+    один и тот же тип <span class="comm-transl">(а зачастую и разный -
+    <em>Прим. пер.</em>)</span> ИБП, 
+    невозможно связаться с каждым источником напрямую. Большинство
+    современных ИБП поддерживают протокол SNMP либо непосредственно, либо при
+    помощи прокси-сервиса. Для обработки различных состояний питания выполните
+    следующие шаги</p>
+
+    <p>1. Добавьте в ваш snmptrapd.conf</p>
+<pre>
+traphandle 33.2.3 powerh b
+traphandle 33.2.4 powerh p
+</pre>
+
+    <p>2. Скомпилируйте следующий C-<a
+     href="misc/prasad/code.c.txt">код</a>, введя команду <em>cc
+    powerh.c -o powerh</em>. После этого, скопируйте файл
+    <em>powerh</em> в каталог, например /usr/local/sbin/.<br>
+     <a
+     href="misc/prasad/code.c.txt">[Текстовая версия листинга.]</a></p>
+<pre>
+#include &lt;string.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;fcntl.h&gt;
+#include &lt;signal.h&gt;
+
+
+#define PWRSTAT &quot;/etc/powerstatus&quot;
+
+void powerfail(int);
+
+main(int argc, char* argv[]) {
+    char s[1000];
+    int i=0;
+    while(i&lt;7) {
+        scanf(&quot;%s&quot;,s);
+        i++;
+    }
+    scanf(&quot;%s&quot;,s);
+    if (!strcmp(&quot;b&quot;,argv[1]))
+        if ( (!strcmp(s,&quot;33.1.6.3.3&quot;))
+             ||
+             (!strcmp(s,&quot;upsMIB.upsObjects.upsAlarm.upsWellKnownAlarms.upsAlarmLowBattery&quot;)) )
+            powerfail(1);
+    if (!strcmp(&quot;p&quot;,argv[1]))
+        if ( (!strcmp(s,&quot;33.1.6.3.3&quot;))
+             ||
+             (!strcmp(s,&quot;upsMIB.upsObjects.upsAlarm.upsWellKnownAlarms.upsAlarmLowBattery&quot;)) )
+            powerfail(0);
+}
+/* Поскольку программа может быть активизирована и при возникновении других
+сигналов, внутренний оператор &#39;if&#39; необходим */
+void powerfail(int event) {
+    int fd;
+    unlink(PWRSTAT);
+    if ((fd = open(PWRSTAT, O_CREAT|O_WRONLY, 0644)) &gt;= 0) {
+          switch (event)
+           {
+           case 0:
+                  write(fd, &quot;OKWAIT\n&quot;, 7);
+                   break;
+
+             case 1:
+                    write(fd, &quot;FAIL\n&quot;, 5);
+                     break;
+             }
+          close(fd);
+       }
+       kill(1, SIGPWR);
+}
+
+
+
+</pre>
+
+    <p>3. Запустите в вашей системе демон snmptrapd (можно настроить
+    запуск в скриптах автозагрузки)</p>
+
+    <p>Система будет выключена через две минуты после получения от ИБП сигнала
+    &#39;слабый заряд батарей&#39;. И, если до запуска останова
+    питание восстановится, программа либо отменит выключение системы, либо
+    будет действовать в соответствии с настройками в файле /etc/inittab
+    (настройки powerfail и powerokwait).</p>
+
+    <h3>Пояснения к коду</h3>
+
+    <p>Когда получен трэп 33.2.3
+    (upsMIB.upsTraps.upsTrapAlarmEntryAdded) программа вызывается с
+    параметром &#39;b&#39;. Она проверяет &#39;upsAlarmId&#39; присланный
+    трэпом, и если он равен 33.1.6.3.3
+    (upsMIB.upsObjects.upsAlarm.upsWellKnownAlarms.upsAlarmLowBattery)
+    сообщает процессу init, что произошел сбой питания.  Если остаточное
+    время работы источника меньше или равно переменной
+    upsConfigLowBattTime, то это состояние добавляется в таблицу агента
+    ИБП. Состояние удаляется, если питание восстановлено и это
+    подтверждено трэпом 33.2.4. Тогда программа посылает процессу init
+    сообщение powerokwait.</p>
+
+    <h3>Недостатки</h3>
+
+    <ul>
+      <li>Программа обрабатывает только два трэпа и проверяет только
+      одно состояние. В базе upsMIB имеется большое количество
+      состояний, и программа должна быть расширена для их обработки.</li>
+
+      <li>Используется устаревший метод оповещения процесса init. Это
+      нужно исправить.</li>
+
+      <li>
+        Поскольку у меня нет ИБС, который может слать snmp-трэпы, я
+        использовал генератор трэпов 
+<pre>
+snmptrap -v 2c localhost public &#39;&#39; 33.2.3 33.2.3.0 s &quot;33.1.6.3.3&quot;
+snmptrap -v 2c localhost public &#39;&#39; 33.2.4 33.2.4.0 s &quot;33.1.6.3.3&quot; 
+</pre>
+        Я не уверен, что это корректно.
+      </li>
+
+      <li>snmptrapd должен запускаться без параметра -f .</li>
+
+      <li>Протестировано только на RedHat Linux 6.2.</li>
+    </ul>
+
+    <h3>Нужно сделать</h3>
+
+    <p>Хотелось бы увидеть, как эти несколько строк кода разрастутся в
+    комплексное программное обеспечение по управлению ИБП с такими
+    возможностями, как:</p>
+
+    <ul>
+      <li>Наблюдение и изменение всех возможных состояний MIB от узла upsMIB</li>
+
+      <li>Обработка сигналов от нескольких ИБП</li>
+
+      <li>Использование данных из конфигурационного файла</li>
+
+      <li>Поддержка идентификации</li>
+    </ul>
+
+    <p>Все предложения, пожелания, критику, пожертвования (только код и
+    идеи, никаких денег;) и т.п. приветствуются. Со мной можно
+    связаться по адресу <a
+     href="mailto://prasad_ab@yahoo.com">prasad_ab@yahoo.com</a>. А вот
+    моя <a
+     href="http://www.geocities.com/prasad_ab">домашняя страница</a> .</p>
+          <hr
+           noshade
+           size="2">
+<p align="center"><small><strong>Copyright (C) 2002, A B Prasad.<br>
+ Copying license <a
+     href=
+    "http://www.linuxgazette.com/copying.html">http://www.linuxgazette.com/copying.html</a><br>
+     Published in Issue 83 of <em>Linux Gazette</em>, October
+    2002</strong></small></p>
+        </td>
+      </tr>
+
+      <tr>
+        <td
+         align="center">
+          <hr
+           noshade
+           size="2">
+          <a
+           href="http://gazette.linux.ru.net">Вернуться на главную
+          страницу</a> 
+          <hr
+           noshade
+           size="2">
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
+

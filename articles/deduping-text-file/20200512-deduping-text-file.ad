@@ -1,0 +1,403 @@
+= Removing Duplicate Lines From a File
+Ivan Pesin
+v1.2, 2020-05-13
+:toc: left
+:source-highlighter: rouge
+
+I came across a https://blog.cloudflare.com/when-bloom-filters-dont-bloom/[post]
+on Cloudflare Blog where the author was describing his experience on tackling the
+issue of removing duplicate lines from a large file. The following text is a
+comment sharing my experience and alternative approach to the task that yields
+performance results similar to the author's but without going down the route of
+coding in C. Funnily, this comment was rejected by Cloudflare Blog moderators.
+Thus, not to lose a couple of hour's worth of work, I am putting it out here.
+
+== The challenge
+
+NOTE: In the interest of coherance I include the starting point of the problem
+here. You can also read the original
+https://blog.cloudflare.com/when-bloom-filters-dont-bloom/[post] on the Cloudflare
+blog.
+
+The author was analysing log file which contained IP addresses and datacenter
+codes. The data looks as follows:
+
+[source]
+.Original dataset
+----
+192.0.2.1 107
+198.51.100.0 20
+203.0.113.0 189
+192.0.2.1 107
+...
+----
+
+The data needed some pre-processing, including line de-duplication. The very
+first thing to try is obviously `sort -u`, or, what the author tried,
+`|sort|uniq`. This pattern is handy on small datasets but becomes _a false
+friend_ as soon as the size increases to even a modest few hundred megs.
+
+Here's the result that made the author look for other solutions:
+
+[source]
+.Deduplication timing
+----
+$ time (cat logs-popcount-org.txt | sort | uniq >/dev/null)
+
+real    2m2.701s
+user    2m10.667s
+sys     0m2.767s
+----
+
+Two minutes was way too long for the task at hand, so after trying various
+options with sort, such as `--parallel`, `--buffer-size` and `--unique`, the
+author went down the route of writing C code to implement first a bloom filter
+and then a hash-based deduplication.
+
+The bloom-based filter made it possible to dedup the above dataset in *12s*, and
+the hash-based dedup managed it in *7s*. Finally, the optimized hash-based dedup
+which required profiling disassembling brought the timing down to a very
+impressive *2s*.
+
+It happened so that I used to deal with large text files in one of my jobs and I
+got interested how far I can push the timing from the naive `sort|uniq` without
+resorting to C. Unfortunately, the author did not mention the percentage of
+duplicates in the dataset but it makes a significant difference. I have assumed
+40% of duplicates (which can be high or low, depending on situation) and
+generated a dataset of IP addresses so that on my hardware `|sort|uniq`
+performance roughly matches the author's; this appeared to be 25M lines and
+approximately 350MB:
+
+[source,console]
+.Test dataset generation
+----
+$ perl -e '
+>  while ($i < 15000000) {
+>    printf("%d.%d.%d.%d\n", 
+>    int(rand(255)),int(rand(255)),int(rand(255)),int(rand(255))); 
+>    $i++
+>  }' > logs-popcount-org-15M.txt
+$ head -10000000 logs-popcount-org-15M.txt >> logs-popcount-org.txt
+$ time (cat logs-popcount-org.txt | sort | uniq >/dev/null)
+
+real    1m53.781s
+user    2m13.406s
+sys     0m1.312s
+$ time wc -l logs-popcount-org.txt
+25000000 logs-popcount-org.txt
+
+real    0m0.182s
+user    0m0.137s
+sys     0m0.045s
+----
+
+NOTE: A keen eye might spot that I am generating 15M random IP addresses but
+that does not mean they are going to be unique. This is a correct observation, but
+given that there are 4B possible IP addresses, amount of duplicates due to
+randomly generating octets is going to be exceedingly low. Indeed, in the above
+example the resulting file contained about 26k duplicates which is approximately
+0.2%. I chose to ignore this for the sake of simplicity.
+
+So, I got a 25M lines in the file and *1m53.781s* that `|sort|uniq` takes is
+roughly the same amount of time as in the author's first test (*2m2s*). Let's
+see how much we can speed it up.
+
+== One-liner approach
+
+The author correctly observes that de-duplication does not require dataset
+sorting. Indeed the usual approach to removing duplicates in an unsorted file is
+`awk '!a[$0]++'` pattern. Let's see how well it works:
+
+[source,console]
+----
+$ time awk '!a[$0]++' logs-popcount-org.txt >/dev/null
+
+real    0m21.624s
+user    0m20.328s
+sys     0m1.296s
+----
+
+Simply by switching to `awk` we can quickly cut the time to just *20s* (6 times faster!).
+Usually, `awk` is faster than `perl` in dealing with such tasks, but probably
+because of more efficient hash memory management, in this instance `perl` lets
+us shave off a few more seconds (8 times faster now, *15s*):
+
+[source,console]
+----
+$ time perl -ne 'print $_ unless($a{$_}++)' <logs-popcount-org.txt >/dev/null
+
+real    0m15.344s
+user    0m14.332s
+sys     0m1.013s
+----
+
+I believe this is rather not bad for a one-liner as it is, and we are already in
+the vicinity of the result that the author's bloom filter showed, but we can take few extra
+steps to improve the result.
+
+== Parallelizing de-duplication
+
+Looking at CPU utilization, we can see that the process is CPU bound and runs on
+just a single core. A natural way to share the load would be to split the file
+into chunks and run `uniq` in parallel for each chunk. The trick here would be
+to make so that each chunk is self-sufficient, i.e. the same IP address should
+not be in different chunks. A linear file reading is fast, so we can just read
+the file, look at each string, determine which chunk it belongs to, and send it
+to the respective `uniq` process (let's call it _a worker_). Important is to
+have chunks well balanced so that each `uniq` worker gets a roughly
+equal amount of strings to process. 
+
+A tempting choice of splitting by the first character of the line (`0..9`) has a
+natural bias because there are more IP addresses starting with [red]`1` and
+[red]`2` than with any other number. Instead, let's look at first 2 characters
+(`0..99`, the IP addresses with a single digit in the first octet will have a
+dot as the second character and successfully convert to a number still) and use
+a residue class to decide which worker to send it to:
+
+[source,console]
+.Single reader, multiple uniq workers | link:20200512-deduping-text-file-sr-mw.txt[raw cmds]
+----
+$ mkfifo fifo{0..4} # create 5 named pipes to communicate with uniq workers
+$ # start 5 uniq workers in the background:
+$ for i in {0..4}; do 
+>   perl -ne 'print $_ unless($a{$_}++)' >> fifo$i.txt <fifo$i & 
+> done
+$ # read the dataset and dispatch each line to corresponding worker
+$ time <logs-popcount-org.txt perl -ne '
+>   BEGIN{
+>       $wrks=5; # number of uniq workers
+>       # open fifos to workers and store handles in an array
+>       for($i=0;$i<$wrks;$i++){open($fifos[$i],">./fifo$i")}
+>   } 
+>   $class=substr($_,0,2)%$wrks; # figure out residue class by first two chars of IP
+>   print {$fifos[$class]} $_;'   # write to corresponding fifo (uniq worker)
+
+real    0m9.518s
+user    0m8.065s
+sys     0m0.280s
+----
+
+:one-liner-note: footnote:[You _can_ write this in a single line \
+(as I initially did): `perl -ne \
+'BEGIN{$wrks=5;for($i=0;$i<$wrks;$i++){open($fifos[$i\],">./fifo$i")}} \
+$class=substr($_,0,2)%$wrks;print {$fifos[$class\]} $_;'`]
+
+Ok, we are 30% faster now and under 10 seconds. The above fragment creates 5
+FIFOs and starts `uniq` workers on them, and then runs perl
+onelinerfootnote:[You _can_ write this in a single line
+(as I initially did): `perl -ne
+'BEGIN{$wrks=5;for($i=0;$i<$wrks;$i++){open($fifos[$i\],">./fifo$i")}}
+ $class=substr($\_,0,2)%$wrks;print {$fifos[$class\]} $_;'`] that
+reads lines from the file, looks at the first 2
+chars of each line, determines the residue class, and sends the IP address to
+the appropriate worker. We'll need to combine resulting files, but that takes
+few tens of a second:
+
+[source,console]
+----
+$ ls fifo*txt
+fifo0.txt  fifo1.txt  fifo2.txt  fifo3.txt  fifo4.txt
+$ time cat fifo*txt > logs-popcount-org-wrk1.txt
+
+real    0m0.482s
+user    0m0.002s
+sys     0m0.237s
+----
+
+NOTE: If the dataset fits into memory, then right after deduping all these
+files will be in the OS cache and concatenation can take as little as 0.1s!
+
+This relatively simple construct puts us ahead of bloom-based filter
+implementation in C! However, we still can do better.
+
+== Parallelizing line classification
+
+Looking again at CPU utilization, we will find that the bottleneck now is
+reading and splitting the data file, not removing duplicates in workers. Can we
+do something about it? How about we run multiple splitters each working on its
+part of the file? I.e. we split 25M lines into [red]`N` parts and start [red]`N`
+readers which process just that part of the file?
+
+[source,console]
+.Multiple readers, multiple uniq workers | link:20200512-deduping-text-file-mr-mw.txt[raw cmds]
+----
+$ # start 5 uniq workers in the background:
+$ for i in {0..4}; do 
+>   perl -ne 'print $_ unless($a{$_}++)' >> fifo$i.txt <fifo$i & 
+> done
+$ # start 6 readers 
+$ time (
+>   for i in {0..5}; do 
+>       <logs-popcount-org.txt perl -sne '
+>           BEGIN{
+>                use Fcntl qw(:DEFAULT :flock);
+>                $wrks=5;               # uniq workers cnt
+>                $step=int(25000000/6); # number of lines per reader
+>                $st=$p*$step;          # lineno this reader starts at
+>                $end=$st+$step;        # lineno this reader ends at
+>    
+>                for $i (0..$wrks-1){open($fifos[$i],">./fifo$i");}
+>            } 
+>       
+>            $ln++;                # line cnt
+>            exit if($ln>$end);    # exit if past the end
+>            next unless($ln>$st); # skip until start
+>
+>            $a[substr($_,0,2)%$wrks] .= $_; # add IP address to buffer
+>
+>            if($ln%10000==0){  # flush buffers to uniq workers every 10k lines
+>                for $c (0..$wrks-1){
+>                    # have to lock to avoid overlapping btw readers
+>                    flock($fifos[$c],2);
+>                    print {$fifos[$c]} $a[$c];
+>                    flock($fifos[$c],LOCK_UN);
+>                    $a[$c]=""; 
+>                }
+>            } 
+>            END { # flush remaining buffers
+>                for $c (0..$wrks-1){
+>                    flock($fifos[$c],2);
+>                    print {$fifos[$c]} $a[$c];
+>                    flock($fifos[$c],LOCK_UN);
+>                }
+>            }' -- -p=$i & 
+>   done; wait)
+
+real    0m7.177s
+user    0m26.559s
+sys     0m0.455s
+----
+
+This one is a little bit trickier because we have to handle concurrent writes to
+FIFOs, thus the need of `flock()` and buffering, but hey -- *7.2sec* with just
+`perl` and the command line! This is the same performance as a hash-based
+deduplication implemented in C. This is definitely not too shabby.footnote:[Yep,
+I wrote this script as a one-liner too, although it did span across three lines
+in my terminal!]
+
+== Percentage of duplicates
+
+As I mentioned earlier, the percentage of duplicates affects the timing
+noticeably. Let's see how exactly. First, let's generate two datasets, one with
+80% of duplicates and the other with 20%:
+
+[source,console]
+----
+$ # generating dataset with 80% dups
+$ perl -e 'while($i<5000000){printf("%d.%d.%d.%d\n",int(rand(255)),int(rand(255)),int(rand(255)),int(rand(255)));$i++}' >logs-popcount-org-5M.txt
+$ for i in {0..4}; do cat logs-popcount-org-5M.txt >>logs-popcount-org-80pct-dups.txt; done
+
+$ # generating dataset with 20% dups
+$ perl -e 'while($i<20000000){printf("%d.%d.%d.%d\n",int(rand(255)),int(rand(255)),int(rand(255)),int(rand(255)));$i++}' >logs-popcount-org-20M.txt
+$ cp logs-popcount-org-20M.txt logs-popcount-org-20pct-dups.txt
+$ head -5000000 logs-popcount-org-20M.txt >>logs-popcount-org-20pct-dups.txt
+----
+
+And now let's time the de-duplication using simple and our most advanced
+filters:
+
+[source,console]
+.Simple deduplication
+----
+$ time perl -ne 'print $_ unless($a{$_}++)' <logs-popcount-org-80pct-dups.txt >/dev/null
+
+real    0m10.772s
+user    0m10.398s
+sys     0m0.374s
+$ time perl -ne 'print $_ unless($a{$_}++)' <logs-popcount-org-20pct-dups.txt >/dev/null
+
+real    0m17.931s
+user    0m16.613s
+sys     0m1.320s
+----
+
+As a reminder, on the dataset with 40% duplicates, the timing was *15s*. As you
+can see the more duplicates are present in the dataset, the more effective
+deduplication becomes, and the spread is quite significant -- 30%.
+
+Let's see how our advanced deduping behaves:
+
+[source,console]
+.Advanced deduplication
+----
+$ time (for i in {0..5}; do <logs-popcount-org-80pct-dups.txt perl -sne 'BEGIN...')
+
+real    0m6.266s
+user    0m26.280s
+sys     0m0.457s
+
+$ time (for i in {0..5}; do <logs-popcount-org-20pct-dups.txt perl -sne 'BEGIN...')
+
+real    0m7.826s
+user    0m26.796s
+sys     0m0.458s
+----
+
+Here the spead is more modest -- about 10%, but still repeats the pattern: more
+duplicates, faster the processing.
+
+== Conclusion
+
+Hope this exercise was interesting for you; it certainly was fun and enjoyable
+for me. However, I often feel that standard tooling such as `awk`, `sed`,
+`grep`, etc offered by Linux is often overlooked, and custom solutions are made
+instead which takes more time and effort.
+
+=== Update
+
+After getting in touch with the author of the original blog post to share my
+experience he reminded me of the effect of the locale setting on string
+processing performance which I have completely forgotten about! The catch is
+that these days most systems have their default locale supporting UTF8 -- a
+variable width character encoding. 
+
+As you can imagine, comparing characters
+potentially represented by multiple bytes is expensive. However, when dealing
+with just numbers and standard ASCII characters, we can tell to treat them as
+single-byte charactes by special environment variable. Let's see how this
+affects the performance of `sort`:
+
+[source,console]
+----
+$ time (cat logs-popcount-org.txt | LC_COLLATE=C sort -u | wc -l)
+14973169
+
+real    0m18.664s
+user    0m17.804s
+sys     0m1.183s
+----
+
+*18s* vs almost 2 min in the very first try we had! That's the price for UTF8
+support! But this is still running just on a single core, let's try to add
+parallel workers and see how does it fare:
+
+[source,console]
+----
+$ time (cat logs-popcount-org.txt | LC_COLLATE=C sort -u -S4G | wc -l)
+14973169
+
+real    0m8.671s
+user    0m34.327s
+sys     0m2.140s
+----
+
+Even more impressive, `sort` managed to come very close to our advances
+multi-reader multi-worker solution.
+
+NOTE: `sorts`'s `--parallel` option creates threads only when the input file is
+large enough to be worth the overhead. As it can't get the size of the data
+coming in via pipe, it treats it like a small file and does not spin multiple
+threads (a nasty surprise!). To overcome this, you need to direct `sort` to use
+a large buffer with `-S`.footnote:[See https://superuser.com/a/938634]
+
+Would this `LC_COLLATE=C` (or less subtle `LANG=C`) setting improve the
+performance of `awk`- or `perl`-based solutions? Not really, as we do not rely
+on comparing strings, but we are still faster both in single and multicore
+setting:
+
+[options="header",frame=topbot,stripes=even, width=60%]
+|===
+|Threads |`sort` |Simple |Advanced
+|single  |18.6s  |15s    |-- 
+|multi   |8.6s   |--     |7.1s 
+|===

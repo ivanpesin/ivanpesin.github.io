@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>burns on Articles, Translations, and Blog</title>
+    <link>http://pesin.space/tags/burns/</link>
+    <description>Recent content in burns on Articles, Translations, and Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 25 Jul 2020 13:50:34 +0300</lastBuildDate>
+    
+	<atom:link href="http://pesin.space/tags/burns/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Epigrams in English and Russian</title>
+      <link>http://pesin.space/posts/2020-07-25-burns-marshak/</link>
+      <pubDate>Sat, 25 Jul 2020 13:50:34 +0300</pubDate>
+      
+      <guid>http://pesin.space/posts/2020-07-25-burns-marshak/</guid>
+      <description>&lt;p&gt;Wonderful Burns&amp;rsquo; epigram in Marshak&amp;rsquo;s translation:&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

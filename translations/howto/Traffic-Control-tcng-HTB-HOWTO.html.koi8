@@ -1,0 +1,1510 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+  <head>
+    <meta
+     name="generator"
+     content="HTML Tidy for Linux/x86 (vers 1st May 2002), see www.w3.org">
+
+    <title>[non-lg] HOWTO по управлению трафиком с помощью tcng и HTB</title>
+    <meta
+     http-equiv="Content-Type"
+     content="text/html; charset=KOI8-R">
+    <link
+     type="text/css"
+     href="../../rus-lg.css"
+     rel="stylesheet">
+
+    <style
+     type="text/css">
+ p.c1 {text-align: center}
+    </style>
+  </head>
+
+  <body
+   class="section">
+    <div
+     class="ARTICLE">
+      <div
+       class="TITLEPAGE">
+
+    <hr
+     noshade>
+
+        <h1
+         class="title"
+	 align="center"><a
+         name="AEN2"></a>HOWTO по управлению трафиком с помощью tcng и HTB<br>
+         (Traffic Control using tcng and HTB HOWTO).</h1>
+
+    <hr
+     noshade>
+
+        <h2
+         class="subtitle">Версия 1.0</h2>
+
+        <h3
+         class="author"><a
+         name="AEN5">Мартин А. Браун (Martin A. Brown</a>)<br>
+        </h3>
+
+        <div
+         class="affiliation">
+          <span
+           class="orgname">
+ <a
+           href="http://www.securepipe.com"
+           target="_top">SecurePipe, Inc.</a><br>
+          </span> <span
+           class="orgdiv">Сетевое администрирование<br>
+          </span> 
+
+          <div
+           class="address">
+            <p
+             class="address"><tt
+             class="email">&lt;<a
+             href="mailto:mabrown@securepipe.com">mabrown@securepipe.com</a>&gt;</tt></p>
+          </div>
+        </div>
+
+        <p
+         class="pubdate">Апрель 2003</p>
+
+        <p
+         class="pubdate">Перевод на русский: &copy; <a
+         href="../../team/i_pesin.html">Иван Песин</a>.<br>
+        </p>
+
+        <div
+         class="revhistory">
+          <table
+           width="100%"
+           border="0">
+            <tr>
+              <th
+               align="left"
+               valign="top"
+               colspan="3"><strong>История пересмотров</strong></th>
+            </tr>
+
+            <tr>
+              <td
+               align="left">Пересмотр 1.0</td>
+
+              <td
+               align="left">2003-04-16</td>
+
+              <td
+               align="left">Пересмотрено: tab</td>
+            </tr>
+
+            <tr>
+              <td
+               align="left"
+               colspan="3">Начальный пересмотр LDP</td>
+            </tr>
+
+            <tr>
+              <td
+               align="left">Пересмотр 0.5</td>
+
+              <td
+               align="left">2002-04-01</td>
+
+              <td
+               align="left">Пересмотрено: MAB</td>
+            </tr>
+
+            <tr>
+              <td
+               align="left"
+               colspan="3">передача в tldp, переименование в HOWTO</td>
+            </tr>
+
+            <tr>
+              <td
+               align="left">Пересмотр 0.4</td>
+
+              <td
+               align="left">2002-03-31</td>
+
+              <td
+               align="left">Пересмотрено: MAB</td>
+            </tr>
+
+            <tr>
+              <td
+               align="left"
+               colspan="3">новый пример, быстрый экскурс по буферам</td>
+            </tr>
+
+            <tr>
+              <td
+               align="left">Пересмотр 0.3</td>
+
+              <td
+               align="left">2002-03-16</td>
+
+              <td
+               align="left">Пересмотрено: MAB</td>
+            </tr>
+
+            <tr>
+              <td
+               align="left"
+               colspan="3">коррекция и замечания от Джакоба Теплитски (Jacob Teplitsky), raptor и
+              Джошуа Хелинга (Joshua Heling)</td>
+            </tr>
+
+            <tr>
+              <td
+               align="left">Пересмотр 0.2</td>
+
+              <td
+               align="left">2002-03-15</td>
+
+              <td
+               align="left">Пересмотрено: MAB</td>
+            </tr>
+
+            <tr>
+              <td
+               align="left"
+               colspan="3">ссылки, чистка, публикация</td>
+            </tr>
+
+            <tr>
+              <td
+               align="left">Пересмотр 0.1</td>
+
+              <td
+               align="left">2002-03-14</td>
+
+              <td
+               align="left">Пересмотрено: MAB</td>
+            </tr>
+
+            <tr>
+              <td
+               align="left"
+               colspan="3">начальный пересмотр</td>
+            </tr>
+          </table>
+        </div>
+        <hr>
+
+        <div
+         class="legalnotice">
+          <a
+           name="legalnotice"></a> 
+
+          <p>&copy; 2003, Martin A. Brown</p>
+          <a
+           name="AEN18"></a> 
+
+          <blockquote
+           class="BLOCKQUOTE">
+            <p>Permission is granted to copy, distribute and/or modify this document under the
+            terms of the GNU Free Documentation License, Version 1.1 or any later version published
+            by the Free Software Foundation; with no invariant sections, with no Front-Cover Texts,
+            with no Back-Cover Text. A copy of the license is located at <a
+             href="http://www.gnu.org/licenses/fdl.html"
+             target="_top">www.gnu.org/copyleft/fdl.html</a>.</p>
+          </blockquote>
+        </div>
+
+        <div
+         class="NAVFOOTER">
+          <hr
+           width="100%"
+           class="c1">
+        </div>
+      </div>
+
+      <div
+       class="TOC">
+        <dl>
+          <dt><strong>Содержание</strong></dt>
+
+          <dt>1. <a
+           href="#intro">Введение</a></dt>
+
+          <dd>
+            <dl>
+              <dt>1.1. <a
+               href="#intro-tc">Что такое управление трафиком и как это работает?</a></dt>
+
+              <dt>1.2. <a
+               href="#intro-htb">Что такое htb?</a></dt>
+
+              <dt>1.3. <a
+               href="#intro-tcng">Что такое <strong
+               class="command">tcng</strong>?</a></dt>
+            </dl>
+          </dd>
+
+          <dt>2. <a
+           href="#requirements">Требования</a></dt>
+
+          <dd>
+            <dl>
+              <dt>2.1. <a
+               href="#requirements-kernel">Требования к ядру</a></dt>
+
+              <dt>2.2. <a
+               href="#requirements-tc">Требования <strong
+               class="command">tc</strong></a></dt>
+
+              <dt>2.3. <a
+               href="#requirements-tcng">Требования <strong
+               class="command">tcng</strong></a></dt>
+            </dl>
+          </dd>
+
+          <dt>3. <a
+           href="#examples">Примеры конфигураций</a></dt>
+
+          <dd>
+            <dl>
+              <dt>3.1. <a
+               href="#examples-adsl">Использование tcng для ограничения загрузки</a></dt>
+
+              <dt>3.2. <a
+               href="#examples-1">Использование двухскоростного трехцветного измерителя</a></dt>
+            </dl>
+          </dd>
+
+          <dt>4. <a
+           href="#misc">Разнообразные замечания</a></dt>
+
+          <dt>5. <a
+           href="#further">Ссылки и другая документация</a></dt>
+        </dl>
+      </div>
+    </div>
+
+    <div
+     class="NAVFOOTER">
+      <hr
+       width="100%"
+       class="c1">
+    </div>
+
+    <div
+     class="section">
+      <h1
+       class="section"><a
+       name="intro"></a>1. Введение</h1>
+
+      <p>Этот документ представляет собой краткое руководство по использованию <strong
+       class="command">tcng</strong> (<a
+       href="http://tcng.sourceforge.net"
+       target="_top">Traffic Control Next Generation</a>) с HTB (<a
+       href="http://luxik.cdi.cz/~devik/qos/htb/"
+       target="_top">Hierarchical Token Bucket</a>) для ограничения трафика на Linux-машине.</p>
+
+      <p>Это руководство предназначено для системных администраторов, </p>
+
+      <ul>
+        <li>
+          <p>которые имеют хотя бы базовое представление об управлении трафиком</p>
+        </li>
+
+        <li>
+          <p>которые в состоянии скомпилировать iproute2 и tcng из исходных текстов</p>
+
+          <p>или умеют собирать пакеты RPMS из существующих SRPM</p>
+        </li>
+
+        <li>
+          <p>работающих на системах, чьё ядро имеет поддержку модулей htb и dsmark</p>
+	</li>
+	
+	<li>
+          <p>которые в состоянии скомпилировать ядро с поддержкой htb и dsmark</p>
+        </li>
+      </ul>
+
+      <div
+       class="note">
+        <table
+         class="note"
+         width="100%"
+         border="0">
+          <tr>
+            <td
+             width="25"
+             align="center"
+             valign="top"><img
+             src="Traffic-Control-tcng-HTB-HOWTO/note.gif"
+             hspace="5"
+             alt="Note"></td>
+
+            <td
+             align="left"
+             valign="top">
+              <p>Этот документ не претендует на полноту изложения и абсолютную точность. Автор ждет
+              позитивных и негативных откликов по адресу <tt
+               class="email">&lt;<a
+               href="mailto:mabrown@securepipe.com">mabrown@securepipe.com</a>&gt;</tt>.
+              Исправления, дополнения и примеры приветствуются. Всегда.</p>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div
+       class="section">
+        <h2
+         class="section"><a
+         name="intro-tc"></a>1.1. Что такое управление трафиком и как это работает?</h2>
+
+        <p>Управление трафиком -- название, объединяющее в себе все части подсистемы организации
+        очередей в сети или сетевом устройстве. Управление трафиком состоит из нескольких операций:
+        классифицирование (classification) -- механизм, позволяющий идентифицировать пакеты и
+        помещать их в определенные потоки или классы; ограничение входящего трафика (policing) --
+        механизм, с помощью которого можно ограничить количество пакетов или байт в потоке,
+        соответствующих определенной классификации; планирование (scheduling) -- процесс принятия
+        решений, при котором пакеты упорядочиваются и переупорядочиваются для дальнейшей передачи;
+        наконец, ограничение исходящего трафика (shaping) -- процесс при котором пакеты
+        задерживаются и передаются таким образом, чтобы реализовать постоянную и предсказуемую
+        скорость потока.</p>
+
+        <p>Все эти характеристики системы управления трафиком могут быть скомбинированы
+        комплексными методами для резервирования или ограничения полосы пропускания для отдельных
+        потоков (или приложений).</p>
+
+        <p>Одним из ключевых моментов управления трафиком является понятие токенов. Реализация
+        ограничения входящего и исходящего трафиков требует вычисления количества пакетов или байт
+        проходящих за момент времени для определения скорости. Каждый пакет или байт ( в
+        зависимости от реализации) соответствует токену и передается только в случае наличия
+        свободного токена. Общее образное хранилище, где находятся токены, называется буфером
+        (bucket). Если кратко, то буфер характеризует две величины: количество токенов, которые могут быть
+        одновременно использованы (размер буфера) и скорость, с которой буфер заполняется новыми
+        токенами.</p>
+
+        <p>В <a
+         href="intro.html#intro-htb">секции 1.2</a> приведены примеры буферов системы управления
+        трафиком в Linux.</p>
+
+        <p>В Linux, управление трафиком исторически сложная задача. Команда <strong
+         class="command">tc</strong> обеспечивает интерфейс со структурами ядра, ответственными за
+        ограничение, планирование и классификацию трафика. Синтаксис этой команды, однако, весьма
+        загадочен. Проект <strong
+         class="command">tcng</strong> предоставляет более дружественный пользователю интерфейс к
+        такой мощной утилите как <strong
+         class="command">tc</strong>, определяя свой язык описания конфигурации. Его использование
+        при написании конфигурации системы управления трафиком упрощает поддержку, облегчает
+        понимание и, что важно, увеличивает переносимость.</p>
+      </div>
+
+      <div
+       class="section">
+        <h2
+         class="section"><a
+         name="intro-htb"></a>1.2. Что такое htb?</h2>
+
+        <p><a
+         href="http://luxik.cdi.cz/~devik/qos/htb/"
+         target="_top">Hierarchichal Token Bucket</a> -- это классовая дисциплина обработки
+        очереди, написанная Мартином Девером (Martin Devera) с упрощенным набором конфигурационных
+        параметров по сравнению с CBQ. Есть много хорошей документации по HTB и ее применению на
+        сайте автора и <a
+         href="http://www.docum.org/"
+         target="_top">сайте Стефа Коэна (Stef Coene)</a>. Ниже приведено очень краткое описание
+        системы HTB.</p>
+
+        <p>Идеологически, HTB представляет собой набор иерархически упорядоченных буферов токенов (да,
+        наверно вы и сами догадались об этом <em>[В переводе с английского HTB означает
+        "иерархический буфер токенов" - Прим.пер.]</em>). Давайте рассмотрим простейший сценарий.
+        Главная дисциплина обработки исходящей очереди любого устройства, называется <tt
+         class="constant">корневой (root qdisc)</tt>.</p>
+
+        <p><tt
+         class="constant">Корневая</tt> дисциплина содержит один класс (в сложных конфигурациях
+        корневая дисциплина может содержать несколько классов). Этот класс HTB создается с
+        указанием двух параметров: <tt
+         class="constant">rate</tt> и <tt
+         class="constant">ceil</tt>. Значения этих параметров должны совпадать для корневого класса
+        и задают общую полосу пропускания канала.</p>
+
+        <p>В HTB, <tt
+         class="constant">rate</tt> задает гарантированную полосу пропускания для данного класса, а
+        <tt
+         class="constant">ceil</tt>, сокращение от ceiling, определяет максимальную полосу
+        пропускания, которую класс может получить. Любая полоса пропускания, находящаяся между <tt
+         class="constant">rate</tt> и <tt
+         class="constant">ceil</tt> одалживается у родительского класса, откуда вытекает
+        утверждение, что для корневого класса значение параметров <tt
+         class="constant">rate</tt> и <tt
+         class="constant">ceil</tt> должны совпадать.</p>
+
+        <p>В корневом классе можно определять подклассы, каждому из которых можно выделить
+        некоторую часть доступной полосы пропускания родительского класса. У классов-потомков,
+        значения параметров <tt
+         class="constant">rate</tt> и <tt
+         class="constant">ceil</tt> не обязаны совпадать с соответствующими значениями
+        родительского класса. Это позволяет резервировать часть пропускной способности заданного
+        класса. Кроме того, это позволяет HTB рассчитывать отношение, в котором должна быть
+        разделена полоса пропускания между классами. Это станет ясней после рассмотрения
+        примеров.</p>
+
+        <p>Hierarchical Token Bucket реализует классовый механизм формирования очередей для
+        системы управления трафиком в linux; пользователю предоставляются параметры <tt
+         class="constant">rate</tt> и <tt
+         class="constant">ceil</tt> для контроля над полосой пропускания отдельных классов и
+        задания отношения распределения пропускной способности в случае, когда часть полосы
+        пропускания остается свободной (до значения <tt
+         class="constant">ceil</tt>).</p>
+
+        <p>При указании пропускной способности вы должны помнить, что ограничение полосы
+        пропускания будет работать только в том случае, если вы (<em>машина, на которой выполняется
+        управление трафиком - Прим.пер.</em>) являетесь узким местом между ЛВС и Internet. Обычно,
+        это используется в домашних и офисных сетях, где вся локальная сеть обслуживается DSL- или
+        T1-соединением.</p>
+
+        <p>На деле это означает, что вам, вероятно, нужно будет установить значение пропускной
+        способности равным реальной пропускной способности канала, минус небольшая ее часть.</p>
+      </div>
+
+      <div
+       class="section">
+        <h2
+         class="section"><a
+         name="intro-tcng"></a>1.3. Что такое <strong
+         class="command">tcng</strong>?</h2>
+
+        <p><a
+         href="http://tcng.sourceforge.net/"
+         target="_top">Traffic Control Next Generation (tcng)</a> -- это проект Вернера
+        Альмесбергера (Werner Almesberger) призванный реализовать мощный, абстрактный и
+        стандартизированный язык для описания структур управления трафиком. Синтаксический
+        анализатор <strong
+         class="command">tcc</strong> из дистрибутива <strong
+         class="command">tcng</strong> преобразовывает язык tcng в различные форматы. По умолчанию,
+        <strong
+         class="command">tcc</strong> читает входной файл (переданный в качестве аргумента или
+        стандартный ввод) и выводит в стандартный вывод последовательности команд <strong
+         class="command">tc</strong> (смотрите ниже <strong
+         class="command">iproute2</strong>) необходимые для создания желаемой структуры управления
+        трафиком в ядре.</p>
+
+        <p>Обратитесь к <a
+         href="http://linux-ip.net/gl/tcng/node159.html"
+         target="_top">справочнику по параметрам <strong
+         class="command">tcng</strong></a> за информацией о поддерживаемых дисциплинах обработки
+        очереди. Джакоб Теплитски (Jacob Teplitsky), активный участник <a
+         href="http://lartc.org/#mailinglist"
+         target="_top">списка рассылки LARTC</a> и контрибьютор проекта tcng, написал поддержку htb
+        для <strong
+         class="command">tcng</strong>.</p>
+
+        <p>Утилита <strong
+         class="command">tcc</strong> может генерировать вывод различных типов, но в этом документе
+        мы будем рассматривать только стандартный вывод и вывод по умолчанию. За детальной
+        информацией об использовании <strong
+         class="command">tcng</strong> обратитесь к <a
+         href="http://linux-ip.net/gl/tcng/"
+         target="_top">руководству TCNG</a>.</p>
+
+        <p>Программа <strong
+         class="command">tcsim</strong> -- имитатор системы управления трафиком, который работает с
+        конфигурационными файлами tcng и имитирует поведение ядра при передаче данных, согласно
+        структурам управления трафиком. Не смотря на то, что <strong
+         class="command">tcsim</strong> является значительной частью проекта <strong
+         class="command">tcng</strong>, в этом документе он вообще не рассматривается.</p>
+      </div>
+    </div>
+
+    <div
+     class="NAVFOOTER">
+      <hr
+       width="100%"
+       class="c1">
+    </div>
+
+    <div
+     class="section">
+      <h1
+       class="section"><a
+       name="requirements"></a>2. Требования</h1>
+
+      <p>Есть некоторые требования по <a
+       href="requirements.html#requirements-kernel">поддержке ядром HTB и DSMARK</a>, <a
+       href="requirements.html#requirements-tc">поддержке HTB и DSMARK в tc</a> и <a
+       href="requirements.html#requirements-tcng">самому tcng</a>.</p>
+
+      <p>В частности, поддержка HTB в ядре и tc абсолютно необходима, иначе вы не сможете воспользоваться советами,
+      предоставляемыми данным руководством (обратите внимание на название, если у вас есть
+      какие-то сомнения). Поддержка DSMARK, строго говоря, необязательна, однако некоторые <a
+       href="examples.html">примеры</a> (алгоритм выбора класса, в частности, и возможно и другие)
+      могут не работать без нее.</p>
+
+      <div
+       class="section">
+        <h2
+         class="section"><a
+         name="requirements-kernel"></a>2.1. Требования к ядру</h2>
+
+        <p>Удовлетворить требования к ядру очень просто. Ядро 2.4.20 и более новые включают
+        поддержку HTB и dsmark, так что просто убедитесь, что эти опции включены в разделе QoS/Fair
+        Queuing конфигурации ядра. За кратким описанием параметров для, которые нужно выбрать в
+        конфигурации ядра, обращайтесь к <a
+         href="http://diffserv.sourceforge.net/#24"
+         target="_top">заметкам по конфигурации ядра для проекта DiffServ</a>.</p>
+
+        <p>Для ядер версии меньше 2.4.20 необходим <a
+         href="http://luxik.cdi.cz/~devik/qos/htb/v3/htb3.6-020525.tgz"
+         target="_top">патч</a> (к сожалению патч существует только для ядер 2.4.17 и выше).</p>
+      </div>
+
+      <div
+       class="section">
+        <h2
+         class="section"><a
+         name="requirements-tc"></a>2.2. <strong
+         class="command">Требования tc</strong></h2>
+
+        <p>Команда <strong
+         class="command">tc</strong> является частью набора утилит <strong
+         class="command">iproute2</strong>. За общей документацией по <strong
+         class="command">iproute2</strong>, обращайтесь на сайт <a
+         href="http://linux-ip.net/"
+         target="_top">http://linux-ip.net/</a> и к <a
+         href="http://linux-ip.net/gl/ip-cref/"
+         target="_top">руководству по <strong
+         class="command">iproute2</strong></a>. Само программное обеспечение доступно <a
+         href="ftp://ftp.inr.ac.ru/ip-routing/"
+         target="_top">на FTP-архиве Алексея Кузнецова</a>, но обычно они поставляются в виде
+        пакетов с дистрибутивом Linux. Если ваш дистрибутив использует пакеты RPM, вы можете
+        загрузить этот <a
+         href="http://linux-ip.net/traffic-control/iproute-2.4.7-7.src.rpm"
+         target="_top">SRPM</a> и скомпилировать у себя в системе.</p>
+
+        <p>Если вам придется компилировать <strong
+         class="command">iproute2</strong> самим, то чтобы включить поддержку HTB в
+        <strong
+         class="command">tc</strong>, возьмите <a
+         href="http://luxik.cdi.cz/~devik/qos/htb/v3/htb3.6-020525.tgz"
+         target="_top">патч к <strong
+         class="command">tc</strong></a> на <a
+         href="http://luxik.cdi.cz/~devik/qos/htb/"
+         target="_top">сайте Мартина Дэвэра</a>.</p>
+
+        <p>Кроме того, в <strong
+         class="command">tc</strong> потребуется поддержка dsmark, механизма маркировки diffserv. К
+        счастью, его поддержка легко включается с помощью редактирования файла <tt
+         class="filename">Config</tt> из пакета исходников <strong
+         class="command">iproute2</strong>. Просто измените строку <tt
+         class="computeroutput">TC_CONFIG_DIFFSERV=n</tt> на <tt
+         class="computeroutput">TC_CONFIG_DIFFSERV=y</tt> и скомпилируйте пакет.</p>
+
+        <p><a
+         href="http://linux-ip.net/traffic-control/iproute-2.4.7-7.src.rpm"
+         target="_top">Из этого SRPM</a> можно собрать пакет <strong
+         class="command">iproute2</strong> с поддержкой dsmark и HTB, которые требуются для
+        примеров этого документа.</p>
+      </div>
+
+      <div
+       class="section">
+        <h2
+         class="section"><a
+         name="requirements-tcng"></a>2.3. <strong
+         class="command">Требования tcng</strong></h2>
+
+        <p>Компиляция <strong
+         class="command">tcng</strong> -- самый простая часть всего процесса. Просто распакуйте
+        исходный код tcng и выполните: <tt
+         class="userinput"><strong>./configure --no-tcsim</strong></tt> перед компиляцией.</p>
+
+        <p>Если вы работаете с дистрибутивом, основанном на RPM, то можете использовать SPEC-файл
+        <tt
+         class="filename">tcng/build/tcng.spec</tt> для сборки пакета. Можно взять готовый SRPM <a
+         href="http://linux-ip.net/traffic-control/tcng-9d-1.src.rpm"
+         target="_top">здесь</a>. Результатом сборки этого SRPM станут два пакета: tcc и tcc-devel.
+        Для создания конфигураций вам понадобится только tcc.</p>
+
+        <p>Для работы с <strong
+         class="command">tcc</strong> вам понадобиться пакет <strong
+         class="command">cpp</strong>, поскольку <strong
+         class="command">tcc</strong> его использует в работе.</p>
+      </div>
+    </div>
+
+    <div
+     class="NAVHEADER">
+      <hr
+       width="100%"
+       class="c1">
+    </div>
+
+    <div>
+      <h1><a
+       name="examples"></a>3. Примеры конфигураций</h1>
+
+      <p>Приведенные в этом документе примеры представляют переработанные конфигурации, доступные
+      по адресу <a
+       href="http://linux-ip.net/code/tcng/"
+       target="_top">http://linux-ip.net/code/tcng/</a>.</p>
+
+      <p>Примеры могут использоваться как самостоятельные конфигурационные файлы для
+      синтаксического анализатора <strong
+       class="command">tcc</strong>, или в комбинации с примером <a
+       href="http://linux-ip.net/code/tcng/tcng.init"
+       target="_top">скрипта начальной загрузки для SysV</a>. Данный скрипт начальной загрузки
+      является модификацией <a
+       href="http://mailman.ds9a.nl/pipermail/lartc/2002q4/005411.html"
+       target="_top">скрипта, предложенного raptor'ом в списке рассылки LARTC</a>.</p>
+
+      <p>Если вы собираетесь пользоваться этим скриптом начальной загрузки, посмотрите на пример
+      <tt
+       class="filename">файла /etc/sysconfig/tcng</tt>:</p>
+
+      <div
+       class="example">
+        <a
+         name="ex-sysconfig-tcng"></a> 
+
+        <p><strong>Пример 1. <tt
+         class="filename">/etc/sysconfig/tcng</tt></strong></p>
+
+        <table
+         border="0"
+         bgcolor="#E0E0E0"
+         width="100%">
+          <tr>
+            <td>
+<pre
+ class="programlisting">
+
+# - мета-конфигурационный файл tcng
+#
+# -- 2003-03-15 создание; -MAB
+# -- 2003-03-31 модификация для поддержки переопределения ENVAR; -MAB
+#
+# -- В этом каталоге будут храниться все конфигурационные файл tcng
+#    для данного хоста
+#
+TCCONFBASEDIR=${TCCONFBASEDIR:-/etc/sysconfig/tcng-configs}
+
+# -- активная конфигурация для tcng
+#    обратите внимание, что благодаря поддержке конструкции #include
+#    модульность конфигурации tcng может быть встроена в
+#    конфигурационные файлы в $TCCONFBASEDIR
+#
+TCCONF=${TCCONF:-$TCCONFBASEDIR/global.tcc}
+
+tcstats=${tcstats:-no}   # -- подавляет вывод статистики
+tcstats=${tcstats:-yes}  # -- передает ключ "-s" в tc
+
+tcdebug=${tcdebug:-0}    # -- для повседневного использования
+tcdebug=${tcdebug:-1}    # -- для вывода дополнительной информации
+tcdebug=${tcdebug:-2}    # -- для вывода отладочной информации
+#
+#
+# -- в качестве дополнительной меры, вы можете переопределить местоположение утилит
+#    tc и tcc, например:
+#
+#  tc=/usr/local/bin/tc
+#  tcc=/usr/local/tcng/bin/tcc
+#
+#
+    
+</pre>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div
+       class="section">
+        <h2
+         class="section"><a
+         name="examples-adsl"></a>3.1. Использование tcng для ограничения входящего потока</h2>
+
+        <p>Большинство основных идей представлено в этом примере. Этот пример может быть
+        трансформирован в набор команд <strong
+         class="command">tc</strong> с помощью команды <tt
+         class="userinput"><strong>tcc <tt
+         class="filename">class-selection-path.tcc</tt></strong></tt>.</p>
+
+        <div
+         class="example">
+          <a
+           name="ex-example-0"></a> 
+
+          <p><strong>Пример 2. <tt
+           class="filename">/etc/sysconfig/tcng/class-selection-path.tcc</tt></strong></p>
+
+          <table
+           border="0"
+           bgcolor="#E0E0E0"
+           width="100%">
+            <tr>
+              <td>
+<pre
+ class="programlisting">
+
+/*
+ * Простой пример с комментариями файла управления трафиком для tcng.
+ *
+ *   Martin A. Brown <tt
+ class="email">&lt;<a
+ href="mailto:mabrown@securepipe.com">mabrown@securepipe.com</a>&gt;</tt>
+ *
+ * Пример:  Использование алгоритма выбора класса.
+ *
+ *
+ */
+
+#include "fields.tc"     <a
+ name="ex-0-includes"><img
+ src="Traffic-Control-tcng-HTB-HOWTO/1.gif"
+ hspace="0"
+ vspace="0"
+ border="0"
+ alt="(1)"></a>
+#include "ports.tc"
+
+#define INTERFACE  eth0  <a
+ name="ex-0-defines"><img
+ src="Traffic-Control-tcng-HTB-HOWTO/2.gif"
+ hspace="0"
+ vspace="0"
+ border="0"
+ alt="(2)"></a>
+
+dev INTERFACE {
+    egress { <a
+ name="ex-0-egress"><img
+ src="Traffic-Control-tcng-HTB-HOWTO/3.gif"
+ hspace="0"
+ vspace="0"
+ border="0"
+ alt="(3)"></a>
+
+        /* при использовании алгоритма выбора класса, вначале указываются фильтры!  DSmark */ <a
+ name="ex-0-csp"><img
+ src="Traffic-Control-tcng-HTB-HOWTO/4.gif"
+ hspace="0"
+ vspace="0"
+ border="0"
+ alt="(4)"></a>
+
+        class ( &lt;$ssh&gt; )    if tcp_sport ==  22 &amp;&amp; ip_tos_delay == 1 ;
+        class ( &lt;$audio&gt; )  if tcp_sport == 554 || tcp_dport == 7070 ;
+        class ( &lt;$bulk&gt; ) \
+            if tcp_sport == PORT_SSH || tcp_dport == PORT_HTTP ; <a
+ name="ex-0-portusage"><img
+ src="Traffic-Control-tcng-HTB-HOWTO/5.gif"
+ hspace="0"
+ vspace="0"
+ border="0"
+ alt="(5)"></a>
+        class ( &lt;$other&gt; )  if 1 ; <a
+ name="ex-0-leftover"><img
+ src="Traffic-Control-tcng-HTB-HOWTO/6.gif"
+ hspace="0"
+ vspace="0"
+ border="0"
+ alt="(6)"></a>
+
+        /* секция, в которой мы конфигурируем дисциплины обработки очередей и классы */ 
+
+        htb () { <a
+ name="ex-0-root"><img
+ src="Traffic-Control-tcng-HTB-HOWTO/7.gif"
+ hspace="0"
+ vspace="0"
+ border="0"
+ alt="(7)"></a>
+            class ( rate 600kbps, ceil 600kbps ) { <a
+ name="ex-0-topclass"><img
+ src="Traffic-Control-tcng-HTB-HOWTO/8.gif"
+ hspace="0"
+ vspace="0"
+ border="0"
+ alt="(8)"></a>
+                $ssh   = class ( rate  64kbps, ceil 128kbps ) { sfq; } ; 
+              <a
+ name="ex-0-classvariable"><img
+ src="Traffic-Control-tcng-HTB-HOWTO/9.gif"
+ hspace="0"
+ vspace="0"
+ border="0"
+ alt="(9)"></a> $audio = class ( rate 128kbps, ceil 128kbps ) { sfq; } ;
+                $bulk  = class ( rate 256kbps, ceil 512kbps ) { sfq; } ;
+                $other = class ( rate 128kbps, ceil 384kbps ) { sfq; } ; <a
+ name="ex-0-embedsfq"><img
+ src="Traffic-Control-tcng-HTB-HOWTO/10.gif"
+ hspace="0"
+ vspace="0"
+ border="0"
+ alt="(10)"></a>
+            }
+        }
+    }
+}
+      
+</pre>
+              </td>
+            </tr>
+          </table>
+
+          <div
+           class="calloutlist">
+            <dl
+             compact="compact">
+              <dt><a
+               href="examples.html#ex-0-includes"><img
+               src="Traffic-Control-tcng-HTB-HOWTO/1.gif"
+               hspace="0"
+               vspace="0"
+               border="0"
+               alt="(1)"></a></dt>
+
+              <dd>Язык <strong
+               class="command">tcng</strong> обеспечивает поддержку C-подобных директив include,
+              которые позволяют присоединить любой файл. Файлы присоединяются относительно текущего
+              каталога или библиотеки <strong
+               class="command">tcng</strong> (обычно <tt
+               class="filename">/usr/lib/tcng/include</tt>). Строго говоря, указывать директивы <tt
+               class="constant">#include</tt> <tt
+               class="filename">ports.tc</tt> и <tt
+               class="constant">#include</tt> <tt
+               class="filename">fields.tc</tt> необязательно, поскольку <strong
+               class="command">tcc</strong> их присоединяет по умолчанию.</dd>
+
+              <dd>
+                <p>
+ Использование директив <tt
+                 class="constant">#include</tt> увеличивает гибкость определения переменных и
+                подключения общих элементов управления трафиком.</p>
+              </dd>
+
+              <dd>
+                <p>За дальнейшей информацией обращайтесь к руководству tcng, <a
+                 href="http://linux-ip.net/gl/tcng/node35.html"
+                 target="_top">раздел подключений</a>.</p>
+              </dd>
+
+              <dt><a
+               href="examples.html#ex-0-defines"><img
+               src="Traffic-Control-tcng-HTB-HOWTO/2.gif"
+               hspace="0"
+               vspace="0"
+               border="0"
+               alt="(2)"></a></dt>
+
+              <dd>Поддерживаются директивы CPP. Директива <tt
+               class="constant">#define</tt> может использоваться для создания макросов или
+              констант. За подробной информацией обращайтесь к руководству tcng, <a
+               href="http://linux-ip.net/gl/tcng/node111.html"
+               target="_top">раздел переменных</a>.</dd>
+
+              <dt><a
+               href="examples.html#ex-0-egress"><img
+               src="Traffic-Control-tcng-HTB-HOWTO/3.gif"
+               hspace="0"
+               vspace="0"
+               border="0"
+               alt="(3)"></a></dt>
+
+              <dd>Ключ <tt
+               class="constant">egress</tt> является синонимом <tt
+               class="constant">dsmark</tt>. Приведенный пример использует <a
+               href="http://linux-ip.net/gl/tcng/node32.html"
+               target="_top">class selection path</a>. Для использования в конфигурации ключа <tt
+               class="constant">egress</tt> необходима поддержка dsmark в ядре и <strong
+               class="command">tc</strong>.</dd>
+
+              <dt><a
+               href="examples.html#ex-0-csp"><img
+               src="Traffic-Control-tcng-HTB-HOWTO/4.gif"
+               hspace="0"
+               vspace="0"
+               border="0"
+               alt="(4)"></a></dt>
+
+              <dd>Алгоритм выбора класса (class selection path) -- это один из подходов к
+              ограничению трафика. При использовании алгоритма выбора класса, пакет маркируется
+              (DiffServ mark) при поступлении в маршрутизатор. На основе этой маркировки
+              маршрутизатор позднее может выполнять различные действия по ограничению,
+              упорядочиванию и классифицированию трафика.</dd>
+
+              <dd>
+                <p>За подробностями обращайтесь к разделу <a
+                 href="http://linux-ip.net/gl/tcng/node32.html">описания алгоритма выбора
+                класса</a> руководства по <strong
+                 class="command">tcng</strong>.</p>
+              </dd>
+
+              <dt><a
+               href="examples.html#ex-0-portusage"><img
+               src="Traffic-Control-tcng-HTB-HOWTO/5.gif"
+               hspace="0"
+               vspace="0"
+               border="0"
+               alt="(5)"></a></dt>
+
+              <dd>Этот пример показывает использование имен портов вместо их номеров. Это одно из
+              удобств <strong
+               class="command">tcng</strong>, предоставляемых подключением <tt
+               class="filename">ports.tc</tt>. Имена портов соответствуют названиям портов IANA.
+              Узнать имена портов можно в <a
+               href="http://www.iana.org/assignments/port-numbers"
+               target="_top">списке зарегистрированных портов IANA</a> или изучив файл <tt
+               class="filename">ports.tc</tt>.</dd>
+
+              <dd>
+                <p>Имена и номера портов одинаково допустимы.</p>
+              </dd>
+
+              <dt><a
+               href="examples.html#ex-0-leftover"><img
+               src="Traffic-Control-tcng-HTB-HOWTO/6.gif"
+               hspace="0"
+               vspace="0"
+               border="0"
+               alt="(6)"></a></dt>
+
+              <dd>Обратите внимание на эту специфическую конструкцию, которая классифицирует все
+              ранее не классифицированные пакеты. Все пакеты, которые не были классифицированы
+              вышеуказанными классификаторами, помещаются в класс "$other". Конструкция <tt
+               class="constant">if 1</tt> может применяться для классифицирования
+              неклассифицированного трафика.</dd>
+
+              <dt><a
+               href="examples.html#ex-0-root"><img
+               src="Traffic-Control-tcng-HTB-HOWTO/7.gif"
+               hspace="0"
+               vspace="0"
+               border="0"
+               alt="(7)"></a></dt>
+
+              <dd>Здесь создается корневая дисциплина обработки очереди устройства, в нашем
+              случае <tt
+               class="constant">eth0</tt>. Проконсультируйтесь со справочными материалами <strong
+               class="command">tcng</strong>, <a
+               href="http://linux-ip.net/gl/tcng/node159.html"
+               target="_top">дополнение по параметрам дисциплин обработки очереди</a>. Любые
+              параметры дисциплины очереди могут быть вставлены в круглые скобки, так же как и
+              параметры класса далее в примере. Если параметры не указаны, скобки
+              необязательны.</dd>
+
+              <dt><a
+               href="examples.html#ex-0-topclass"><img
+               src="Traffic-Control-tcng-HTB-HOWTO/8.gif"
+               hspace="0"
+               vspace="0"
+               border="0"
+               alt="(8)"></a></dt>
+
+              <dd>Корневой класс в этом примере задает максимальную полосу пропускания для всего
+              класса. Давайте предположим, что <tt
+               class="constant">eth0</tt> -- это интерфейс, подключенный к локальной сети. Тогда
+              скорость передачи данных в локальную сеть будет ограничена 600 килобитами.</dd>
+
+              <dd>
+                <p>Параметры <tt
+                 class="constant">rate</tt> и <tt
+                 class="constant">ceil</tt> должны быть знакомы всем, кто пользовался HTB. Это
+                специфические параметры HTB и соответствующим образом обрабатываются утилитой
+                <strong
+                 class="command">tcc</strong>. Обратитесь к <a
+                 href="misc.html#tb-misc-rates">таблице аббревиатур скоростей <strong
+                 class="command">tcng</strong></a>.</p>
+              </dd>
+
+              <dt><a
+               href="examples.html#ex-0-classvariable"><img
+               src="Traffic-Control-tcng-HTB-HOWTO/9.gif"
+               hspace="0"
+               vspace="0"
+               border="0"
+               alt="(9)"></a></dt>
+
+              <dd>Это присвоение класса переменной. Обычно выполняется как часть алгоритма выбора
+              пути.</dd>
+
+              <dt><a
+               href="examples.html#ex-0-embedsfq"><img
+               src="Traffic-Control-tcng-HTB-HOWTO/10.gif"
+               hspace="0"
+               vspace="0"
+               border="0"
+               alt="(10)"></a></dt>
+
+              <dd>По совету Мартина Девера, приведенном на сайте HTB, каждому классу назначается
+              дисциплина обработки очереди SFQ, которая позволяет эффективо разделять пропускную
+              возможность класса, между сессиями. Обратите внимание на отсутствие параметров у этой
+              дисциплины.</dd>
+
+              <dd>
+                <p>Если для подклассов не указаны дисциплины обработки очереди, то они используют
+                стандартную дисциплину pfifo_fast qdisc. Включение стохастической дисциплины (sfq)
+                для подклассов позволяет избежать превалирования одного соединения над остальными
+                внутри класса.</p>
+              </dd>
+            </dl>
+          </div>
+        </div>
+
+        <p>
+</p>
+      </div>
+
+      <h2
+       class="section"><a
+       name="examples-1"></a>3.2. Использование двухскоростного трехцветного измерителя</h2>
+
+      <div
+       class="example">
+        <a
+         name="ex-example-1"></a> 
+
+        <p><strong>Пример 3. <tt
+         class="filename">/etc/sysconfig/tcng/two-rate-three-color-meter.tcc</tt></strong></p>
+
+        <table
+         border="0"
+         bgcolor="#E0E0E0"
+         width="100%">
+          <tr>
+            <td>
+<pre
+ class="programlisting">
+
+/*
+ * Простой пример с комментариями файла управления трафиком для tcng.
+ *
+ *   Martin A. Brown <tt
+ class="email">&lt;<a
+ href="mailto:mabrown@securepipe.com">mabrown@securepipe.com</a>&gt;</tt>
+ *
+ * Пример:  Использование измерителя.
+ *
+ *
+ */
+
+#define   EXCEPTION      192.168.137.50
+#define   INTERFACE      eth0
+
+$meter = trTCM( cir 128kbps, cbs 10kB, pir 256kbps, pbs 10kB );  <a
+ name="ex-1-mdefine"><img
+ src="Traffic-Control-tcng-HTB-HOWTO/1.gif"
+ hspace="0"
+ vspace="0"
+ border="0"
+ alt="(1)"></a>
+
+dev eth0 {
+    egress {
+        class ( &lt;$full&gt; )     if ip_src == EXCEPTION      ; <a
+ name="ex-1-notmetered"><img
+ src="Traffic-Control-tcng-HTB-HOWTO/2.gif"
+ hspace="0"
+ vspace="0"
+ border="0"
+ alt="(2)"></a>
+        class ( &lt;$fast&gt; )     if trTCM_green( $meter )    ; <a
+ name="ex-1-green"><img
+ src="Traffic-Control-tcng-HTB-HOWTO/3.gif"
+ hspace="0"
+ vspace="0"
+ border="0"
+ alt="(3)"></a>
+        class ( &lt;$slow&gt; )     if trTCM_yellow( $meter )   ; <a
+ name="ex-1-yellow"><img
+ src="Traffic-Control-tcng-HTB-HOWTO/4.gif"
+ hspace="0"
+ vspace="0"
+ border="0"
+ alt="(4)"></a>
+        drop                  if trTCM_red( $meter )      ; <a
+ name="ex-1-red"><img
+ src="Traffic-Control-tcng-HTB-HOWTO/5.gif"
+ hspace="0"
+ vspace="0"
+ border="0"
+ alt="(5)"></a>
+        htb {
+            class ( rate 600kbps, ceil 600kbps ) {
+                $fast = class ( rate 256kbps, ceil 256kbps ) { sfq; } ;
+                $slow = class ( rate 128kbps, ceil 128kbps ) { sfq; } ;
+                $full = class ( rate 600kbps, ceil 600kbps ) { sfq; } ;
+            }
+        }
+    }
+}
+      
+</pre>
+            </td>
+          </tr>
+        </table>
+
+        <div
+         class="calloutlist">
+          <dl
+           compact="compact">
+            <dt><a
+             href="examples.html#ex-1-mdefine"><img
+             src="Traffic-Control-tcng-HTB-HOWTO/1.gif"
+             hspace="0"
+             vspace="0"
+             border="0"
+             alt="(1)"></a></dt>
+
+            <dd>В этой строке выполняется объявление измерителя (meter) для классификации
+            трафика. Обратитесь
+            к <a
+             href="http://linux-ip.net/gl/tcng/node53.html"
+             target="_top">руководству по tcng, раздел измерителей</a> за списком и примерами
+            различных измерителей.</dd>
+
+            <dd>
+              <p>Приведенный в этом примере измеритель является двухскоростным трехцветным
+              измерителем, самым сложным измерителем, доступным в языке <strong
+               class="command">tcng</strong>. Этот измеритель возвращает цвет -- зеленый, желтый и
+              красный, в зависимости от скорости. Если измеренная скорость превышает
+              гарантированную, измеритель возвращает желтый цвет, а если превышает пиковую скорость
+              -- возвращается красный цвет.</p>
+            </dd>
+
+            <dd>
+              <p>С переменной <tt
+               class="varname">$meter</tt> могут оперировать функции, работающие с типом
+              измерителя. В нашем случае используются три функции, позволяющие проверить состояние
+              <tt
+               class="varname">$meter</tt>: <tt
+               class="function">trTCM_green</tt>, <tt
+               class="function">trTCM_yellow</tt> и <tt
+               class="function">trTCM_red</tt>. Для эффективности, обратите внимание на <a
+               href="http://linux-ip.net/gl/tcng/node58.html"
+               target="_top">ускоренные аналоги</a>.</p>
+            </dd>
+
+            <dt><a
+             href="examples.html#ex-1-notmetered"><img
+             src="Traffic-Control-tcng-HTB-HOWTO/2.gif"
+             hspace="0"
+             vspace="0"
+             border="0"
+             alt="(2)"></a></dt>
+
+            <dd>В нашем примере к трафику хоста 192.168.137.50 специально не применяются правила
+            ограничения применяемые ко всему остальному трафику на интерфейсе eth0.</dd>
+
+            <dt><a
+             href="examples.html#ex-1-green"><img
+             src="Traffic-Control-tcng-HTB-HOWTO/3.gif"
+             hspace="0"
+             vspace="0"
+             border="0"
+             alt="(3)"></a></dt>
+
+            <dd>До гарантированной скорости (<tt
+             class="constant">cir</tt>), пакеты будут проходить через этот класс. Токены будут
+            использоваться из буфера <tt
+             class="constant">cir</tt>/<tt
+             class="constant">cbs</tt>.</dd>
+
+            <dd>
+              <p>Измеритель зеленый.</p>
+            </dd>
+
+            <dt><a
+             href="examples.html#ex-1-yellow"><img
+             src="Traffic-Control-tcng-HTB-HOWTO/4.gif"
+             hspace="0"
+             vspace="0"
+             border="0"
+             alt="(4)"></a></dt>
+
+            <dd>Трафик, превышающий возможности буфера <tt
+             class="constant">cir</tt>/<tt
+             class="constant">cbs</tt> будет направляться в буфер <tt
+             class="constant">pir</tt>/<tt
+             class="constant">pbs</tt> (<tt
+             class="constant">pir</tt> -- это пиковая скорость [peak information rate], <tt
+             class="constant">pbs</tt> -- это размер пикового буфера). Это позволяет гарантировать
+            отдельному потоку полосу пропускания до определенной скорости,а при превышении ее
+            происходит переклассификация.</dd>
+
+            <dd>
+              <p>Измеритель желтый.</p>
+            </dd>
+
+            <dt><a
+             href="examples.html#ex-1-red"><img
+             src="Traffic-Control-tcng-HTB-HOWTO/5.gif"
+             hspace="0"
+             vspace="0"
+             border="0"
+             alt="(5)"></a></dt>
+
+            <dd>Трафик, превышающий возможности буфера <tt
+             class="constant">pir</tt>/<tt
+             class="constant">pbs</tt> классифицируется в этой строке. Обычные конфигурации
+            начинают терять пакеты, превышающие пиковую скорость, но можно настроить и
+            переклассификацию трафика из класса гарантированной пропускной способности в класс
+            максимальной пропускной способности.</dd>
+
+            <dd>
+              <p>Измеритель красный.</p>
+            </dd>
+          </dl>
+        </div>
+      </div>
+
+      <div
+       class="section">
+        <h1
+         class="section"><a
+         name="misc"></a>4. Разнообразные замечания</h1>
+
+        <p>К счастью, <strong
+         class="command">tcng</strong> положил конец маленькому неудобству в использовании <strong
+         class="command">tc</strong>. Ниже приводится таблица соответствия между сокращениями этих
+        утилит с русским языком.</p>
+
+        <div
+         class="table">
+          <a
+           name="tb-misc-rates"></a> 
+
+          <p><strong>Таблица 1. Синтакс описания скорости: tcng против tc</strong></p>
+
+          <table
+           border="1"
+           class="CALSTABLE">
+            <thead>
+              <tr>
+                <th
+                 width="38"
+                 align="left"
+                 valign="middle">tcng</th>
+
+                <th
+                 width="131"
+                 align="left"
+                 valign="middle">Русский</th>
+
+                <th
+                 width="103"
+                 align="left"
+                 valign="middle">tc</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td
+                 align="left"
+                 valign="middle">bps</td>
+
+                <td
+                 align="left"
+                 valign="middle">бит в секунду</td>
+
+                <td
+                 align="left"
+                 valign="middle">bit</td>
+              </tr>
+
+              <tr>
+                <td
+                 align="left"
+                 valign="middle">Bps</td>
+
+                <td
+                 align="left"
+                 valign="middle">байт в секунду</td>
+
+                <td
+                 align="left"
+                 valign="middle">bps (ух!)</td>
+              </tr>
+
+              <tr>
+                <td
+                 align="left"
+                 valign="middle">kbps</td>
+
+                <td
+                 align="left"
+                 valign="middle">килобит в секунду</td>
+
+                <td
+                 align="left"
+                 valign="middle">kbit</td>
+              </tr>
+
+              <tr>
+                <td
+                 align="left"
+                 valign="middle">kBps</td>
+
+                <td
+                 align="left"
+                 valign="middle">килобайт в секунду</td>
+
+                <td
+                 align="left"
+                 valign="middle">kbps</td>
+              </tr>
+
+              <tr>
+                <td
+                 height="23"
+                 align="left"
+                 valign="middle">Mbps</td>
+
+                <td
+                 align="left"
+                 valign="middle">мегабит в секунду</td>
+
+                <td
+                 align="left"
+                 valign="middle">mbit или Mbit</td>
+              </tr>
+
+              <tr>
+                <td
+                 align="left"
+                 valign="middle">MBps</td>
+
+                <td
+                 align="left"
+                 valign="middle">мегабайт в секунду</td>
+
+                <td
+                 align="left"
+                 valign="middle">mbps или Mbps</td>
+              </tr>
+
+              <tr>
+                <td
+                 align="left"
+                 valign="middle">pps</td>
+
+                <td
+                 align="left"
+                 valign="middle">пакетов в секунду</td>
+
+                <td
+                 align="left"
+                 valign="middle">??</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>Обратите внимание, что это потребует небольшого привыкания для давних пользователей
+        <strong
+         class="command">tc</strong>, но эти сокращения намного более понятны для тех, кто владеет
+        английским языком.</p>
+
+        <p>Например, мы можем использовать традиционные обозначения скорости в конфигурации
+        <strong
+         class="command">tcng</strong>: <tt
+         class="userinput"><strong>100Mbps</strong></tt>, <tt
+         class="userinput"><strong>128kbps</strong></tt> и даже <tt
+         class="userinput"><strong>2Gpps</strong></tt>. Посмотрите раздел руководства по <strong
+         class="command">tcng</strong> <a
+         href="http://linux-ip.net/gl/tcng/node21.html"
+         target="_top">о единицах измерения</a>.</p>
+
+        <p>Для эффективного управления трафиком важно понимать, где находятся узкие места сети. В
+        большинстве случаев, управление трафиком вам придется выполнять именно в узком месте или
+        рядом с ним.</p>
+      </div>
+
+      <div
+       class="section">
+        <h1
+         class="section"><a
+         name="further"></a>5. Ссылки и другая документация</h1>
+
+        <ul>
+          <li>
+            <p> <a
+             href="http://diffserv.sourceforge.net/"
+             target="_top">проект linux DiffServ</a></p>
+          </li>
+
+          <li>
+            <p><a
+             href="http://luxik.cdi.cz/~devik/qos/htb/"
+             target="_top">страница HTB (<em>Martin <span
+             class="QUOTE">"devik"</span> Devera</em>)</a></p>
+          </li>
+
+          <li>           
+	  <p><a
+             href="http://tcng.sourceforge.net/"
+             target="_top">Traffic Control Next Generation (<strong
+             class="command">tcng</strong>)</a></p>
+
+            <p><a
+             href="http://linux-ip.net/gl/tcng/"
+             target="_top">Руководство по TCNG manual (<em>Вернер Альмесбергер</em>)</a></p>
+          </li>
+
+          <li>
+            <p><a
+             href="ftp://ftp.inr.ac.ru/ip-routing/"
+             target="_top">iproute2 (<em>Алексей Кузнецов</em>)</a></p>
+
+            <p><a
+             href="http://linux-ip.net/gl/ip-cref/"
+             target="_top"><strong
+             class="command">iproute2</strong> manual (</a><a
+             href="ftp://ftp.inr.ac.ru/ip-routing/"
+             target="_top"><em>Алексей Кузнецов</em></a><a
+             href="http://linux-ip.net/gl/ip-cref/"
+             target="_top">)</a></p>
+          </li>
+
+          <li>
+            <p><a
+             href="http://www.docum.org/"
+             target="_top">Исследование и документация управления трафиком в linux (<em>Стеф Коен
+            [Stef Coene]</em>)</a></p>
+          </li>
+
+          <li>
+            <p><a
+             href="http://lartc.org/howto/"
+             target="_top">LARTC HOWTO (<em>Берт Хуберт [Bert Hubert] и другие</em>)</a></p>
+          </li>
+
+          <li>
+            <p><a
+             href="http://linux-ip.net/"
+             target="_top">Руководство по организации IP-сетей в linux (<em>Мартин А.
+            Браун</em>)</a></p>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <hr
+     noshade="noshade">
+
+    <p
+     class="c1"><small><strong>Copyright (c) 2003, Martin A. Brown</strong></small></p>
+    <!-- *** END copyright *** -->
+    <hr
+     noshade="noshade">
+
+    <p
+     class="c1"><a
+     href="../../index.html">Вернуться на главную страницу</a></p>
+    <hr
+     noshade="noshade">
+  </body>
+</html>
+

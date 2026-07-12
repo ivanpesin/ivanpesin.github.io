@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>fun on Articles, Translations, and Blog</title>
+    <link>http://pesin.space/tags/fun/</link>
+    <description>Recent content in fun on Articles, Translations, and Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 06 Jun 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://pesin.space/tags/fun/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Maths is simple</title>
+      <link>http://pesin.space/posts/2020-06-06/</link>
+      <pubDate>Sat, 06 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2020-06-06/</guid>
+      <description>  If people do not believe that mathematics is simple, it is only because they do not realize how complicated life is. John von Neumann   </description>
+    </item>
+    
+    <item>
+      <title>On writing blog posts</title>
+      <link>http://pesin.space/posts/2020-05-22-on-writing-posts/</link>
+      <pubDate>Fri, 22 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2020-05-22-on-writing-posts/</guid>
+      <description>Was talking recently with a friend about how hard it is to write blog posts and give talks these days. The longer you’re in the tech industry the more your opinions end up being “well it depends” and “I’m not sure”. These don’t quite make for good blog posts, hah.
+ Was talking recently with a friend about how hard it is to write blog posts and give talks these days.</description>
+    </item>
+    
+    <item>
+      <title>Opinion</title>
+      <link>http://pesin.space/posts/2020-03-07-twain/</link>
+      <pubDate>Sat, 07 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2020-03-07-twain/</guid>
+      <description>  Reason never changed a man&amp;rsquo;s opinion which by reason he never acquired. Mark Twain   </description>
+    </item>
+    
+    <item>
+      <title>Excellence</title>
+      <link>http://pesin.space/posts/2020-02-08-excellence/</link>
+      <pubDate>Sat, 08 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2020-02-08-excellence/</guid>
+      <description>What exactly means &amp;ldquo;Center of Excellence&amp;rdquo;? Whatever we want it to mean.   We should be brimming with excellence by nightfall.   Centers of excellence create more excellence. Evidence? None.   </description>
+    </item>
+    
+    <item>
+      <title>Pike</title>
+      <link>http://pesin.space/posts/2018-03-09-shchuka-glibov/</link>
+      <pubDate>Wed, 09 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2018-03-09-shchuka-glibov/</guid>
+      <description>&lt;p&gt;This is Glibov&amp;rsquo;s Pike poem in Ukrainian&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Experience</title>
+      <link>http://pesin.space/posts/2017-06-06-experience/</link>
+      <pubDate>Tue, 06 Jun 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2017-06-06-experience/</guid>
+      <description>Is experience exactly the same as pessimism?   </description>
+    </item>
+    
+    <item>
+      <title>Hofstadter&#39;s Law</title>
+      <link>http://pesin.space/posts/2016-11-06-hofstadters-law/</link>
+      <pubDate>Sun, 06 Nov 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2016-11-06-hofstadters-law/</guid>
+      <description>  It always takes longer than you expect, even when you take into account Hofstadter’s Law. Douglas Hofstadter, Gödel, Escher, Bach in  An Eternal Golden Braid    </description>
+    </item>
+    
+  </channel>
+</rss>

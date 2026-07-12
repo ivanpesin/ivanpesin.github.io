@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<!--[if IE 7]>
+<html class="ie ie7" lang="en-US">
+<![endif]-->
+<!--[if IE 8]>
+<html class="ie ie8" lang="en-US">
+<![endif]-->
+<!--[if !(IE 7) & !(IE 8)]><!-->
+<html lang="en-US">
+<!--<![endif]-->
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width" />
+<title>sensu | Ivan Pesin</title>
+<link rel="profile" href="http://gmpg.org/xfn/11" />
+<!--[if lt IE 9]>
+<script src="/blog/wp-content/themes/twentytwelve/js/html5.js" type="text/javascript"></script>
+<![endif]-->
+<link rel='dns-prefetch' href='https://fonts.googleapis.com/' />
+<link rel='dns-prefetch' href='https://s.w.org/' />
+<link rel="alternate" type="application/rss+xml" title="Ivan Pesin &raquo; Feed" href="../../feed/index.html" />
+<script type="text/javascript">//<![CDATA[
+            // Google Analytics for WordPress by Yoast v4.3.3 | http://yoast.com/wordpress/google-analytics/
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-27760168-1']);
+				            _gaq.push(['_trackPageview']);
+            (function () {
+                var ga = document.createElement('script');
+                ga.type = 'text/javascript';
+                ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(ga, s);
+            })();
+            //]]></script>
+			<link rel="alternate" type="application/rss+xml" title="Ivan Pesin &raquo; sensu Tag Feed" href="feed/index.html" />
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/11.2.0\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/11.2.0\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/pesin.space\/blog\/wp-includes\/js\/wp-emoji-release.min.js?ver=5.1.1"}};
+			!function(a,b,c){function d(a,b){var c=String.fromCharCode;l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,a),0,0);var d=k.toDataURL();l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,b),0,0);var e=k.toDataURL();return d===e}function e(a){var b;if(!l||!l.fillText)return!1;switch(l.textBaseline="top",l.font="600 32px Arial",a){case"flag":return!(b=d([55356,56826,55356,56819],[55356,56826,8203,55356,56819]))&&(b=d([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]),!b);case"emoji":return b=d([55358,56760,9792,65039],[55358,56760,8203,9792,65039]),!b}return!1}function f(a){var c=b.createElement("script");c.src=a,c.defer=c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var g,h,i,j,k=b.createElement("canvas"),l=k.getContext&&k.getContext("2d");for(j=Array("flag","emoji"),c.supports={everything:!0,everythingExceptFlag:!0},i=0;i<j.length;i++)c.supports[j[i]]=e(j[i]),c.supports.everything=c.supports.everything&&c.supports[j[i]],"flag"!==j[i]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[j[i]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(h=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",h,!1),a.addEventListener("load",h,!1)):(a.attachEvent("onload",h),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),g=c.source||{},g.concatemoji?f(g.concatemoji):g.wpemoji&&g.twemoji&&(f(g.twemoji),f(g.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+	<link rel='stylesheet' id='collapseomatic-css-css'  href='../../wp-content/plugins/jquery-collapse-o-matic/light_style.css' type='text/css' media='all' />
+<link rel='stylesheet' id='llynx_style-css'  href='../../wp-content/plugins/wp-lynx/wp_lynx_style.min.css' type='text/css' media='all' />
+<link rel='stylesheet' id='crayon-css'  href='../../wp-content/plugins/crayon-syntax-highlighter/css/min/crayon.min.css' type='text/css' media='all' />
+<link rel='stylesheet' id='wp-block-library-css'  href='../../wp-includes/css/dist/block-library/style.min.css' type='text/css' media='all' />
+<link rel='stylesheet' id='gllr_stylesheet-css'  href='../../wp-content/plugins/gallery-plugin/css/style.css' type='text/css' media='all' />
+<link rel='stylesheet' id='gllr_fancybox_stylesheet-css'  href='../../wp-content/plugins/gallery-plugin/fancybox/jquery.fancybox-1.3.4.css' type='text/css' media='all' />
+<link rel='stylesheet' id='twentytwelve-fonts-css'  href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700&#038;subset=latin,latin-ext' type='text/css' media='all' />
+<link rel='stylesheet' id='twentytwelve-style-css'  href='../../wp-content/themes/twentytwelve/style.css' type='text/css' media='all' />
+<!--[if lt IE 9]>
+<link rel='stylesheet' id='twentytwelve-ie-css'  href='/blog/wp-content/themes/twentytwelve/css/ie.css?ver=20121010' type='text/css' media='all' />
+<![endif]-->
+<script type='text/javascript' src='../../wp-includes/js/jquery/jquery.js'></script>
+<script type='text/javascript' src='../../wp-includes/js/jquery/jquery-migrate.min.js'></script>
+<script type='text/javascript' src='../../wp-content/plugins/jquery-collapse-o-matic/js/collapse.min.js'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var CrayonSyntaxSettings = {"version":"2.6.8","is_admin":"0","ajaxurl":"https:\/\/pesin.space\/blog\/wp-admin\/admin-ajax.php","prefix":"crayon-","setting":"crayon-setting","selected":"crayon-setting-selected","changed":"crayon-setting-changed","special":"crayon-setting-special","orig_value":"data-orig-value","debug":""};
+var CrayonSyntaxStrings = {"copy":"Press %s to Copy, %s to Paste","minimize":"Click To Expand Code"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='../../wp-content/plugins/crayon-syntax-highlighter/js/min/crayon.min.js'></script>
+<script type='text/javascript' src='../../wp-content/plugins/gallery-plugin/fancybox/jquery.mousewheel-3.0.4.pack.js'></script>
+<script type='text/javascript' src='../../wp-content/plugins/gallery-plugin/fancybox/jquery.fancybox-1.3.4.pack.js'></script>
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="../../wp-includes/wlwmanifest.xml" /> 
+<meta name="generator" content="WordPress 5.1.1" />
+		<!-- Start ios -->
+		<script type="text/javascript">
+			(function($){
+				$(document).ready( function() {
+					$( '#fancybox-overlay' ).css({
+						'width' : $(document).width()
+					});	
+				});	
+			})(jQuery);
+		</script>
+		<!-- End ios -->
+	<script type='text/javascript'>
+var colomatduration = 'fast';
+var colomatslideEffect = 'slideFade';
+</script></head>
+
+<body class="archive tag tag-sensu tag-222 custom-font-enabled single-author">
+<div id="page" class="hfeed site">
+	<header id="masthead" class="site-header" role="banner">
+		<hgroup>
+			<h1 class="site-title"><a href="/blog/2009/05/%d0%ba%d0%b0%d0%ba-%d0%be%d0%b1%d1%8a%d0%b5%d0%b4%d0%b8%d0%bd%d0%b8%d1%82%d1%8c-%d0%bd%d0%b5%d1%81%d0%ba%d0%be%d0%bb%d1%8c%d0%ba%d0%be-%d1%81%d0%b5%d1%82%d0%b5%d0%b2%d1%8b%d1%85-%d0%b8%d0%bd%d1%82/" title="Ivan Pesin" rel="home">Ivan Pesin</a></h1>
+			<h2 class="site-description">Articles &amp; Translations</h2>
+		</hgroup>
+
+		<nav id="site-navigation" class="main-navigation" role="navigation">
+			<button class="menu-toggle">Menu</button>
+			<a class="assistive-text" href="index.html#content" title="Skip to content">Skip to content</a>
+					</nav><!-- #site-navigation -->
+
+			</header><!-- #masthead -->
+
+	<div id="main" class="wrapper">
+	<section id="primary" class="site-content">
+		<div id="content" role="main">
+
+					<header class="archive-header">
+				<h1 class="archive-title">Tag Archives: <span>sensu</span></h1>
+
+						</header><!-- .archive-header -->
+
+			
+	<article id="post-1225" class="post-1225 post type-post status-publish format-standard hentry category-links tag-blockade tag-english tag-flapjack tag-java tag-limoncelli tag-monitoring tag-nagios tag-sensu tag-syscalls tag-systemd tag-systemtap tag-vector tag-was">
+				<header class="entry-header">
+			
+						<h1 class="entry-title">
+				<a href="/blog/2014/02/links-feb-16/" rel="bookmark">Links: Feb 16</a>
+			</h1>
+								</header><!-- .entry-header -->
+
+				<div class="entry-content">
+			<p id="top" />Change of plan! Will now try to write shorter posts but more often. With bigger posts, if I miss a date, they start to scare me off writing them as I know that would require substantial time investment.</p>
+<p>Recently I have discovered how once never-failing task prioritisation strategy can backfire. You most certainly know the strategy: an interesting, engaging, and enjoyable task should be stashed and used as a treat after one sorts out boring or urgent assignments.</p>
+<p>You&#8217;d wonder how this could possibly go wrong? Here&#8217;s what happened with me: one of the tasks, which I long wanted to implement myself, was finally approved and assigned to me with low priority. I revelled and carefully set it aside so I could come back to it with enough time to do it neat and proper. Alas! For the next three (!) weeks, due to routine, urgent, and other business, I haven&#8217;t got enough time to tackle it.</p>
+<p>Eventually, the task received medium priority and I had to implement it within certain time constraints. This obviously meant it wasn&#8217;t as neat as I wanted it to be; this also meant it wasn&#8217;t a treat anymore! Broken hopes and bad mood instead of delight and satisfaction! Horrible experience, beware. Now I&#8217;m trying to get back to it and rework the way I would at least be content with.</p>
+<p>Okay, let&#8217;s shove in some of the interesting links I came across last month:</p>
+<h2>Other:</h2>
+<p><a href="http://everythingsysadmin.com/2013/12/avoiding-the-cost-center-menta.html?utm_source=feedburner&amp;utm_medium=feed&amp;utm_campaign=Feed%3A+EverythingSysadmin+%28Everything+Sysadmin%29" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://everythingsysadmin.com']);">Tom Limoncelli referred</a> an interesting article that defines five stages of how management, owners, and investors treat IT in their businesses:</p>
+<ol>
+<li>Cost center</li>
+<li>Service Provider</li>
+<li>IT Partner</li>
+<li>Business Peer</li>
+<li>Business Game Changer</li>
+</ol>
+<p>Implication is the further stage you&#8217;re in, the better it is. It struck me though that some firms actually may advance in a backward direction! I would not want to stay with the firm that made more than one step backwards (one step might be a coincidence, two &#8212; a pattern).</p>
+<p>Why would someone writing in Python and Ruby want to learn Java? Here&#8217;s an explanation: <a href="http://devopsanywhere.blogspot.co.uk/2013/11/why-im-learning-java.html" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://devopsanywhere.blogspot.co.uk']);">Why I&#8217;m Learning Java</a>.</p>
+<h2>Technology:</h2>
+<ul>
+<ul>
+<li>Valuable bookmark: how to count and quantify the number of syscalls a program makes? Here&#8217;s <a href="https://access.redhat.com/site/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/SystemTap_Beginners_Guide/syscallsbyprocpidsect.html" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://access.redhat.com']);">an example using SystemTap</a>.</li>
+<li>Very good explanation why systemd raises so many questions and fires heated debate &#8212; <a href="http://ewontfix.com/14/" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://ewontfix.com']);">systemd: broken by design</a>.</li>
+<li><a href="https://github.com/instructure/vector" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://github.com']);">Vector</a> &#8212; an interesting tool for predictive scaling and flexible downscaling of your AWS environments.</li>
+<li><a href="http://blockade.readthedocs.org" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://blockade.readthedocs.org']);">Blockade</a> &#8212; a <span style="line-height: 1.5em;">utility for testing network failures and partitions in distributed applications.</span></li>
+<li>Provocatively titled post &#8216;<a href="http://word.bitly.com/post/74839060954/ten-things-to-monitor" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://word.bitly.com']);">10 things we forgot to monitor</a>&#8216; lists some of the things you shouldn&#8217;t be missing in your monitoring. Included mostly for scripts examples.</li>
+<li><a href="http://flapjack.io" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://flapjack.io']);">Flapjack</a> &#8212; monitoring notification routing + event processing system. More details on <a href="http://fractio.nl/2014/01/03/the-how-and-why-of-flapjack/" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://fractio.nl']);">how and why</a> and <a href="http://fractio.nl/2014/02/12/data-driven-alerting-with-flapjack-puppet-hiera/" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://fractio.nl']);">a live demo</a>.</li>
+<li>Very expressive presentation on how to build a modern monitoring subsystem:</li>
+</ul>
+</ul>
+<p><center><br />
+<iframe style="border: 1px solid #CCC; border-width: 1px 1px 0; margin-bottom: 5px; max-width: 100%;" src="http://www.slideshare.net/slideshow/embed_code/31168250" height="356" width="427" allowfullscreen="" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe></center>&nbsp;</p>
+<div style="margin-bottom: 5px;" align="center"><a title="Stop using Nagios (so it can die peacefully)" href="https://www.slideshare.net/superdupersheep/stop-using-nagios-so-it-can-die-peacefully" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://www.slideshare.net']);" target="_blank">Stop using Nagios (so it can die peacefully)</a> from <strong><a href="http://www.slideshare.net/superdupersheep" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://www.slideshare.net']);" target="_blank">Andy Sykes</a></strong></div>
+<p>&nbsp;</p>
+<h2>English</h2>
+<ul>
+<li><a href="http://www.theguardian.com/media/mind-your-language/2014/jan/31/mind-your-language-no-english-words" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://www.theguardian.com']);">The Guardian&#8217;s article</a> dwelling on language devices summarising a relatively complex concept in a single word.</li>
+<li>Language purism seems to be an omnipresent phenomenon. The Economist&#8217;s article describing <a href="http://www.economist.com/blogs/prospero/2014/01/english-purism" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://www.economist.com']);">purism in English language</a>.</li>
+<li>Yet another post on reduplications: <a href="http://www.macmillandictionaryblog.com/willy-nilly-word-development" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://www.macmillandictionaryblog.com']);">willy-nilly word development</a>.</li>
+<li>Few ways of saying <a href="http://www.macmillandictionaryblog.com/life-skills-tip-of-the-week-ways-of-saying-i-dont-know" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://www.macmillandictionaryblog.com']);">&#8220;I don&#8217;t know&#8221;</a>.</li>
+</ul>
+<hr>
+Seems I&#8217;ve failed to make this post short. Have so many interesting things in my drafts that it&#8217;s challenging to stop once started. Will improve next time. That&#8217;ll be all for today, folks.</p>
+<p><span style="line-height: 1.5em;"> </span></p>
+					</div><!-- .entry-content -->
+		
+		<footer class="entry-meta">
+			This entry was posted in <a href="../../category/links/index.html" rel="category tag">Links</a> and tagged <a href="../blockade/index.html" rel="tag">blockade</a>, <a href="../english/index.html" rel="tag">English</a>, <a href="../flapjack/index.html" rel="tag">flapjack</a>, <a href="../java/index.html" rel="tag">java</a>, <a href="../limoncelli/index.html" rel="tag">limoncelli</a>, <a href="../monitoring/index.html" rel="tag">monitoring</a>, <a href="../nagios/index.html" rel="tag">nagios</a>, <a href="index.html" rel="tag">sensu</a>, <a href="../syscalls/index.html" rel="tag">syscalls</a>, <a href="../systemd/index.html" rel="tag">systemd</a>, <a href="../systemtap/index.html" rel="tag">systemtap</a>, <a href="../vector/index.html" rel="tag">vector</a>, <a href="../was/index.html" rel="tag">was</a> on <a href="/blog/2014/02/links-feb-16/" title="17:47" rel="bookmark"><time class="entry-date" datetime="2014-02-16T17:47:49+02:00">February 16, 2014</time></a><span class="by-author"> by <span class="author vcard"><a class="url fn n" href="/blog/2009/05/%d0%ba%d0%b0%d0%ba-%d0%be%d0%b1%d1%8a%d0%b5%d0%b4%d0%b8%d0%bd%d0%b8%d1%82%d1%8c-%d0%bd%d0%b5%d1%81%d0%ba%d0%be%d0%bb%d1%8c%d0%ba%d0%be-%d1%81%d0%b5%d1%82%d0%b5%d0%b2%d1%8b%d1%85-%d0%b8%d0%bd%d1%82/" title="View all posts by ivan" rel="author">ivan</a></span></span>.								</footer><!-- .entry-meta -->
+	</article><!-- #post -->
+
+		
+		</div><!-- #content -->
+	</section><!-- #primary -->
+
+
+			<div id="secondary" class="widget-area" role="complementary">
+			<aside id="pages-4" class="widget widget_pages"><h3 class="widget-title">Pages</h3>		<ul>
+			<li class="page_item page-item-1467"><a href="/blog/reference-phonetic-alphabet/">Reference Phonetic Alphabet</a></li>
+<li class="page_item page-item-44"><a href="/blog/%d0%bf%d0%be%d0%b4%d0%b1%d0%be%d1%80%d0%ba%d0%b0-%d0%b2%d0%be%d0%bf%d1%80%d0%be%d1%81%d0%be%d0%b2-%d0%b8-%d0%be%d1%82%d0%b2%d0%b5%d1%82%d0%be%d0%b2-1/">Подборка вопросов и ответов #1</a></li>
+<li class="page_item page-item-239"><a href="/blog/%d0%bf%d0%be%d0%b4%d0%b1%d0%be%d1%80%d0%ba%d0%b0-%d0%b2%d0%be%d0%bf%d1%80%d0%be%d1%81%d0%be%d0%b2-%d0%b8-%d0%be%d1%82%d0%b2%d0%b5%d1%82%d0%be%d0%b2-2/">Подборка вопросов и ответов #2</a></li>
+<li class="page_item page-item-468"><a href="/blog/questions-and-answers-issue-3/">Подборка вопросов и ответов #3</a></li>
+		</ul>
+			</aside><aside id="search-4" class="widget widget_search"></aside><aside id="tag_cloud-4" class="widget widget_tag_cloud"><h3 class="widget-title">Tags</h3><div class="tagcloud"><a href="../aws/index.html" class="tag-cloud-link tag-link-182 tag-link-position-1" style="font-size: 8pt;" aria-label="AWS (2 items)">AWS</a>
+<a href="../bash/index.html" class="tag-cloud-link tag-link-12 tag-link-position-2" style="font-size: 12.277777777778pt;" aria-label="bash (4 items)">bash</a>
+<a href="../basics/index.html" class="tag-cloud-link tag-link-13 tag-link-position-3" style="font-size: 12.277777777778pt;" aria-label="basics (4 items)">basics</a>
+<a href="../bootstrap/index.html" class="tag-cloud-link tag-link-113 tag-link-position-4" style="font-size: 10.333333333333pt;" aria-label="bootstrap (3 items)">bootstrap</a>
+<a href="../cfengine/index.html" class="tag-cloud-link tag-link-96 tag-link-position-5" style="font-size: 13.833333333333pt;" aria-label="cfengine (5 items)">cfengine</a>
+<a href="../cfengine3/index.html" class="tag-cloud-link tag-link-93 tag-link-position-6" style="font-size: 8pt;" aria-label="cfengine3 (2 items)">cfengine3</a>
+<a href="../configuration/index.html" class="tag-cloud-link tag-link-18 tag-link-position-7" style="font-size: 13.833333333333pt;" aria-label="configuration (5 items)">configuration</a>
+<a href="../coursera/index.html" class="tag-cloud-link tag-link-111 tag-link-position-8" style="font-size: 8pt;" aria-label="coursera (2 items)">coursera</a>
+<a href="../devops/index.html" class="tag-cloud-link tag-link-88 tag-link-position-9" style="font-size: 16.166666666667pt;" aria-label="devops (7 items)">devops</a>
+<a href="../dns/index.html" class="tag-cloud-link tag-link-163 tag-link-position-10" style="font-size: 8pt;" aria-label="DNS (2 items)">DNS</a>
+<a href="../english/index.html" class="tag-cloud-link tag-link-95 tag-link-position-11" style="font-size: 20.25pt;" aria-label="English (12 items)">English</a>
+<a href="../getting_started/index.html" class="tag-cloud-link tag-link-25 tag-link-position-12" style="font-size: 12.277777777778pt;" aria-label="getting_started (4 items)">getting_started</a>
+<a href="../hardware/index.html" class="tag-cloud-link tag-link-26 tag-link-position-13" style="font-size: 8pt;" aria-label="hardware (2 items)">hardware</a>
+<a href="../interviewing/index.html" class="tag-cloud-link tag-link-92 tag-link-position-14" style="font-size: 8pt;" aria-label="interviewing (2 items)">interviewing</a>
+<a href="../kdump/index.html" class="tag-cloud-link tag-link-34 tag-link-position-15" style="font-size: 8pt;" aria-label="kdump (2 items)">kdump</a>
+<a href="../kexec/index.html" class="tag-cloud-link tag-link-35 tag-link-position-16" style="font-size: 8pt;" aria-label="kexec (2 items)">kexec</a>
+<a href="../lun/index.html" class="tag-cloud-link tag-link-37 tag-link-position-17" style="font-size: 8pt;" aria-label="lun (2 items)">lun</a>
+<a href="../lviv/index.html" class="tag-cloud-link tag-link-143 tag-link-position-18" style="font-size: 8pt;" aria-label="lviv (2 items)">lviv</a>
+<a href="../maidan/index.html" class="tag-cloud-link tag-link-180 tag-link-position-19" style="font-size: 8pt;" aria-label="Maidan (2 items)">Maidan</a>
+<a href="../mysql/index.html" class="tag-cloud-link tag-link-141 tag-link-position-20" style="font-size: 8pt;" aria-label="mysql (2 items)">mysql</a>
+<a href="../networking/index.html" class="tag-cloud-link tag-link-44 tag-link-position-21" style="font-size: 16.166666666667pt;" aria-label="networking (7 items)">networking</a>
+<a href="../oom/index.html" class="tag-cloud-link tag-link-47 tag-link-position-22" style="font-size: 8pt;" aria-label="oom (2 items)">oom</a>
+<a href="../performance/index.html" class="tag-cloud-link tag-link-50 tag-link-position-23" style="font-size: 12.277777777778pt;" aria-label="performance (4 items)">performance</a>
+<a href="../presentation/index.html" class="tag-cloud-link tag-link-91 tag-link-position-24" style="font-size: 13.833333333333pt;" aria-label="presentation (5 items)">presentation</a>
+<a href="../religion/index.html" class="tag-cloud-link tag-link-144 tag-link-position-25" style="font-size: 8pt;" aria-label="religion (2 items)">religion</a>
+<a href="../rhel3/index.html" class="tag-cloud-link tag-link-56 tag-link-position-26" style="font-size: 8pt;" aria-label="rhel3 (2 items)">rhel3</a>
+<a href="../rhel4/index.html" class="tag-cloud-link tag-link-57 tag-link-position-27" style="font-size: 8pt;" aria-label="rhel4 (2 items)">rhel4</a>
+<a href="/blog/2009/05/%d0%ba%d0%b0%d0%ba-%d0%be%d0%b1%d1%8a%d0%b5%d0%b4%d0%b8%d0%bd%d0%b8%d1%82%d1%8c-%d0%bd%d0%b5%d1%81%d0%ba%d0%be%d0%bb%d1%8c%d0%ba%d0%be-%d1%81%d0%b5%d1%82%d0%b5%d0%b2%d1%8b%d1%85-%d0%b8%d0%bd%d1%82/" class="tag-cloud-link tag-link-58 tag-link-position-28" style="font-size: 22pt;" aria-label="rhel5 (15 items)">rhel5</a>
+<a href="../rhel_basics/index.html" class="tag-cloud-link tag-link-59 tag-link-position-29" style="font-size: 8pt;" aria-label="rhel_basics (2 items)">rhel_basics</a>
+<a href="../rpm/index.html" class="tag-cloud-link tag-link-62 tag-link-position-30" style="font-size: 8pt;" aria-label="rpm (2 items)">rpm</a>
+<a href="../sa/index.html" class="tag-cloud-link tag-link-89 tag-link-position-31" style="font-size: 18.888888888889pt;" aria-label="SA (10 items)">SA</a>
+<a href="../san/index.html" class="tag-cloud-link tag-link-63 tag-link-position-32" style="font-size: 8pt;" aria-label="san (2 items)">san</a>
+<a href="../scale/index.html" class="tag-cloud-link tag-link-121 tag-link-position-33" style="font-size: 8pt;" aria-label="scale (2 items)">scale</a>
+<a href="../scsi/index.html" class="tag-cloud-link tag-link-65 tag-link-position-34" style="font-size: 8pt;" aria-label="scsi (2 items)">scsi</a>
+<a href="../security/index.html" class="tag-cloud-link tag-link-66 tag-link-position-35" style="font-size: 10.333333333333pt;" aria-label="security (3 items)">security</a>
+<a href="../ssl/index.html" class="tag-cloud-link tag-link-155 tag-link-position-36" style="font-size: 10.333333333333pt;" aria-label="SSL (3 items)">SSL</a>
+<a href="../storage/index.html" class="tag-cloud-link tag-link-70 tag-link-position-37" style="font-size: 8pt;" aria-label="storage (2 items)">storage</a>
+<a href="../talks/index.html" class="tag-cloud-link tag-link-85 tag-link-position-38" style="font-size: 15.194444444444pt;" aria-label="talks (6 items)">talks</a>
+<a href="../terminal/index.html" class="tag-cloud-link tag-link-146 tag-link-position-39" style="font-size: 8pt;" aria-label="terminal (2 items)">terminal</a>
+<a href="../troubleshooting/index.html" class="tag-cloud-link tag-link-102 tag-link-position-40" style="font-size: 8pt;" aria-label="troubleshooting (2 items)">troubleshooting</a>
+<a href="../ukraine/index.html" class="tag-cloud-link tag-link-199 tag-link-position-41" style="font-size: 8pt;" aria-label="Ukraine (2 items)">Ukraine</a>
+<a href="../vim/index.html" class="tag-cloud-link tag-link-77 tag-link-position-42" style="font-size: 10.333333333333pt;" aria-label="vim (3 items)">vim</a>
+<a href="../virtualization/index.html" class="tag-cloud-link tag-link-79 tag-link-position-43" style="font-size: 12.277777777778pt;" aria-label="virtualization (4 items)">virtualization</a>
+<a href="../xen/index.html" class="tag-cloud-link tag-link-82 tag-link-position-44" style="font-size: 10.333333333333pt;" aria-label="xen (3 items)">xen</a>
+<a href="../yum/index.html" class="tag-cloud-link tag-link-83 tag-link-position-45" style="font-size: 8pt;" aria-label="yum (2 items)">yum</a></div>
+</aside><aside id="meta-4" class="widget widget_meta"><h3 class="widget-title">Meta</h3>			<ul>
+						<li><a href="../../feed/index.html">Entries <abbr title="Really Simple Syndication">RSS</abbr></a></li>
+			<li><a href="https://wordpress.org/" title="Powered by WordPress, state-of-the-art semantic personal publishing platform.">WordPress.org</a></li>			</ul>
+			</aside>		</div><!-- #secondary -->
+		</div><!-- #main .wrapper -->
+	<footer id="colophon" role="contentinfo">
+		<div class="site-info">
+						<a href="https://wordpress.org/" title="Semantic Personal Publishing Platform">Proudly powered by WordPress</a>
+		</div><!-- .site-info -->
+	</footer><!-- #colophon -->
+</div><!-- #page -->
+
+<script type='text/javascript' src='../../wp-content/themes/twentytwelve/js/navigation.js'></script>
+<script type='text/javascript' src='../../wp-includes/js/wp-embed.min.js'></script>
+</body>
+</html>

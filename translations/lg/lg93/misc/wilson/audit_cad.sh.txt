@@ -1,0 +1,74 @@
+#!/bin/sh
+# генератор сообщений о попытке перезагрузки через "Ctrl-Alt-Delete"
+# версия 0.7 (последние изменения 23/06/2003)
+# Автор: Dean Wilson
+#set -x #расскоментируйте эту строку для отладки
+
+######################################################
+
+# используемые внешние программы
+LOGGER=/usr/bin/logger
+TR=/usr/bin/tr
+DATE=/bin/date
+BASENAME=/usr/bin/basename
+
+
+######################################################
+# проверка внешних зависимостей (читай программ)
+function usage {
+  for BINLOC in $LOGGER $TR $DATE $BASENAME
+  do
+    if [ ! -f "$BINLOC" ];then
+      printf "Failed to find '$BINLOC' This script requires this to run\n"
+      ERROR=1
+      continue
+    fi
+    if [ ! -x "$BINLOC" ];then
+      printf "'$BINLOC' does not seem to be executable, please fix\n"
+      ERROR=1
+      continue
+    fi
+  done
+
+}
+######################################################
+
+# измените это, если хотите, поменять приоритет для сообщения,
+# которое скармливается syslog 
+
+FAC=user
+LEVEL=crit
+
+# получить имя приложения без пути
+APP=$($BASENAME "$0")
+
+# сообщение для журнала
+MSG="Ctrl-alt-delete was triggered and caught by $APP"
+
+# располодение вненшненого non-syslog журнала
+LOGFILE=/var/log/shutattempt
+
+######################################################
+
+# если скрипт вызван с ключом "-c" проверить наличие необходимых программ
+if [ "$1" == "-c" ];then
+  usage
+
+  if [ -n "$ERROR" ];then
+    RETCODE=1
+  else
+    RETCODE=0
+  fi
+
+  # никогда не запускать после проверки
+  exit $RETCODE
+fi
+
+
+# записать дату/время во внешний журнал
+$($DATE +'%b %d %T ' | $TR -d '\n' >>$LOGFILE)
+
+
+# за работу!
+$LOGGER -p ${FAC}.${LEVEL} -t $APP -s $MSG 2>>$LOGFILE
+exit 0

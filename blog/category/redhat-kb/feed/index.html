@@ -1,0 +1,456 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>RedHat KB &#8211; Ivan Pesin</title>
+	<atom:link href="/blog/category/redhat-kb/feed/" rel="self" type="application/rss+xml" />
+	<link>https://pesin.space/blog</link>
+	<description>Articles &#38; Translations</description>
+	<lastBuildDate>
+	Wed, 19 Oct 2016 02:08:18 +0000	</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=5.1.1</generator>
+	<item>
+		<title>В выводе netstat -rn значение MSS равно 0. Что это означает?</title>
+		<link>/blog/2009/08/%d0%b2-%d0%b2%d1%8b%d0%b2%d0%be%d0%b4%d0%b5-netstat-rn-%d0%b7%d0%bd%d0%b0%d1%87%d0%b5%d0%bd%d0%b8%d0%b5-mss-%d1%80%d0%b0%d0%b2%d0%bd%d0%be-0-%d1%87%d1%82%d0%be-%d1%8d%d1%82%d0%be-%d0%be%d0%b7%d0%bd/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=%25d0%25b2-%25d0%25b2%25d1%258b%25d0%25b2%25d0%25be%25d0%25b4%25d0%25b5-netstat-rn-%25d0%25b7%25d0%25bd%25d0%25b0%25d1%2587%25d0%25b5%25d0%25bd%25d0%25b8%25d0%25b5-mss-%25d1%2580%25d0%25b0%25d0%25b2%25d0%25bd%25d0%25be-0-%25d1%2587%25d1%2582%25d0%25be-%25d1%258d%25d1%2582%25d0%25be-%25d0%25be%25d0%25b7%25d0%25bd</link>
+				<pubDate>Fri, 14 Aug 2009 07:01:49 +0000</pubDate>
+		<dc:creator><![CDATA[ivan]]></dc:creator>
+				<category><![CDATA[RedHat KB]]></category>
+		<category><![CDATA[ftp]]></category>
+		<category><![CDATA[mss]]></category>
+		<category><![CDATA[mtu]]></category>
+		<category><![CDATA[networking]]></category>
+		<category><![CDATA[path]]></category>
+		<category><![CDATA[route]]></category>
+		<category><![CDATA[web_server]]></category>
+
+		<guid isPermaLink="false">http://www.n-ix.com/ipesin/?p=281</guid>
+				<description><![CDATA[Copyright (c) 2009 by Red Hat, Inc. This material may be distributed only subject to the terms and conditions set forth in the Open Publication License, v1.0 or later (available at http://www.opencontent.org/openpub/). Original article: http://kbase.redhat.com/faq/docs/DOC-6302.pdf Translated by Ivan Pesin, August 2009 Вывод команды netstat -nr выглядит обычно так: [crayon-6a527c908b08f918509694/] Значение максимального размера сегмента (Maximum Segment [&#8230;]]]></description>
+								<content:encoded><![CDATA[<p id="top" />
+<div class="copyright">Copyright (c) 2009 by Red Hat, Inc. This material may be distributed only subject to the terms and conditions set forth in the Open Publication License, v1.0 or later (available at <a href="http://www.opencontent.org/openpub/">http://www.opencontent.org/openpub/</a>).<br />
+Original article: <a href="http://kbase.redhat.com/faq/docs/DOC-6302.pdf">http://kbase.redhat.com/faq/docs/DOC-6302.pdf</a></p>
+<p>Translated by Ivan Pesin, August 2009</p></div>
+<p>Вывод команды <code>netstat -nr</code> выглядит обычно так:</p>
+<blockquote><p></p><pre class="crayon-plain-tag"># netstat -nr
+Kernel IP routing table
+Destination&nbsp;&nbsp;&nbsp;&nbsp; Gateway&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Genmask&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Flags&nbsp;&nbsp; MSS Window&nbsp; irtt Iface
+192.168.0.0&nbsp;&nbsp;&nbsp;&nbsp; 0.0.0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 255.255.255.0&nbsp;&nbsp; U&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 eth0
+169.254.0.0&nbsp;&nbsp;&nbsp;&nbsp; 0.0.0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 255.255.0.0&nbsp;&nbsp;&nbsp;&nbsp; U&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 eth0
+0.0.0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 192.168.0.254&nbsp;&nbsp; 0.0.0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; UG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 eth0</pre><p></p></blockquote>
+<p>Значение максимального размера сегмента (Maximum Segment Size, MSS) равное нулю в выводе команды <code>netstat</code> является неверным для любого типа сети. Это значение игнорируется ядром при активации сетевого подключения. </p>
+<p>Когда MSS маршрута равен нулю, он определяется ядром исходя из размера MTU интерфейса, с которого отправляется пакет.</p>
+<p>Чтобы посмотреть настройки интерфейса, используйте команду <code>ifconfig</code>:</p>
+<blockquote><p></p><pre class="crayon-plain-tag"># ifconfig eth0
+eth0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Link encap:Ethernet&nbsp; HWaddr 00:0D:61:93:55:3E
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; inet addr:192.168.0.22&nbsp; Bcast:172.168.0.255&nbsp; Mask:255.255.255.0
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; UP BROADCAST RUNNING MULTICAST&nbsp; MTU:1500&nbsp; Metric:1
+ ...</pre><p></p></blockquote>
+<p>Значение MSS вычисляется по формуле MSS = MTU &#8211; 40 байт. То есть, если MTU интерфейса равен 1500 байтам, то вычисленный ядром размер MSS будет равен 1460 байтам. Это предлагаемое значение MSS (advertised MSS) для TCP-соединения, оно используется, чтобы сообщить другой стороне о предпочитаемом размере MSS. Когда устанавливается TCP-соединение, значение MSS отправляется в SYN-пакете.</p>
+<p>MSS маршрута (который выводится командой <code>netstat -rn</code>) может использоваться для переопределения предлагаемого значения MSS, которое вычисляется ядром. Например, если мы хотим принудительно задать MSS равное 1200 байтам для всех соединений с сетью 192.168.1.0/24, можно использовать команду <code>ip</code>:</p>
+<blockquote><p></p><pre class="crayon-plain-tag">ip route add 192.168.1.0/24 dev eth0 advmss 1200</pre><p></p></blockquote>
+<p>Можно также задать значение MSS для конкретного хоста:</p>
+<blockquote><p></p><pre class="crayon-plain-tag">ip route add 192.168.0.212 dev eth0 advmss 1200</pre><p></p></blockquote>
+<p>Отметим, что это влияет лишь на пакеты, которые мы получаем, но не отправляем: значение MSS &#8212; это предлагаемое значение, которое используется для информирования удалённой системы о том, что мы можем обработать.</p>
+<p>MSS пакетов, которые отправляем мы сами, может определяться аналогичным путём, хотя и не всегда, поскольку параметр предлагаемого MSS является необязательным. Red Hat Enterprise Linux указывает значение MSS в пакетах SYN и SYN-ACK, тогда как другие реализации стека TCP/IP могут его не указывать.</p>
+<p>В общем, если предлагаемое значение MSS получено не было, то используется минимальное значение MSS, равное 536 (MTU 576 &#8211; 40 байт = 536).</p>
+<p>Также обратите внимание, что, кроме значений MTU и MSS маршрутов, в Red Hat Enterprise Linux реализована технология определения MTU для маршрута (path MTU discovery) &#8212; это простой протокол, который пытается автоматически определить оптимальный размер MTU для TCP-соединения.</p>
+<p>Если автоопределение MTU маршрута работает корректно, то необходимость изменять MTU интерфейса или значение MSS маршрута возникает крайне редко.</p>
+]]></content:encoded>
+										</item>
+		<item>
+		<title>Как объединить несколько сетевых интерфейсов в один логический (bonding) в Red Hat Enterprise Linux?</title>
+		<link>/blog/2009/08/%d0%ba%d0%b0%d0%ba-%d0%be%d0%b1%d1%8a%d0%b5%d0%b4%d0%b8%d0%bd%d0%b8%d1%82%d1%8c-%d0%b2-%d0%be%d0%b4%d0%b8%d0%bd-%d0%bb%d0%be%d0%b3%d0%b8%d1%87%d0%b5%d1%81%d0%ba%d0%b8%d0%b9-%d0%bd%d0%b5%d1%81%d0%ba/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=%25d0%25ba%25d0%25b0%25d0%25ba-%25d0%25be%25d0%25b1%25d1%258a%25d0%25b5%25d0%25b4%25d0%25b8%25d0%25bd%25d0%25b8%25d1%2582%25d1%258c-%25d0%25b2-%25d0%25be%25d0%25b4%25d0%25b8%25d0%25bd-%25d0%25bb%25d0%25be%25d0%25b3%25d0%25b8%25d1%2587%25d0%25b5%25d1%2581%25d0%25ba%25d0%25b8%25d0%25b9-%25d0%25bd%25d0%25b5%25d1%2581%25d0%25ba</link>
+				<pubDate>Mon, 10 Aug 2009 19:15:21 +0000</pubDate>
+		<dc:creator><![CDATA[ivan]]></dc:creator>
+				<category><![CDATA[RedHat KB]]></category>
+		<category><![CDATA[bond]]></category>
+		<category><![CDATA[rhel3]]></category>
+		<category><![CDATA[team]]></category>
+		<category><![CDATA[teaming]]></category>
+
+		<guid isPermaLink="false">http://www.n-ix.com/ipesin/?p=499</guid>
+				<description><![CDATA[Copyright (c) 2009 by Red Hat, Inc. This material may be distributed only subject to the terms and conditions set forth in the Open Publication License, v1.0 or later (available at http://www.opencontent.org/openpub/). Original article: http://kbase.redhat.com/faq/docs/DOC-7944.pdf Original article: http://kbase.redhat.com/faq/docs/DOC-4284.pdf Translated by Ivan Pesin, August 2009 Red Hat Enterprise Linux позволяет администраторам объединять несколько сетевых интерфейсов в [&#8230;]]]></description>
+								<content:encoded><![CDATA[<p id="top" />
+<div class="copyright">Copyright (c) 2009 by Red Hat, Inc. This material may be distributed only subject to the terms and conditions set forth in the Open Publication License, v1.0 or later (available at <a href="http://www.opencontent.org/openpub/">http://www.opencontent.org/openpub/</a>).<br />
+Original article: <a href="http://kbase.redhat.com/faq/docs/DOC-7944.pdf">http://kbase.redhat.com/faq/docs/DOC-7944.pdf</a><br />
+Original article: <a href="http://kbase.redhat.com/faq/docs/DOC-4284.pdf">http://kbase.redhat.com/faq/docs/DOC-4284.pdf</a></p>
+<p>Translated by Ivan Pesin, August 2009</p></div>
+<p>Red Hat Enterprise Linux позволяет администраторам объединять несколько сетевых интерфейсов в один с помощью модуля ядра <code>bonding</code> и специального сетевого интерфейса, который называется &#8220;интерфейсом объединенного канала&#8221; (channel bonding interface). Объединение каналов даёт возможность двум или более сетевым интерфейсам работать как одному, увеличивая пропускную способность и обеспечивая отказоустойчивость.</p>
+<p>Чтобы создать bonding-интерфейс, создайте файл в каталоге <code>/etc/sysconfig/network-scripts/</code> с именем <code>ifcfg-bond&lt;N&gt;</code>, заменив <code>&lt;N&gt;</code> номером интерфейса, например <code>0</code>.</p>
+<p>Содержимое этого файла может быть идентичным содержимому файлов настройки объединяемых интерфейсов. Единственное отличие состоит в том, что директива <code>DEVICE</code> должна быть равна <code>bond&lt;N&gt;</code>, где <code>&lt;N&gt;</code> это номер интерфейса.</p>
+<p>Ниже приведён пример конфигурационного файла для bonding-интерфейса:</p>
+<blockquote><p></p><pre class="crayon-plain-tag">DEVICE=bond0
+BOOTPROTO=none
+ONBOOT=yes
+NETWORK=10.0.1.0
+NETMASK=255.255.255.0
+IPADDR=10.0.1.27
+USERCTL=no</pre><p></p></blockquote>
+<p>После того, как вы создадите настройку для bonding-интерфейса, нужно внести изменения в настройку объединяемых интерфейсов. Они должны быть сконфигурированы с директивами <code>MASTER=</code> и <code>SLAVE=</code>. Файлы настройки объединяемых интерфейсов могут быть практически идентичными.</p>
+<p>Например, если ваш bonding-интерфейс объединяет два Ethernet-интерфейса &#8212; <code>eth0</code> и <code>eth1</code>, тогда их конфигурационные файлы могут выглядеть так:</p>
+<blockquote><p></p><pre class="crayon-plain-tag">DEVICE=eth&amp;lt;N&amp;gt;
+BOOTPROTO=none
+ONBOOT=yes
+MASTER=bond0
+SLAVE=yes
+USERCTL=no</pre><p></p></blockquote>
+<p>В примере замените <code>&lt;N&gt;</code> на номер интерфейса.</p>
+<p>Для работы bonding-интерфейса необходимо загрузить соответствующий модуль ядра. Процедура загрузки модуля ядра слегка отличается в Red Enterprise Linux версии 3 и Red Hat Enterprise Linux версии 4.</p>
+<h3>Red Hat Enterprise Linux версии 3</h3>
+<p>Чтобы обеспечить автоматическую загрузку модуля при активации bonding-интерфейса, добавьте в файл <code>/etc/modules.conf</code> строку:</p>
+<blockquote><p></p><pre class="crayon-plain-tag">alias bond&amp;lt;N&amp;gt; bonding</pre><p></p></blockquote>
+<p>Замените <code>&lt;N&gt;</code> на номер интерфейса, например <code>0</code>. Для bonding-интерфейсов, отличных от <code>bond0</code> также требуется строка:</p>
+<blockquote><p></p><pre class="crayon-plain-tag">options bond&amp;lt;N&amp;gt; -o bond&amp;lt;N&amp;gt; mode=1 miimon=100</pre><p></p></blockquote>
+<p>Для каждого сконфигурированного bonding-интерфейса должна быть соответствующая запись в файле <code>/etc/modules.conf</code>.</p>
+<h3>Red Hat Enterprise Linux версии 4</h3>
+<p>Чтобы обеспечить автоматическую загрузку модуля при активации bonding-интерфейса, добавьте в файл <code>/etc/modprobe.conf</code> строки:</p>
+<blockquote><p></p><pre class="crayon-plain-tag">alias bond&amp;lt;N&amp;gt; bonding
+options bond&amp;lt;N&amp;gt; miimon=100 mode=0</pre><p></p></blockquote>
+<p>Замените <code>&lt;N&gt;</code> на номер интерфейса, например <code>0</code>. Также замените другие значение, такие как &#8220;miimon&#8221; и &#8220;mode&#8221;, на необходимые вам. Подробную информацию о различных параметрах можно найти в документации, перечисленной в конце документа </p>
+<p>Для каждого сконфигурированного bonding-интерфейса должна быть соответствующая запись в файле <code>/etc/modprobe.conf</code>.</p>
+<p><b>Примечание</b>: До выхода Update 2 для Red Hat Enterprise Linux version 4, система не поддерживала более одного bonding-интерфейса. Если вы пытаетесь настроить более одного bonding-интерфейса, вам необходимо обновить вашу систему до Red Hat Enterprise Linux 4 Update 2 или более поздней.</p>
+<p>После настройки файлов конфигурации интерфейсов и параметров в файле <code>/etc/modules.conf</code> (или <code>/etc/modprobe.conf</code> для RedHat Enterprise Linux 4) можно использовать команду <code>ifup</code> для активации bonding-интерфейса, или можно просто перезапустить сервис сети командой <code>service network restart</code>.</p>
+<p><strong>Дополнительная информация:</strong> с помощью модуля ядра можно управлять важными аспектами bonding-интерфейса.</p>
+<ul>
+<li>За дополнительной информацией по управлению модулем интерфейса объединённого канала обратитесь к разделу A.3.2 &#8211; The Channel Bonding Module по адресу: <a href="https://www.redhat.com/docs/manuals/enterprise/RHEL-3-Manual/ref-guide/s1-modules-ethernet.html">https://www.redhat.com/docs/manuals/enterprise/RHEL-3-Manual/ref-guide/s1-modules-ethernet.html</a> для RedHat Enterprise Linux 3 и <a href="https://www.redhat.com/docs/manuals/enterprise/RHEL-4-Manual/ref-guide/s1-modules-ethernet.html">https://www.redhat.com/docs/manuals/enterprise/RHEL-4-Manual/ref-guide/s1-modules-ethernet.html</a> для RedHat Enterprise Linux 4</li>
+<li>В справочном руководстве по Red Hat Enterprise Linux 3, находящемся по адресу: <a href="https://www.redhat.com/docs/manuals/enterprise/RHEL-3-Manual/ref-guide/">https://www.redhat.com/docs/manuals/enterprise/RHEL-3-Manual/ref-guide/</a> и Red Hat Enterprise Linux 4: <a href="https://www.redhat.com/docs/manuals/enterprise/RHEL-4-Manual/ref-guide/">https://www.redhat.com/docs/manuals/enterprise/RHEL-4-Manual/ref-guide/</a>.</li>
+<li>Также можно найти полезную информацию в файле <code>/usr/src/linux-2.4/Documentation/networking/bonding.txt</code>.</li>
+</ul>
+]]></content:encoded>
+										</item>
+		<item>
+		<title>Каким угрозам подвергаются сетевые сервисы?</title>
+		<link>/blog/2009/07/%d0%ba%d0%b0%d0%ba%d0%b8%d0%bc-%d1%83%d0%b3%d1%80%d0%be%d0%b7%d0%b0%d0%bc-%d0%bf%d0%be%d0%b4%d0%b2%d0%b5%d1%80%d0%b3%d0%b0%d1%8e%d1%82%d1%81%d1%8f-%d1%81%d0%b5%d1%82%d0%b5%d0%b2%d1%8b%d0%b5-%d1%81/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=%25d0%25ba%25d0%25b0%25d0%25ba%25d0%25b8%25d0%25bc-%25d1%2583%25d0%25b3%25d1%2580%25d0%25be%25d0%25b7%25d0%25b0%25d0%25bc-%25d0%25bf%25d0%25be%25d0%25b4%25d0%25b2%25d0%25b5%25d1%2580%25d0%25b3%25d0%25b0%25d1%258e%25d1%2582%25d1%2581%25d1%258f-%25d1%2581%25d0%25b5%25d1%2582%25d0%25b5%25d0%25b2%25d1%258b%25d0%25b5-%25d1%2581</link>
+				<pubDate>Tue, 21 Jul 2009 14:53:32 +0000</pubDate>
+		<dc:creator><![CDATA[ivan]]></dc:creator>
+				<category><![CDATA[RedHat KB]]></category>
+		<category><![CDATA[getting_started]]></category>
+		<category><![CDATA[security]]></category>
+
+		<guid isPermaLink="false">http://www.n-ix.com/ipesin/?p=217</guid>
+				<description><![CDATA[Copyright (c) 2009 by Red Hat, Inc. This material may be distributed only subject to the terms and conditions set forth in the Open Publication License, v1.0 or later (available at http://www.opencontent.org/openpub/). Original article: http://kbase.redhat.com/faq/docs/DOC-9082.pdf Translated by Ivan Pesin, July 2009 Хотя доступ пользователей к средствам администрирования &#8212; важный вопрос безопасности для системных администраторов организации, [&#8230;]]]></description>
+								<content:encoded><![CDATA[<p id="top" />
+<div class="copyright">Copyright (c) 2009 by Red Hat, Inc. This material may be distributed only subject to the terms and conditions set forth in the Open Publication License, v1.0 or later (available at <a href="http://www.opencontent.org/openpub/">http://www.opencontent.org/openpub/</a>).<br />
+Original article: <a href="http://kbase.redhat.com/faq/docs/DOC-9082.pdf">http://kbase.redhat.com/faq/docs/DOC-9082.pdf</a></p>
+<p>Translated by Ivan Pesin, July 2009</p></div>
+<p>Хотя доступ пользователей к средствам администрирования &#8212; важный вопрос безопасности для системных администраторов организации, но учёт активных сетевых сервисов имеет первостепенное значение для всех, кто использует операционную систему Linux.</p>
+<p>Многие сервисы в Red Hat Enterprise Linux представляют собой сетевые сервера. Если на машине запущен сетевой сервис, то серверное приложение, которое называют &#8220;демоном&#8221;, слушает один или несколько сетевых портов, ожидая подключений. Каждый из таких серверов должен считаться потенциальной мишенью атаки.</p>
+<p>Сетевые сервисы могут подвергать Linux-системы многим опасностям. Вот список самых основных:</p>
+<ul>
+<li><strong>Атаки на переполнение буфера (Buffer Overflow Attacks)</strong> &#8211; Сервисы, которые работают с портами от нулевого до 1023-го должны выполняться с административными привилегиями. Если такой сервис содержит ошибку переполнения буфера, то злоумышленник может использовать её для получения доступа к системе с правами пользователя, под которым запущен данный сервис. Взломщики используют автоматические утилиты для поиска систем с уязвимостями, а после получения доступа к ним, они внедряют автоматизированные руткиты (rootkits), которые позволяют им сохранить доступ к системе в дальнейшем.</li>
+<li><strong>Атаки на отказ в обслуживании (Denial of Service Attacks, DoS)</strong> &#8211; Этот тип атак заключается в заваливании сервиса запросами на обслуживание. Получая необычайно большое количество запросов от злоумышленника, сервис пытается обработать каждый из них, растрачивая на это ресурсы системы. В результате новые запросы перестают обрабатываться из-за нехватки системных ресурсов.</li>
+<li><strong>Атаки на уязвимости в скриптах (Script Vulnerability Attacks)</strong> &#8211; Если сервис использует скрипты для выполнения различных действий на стороне сервера, что характерно для Web-сервисов, взломщик может построить свою атаку на плохо написанных скриптах. Уязвимости в скриптах могут приводить к состоянию переполнения буфера, либо позволять модифицировать файлы в системе.</li>
+</ul>
+<p>Чтобы ограничить подверженность системы сетевым атакам, все ненужные сервисы должны быть выключены.</p>
+]]></content:encoded>
+										</item>
+		<item>
+		<title>Как пересканировать SCSI-шину без перезагрузки компьютера?</title>
+		<link>/blog/2009/07/%d0%ba%d0%b0%d0%ba-%d0%bf%d0%b5%d1%80%d0%b5%d1%81%d0%ba%d0%b0%d0%bd%d0%b8%d1%80%d0%be%d0%b2%d0%b0%d1%82%d1%8c-scsi-%d1%88%d0%b8%d0%bd%d1%83-%d0%b1%d0%b5%d0%b7-%d0%bf%d0%b5%d1%80%d0%b5%d0%b7%d0%b0/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=%25d0%25ba%25d0%25b0%25d0%25ba-%25d0%25bf%25d0%25b5%25d1%2580%25d0%25b5%25d1%2581%25d0%25ba%25d0%25b0%25d0%25bd%25d0%25b8%25d1%2580%25d0%25be%25d0%25b2%25d0%25b0%25d1%2582%25d1%258c-scsi-%25d1%2588%25d0%25b8%25d0%25bd%25d1%2583-%25d0%25b1%25d0%25b5%25d0%25b7-%25d0%25bf%25d0%25b5%25d1%2580%25d0%25b5%25d0%25b7%25d0%25b0</link>
+				<pubDate>Sun, 19 Jul 2009 09:06:56 +0000</pubDate>
+		<dc:creator><![CDATA[ivan]]></dc:creator>
+				<category><![CDATA[RedHat KB]]></category>
+		<category><![CDATA[configuration]]></category>
+		<category><![CDATA[lun]]></category>
+		<category><![CDATA[rhel4]]></category>
+		<category><![CDATA[rhel5]]></category>
+		<category><![CDATA[san]]></category>
+		<category><![CDATA[scsi]]></category>
+		<category><![CDATA[storage]]></category>
+
+		<guid isPermaLink="false">http://www.n-ix.com/ipesin/?p=322</guid>
+				<description><![CDATA[Copyright (c) 2009 by Red Hat, Inc. This material may be distributed only subject to the terms and conditions set forth in the Open Publication License, v1.0 or later (available at http://www.opencontent.org/openpub/). Original article: http://kbase.redhat.com/faq/docs/DOC-3942.pdf Translated by Ivan Pesin, July 2009 Система: Red Hat Enterprise Linux 3, 4 и 5 Добавить и удалить конкретное SCSI-устройство, [&#8230;]]]></description>
+								<content:encoded><![CDATA[<p id="top" />
+<div class="copyright">Copyright (c) 2009 by Red Hat, Inc. This material may be distributed only subject to the terms and conditions set forth in the Open Publication License, v1.0 or later (available at <a href="http://www.opencontent.org/openpub/">http://www.opencontent.org/openpub/</a>).<br />
+Original article: <a href="http://kbase.redhat.com/faq/docs/DOC-3942.pdf">http://kbase.redhat.com/faq/docs/DOC-3942.pdf</a></p>
+<p>Translated by Ivan Pesin, July 2009</p></div>
+<p><strong>Система</strong>: Red Hat Enterprise Linux 3, 4 и 5</p>
+<p>Добавить и удалить конкретное SCSI-устройство, как и пересканировать всю SCSI-шину, возможно без перезагрузки системы. Обратитесь к документу <a href="http://www.redhat.com/docs/en-US/Red_Hat_Enterprise_Linux/5.2/html/Online_Storage_Reconfiguration_Guide/index.html">Online Storage Reconfiguration Guide</a> за полным обзором по этой теме в Red Hat Enterprise Linux 5.</p>
+<p><strong>Для Red Hat Enterprise Linux 5</strong></p>
+<p>Для хранилища, подключённого через fibre channel, можно инициировать выполнение LIP (loop initialization primitive) на фабрике:</p>
+<blockquote><p></p><pre class="crayon-plain-tag">echo &quot;1&quot; &amp;gt; /sys/class/fc_host/host#/issue_lip</pre><p></p></blockquote>
+<p>Выполнение LIP (как в приведённом примере) &#8212; это всё, что необходимо в Red Hat Enterprise Linux 5 для пересканирования шины fibre channel. Для завершения операции сканирования нужно несколько секунд. Эта функциональность полностью поддерживается начиная с версии Red Hat Enterprise Linux 5.</p>
+<p><strong>Для Red Hat Enterprise Linux 4 и 5</strong></p>
+<p>Чтобы пересканировать шину SCSI-контроллера, выполните команду:</p>
+<blockquote><p></p><pre class="crayon-plain-tag">echo &quot;- - -&quot; &amp;gt; /sys/class/scsi_host/host#/scan</pre><p></p></blockquote>
+<p>Замените символ <code>#</code> номером SCSI-шины, которую нужно пересканировать.</p>
+<p>Кроме полного пересканирования шины, можно добавлять или удалять только определённое заданное устройство. Команды для различных версий Red Hat Enterprise Linux приведены в следующих разделах.</p>
+<p><strong>Для Red Hat Enterprise Linux 4 или 5</strong></p>
+<p>Чтобы удалить одно заданное устройство, выполните:</p>
+<blockquote><p></p><pre class="crayon-plain-tag"># echo 1 &amp;gt; /sys/block/&amp;lt;dev&amp;gt;/device/delete</pre><p></p></blockquote>
+<p><strong>Для Red Hat Enterprise Linux 3, 4 или 5</strong></p>
+<p>Чтобы добавить одно заданное устройство, выполните:</p>
+<blockquote><p></p><pre class="crayon-plain-tag"># echo &quot;scsi add-single-device &amp;lt;H&amp;gt; &amp;lt;B&amp;gt; &amp;lt;T&amp;gt; &amp;lt;L&amp;gt;&quot; &amp;gt; /proc/scsi/scsi</pre><p></p></blockquote>
+<p>Чтобы удалить заданное устройство, выполните:</p>
+<blockquote><p></p><pre class="crayon-plain-tag"># echo &quot;scsi remove-single-device &amp;lt;H&amp;gt; &amp;lt;B&amp;gt; &amp;lt;T&amp;gt; &amp;lt;L&amp;gt;&quot; &amp;gt; /proc/scsi/scsi</pre><p>
+</pre>
+</blockquote>
+<p>Где <code>&lt;H&gt; &lt;B&gt; &lt;T&gt; &lt;L&gt;</code> &#8212; это хост, шина, целевой номер устройства и логический номер (host, bus, target, LUN) соответственно.  Соответствующие устройству номера можно найти в каталоге /sys (тольок для ядер версии 2.6), файле /proc/scsi/scsi или выводе команды dmesg.</p>
+<p>В документации и выводе утилит указанные номера могут также называться как &#8220;хост&#8221;, &#8220;канал&#8221;, &#8220;идентификатор&#8221; и &#8220;lun&#8221;.</p>
+<p><strong>Рекомендации для виртуальных гостевых систем</strong></p>
+<p>Вышеописанные процедуры применимы для систем с гипервизорами (т.е. для <code>dom0</code> в Red Hat Enterprise Linux 5), но не могут использоваться для динамического изменения хранилищ виртуальных гостевых систем. За подробной информацией о добавлении хранилищ в виртуальные гостевые системы обращайтесь к документу <a href="http://www.redhat.com/docs/en-US/Red_Hat_Enterprise_Linux/5/html/Virtualization_Guide/sect-Virtualization-Virtualized_block_devices-Adding_storage_devices_to_guests.html">Virtualization Guide</a>.</p>
+<p><strong>Для владельцев контроллеров Hewlett-Packard SmartArray</strong></p>
+<p>Контроллеры HP SmartArray и другое аппаратное обеспечение, использующее драйвер cciss, имеют другой интерфейс для управления SCSI-устройствами. Пользователи таких котроллеров могут обратится к аналогичному руководству <a href="?p=500">здесь</a>.</p>
+]]></content:encoded>
+										</item>
+		<item>
+		<title>Как заставить HP Smart Array просканировать шину без перезагрузки Red Hat Enterprise Linux 4?</title>
+		<link>/blog/2009/07/%d0%ba%d0%b0%d0%ba-%d0%b7%d0%b0%d1%81%d1%82%d0%b0%d0%b2%d0%b8%d1%82%d1%8c-hp-smart-array-%d0%bf%d1%80%d0%be%d1%81%d0%ba%d0%b0%d0%bd%d0%b8%d1%80%d0%be%d0%b2%d0%b0%d1%82%d1%8c-%d1%88%d0%b8%d0%bd%d1%83/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=%25d0%25ba%25d0%25b0%25d0%25ba-%25d0%25b7%25d0%25b0%25d1%2581%25d1%2582%25d0%25b0%25d0%25b2%25d0%25b8%25d1%2582%25d1%258c-hp-smart-array-%25d0%25bf%25d1%2580%25d0%25be%25d1%2581%25d0%25ba%25d0%25b0%25d0%25bd%25d0%25b8%25d1%2580%25d0%25be%25d0%25b2%25d0%25b0%25d1%2582%25d1%258c-%25d1%2588%25d0%25b8%25d0%25bd%25d1%2583</link>
+				<pubDate>Thu, 16 Jul 2009 16:14:47 +0000</pubDate>
+		<dc:creator><![CDATA[ivan]]></dc:creator>
+				<category><![CDATA[RedHat KB]]></category>
+		<category><![CDATA[configuration]]></category>
+		<category><![CDATA[lun]]></category>
+		<category><![CDATA[rhel4]]></category>
+		<category><![CDATA[rhel5]]></category>
+		<category><![CDATA[san]]></category>
+		<category><![CDATA[scsi]]></category>
+		<category><![CDATA[storage]]></category>
+
+		<guid isPermaLink="false">http://www.n-ix.com/ipesin/?p=500</guid>
+				<description><![CDATA[Copyright (c) 2009 by Red Hat, Inc. This material may be distributed only subject to the terms and conditions set forth in the Open Publication License, v1.0 or later (available at http://www.opencontent.org/openpub/). Original article: http://kbase.redhat.com/faq/docs/DOC-7833.pdf Translated by Ivan Pesin, July 2009 Для работы с контроллером HP Smart Array используется драйвер cciss. Если в работающую систему [&#8230;]]]></description>
+								<content:encoded><![CDATA[<p id="top" />
+<div class="copyright">Copyright (c) 2009 by Red Hat, Inc. This material may be distributed only subject to the terms and conditions set forth in the Open Publication License, v1.0 or later (available at <a href="http://www.opencontent.org/openpub/">http://www.opencontent.org/openpub/</a>).<br />
+Original article: <a href="http://kbase.redhat.com/faq/docs/DOC-7833.pdf">http://kbase.redhat.com/faq/docs/DOC-7833.pdf</a></p>
+<p>Translated by Ivan Pesin, July 2009</p></div>
+<p>Для работы с контроллером HP Smart Array используется драйвер <code>cciss</code>. Если в работающую систему были добавлены диски, поддерживающие горячую замену, они не будут видны до тех пор, пока не пересканируется шина SCSI. Обычно это происходит при загрузке системы. Если перезагрузка системы невозможна или нежелательна, можно использовать следующий подход: инициировать сканирование шины командами драйвера. Для этого, отправьте команду <code>rescan</code> драйверу <code>cciss</code>:</p>
+<blockquote><p></p><pre class="crayon-plain-tag">echo &quot;rescan&quot; &amp;gt; /proc/driver/cciss/cciss0</pre><p></p></blockquote>
+<p>А после того, как шина будет просканирована, можно добавить новое устройство в систему:</p>
+<blockquote><p></p><pre class="crayon-plain-tag">echo scsi add-single-device 3 2 1 0 &amp;gt; /proc/scsi/scsi</pre><p></p></blockquote>
+<p>Вышеприведённый пример добавляет устройство с SCSI-номером 1, логическим номером 0, подключенное ко второй шине третьего контроллера (controller 3, bus 2, target 1, lun 0). Измените эти значения в соответствии с параметрами добавляемого устройства.</p>
+]]></content:encoded>
+										</item>
+		<item>
+		<title>Как с помощью yum скачать пакет, не устанавливая его в системе?</title>
+		<link>/blog/2009/07/%d0%ba%d0%b0%d0%ba-%d1%81-%d0%bf%d0%be%d0%bc%d0%be%d1%89%d1%8c%d1%8e-yum-%d1%81%d0%ba%d0%b0%d1%87%d0%b0%d1%82%d1%8c-%d0%bf%d0%b0%d0%ba%d0%b5%d1%82-%d0%bd%d0%b5-%d1%83%d1%81%d1%82%d0%b0%d0%bd%d0%b0/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=%25d0%25ba%25d0%25b0%25d0%25ba-%25d1%2581-%25d0%25bf%25d0%25be%25d0%25bc%25d0%25be%25d1%2589%25d1%258c%25d1%258e-yum-%25d1%2581%25d0%25ba%25d0%25b0%25d1%2587%25d0%25b0%25d1%2582%25d1%258c-%25d0%25bf%25d0%25b0%25d0%25ba%25d0%25b5%25d1%2582-%25d0%25bd%25d0%25b5-%25d1%2583%25d1%2581%25d1%2582%25d0%25b0%25d0%25bd%25d0%25b0</link>
+				<pubDate>Mon, 13 Jul 2009 15:30:21 +0000</pubDate>
+		<dc:creator><![CDATA[ivan]]></dc:creator>
+				<category><![CDATA[RedHat KB]]></category>
+		<category><![CDATA[rhel5]]></category>
+		<category><![CDATA[rhngeneral]]></category>
+		<category><![CDATA[yum]]></category>
+
+		<guid isPermaLink="false">http://www.n-ix.com/ipesin/?p=498</guid>
+				<description><![CDATA[Copyright (c) 2009 by Red Hat, Inc. This material may be distributed only subject to the terms and conditions set forth in the Open Publication License, v1.0 or later (available at http://www.opencontent.org/openpub/). Original article: http://kbase.redhat.com/faq/docs/DOC-10155.pdf Translated by Ivan Pesin, July 2009 Система: Red Hat Enterprise Linux 5 Решение: Убедитесь, что пакет yum-downloadonly установлен в системе. [&#8230;]]]></description>
+								<content:encoded><![CDATA[<p id="top" />
+<div class="copyright">Copyright (c) 2009 by Red Hat, Inc. This material may be distributed only subject to the terms and conditions set forth in the Open Publication License, v1.0 or later (available at <a href="http://www.opencontent.org/openpub/">http://www.opencontent.org/openpub/</a>).<br />
+Original article: <a href="http://kbase.redhat.com/faq/docs/DOC-10155.pdf">http://kbase.redhat.com/faq/docs/DOC-10155.pdf</a></p>
+<p>Translated by Ivan Pesin, July 2009</p></div>
+<p><strong>Система:</strong> Red Hat Enterprise Linux 5</p>
+<p><strong>Решение:</strong></p>
+<p>Убедитесь, что пакет <strong>yum-downloadonly</strong> установлен в системе. Если нет, то этот пакет доступен в <a href="https://rhn.redhat.com/">Red Hat Network</a> (RHN).  Чтобы установить пакет <strong>yum-downloadonly</strong> в системе, зарегистрированной в Red Hat Network, выполните команду:</p>
+<blockquote><p></p><pre class="crayon-plain-tag">#yum install yum-downloadonly</pre><p></p></blockquote>
+<p><strong>yum-downloadonly</strong> &#8212; это плагин, который может быть использован для загрузки пакетов из RHN или репозиториев yum, без установки их в системе. Проверьте содержимое файла <strong>/etc/yum/pluginconf.d/downloadonly.conf</strong> и убедитесь, что плагин разрешён:</p>
+<blockquote><p></p><pre class="crayon-plain-tag">[main]
+enabled=1</pre><p></p></blockquote>
+<p>Теперь, для примера, выполните следующую команду, которая загружает последнюю версию vsftpd, если она доступна, без установки в системе:</p>
+<blockquote><p></p><pre class="crayon-plain-tag"># yum install --downloadonly vsftpd
+Loading &quot;downloadonly&quot; plugin
+Loading &quot;rhnplugin&quot; plugin
+rhel-i386-server-5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 100% |=========================| 1.4 kB&nbsp;&nbsp;&nbsp; 00:00
+Setting up Install Process
+Parsing package install arguments
+Package vsftpd - 2.0.5-10.el5.i386 is already installed.
+Resolving Dependencies
+--&amp;gt; Running transaction check
+---&amp;gt; Package vsftpd.i386 0:2.0.5-12.el5 set to be updated
+--&amp;gt; Finished Dependency Resolution
+
+Dependencies Resolved
+
+=============================================================================
+ Package&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Arch&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Version&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Repository&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Size 
+=============================================================================
+Updating:
+ vsftpd&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; i386&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2.0.5-12.el5&nbsp;&nbsp;&nbsp;&nbsp; rhel-i386-server-5&nbsp; 138 k
+
+Transaction Summary
+=============================================================================
+Install&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 Package(s)
+Update&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 Package(s)
+Remove&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 Package(s)
+
+Total download size: 138 k
+Is this ok [y/N]: y
+Downloading Packages:
+(1/1): vsftpd-2.0.5-12.el 100% |=========================| 138 kB&nbsp;&nbsp;&nbsp; 00:02
+
+exiting because --downloadonly specified</pre><p></p></blockquote>
+<p>По-умолчанию, пакет сохраняется в каталог <strong>/var/cache/yum/&lt;repo&gt;/packages/</strong>. В нашем случае &lt;repo&gt; это <strong>rhel-i386-server-5</strong>. Чтобы сохранить пакет в другом каталоге, укажите параметр <code>--downloaddir</code> вместе с <code>--downloadonly</code>. Например:</p>
+<blockquote><p></p><pre class="crayon-plain-tag">#yum install --downloadonly --downloaddir=/tmp vsftpd</pre><p></p></blockquote>
+<p>В результате последняя доступная версия пакета vsftpd, если он не установлен в системе, будет загружена и сохранена в каталоге /tmp.</p>
+<p>Чтобы скачать пакет установленный в системе, используйте команду <code>yumdownloader</code>. Например, в системе установлен пакет <code>httpd-2.2.3-22.el5</code>:</p>
+<blockquote><p></p><pre class="crayon-plain-tag"># rpm -q httpd
+httpd-2.2.3-22.el5</pre><p></p></blockquote>
+<p>Чтобы скачать его, воспользуйтесь командой <code>yumdownloader</code>:</p>
+<blockquote><p></p><pre class="crayon-plain-tag"># yumdownloader httpd-2.2.3-22.el5
+Loaded plugins: fastestmirror, kmod, protectbase, rhnplugin, versionlock
+Loading mirror speeds from cached hostfile
+Reading version lock configuration
+0 packages excluded due to repository protections
+httpd-2.2.3-22.el5.i386.rpm</pre><p></p></blockquote>
+<p>Пакет сохраняется в текущем каталоге. Чтобы указать другое место, добавьте ключ <code>--destdir</code> с указанием нужного каталога. За подробной информацией о возможностях и параметрах команды обращайтесь к странице руководства, доступной по команде <code>man yumdownloader</code>.</p>
+<p><strong><em>Прим.пер.</em></strong>: утилита <code>yumdownloader</code> входит в пакет <code>yum-utils</code>.</p>
+]]></content:encoded>
+										</item>
+		<item>
+		<title>Как активировать маскарад в iptables?</title>
+		<link>/blog/2009/07/%d0%ba%d0%b0%d0%ba-%d0%b0%d0%ba%d1%82%d0%b8%d0%b2%d0%b8%d1%80%d0%be%d0%b2%d0%b0%d1%82%d1%8c-%d0%bc%d0%b0%d1%81%d0%ba%d0%b0%d1%80%d0%b0%d0%b4-%d0%b2-iptables/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=%25d0%25ba%25d0%25b0%25d0%25ba-%25d0%25b0%25d0%25ba%25d1%2582%25d0%25b8%25d0%25b2%25d0%25b8%25d1%2580%25d0%25be%25d0%25b2%25d0%25b0%25d1%2582%25d1%258c-%25d0%25bc%25d0%25b0%25d1%2581%25d0%25ba%25d0%25b0%25d1%2580%25d0%25b0%25d0%25b4-%25d0%25b2-iptables</link>
+				<pubDate>Fri, 10 Jul 2009 11:34:39 +0000</pubDate>
+		<dc:creator><![CDATA[ivan]]></dc:creator>
+				<category><![CDATA[RedHat KB]]></category>
+		<category><![CDATA[iptables]]></category>
+		<category><![CDATA[ipv4]]></category>
+		<category><![CDATA[ip_forward]]></category>
+		<category><![CDATA[masquerade]]></category>
+		<category><![CDATA[net]]></category>
+		<category><![CDATA[networking]]></category>
+		<category><![CDATA[security]]></category>
+		<category><![CDATA[sysctl]]></category>
+
+		<guid isPermaLink="false">http://www.n-ix.com/ipesin/?p=455</guid>
+				<description><![CDATA[Copyright (c) 2009 by Red Hat, Inc. This material may be distributed only subject to the terms and conditions set forth in the Open Publication License, v1.0 or later (available at http://www.opencontent.org/openpub/). Original article: http://kbase.redhat.com/faq/docs/DOC-6266.pdf Translated by Ivan Pesin, July 2009 Приведённые здесь инструкции активируют функциональность маскарада, но не обеспечивают полной настройки пакетного фильтра. В [&#8230;]]]></description>
+								<content:encoded><![CDATA[<p id="top" />
+<div class="copyright">Copyright (c) 2009 by Red Hat, Inc. This material may be distributed only subject to the terms and conditions set forth in the Open Publication License, v1.0 or later (available at <a href="http://www.opencontent.org/openpub/">http://www.opencontent.org/openpub/</a>).<br />
+Original article: <a href="http://kbase.redhat.com/faq/docs/DOC-6266.pdf">http://kbase.redhat.com/faq/docs/DOC-6266.pdf</a></p>
+<p>Translated by Ivan Pesin, July 2009</p></div>
+<p>Приведённые здесь инструкции активируют функциональность маскарада, но не обеспечивают полной настройки пакетного фильтра.</p>
+<p>В нашем примере, мы будем использовать устройство eth0. Следующая команда iptables добавляет цель MASQUERADE в послемаршрутизационную цепь обработки пакетов (т.е. непосредственно включает маскарад):</p>
+<blockquote><p></p><pre class="crayon-plain-tag">iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE</pre><p></p></blockquote>
+<p>После этого, нужно отредактировать файл <code>/etc/sysctl.conf</code>, чтобы настроить продвижение пакетов. Для этого измените строку:</p>
+<blockquote><p></p><pre class="crayon-plain-tag">net.ipv4.ip_forward=0</pre><p></p></blockquote>
+<p>на:</p>
+<blockquote><p></p><pre class="crayon-plain-tag">net.ipv4.ip_forward=1</pre><p></p></blockquote>
+<p>Если такой строки в файле нет, просто добавьте вышеприведённую строку, которая устанавливает значение параметра ip_forward равным 1 (единице). После этого, чтобы пересчитать файл конфигурации sysctl, запустите команду:</p>
+<blockquote><p></p><pre class="crayon-plain-tag">sysctl -p</pre><p></p></blockquote>
+]]></content:encoded>
+										</item>
+		<item>
+		<title>Как определить, выполняется ли текущая система в виртуальной машине?</title>
+		<link>/blog/2009/07/%d0%ba%d0%b0%d0%ba-%d0%be%d0%bf%d1%80%d0%b5%d0%b4%d0%b5%d0%bb%d0%b8%d1%82%d1%8c-%d0%b2%d1%8b%d0%bf%d0%be%d0%bb%d0%bd%d1%8f%d0%b5%d1%82%d1%81%d1%8f-%d0%bb%d0%b8-%d1%82%d0%b5%d0%ba%d1%83%d1%89%d0%b0/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=%25d0%25ba%25d0%25b0%25d0%25ba-%25d0%25be%25d0%25bf%25d1%2580%25d0%25b5%25d0%25b4%25d0%25b5%25d0%25bb%25d0%25b8%25d1%2582%25d1%258c-%25d0%25b2%25d1%258b%25d0%25bf%25d0%25be%25d0%25bb%25d0%25bd%25d1%258f%25d0%25b5%25d1%2582%25d1%2581%25d1%258f-%25d0%25bb%25d0%25b8-%25d1%2582%25d0%25b5%25d0%25ba%25d1%2583%25d1%2589%25d0%25b0</link>
+				<pubDate>Sun, 05 Jul 2009 09:53:25 +0000</pubDate>
+		<dc:creator><![CDATA[ivan]]></dc:creator>
+				<category><![CDATA[RedHat KB]]></category>
+		<category><![CDATA[qemu]]></category>
+		<category><![CDATA[rhel5]]></category>
+		<category><![CDATA[virtualization]]></category>
+		<category><![CDATA[vmware]]></category>
+		<category><![CDATA[xen]]></category>
+
+		<guid isPermaLink="false">http://www.n-ix.com/ipesin/?p=313</guid>
+				<description><![CDATA[Copyright (c) 2009 by Red Hat, Inc. This material may be distributed only subject to the terms and conditions set forth in the Open Publication License, v1.0 or later (available at http://www.opencontent.org/openpub/). Original article: http://kbase.redhat.com/faq/docs/DOC-15413.pdf Translated by Ivan Pesin, July 2009 В только-что загрузившейся системе, чтобы узнать, работает ли она в виртуальном окружении, достаточно проверить [&#8230;]]]></description>
+								<content:encoded><![CDATA[<p id="top" />
+<div class="copyright">Copyright (c) 2009 by Red Hat, Inc. This material may be distributed only subject to the terms and conditions set forth in the Open Publication License, v1.0 or later (available at <a href="http://www.opencontent.org/openpub/">http://www.opencontent.org/openpub/</a>).<br />
+Original article: <a href="http://kbase.redhat.com/faq/docs/DOC-15413.pdf">http://kbase.redhat.com/faq/docs/DOC-15413.pdf</a></p>
+<p>Translated by Ivan Pesin, July 2009</p></div>
+<p>В только-что загрузившейся системе, чтобы узнать, работает ли она в виртуальном окружении, достаточно проверить вывод команды <code>dmesg</code>. Ниже приведены примеры выполнения команды в разных виртуализационных средах: </p>
+<p><strong>Xen</strong></p>
+<blockquote><p></p><pre class="crayon-plain-tag">$ dmesg | grep -i virtual 
+Xen virtual console successfully installed as xvc0</pre><p></p></blockquote>
+<p><strong>VMWare</strong></p>
+<blockquote><p></p><pre class="crayon-plain-tag">$ dmesg | grep -i virtual  
+     VMware vmxnet virtual NIC driver         Vendor: VMware    Model: Virtual disk      Rev: 1.0  
+     hda: VMware Virtual IDE CDROM Drive, ATAPI CD/DVD-ROM drive</pre><p></p></blockquote>
+<p><strong>QEMU или KVM</strong></p>
+<blockquote><p></p><pre class="crayon-plain-tag">$ dmesg | grep -i virtual    
+   CPU: AMD QEMU Virtual CPU version 0.9.1 stepping 03</pre><p></p></blockquote>
+<p>Кроме того, можно также использовать команду <code>dmidecode</code>, для получения информации из системного BIOS. Например:</p>
+<p><strong>VMWare</strong>:</p>
+<blockquote><p></p><pre class="crayon-plain-tag"># dmidecode | egrep -i 'manufacturer|product'   
+    Manufacturer: VMware, Inc.       Product Name: VMware Virtual Platform</pre><p></p></blockquote>
+<p><strong>QEMU или KVM</strong>:</p>
+<blockquote><p></p><pre class="crayon-plain-tag"># dmidecode | egrep -i 'vendor' 
+   Vendor: QEMU</pre><p></p></blockquote>
+]]></content:encoded>
+										</item>
+		<item>
+		<title>Как получить дополнительную информацию о производительности дисков?</title>
+		<link>/blog/2009/07/%d0%ba%d0%b0%d0%ba-%d0%bf%d0%be%d0%bb%d1%83%d1%87%d0%b8%d1%82%d1%8c-%d0%b4%d0%be%d0%bf%d0%be%d0%bb%d0%bd%d0%b8%d1%82%d0%b5%d0%bb%d1%8c%d0%bd%d1%83%d1%8e-%d0%b8%d0%bd%d1%84%d0%be%d1%80%d0%bc%d0%b0/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=%25d0%25ba%25d0%25b0%25d0%25ba-%25d0%25bf%25d0%25be%25d0%25bb%25d1%2583%25d1%2587%25d0%25b8%25d1%2582%25d1%258c-%25d0%25b4%25d0%25be%25d0%25bf%25d0%25be%25d0%25bb%25d0%25bd%25d0%25b8%25d1%2582%25d0%25b5%25d0%25bb%25d1%258c%25d0%25bd%25d1%2583%25d1%258e-%25d0%25b8%25d0%25bd%25d1%2584%25d0%25be%25d1%2580%25d0%25bc%25d0%25b0</link>
+				<pubDate>Thu, 02 Jul 2009 08:32:35 +0000</pubDate>
+		<dc:creator><![CDATA[ivan]]></dc:creator>
+				<category><![CDATA[RedHat KB]]></category>
+		<category><![CDATA[hardware]]></category>
+		<category><![CDATA[rhel5]]></category>
+		<category><![CDATA[statistics]]></category>
+
+		<guid isPermaLink="false">http://www.n-ix.com/ipesin/?p=327</guid>
+				<description><![CDATA[Copyright (c) 2009 by Red Hat, Inc. This material may be distributed only subject to the terms and conditions set forth in the Open Publication License, v1.0 or later (available at http://www.opencontent.org/openpub/). Original article: http://kb.redhat.com/faq/docs/DOC-7888.pdf Translated by Ivan Pesin, June 2009 Команда iostat предоставляет статистику операций ввода/вывода, но иногда администраторам требуется более детальная информация. В [&#8230;]]]></description>
+								<content:encoded><![CDATA[<p id="top" />
+<div class="copyright">Copyright (c) 2009 by Red Hat, Inc. This material may be distributed only subject to the terms and conditions set forth in the Open Publication License, v1.0 or later (available at <a href="http://www.opencontent.org/openpub/">http://www.opencontent.org/openpub/</a>).<br />
+Original article: <a href="http://kb.redhat.com/faq/docs/DOC-7888.pdf">http://kb.redhat.com/faq/docs/DOC-7888.pdf</a></p>
+<p>Translated by Ivan Pesin, June 2009</p></div>
+<p>Команда <strong>iostat</strong> предоставляет статистику операций ввода/вывода, но иногда администраторам требуется более детальная информация. В таких случаях может оказаться полезным файл <strong>/proc/diskstats</strong>. Ниже приведён пример выполнения команды <code>cat /proc/diskstats</code>:</p>
+<blockquote><p></p><pre class="crayon-plain-tag"># cat /proc/diskstats
+    1       0 ram0 0 0 0 0 0 0 0 0 0 0 0
+.........................................
+    1      15 ram15 0 0 0 0 0 0 0 0 0 0 0
+    8       0 sda 13707 12045 788079 251532 3517 6016 76252 184444 0
+ 77704 435976
+    8       1 sda1 834 1670 2 4
+    8       2 sda2 23606 784578 9531 76248
+    8       3 sda3 1267 1431 0 0
+   22       0 hdc 9 9 144 544 0 0 0 0 0 468 544
+    2       0 fd0 0 0 0 0 0 0 0 0 0 0 0
+    9       0 md0 0 0 0 0 0 0 0 0 0 0 0</pre><p></p></blockquote>
+<p>Рассмотрим приведённый вывод:</p>
+<p>Первые две колонки &#8212; это старший и младший номер устройства.</p>
+<p>Третья колонка содержит имя устройства, после которого идут ещё 11 колонок.</p>
+<p><strong>Поле 1:</strong> количество выполненных операций чтения. Это общее число успешно завершённых операций чтения.</p>
+<p><strong>Поле 2:</strong> количество объединённых операций чтения.</p>
+<p><strong>Поле 3:</strong> количество считанных секторов. Это общее число успешно прочитанных секторов.</p>
+<p><strong>Поле 4:</strong> количество миллисекунд, затраченных на чтение. Это общее число миллисекунд, затраченных на операции чтения (измеряется от вызова __make_request() до end_that_request_last()).</p>
+<p><strong>Поле 5:</strong> количество выполненных операций записи. Это общее число успешно завершённых операций записи.</p>
+<p><strong>Поле 6:</strong> количество объединённых операций записи. Последовательные операции чтения и записи могут объединяться для повышения эффективности. Потому две операции считывания по 4K, могут стать одной операцией по считыванию 8K непосредственно перед передачей запроса диску. Таким образом, эти операции будут посчитаны (и выполнены) как одна операция ввода/вывода. Это поле показывает насколько часто происходит такая ситуация.</p>
+<p><strong>Поле 7:</strong> количество записанных секторов. Это общее число успешно записанных секторов.</p>
+<p><strong>Поле 8:</strong> количество миллисекунд, затраченных на запись. Это общее число миллисекунд, затраченных на операции записи (измеряется от вызова __make_request() до end_that_request_last()).</p>
+<p><strong>Поле 9:</strong> количество выполняемых операций ввода/вывода в текущий момент. Единственное поле, значение которого может уменьшаться до нуля. Увеличивается при передаче запросов соответствующей request_queue_t и уменьшается при их завершении.</p>
+<p><strong>Поле 10:</strong> количество миллисекунд, затраченных на выполнение операций ввода/вывода. Это значение возрастает, пока значение поля 9 не равно нулю.</p>
+<p><strong>Поле 11:</strong> взвешенное число миллисекунд, затраченных на выполнение операций ввода/вывода. При каждом начале, завершении,или объединении операций ввода/вывода, или при считывании этой статистики, это поле увеличивается на число выполняемых в текущий момент операций ввода/вывода (поле 9), умноженное на количество миллисекунд, затраченных на выполнение операций ввода/вывода, с момента последнего обновления данного поля. Это позволяет получить простую статистику как времени выполнения операций ввода/вывода, так и количества незавершённых операций, число которых может возрастать.</p>
+<p><em><strong>Прим.пер.:</strong></em> здесь рассматривается формат записи, относящийся к диску, не разделу. Для разделов представлены только 4 поля, аналоги описанных полей 1,3,5,7. Начиная с ядра 2.6.25 у разделов появился полный набор полей статистики.</p>
+]]></content:encoded>
+										</item>
+		<item>
+		<title>Как настроить дополнительные маршруты в Red Hat Enterprise Linux?</title>
+		<link>/blog/2009/06/%d0%ba%d0%b0%d0%ba-%d0%bd%d0%b0%d1%81%d1%82%d1%80%d0%be%d0%b8%d1%82%d1%8c-%d0%b4%d0%be%d0%bf%d0%be%d0%bb%d0%bd%d0%b8%d1%82%d0%b5%d0%bb%d1%8c%d0%bd%d1%8b%d0%b5-%d0%bc%d0%b0%d1%80%d1%88%d1%80%d1%83/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=%25d0%25ba%25d0%25b0%25d0%25ba-%25d0%25bd%25d0%25b0%25d1%2581%25d1%2582%25d1%2580%25d0%25be%25d0%25b8%25d1%2582%25d1%258c-%25d0%25b4%25d0%25be%25d0%25bf%25d0%25be%25d0%25bb%25d0%25bd%25d0%25b8%25d1%2582%25d0%25b5%25d0%25bb%25d1%258c%25d0%25bd%25d1%258b%25d0%25b5-%25d0%25bc%25d0%25b0%25d1%2580%25d1%2588%25d1%2580%25d1%2583</link>
+				<pubDate>Tue, 30 Jun 2009 20:16:37 +0000</pubDate>
+		<dc:creator><![CDATA[ivan]]></dc:creator>
+				<category><![CDATA[RedHat KB]]></category>
+		<category><![CDATA[ip]]></category>
+		<category><![CDATA[neworking]]></category>
+		<category><![CDATA[rhel3]]></category>
+		<category><![CDATA[rhel_basics]]></category>
+
+		<guid isPermaLink="false">http://www.n-ix.com/ipesin/?p=321</guid>
+				<description><![CDATA[Copyright (c) 2009 by Red Hat, Inc. This material may be distributed only subject to the terms and conditions set forth in the Open Publication License, v1.0 or later (available at http://www.opencontent.org/openpub/). Original article: http://kbase.redhat.com/faq/docs/DOC-6417.pdf Translated by Ivan Pesin, June 2009 Система: Red Hat Enterprise Linux 3.5, 4 and 5 Чтобы задать статические маршруты, используются [&#8230;]]]></description>
+								<content:encoded><![CDATA[<p id="top" />
+<div class="copyright">Copyright (c) 2009 by Red Hat, Inc. This material may be distributed only subject to the terms and conditions set forth in the Open Publication License, v1.0 or later (available at <a href="http://www.opencontent.org/openpub/">http://www.opencontent.org/openpub/</a>).<br />
+Original article: <a href="http://kbase.redhat.com/faq/docs/DOC-6417.pdf">http://kbase.redhat.com/faq/docs/DOC-6417.pdf</a></p>
+<p>Translated by Ivan Pesin, June 2009</p></div>
+<p><strong>Система:</strong> Red Hat Enterprise Linux 3.5, 4 and 5</p>
+<p>Чтобы задать статические маршруты, используются файлы <code>/etc/sysconfig/network-scripts/route-interface</code>. Они считываются при инициализации сетевых интерфейсов (ниже описывается синтаксис файлов).</p>
+<p>Существуют два варианта синтаксиса этих файлов. Первый &#8212; это аргументы к команде <code>ip</code>, второй состоит из директив &#8220;сеть/маска/шлюз&#8221;.</p>
+<p><strong>Синтаксис 1:</strong></p>
+<p>Если используется синтаксис с аргументами команды <code>ip</code>, скрипт <code>ifup-route</code> для каждой строки из файла выполняет команду <code>ip route add</code>. Строка в файле должна содержать все необходимые параметры для добавления маршрута. Например, чтобы задать маршрут по-умолчанию, файл должен содержать следующее:</p>
+<blockquote><p></p><pre class="crayon-plain-tag">default via X.X.X.X dev bond0
+10.10.10.0/24 via X.X.X.X dev bond0</pre><p></p></blockquote>
+<p>В приведённом примере, <code>X.X.X.X</code> &#8212; это IP-адрес шлюза. Вторая строка задаёт другой статический маршрут, где <code>X.X.X.X</code> это тоже IP-адрес шлюза. Каждая строка в файле обрабатывается как отдельный маршрут.</p>
+<p><strong>Синтаксис 2:</strong></p>
+<p>Альтернативный вариант синтаксиса следующий:</p>
+<blockquote><p></p><pre class="crayon-plain-tag">ADDRESS0=10.10.10.0
+NETMASK0=255.255.255.0
+GATEWAY0=X.X.X.X</pre><p></p></blockquote>
+<p>Где <code>X.X.X.X</code> это IP-адрес шлюза. Следующие записи должны быть последовательно пронумерованы (например <code>ADDRESS1=, NETMASK1=, GATEWAY1=</code>). Обратите внимание, что нумерация должна идти последовательно <strong>без пропусков</strong> (после 0 должна идти 1, а не любое число, большее 0).</p>
+]]></content:encoded>
+										</item>
+	</channel>
+</rss>

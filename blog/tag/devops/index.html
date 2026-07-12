@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<!--[if IE 7]>
+<html class="ie ie7" lang="en-US">
+<![endif]-->
+<!--[if IE 8]>
+<html class="ie ie8" lang="en-US">
+<![endif]-->
+<!--[if !(IE 7) & !(IE 8)]><!-->
+<html lang="en-US">
+<!--<![endif]-->
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width" />
+<title>devops | Ivan Pesin</title>
+<link rel="profile" href="http://gmpg.org/xfn/11" />
+<!--[if lt IE 9]>
+<script src="/blog/wp-content/themes/twentytwelve/js/html5.js" type="text/javascript"></script>
+<![endif]-->
+<link rel='dns-prefetch' href='https://fonts.googleapis.com/' />
+<link rel='dns-prefetch' href='https://s.w.org/' />
+<link rel="alternate" type="application/rss+xml" title="Ivan Pesin &raquo; Feed" href="../../feed/index.html" />
+<script type="text/javascript">//<![CDATA[
+            // Google Analytics for WordPress by Yoast v4.3.3 | http://yoast.com/wordpress/google-analytics/
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-27760168-1']);
+				            _gaq.push(['_trackPageview']);
+            (function () {
+                var ga = document.createElement('script');
+                ga.type = 'text/javascript';
+                ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(ga, s);
+            })();
+            //]]></script>
+			<link rel="alternate" type="application/rss+xml" title="Ivan Pesin &raquo; devops Tag Feed" href="feed/index.html" />
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/11.2.0\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/11.2.0\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/pesin.space\/blog\/wp-includes\/js\/wp-emoji-release.min.js?ver=5.1.1"}};
+			!function(a,b,c){function d(a,b){var c=String.fromCharCode;l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,a),0,0);var d=k.toDataURL();l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,b),0,0);var e=k.toDataURL();return d===e}function e(a){var b;if(!l||!l.fillText)return!1;switch(l.textBaseline="top",l.font="600 32px Arial",a){case"flag":return!(b=d([55356,56826,55356,56819],[55356,56826,8203,55356,56819]))&&(b=d([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]),!b);case"emoji":return b=d([55358,56760,9792,65039],[55358,56760,8203,9792,65039]),!b}return!1}function f(a){var c=b.createElement("script");c.src=a,c.defer=c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var g,h,i,j,k=b.createElement("canvas"),l=k.getContext&&k.getContext("2d");for(j=Array("flag","emoji"),c.supports={everything:!0,everythingExceptFlag:!0},i=0;i<j.length;i++)c.supports[j[i]]=e(j[i]),c.supports.everything=c.supports.everything&&c.supports[j[i]],"flag"!==j[i]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[j[i]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(h=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",h,!1),a.addEventListener("load",h,!1)):(a.attachEvent("onload",h),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),g=c.source||{},g.concatemoji?f(g.concatemoji):g.wpemoji&&g.twemoji&&(f(g.twemoji),f(g.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+	<link rel='stylesheet' id='collapseomatic-css-css'  href='../../wp-content/plugins/jquery-collapse-o-matic/light_style.css' type='text/css' media='all' />
+<link rel='stylesheet' id='llynx_style-css'  href='../../wp-content/plugins/wp-lynx/wp_lynx_style.min.css' type='text/css' media='all' />
+<link rel='stylesheet' id='crayon-css'  href='../../wp-content/plugins/crayon-syntax-highlighter/css/min/crayon.min.css' type='text/css' media='all' />
+<link rel='stylesheet' id='crayon-theme-solarized-light-css'  href='../../wp-content/plugins/crayon-syntax-highlighter/themes/solarized-light/solarized-light.css' type='text/css' media='all' />
+<link rel='stylesheet' id='crayon-font-monaco-css'  href='../../wp-content/plugins/crayon-syntax-highlighter/fonts/monaco.css' type='text/css' media='all' />
+<link rel='stylesheet' id='wp-block-library-css'  href='../../wp-includes/css/dist/block-library/style.min.css' type='text/css' media='all' />
+<link rel='stylesheet' id='gllr_stylesheet-css'  href='../../wp-content/plugins/gallery-plugin/css/style.css' type='text/css' media='all' />
+<link rel='stylesheet' id='gllr_fancybox_stylesheet-css'  href='../../wp-content/plugins/gallery-plugin/fancybox/jquery.fancybox-1.3.4.css' type='text/css' media='all' />
+<link rel='stylesheet' id='twentytwelve-fonts-css'  href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700&#038;subset=latin,latin-ext' type='text/css' media='all' />
+<link rel='stylesheet' id='twentytwelve-style-css'  href='../../wp-content/themes/twentytwelve/style.css' type='text/css' media='all' />
+<!--[if lt IE 9]>
+<link rel='stylesheet' id='twentytwelve-ie-css'  href='/blog/wp-content/themes/twentytwelve/css/ie.css?ver=20121010' type='text/css' media='all' />
+<![endif]-->
+<script type='text/javascript' src='../../wp-includes/js/jquery/jquery.js'></script>
+<script type='text/javascript' src='../../wp-includes/js/jquery/jquery-migrate.min.js'></script>
+<script type='text/javascript' src='../../wp-content/plugins/jquery-collapse-o-matic/js/collapse.min.js'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var CrayonSyntaxSettings = {"version":"2.6.8","is_admin":"0","ajaxurl":"https:\/\/pesin.space\/blog\/wp-admin\/admin-ajax.php","prefix":"crayon-","setting":"crayon-setting","selected":"crayon-setting-selected","changed":"crayon-setting-changed","special":"crayon-setting-special","orig_value":"data-orig-value","debug":""};
+var CrayonSyntaxStrings = {"copy":"Press %s to Copy, %s to Paste","minimize":"Click To Expand Code"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='../../wp-content/plugins/crayon-syntax-highlighter/js/min/crayon.min.js'></script>
+<script type='text/javascript' src='../../wp-content/plugins/gallery-plugin/fancybox/jquery.mousewheel-3.0.4.pack.js'></script>
+<script type='text/javascript' src='../../wp-content/plugins/gallery-plugin/fancybox/jquery.fancybox-1.3.4.pack.js'></script>
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="../../wp-includes/wlwmanifest.xml" /> 
+<meta name="generator" content="WordPress 5.1.1" />
+		<!-- Start ios -->
+		<script type="text/javascript">
+			(function($){
+				$(document).ready( function() {
+					$( '#fancybox-overlay' ).css({
+						'width' : $(document).width()
+					});	
+				});	
+			})(jQuery);
+		</script>
+		<!-- End ios -->
+	<script type='text/javascript'>
+var colomatduration = 'fast';
+var colomatslideEffect = 'slideFade';
+</script></head>
+
+<body class="archive tag tag-devops tag-88 custom-font-enabled single-author">
+<div id="page" class="hfeed site">
+	<header id="masthead" class="site-header" role="banner">
+		<hgroup>
+			<h1 class="site-title"><a href="/blog/2009/05/%d0%ba%d0%b0%d0%ba-%d0%be%d0%b1%d1%8a%d0%b5%d0%b4%d0%b8%d0%bd%d0%b8%d1%82%d1%8c-%d0%bd%d0%b5%d1%81%d0%ba%d0%be%d0%bb%d1%8c%d0%ba%d0%be-%d1%81%d0%b5%d1%82%d0%b5%d0%b2%d1%8b%d1%85-%d0%b8%d0%bd%d1%82/" title="Ivan Pesin" rel="home">Ivan Pesin</a></h1>
+			<h2 class="site-description">Articles &amp; Translations</h2>
+		</hgroup>
+
+		<nav id="site-navigation" class="main-navigation" role="navigation">
+			<button class="menu-toggle">Menu</button>
+			<a class="assistive-text" href="index.html#content" title="Skip to content">Skip to content</a>
+					</nav><!-- #site-navigation -->
+
+			</header><!-- #masthead -->
+
+	<div id="main" class="wrapper">
+	<section id="primary" class="site-content">
+		<div id="content" role="main">
+
+					<header class="archive-header">
+				<h1 class="archive-title">Tag Archives: <span>devops</span></h1>
+
+						</header><!-- .archive-header -->
+
+			
+	<article id="post-1449" class="post-1449 post type-post status-publish format-standard hentry category-uncategorized tag-devops tag-multitasking tag-performance tag-sa">
+				<header class="entry-header">
+			
+						<h1 class="entry-title">
+				<a href="/blog/2015/12/multitasking-in-system-administration/" rel="bookmark">Multitasking in System Administration</a>
+			</h1>
+								</header><!-- .entry-header -->
+
+				<div class="entry-content">
+			<p id="top" />Just a quick thought on multitasking in SA (or DevOps, if you prefer). There is a common knowledge that multitasking is bad, it hurts your performance, quality, and whatnot.</p>
+<p>Here is a nice chart to illustrate the idea:</p>
+<p><a href="../../wp-content/uploads/2015/12/context-swtiching.jpg" ><img class="aligncenter size-full wp-image-1522" src="../../wp-content/uploads/2015/12/context-swtiching.jpg" alt="context-swtiching" width="811" height="498" srcset="../../wp-content/uploads/2015/12/context-swtiching.jpg 811w, ../../wp-content/uploads/2015/12/context-swtiching-300x184.jpg 300w, ../../wp-content/uploads/2015/12/context-swtiching-768x472.jpg 768w, ../../wp-content/uploads/2015/12/context-swtiching-624x383.jpg 624w" sizes="(max-width: 811px) 100vw, 811px" /></a></p>
+<p>Obviously, the above is more of a rule of thumb and here is a <a href="http://blog.codinghorror.com/the-multi-tasking-myth/" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://blog.codinghorror.com']);">nice summarisation</a>. However, there was <a href="http://www.allthingsworkplace.com/2011/04/too-busy-doing-business-to-do-business.html" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://www.allthingsworkplace.com']);">another study</a> on the matter by Harward&#8217;s professors S.Wheelwright and K.Clark that draw slightly different picture:</p>
+<p><a href="../../wp-content/uploads/2015/12/6a00d8341c500653ef014e606c9737970c.jpg" ><img class="aligncenter size-full wp-image-1523" src="../../wp-content/uploads/2015/12/6a00d8341c500653ef014e606c9737970c.jpg" alt="6a00d8341c500653ef014e606c9737970c" width="688" height="493" srcset="../../wp-content/uploads/2015/12/6a00d8341c500653ef014e606c9737970c.jpg 688w, ../../wp-content/uploads/2015/12/6a00d8341c500653ef014e606c9737970c-300x215.jpg 300w, ../../wp-content/uploads/2015/12/6a00d8341c500653ef014e606c9737970c-624x447.jpg 624w" sizes="(max-width: 688px) 100vw, 688px" /></a></p>
+<p>What&#8217;s important here is that the percent of time on tasks or performance actually maximises at 2 concurrent tasks. This is actually much more in line with my personal observations. You can also argue that in the field of SA we often have tasks that require significant amount of &#8220;wait time&#8221; when you kick something off and then simply wait for it to complete, so the latter graph has even more sense.</p>
+					</div><!-- .entry-content -->
+		
+		<footer class="entry-meta">
+			This entry was posted in <a href="../../category/uncategorized/index.html" rel="category tag">Uncategorized</a> and tagged <a href="index.html" rel="tag">devops</a>, <a href="../multitasking/index.html" rel="tag">multitasking</a>, <a href="../performance/index.html" rel="tag">performance</a>, <a href="../sa/index.html" rel="tag">SA</a> on <a href="/blog/2015/12/multitasking-in-system-administration/" title="19:00" rel="bookmark"><time class="entry-date" datetime="2015-12-29T19:00:07+02:00">December 29, 2015</time></a><span class="by-author"> by <span class="author vcard"><a class="url fn n" href="/blog/2009/05/%d0%ba%d0%b0%d0%ba-%d0%be%d0%b1%d1%8a%d0%b5%d0%b4%d0%b8%d0%bd%d0%b8%d1%82%d1%8c-%d0%bd%d0%b5%d1%81%d0%ba%d0%be%d0%bb%d1%8c%d0%ba%d0%be-%d1%81%d0%b5%d1%82%d0%b5%d0%b2%d1%8b%d1%85-%d0%b8%d0%bd%d1%82/" title="View all posts by ivan" rel="author">ivan</a></span></span>.								</footer><!-- .entry-meta -->
+	</article><!-- #post -->
+
+	<article id="post-1107" class="post-1107 post type-post status-publish format-standard hentry category-links tag-banksy tag-beej tag-bootstrap tag-coursera tag-devops tag-english tag-healthcare-gov tag-interviewing tag-mavericks tag-names tag-networking tag-obama tag-ofa tag-plan tag-slang tag-ssl tag-writing">
+				<header class="entry-header">
+			
+						<h1 class="entry-title">
+				<a href="/blog/2013/11/links-nov-8/" rel="bookmark">Links: Nov 8</a>
+			</h1>
+								</header><!-- .entry-header -->
+
+				<div class="entry-content">
+			<p id="top" />You know, I&#8217;m totally baffled by the contrast in quality of Obama for America 2012 and ObamaCare projects. The first one was top-notch bleeding-edge technology project carried out with gleaming excellence, the second though has been a model failure by all means.</p>
+<blockquote><p>4Gb/s, 10k requests per second, 2,000 nodes, 3 datacenters, 180TB and 8.5 billion requests. Design, deploy, dismantle in 583 days to elect the President. <a href="https://twitter.com/search?q=%23madops&amp;src=hash" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://twitter.com']);">#madops</a></p></blockquote>
+<p>Tweet above summarises the challenge for OFA2012 project and here are few links about it:</p>
+<ul>
+<li>Obama for America on AWS — <a href="http://awsofa.info" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://awsofa.info']);">Infrastructure Architecture</a></li>
+<li><a href="http://arstechnica.com/information-technology/2012/11/built-to-win-deep-inside-obamas-campaign-tech/" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://arstechnica.com']);">Built to win: Deep inside Obama’s campaign tech</a></li>
+<li><a href="http://arstechnica.com/information-technology/2012/11/how-team-obamas-tech-efficiency-left-romney-it-in-dust/" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://arstechnica.com']);">How Team Obama’s tech efficiency left Romney IT in dust</a></li>
+</ul>
+<p>Calamities with HealthCare.gov look like they&#8217;ve been using services of the <a href="http://devnull-as-a-service.com/home/" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://devnull-as-a-service.com']);">/dev/null-as-a-service</a> kind. Facepalm.</p>
+<p>Got an email from google+ telling me I&#8217;m eligible for custom URL. Made me even log in, found out it was still as revolting as it had been for a year or so, and on top of it, my very first posts to google+ were missing. Actually, one of the reasons I started to use G+ was to save interesting links I had come across, and as you might imagine, I&#8217;m thrilled to discover they wipe my older posts. So expect some flashbacks, as I&#8217;m not going to loose interesting stuff and will repost it here.</p>
+<p>Continuing to catch-up on links:</p>
+<h3>Technology</h3>
+<ul>
+<li>The Ars Technica <a href="http://arstechnica.com/apple/2013/10/os-x-10-9/" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://arstechnica.com']);">Review</a> of Mac OS X Mavericks, in-depth, long, and interesting reading.</li>
+<li><a href="https://wiki.mozilla.org/Security/Server_Side_TLS" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://wiki.mozilla.org']);">Recommended</a> server-side SSL configurations</li>
+<li><a href="http://everythingsysadmin.com/2013/09/devops-lookfors.html" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://everythingsysadmin.com']);">DevOps Look-fors</a> — the way of assessing your processes maturity</li>
+<li>Beej&#8217;s <a href="http://beej.us/guide/bgnet/output/html/singlepage/bgnet.html" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://beej.us']);">Guide</a> to Network Programming</li>
+<li>Question asked on many interviews — can root kill init process? <a href="http://unix.stackexchange.com/questions/7441/can-root-kill-init-process" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://unix.stackexchange.com']);">It depends</a>.</li>
+<li>Algorithms part 2 <a href="https://class.coursera.org/algs4partII-002/lecture/index" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://class.coursera.org']);">commenced</a>!</li>
+<li>Boostrap 3 add-ons <a href="http://habrahabr.ru/post/198346/" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://habrahabr.ru']);">collection</a> (in Russian).</li>
+</ul>
+<h3>English</h3>
+<ul>
+<li>&#8220;Problem&#8221;-aversion is <a href="http://www.criticalpages.com/2013/problem-n-may-be-dropped-from-dictionary/" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://www.criticalpages.com']);">growing</a></li>
+<li>How Do Animals <a href="http://www.boredpanda.com/animal-sounds-different-languages-james-chapman/" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://www.boredpanda.com']);">Sound</a> In Different Languages?</li>
+<li>Did you say &#8220;<a href="http://www.oxforddictionaries.com/definition/english/muggle" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://www.oxforddictionaries.com']);">muggle</a>&#8220;?</li>
+<li>The joy of <a href="http://www.bbc.co.uk/news/magazine-24669828" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://www.bbc.co.uk']);">slang</a></li>
+<li>10 old letter-writing <a href="http://www.bbc.co.uk/news/magazine-24609533" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://www.bbc.co.uk']);">tips</a> that work for emails</li>
+<li><a href="http://www.economist.com/blogs/prospero/2013/10/multilingualism-0" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://www.economist.com']);">Bringing up baby bilingual</a></li>
+</ul>
+<h3>Other</h3>
+<ul>
+<li>Banksy <a href="http://www.bloomberg.com/news/2013-10-30/banksy-donates-nazi-doctored-landscape-to-help-aids-group.html" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://www.bloomberg.com']);">turns</a> 50$ painting into 1M$ treasure</li>
+<li>How a plan becomes policy:</li>
+</ul>
+<blockquote><p>In the beginning was the plan.<br />
+And then came the assumptions.<br />
+And the assumptions were without form.<br />
+And the plan was without substance.<br />
+And darkness was upon the face of the workers.<br />
+And they spoke among themselves saying,<br />
+&#8220;It is a crock of shit and it stinketh.&#8221;<br />
+And the workers went unto their supervisors and said,<br />
+&#8220;It is a pale of dung and none may abide the odor thereof.&#8221;<br />
+And the supervisor went unto their managers and said,<br />
+&#8220;It is a container of excrement and it is very strong, such that none may abide by it.&#8221;<br />
+And the managers went unto their directors, saying,<br />
+&#8220;It is a vessel of fertilizer, and none may abide its strength.&#8221;<br />
+And the directors spoke among themselves, saying to one another,<br />
+&#8220;It contains that which aids plant growth and it is very strong.&#8221;<br />
+And the directors went unto the vice presidents, saying unto them,<br />
+&#8220;It promotes growth and is very powerful.&#8221;<br />
+And the vice presidents went unto the president, saying unto him,<br />
+&#8220;The new plan will promote the growth and vigor of the company, with powerful effects.&#8221;<br />
+And the president looked upon the plan and saw that it was good.<br />
+And the plan became policy.<br />
+This is how shit happens.</p>
+<p style="text-align: right;"><a href="http://ogun.stanford.edu/~bnayfeh/plan.html" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://ogun.stanford.edu']);">http://ogun.stanford.edu/~bnayfeh/plan.html</a></p>
+</blockquote>
+<ul>
+<li>Jennifer&#8217;s the winner: Six Decades of the Most Popular Names for Girls, State-by-State</li>
+</ul>
+<div style="width: 689px" class="wp-caption aligncenter"><a href="http://jezebel.com/map-sixty-years-of-the-most-popular-names-for-girls-s-1443501909" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://jezebel.com']);"><img class="  " alt="" src="http://img.gawkerassets.com/img/192we19gx17khgif/ku-bigpic.gif" width="679" height="430" /></a><p class="wp-caption-text">Popular Girl&#8217;s Names</p></div>
+<p>&nbsp;</p>
+					</div><!-- .entry-content -->
+		
+		<footer class="entry-meta">
+			This entry was posted in <a href="../../category/links/index.html" rel="category tag">Links</a> and tagged <a href="../banksy/index.html" rel="tag">Banksy</a>, <a href="../beej/index.html" rel="tag">Beej</a>, <a href="../bootstrap/index.html" rel="tag">bootstrap</a>, <a href="../coursera/index.html" rel="tag">coursera</a>, <a href="index.html" rel="tag">devops</a>, <a href="../english/index.html" rel="tag">English</a>, <a href="../healthcare-gov/index.html" rel="tag">HealthCare.gov</a>, <a href="../interviewing/index.html" rel="tag">interviewing</a>, <a href="../mavericks/index.html" rel="tag">Mavericks</a>, <a href="../names/index.html" rel="tag">names</a>, <a href="../networking/index.html" rel="tag">networking</a>, <a href="../obama/index.html" rel="tag">Obama</a>, <a href="../ofa/index.html" rel="tag">OFA</a>, <a href="../plan/index.html" rel="tag">plan</a>, <a href="../slang/index.html" rel="tag">slang</a>, <a href="../ssl/index.html" rel="tag">SSL</a>, <a href="../writing/index.html" rel="tag">writing</a> on <a href="/blog/2013/11/links-nov-8/" title="23:40" rel="bookmark"><time class="entry-date" datetime="2013-11-08T23:40:35+02:00">November 8, 2013</time></a><span class="by-author"> by <span class="author vcard"><a class="url fn n" href="/blog/2009/05/%d0%ba%d0%b0%d0%ba-%d0%be%d0%b1%d1%8a%d0%b5%d0%b4%d0%b8%d0%bd%d0%b8%d1%82%d1%8c-%d0%bd%d0%b5%d1%81%d0%ba%d0%be%d0%bb%d1%8c%d0%ba%d0%be-%d1%81%d0%b5%d1%82%d0%b5%d0%b2%d1%8b%d1%85-%d0%b8%d0%bd%d1%82/" title="View all posts by ivan" rel="author">ivan</a></span></span>.								</footer><!-- .entry-meta -->
+	</article><!-- #post -->
+
+	<article id="post-955" class="post-955 post type-post status-publish format-standard hentry category-links tag-bootstrap tag-clouds tag-coursera tag-devops tag-dou tag-education tag-ifconfig tag-tor tag-videos">
+				<header class="entry-header">
+			
+						<h1 class="entry-title">
+				<a href="/blog/2013/07/links-21-july/" rel="bookmark">Links: 21 July</a>
+			</h1>
+								</header><!-- .entry-header -->
+
+				<div class="entry-content">
+			<p id="top" />
+<h3>Technology</h3>
+<ul>
+<li><a href="http://osxdaily.com/2013/07/18/use-tor-browse-web-anonymous-access-blocked-sites/" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://osxdaily.com']);">Configure Tor on Mac OS X to Browse the Web Anonymously &amp; Access Blocked Websites</a></li>
+<li><a href="http://ifconfig.me" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://ifconfig.me']);">ifconfig.me</a> returns your external IP address, and loads of other info:</li>
+</ul>
+<p></p><!-- Crayon Syntax Highlighter v2.6.8 -->
+
+		<div id="crayon-6a527c35d57e6357572585" class="crayon-syntax crayon-theme-solarized-light crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;">
+$ curl ifconfig.me
+204.232.175.78
+$ curl ifconfig.me/host
+acme.com
+$ curl ifconfig.me/all.xml
+...
+$ curl ifconfig.me/all.json</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-6a527c35d57e6357572585-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-6a527c35d57e6357572585-2">2</div><div class="crayon-num" data-line="crayon-6a527c35d57e6357572585-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-6a527c35d57e6357572585-4">4</div><div class="crayon-num" data-line="crayon-6a527c35d57e6357572585-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-6a527c35d57e6357572585-6">6</div><div class="crayon-num" data-line="crayon-6a527c35d57e6357572585-7">7</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-6a527c35d57e6357572585-1"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-e">curl </span><span class="crayon-v">ifconfig</span><span class="crayon-sy">.</span><span class="crayon-i">me</span></div><div class="crayon-line crayon-striped-line" id="crayon-6a527c35d57e6357572585-2"><span class="crayon-cn">204.232.175.78</span></div><div class="crayon-line" id="crayon-6a527c35d57e6357572585-3"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-e">curl </span><span class="crayon-v">ifconfig</span><span class="crayon-sy">.</span><span class="crayon-v">me</span><span class="crayon-o">/</span><span class="crayon-e">host</span></div><div class="crayon-line crayon-striped-line" id="crayon-6a527c35d57e6357572585-4"><span class="crayon-v">acme</span><span class="crayon-sy">.</span><span class="crayon-i">com</span></div><div class="crayon-line" id="crayon-6a527c35d57e6357572585-5"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-e">curl </span><span class="crayon-v">ifconfig</span><span class="crayon-sy">.</span><span class="crayon-v">me</span><span class="crayon-o">/</span><span class="crayon-v">all</span><span class="crayon-sy">.</span><span class="crayon-i">xml</span></div><div class="crayon-line crayon-striped-line" id="crayon-6a527c35d57e6357572585-6"><span class="crayon-sy">.</span><span class="crayon-sy">.</span><span class="crayon-sy">.</span></div><div class="crayon-line" id="crayon-6a527c35d57e6357572585-7"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-e">curl </span><span class="crayon-v">ifconfig</span><span class="crayon-sy">.</span><span class="crayon-v">me</span><span class="crayon-o">/</span><span class="crayon-v">all</span><span class="crayon-sy">.</span><span class="crayon-v">json</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0005 seconds] -->
+<p></p>
+<ul>
+<li><a href="http://blog.gardeviance.org/2013/07/the-trouble-with-openstack.html" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://blog.gardeviance.org']);">The trouble with OpenStack</a></li>
+<li>Very apt <a href="http://blog.devopsguys.com/2013/07/17/devops-antifragility-and-the-borg-collective/" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://blog.devopsguys.com']);">ITIL vs DevOps comparison table</a></li>
+</ul>
+<h3>Education</h3>
+<p>My most favourite coursera course Algorithms by Kevin Wayne and Robert Sedgewick of Princeton is coming back with new session this autumn; my passionate recommendation to take it if you&#8217;re doing any kind of programming, either to improve your skills or just get a lot of fun:</p>
+<ul>
+<li><span style="line-height: 14px;"><a href="https://www.coursera.org/course/algs4partI" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://www.coursera.org']);">Part I</a>, starts on 23 August</span></li>
+<li><a href="https://www.coursera.org/course/algs4partII" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://www.coursera.org']);">Part II</a>, starts on 1 November</li>
+</ul>
+<h3>Bootstrap-related</h3>
+<ul>
+<li><span style="line-height: 14px;"><a href="http://habrahabr.ru/post/154687/" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://habrahabr.ru']);">Links to theme generators, fonts, editors, pallets, and add-ons</a><br />
+</span></li>
+<li><a href="http://habrahabr.ru/post/187184/" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://habrahabr.ru']);">Links to form builders, icons, fonts, and plugins</a></li>
+</ul>
+<h3>IT in Ukraine (in Russian)</h3>
+<ul>
+<li>DOU specialty <a href="http://dou.ua/lenta/articles/salary-report-may-june-2013/" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://dou.ua']);">report on IT salaries in Ukraine</a></li>
+<li>Ukrainian IT specialist <a href="http://dou.ua/lenta/articles/portret-ukrainskogo-it-specialista/" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://dou.ua']);">infographics</a></li>
+</ul>
+<h3>Miscellaneous</h3>
+<p>Petit Fille, liked choreography a lot:</p>
+<p><iframe src="https://www.youtube.com/embed/T2Zx7R2PyTk" height="315" width="560" allowfullscreen="" frameborder="0"></iframe></p>
+					</div><!-- .entry-content -->
+		
+		<footer class="entry-meta">
+			This entry was posted in <a href="../../category/links/index.html" rel="category tag">Links</a> and tagged <a href="../bootstrap/index.html" rel="tag">bootstrap</a>, <a href="../clouds/index.html" rel="tag">clouds</a>, <a href="../coursera/index.html" rel="tag">coursera</a>, <a href="index.html" rel="tag">devops</a>, <a href="../dou/index.html" rel="tag">dou</a>, <a href="../education/index.html" rel="tag">education</a>, <a href="../ifconfig/index.html" rel="tag">ifconfig</a>, <a href="../tor/index.html" rel="tag">tor</a>, <a href="../videos/index.html" rel="tag">videos</a> on <a href="/blog/2013/07/links-21-july/" title="22:37" rel="bookmark"><time class="entry-date" datetime="2013-07-21T22:37:24+02:00">July 21, 2013</time></a><span class="by-author"> by <span class="author vcard"><a class="url fn n" href="/blog/2009/05/%d0%ba%d0%b0%d0%ba-%d0%be%d0%b1%d1%8a%d0%b5%d0%b4%d0%b8%d0%bd%d0%b8%d1%82%d1%8c-%d0%bd%d0%b5%d1%81%d0%ba%d0%be%d0%bb%d1%8c%d0%ba%d0%be-%d1%81%d0%b5%d1%82%d0%b5%d0%b2%d1%8b%d1%85-%d0%b8%d0%bd%d1%82/" title="View all posts by ivan" rel="author">ivan</a></span></span>.								</footer><!-- .entry-meta -->
+	</article><!-- #post -->
+
+	<article id="post-901" class="post-901 post type-post status-publish format-standard hentry category-translations tag-devops tag-linux tag-sa tag-troubleshooting">
+				<header class="entry-header">
+			
+						<h1 class="entry-title">
+				<a href="/blog/2013/07/first-5-minutes-troubleshooting-a-server/" rel="bookmark">Первые 5 минут устранения неполадок на сервере</a>
+			</h1>
+								</header><!-- .entry-header -->
+
+				<div class="entry-content">
+			<p id="top" />Винсент Виалле</p>
+<p>First 5 Minutes Troubleshooting A Server by Vincent Viallet, 6 March 2013<br />
+Original post: <a href="http://devo.ps/blog/2013/03/06/troubleshooting-5minutes-on-a-yet-unknown-box.html" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://devo.ps']);">http://devo.ps/blog/2013/03/06/troubleshooting-5minutes-on-a-yet-unknown-box.html</a></p>
+<p>Translated by Ivan Pesin, July 2013</p>
+<p>Когда наша команда еще занималась вопросами эксплуатации, оптимизации и масштабирования в <a href="http://wiredcraft.com/" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://wiredcraft.com']);">предыдущей компании</a>, нам приходилось иметь дело с отладкой медленно работающих приложений и целых инфраструктур, часто большого размера (представьте CNN или the World Bank). Горящие сроки, экзотические стеки технологий и недостаток информации обычно гарантировали незабываемые впечатления.</p>
+<p>Причины неполадок редко были очевидными; ниже я привожу список шагов, с которых мы обычно начинали поиск проблемы.</p>
+<h3 id="get_some_context">Войдите немного в контекст</h3>
+<p>Не спешите бросаться на сервера, сперва нужно выяснить, что уже известно о системе и специфике проблемы. Не стоит тратить время на поиск проблемы вслепую.</p>
+<p>Несколько обязательных вопросов, требующих ответа:</p>
+<ul>
+<li>Какие конкретно наблюдаются симптомы? Подвисания? Ошибки?</li>
+<li>Когда проблема была замечена впервые?</li>
+<li>Воспроизводится ли она?</li>
+<li>Есть ли закономерность (например, происходит каждый час)?</li>
+<li>Какие были последние изменения в системе (код, сервисы, стек приложений)?</li>
+<li>Влияет ли проблема на определенную группу пользователей (авторизированных, не авторизированных, с общим географическим расположением…)?</li>
+<li>Имеется ли документация на архитектуру (физическую и логическую)?</li>
+<li><strong>Используется ли система мониторинга?</strong> Munin, Zabbix, Nagios, <a href="http://newrelic.com/" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://newrelic.com']);">New Relic</a>… Подойдет любая.</li>
+<li><strong>Ведется ли (централизированное) журналирование?</strong> Loggly, Airbrake, Graylog…</li>
+</ul>
+<p>Последние два пункта представляют собой наиболее удобные источники информации, но не возлагайте на них больших надежд: как ни печально, именно мониторинг и журналирование часто отсутствуют. Если не повезло, сделайте заметку, что это нужно поправить, и двигайтесь дальше.</p>
+<h3 id="whos_there">Кто здесь?</h3>
+<p></p><!-- Crayon Syntax Highlighter v2.6.8 -->
+
+		<div id="crayon-6a527c35d60f1229408234" class="crayon-syntax crayon-theme-solarized-light crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;">
+$ w
+$ last</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-6a527c35d60f1229408234-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-6a527c35d60f1229408234-2">2</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-6a527c35d60f1229408234-1"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-i">w</span></div><div class="crayon-line crayon-striped-line" id="crayon-6a527c35d60f1229408234-2"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-v">last</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0001 seconds] -->
+<p>Не критично, но обычно не стоит заниматься устранением неполадок в системе, в то время когда с ней играются другие люди. На кухне достаточно одного повара.</p>
+<section>
+<h3 id="what_was_previously_done">Что делали в системе?</h3>
+<p></p><!-- Crayon Syntax Highlighter v2.6.8 -->
+
+		<div id="crayon-6a527c35d60fe830471803" class="crayon-syntax crayon-theme-solarized-light crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;">
+$ history</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-6a527c35d60fe830471803-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-6a527c35d60fe830471803-1"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-v">history</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0001 seconds] -->
+<p>Всегда полезно посмотреть на историю команд в комбинации с информацией о том, кто ранее заходил в систему. Не забывайте про ответственность: то, что вы администратор, не дает вам права нарушать чужую конфиденциальность.</p>
+<p>Маленькая заметка в уме на потом — вы можете задать переменную окружения <code>HISTTIMEFORMAT</code>, чтобы была возможность отслеживать время, когда выполнялись команды из истории. Нет ничего более раздражающего, чем анализ устаревшего списка команд, не имеющих отношения к проблеме…</p>
+<h3 id="what_is_running"> Что запущено?</h3>
+<p></p><!-- Crayon Syntax Highlighter v2.6.8 -->
+
+		<div id="crayon-6a527c35d6101425872149" class="crayon-syntax crayon-theme-solarized-light crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;">
+$ pstree -a
+$ ps aux</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-6a527c35d6101425872149-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-6a527c35d6101425872149-2">2</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-6a527c35d6101425872149-1"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-v">pstree</span><span class="crayon-h"> </span><span class="crayon-o">-</span><span class="crayon-i">a</span></div><div class="crayon-line crayon-striped-line" id="crayon-6a527c35d6101425872149-2"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-e">ps </span><span class="crayon-v">aux</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0002 seconds] -->
+<p>Вывод <code>ps aux</code> содeржит, как правило, много подробной информации о процессах, тогда как <code>pstree -a</code> выдает наглядную и лаконичную картину запущенных процессов, вместе с родительской иерархией.</p>
+<h3 id="listening_services">«Слушающие» сервисы</h3>
+<p></p><!-- Crayon Syntax Highlighter v2.6.8 -->
+
+		<div id="crayon-6a527c35d6103626551218" class="crayon-syntax crayon-theme-solarized-light crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;">
+$ netstat -ntlp
+$ netstat -nulp
+$ netstat -nxlp</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-6a527c35d6103626551218-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-6a527c35d6103626551218-2">2</div><div class="crayon-num" data-line="crayon-6a527c35d6103626551218-3">3</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-6a527c35d6103626551218-1"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-v">netstat</span><span class="crayon-h"> </span><span class="crayon-o">-</span><span class="crayon-i">ntlp</span></div><div class="crayon-line crayon-striped-line" id="crayon-6a527c35d6103626551218-2"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-v">netstat</span><span class="crayon-h"> </span><span class="crayon-o">-</span><span class="crayon-i">nulp</span></div><div class="crayon-line" id="crayon-6a527c35d6103626551218-3"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-v">netstat</span><span class="crayon-h"> </span><span class="crayon-o">-</span><span class="crayon-v">nxlp</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0003 seconds] -->
+<p>Я предпочитаю выполнять эти команды отдельно, в основном потому что я не люблю смотреть на все сервисы одновременно. Тем не менее, <code>netstat -nalp</code> тоже подойдет и я бы не опускал опцию -n  (IP-адреса, мне кажется, воспринимаются лучше).</p>
+<p>Определите запущенные службы и выясните должны ли они выполнятся. Посмотрите какие порты находятся в слушающем состоянии. PID слушающего процесса можно всегда найти в выводе <code>ps aux</code>. Это может оказаться очень полезным, особенно когда в системе одновременно запущены несколько Java или Erlang процессов.</p>
+<p>Обычно, мы стараемся, чтобы наши системы были более или менее специализированы, с небольшим количеством сервисов на каждой из них. Если вы видите десятки слушающих портов, наверно стоит отметить это себе в уме, чтобы потом разобраться как это можно почистить или реорганизовать.</p>
+<h3 id="cpu_and_ram">Процессор и память</h3>
+<p></p><!-- Crayon Syntax Highlighter v2.6.8 -->
+
+		<div id="crayon-6a527c35d6106060208008" class="crayon-syntax crayon-theme-solarized-light crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;">
+$ free -m
+$ uptime
+$ top
+$ htop</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-6a527c35d6106060208008-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-6a527c35d6106060208008-2">2</div><div class="crayon-num" data-line="crayon-6a527c35d6106060208008-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-6a527c35d6106060208008-4">4</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-6a527c35d6106060208008-1"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-v">free</span><span class="crayon-h"> </span><span class="crayon-o">-</span><span class="crayon-i">m</span></div><div class="crayon-line crayon-striped-line" id="crayon-6a527c35d6106060208008-2"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-i">uptime</span></div><div class="crayon-line" id="crayon-6a527c35d6106060208008-3"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-i">top</span></div><div class="crayon-line crayon-striped-line" id="crayon-6a527c35d6106060208008-4"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-v">htop</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0002 seconds] -->
+<p>Эти команды должны ответить на несколько вопросов:</p>
+<ul>
+<li>Есть ли свободная память? Происходит ли своппинг на диск?</li>
+<li>Насколько загружены процессоры? Сколько ядер доступно на сервере? Перегружены ли какие-то из них?</li>
+<li>Что больше всего нагружает систему? Какое у системы значение средней нагрузки (load average)?</li>
+</ul>
+<h3 id="hardware">Аппаратная часть</h3>
+<p></p><!-- Crayon Syntax Highlighter v2.6.8 -->
+
+		<div id="crayon-6a527c35d6108454780932" class="crayon-syntax crayon-theme-solarized-light crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;">
+$ lspci
+$ dmidecode
+$ ethtool</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-6a527c35d6108454780932-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-6a527c35d6108454780932-2">2</div><div class="crayon-num" data-line="crayon-6a527c35d6108454780932-3">3</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-6a527c35d6108454780932-1"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-i">lspci</span></div><div class="crayon-line crayon-striped-line" id="crayon-6a527c35d6108454780932-2"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-i">dmidecode</span></div><div class="crayon-line" id="crayon-6a527c35d6108454780932-3"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-v">ethtool</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0001 seconds] -->
+<p>Обычные, невиртуализированные сервера продолжают широко использоваться, и эти команды должны помочь:</p>
+<ul>
+<li>Определить RAID-контроллер (есть ли у него батарея резервного питания?), процессор и количество доступных слотов памяти. Это может подсказать вам потенциальные причины проблемы и пути увеличения производительности.</li>
+<li>Выяснить правильно ли настроена сетевая карта? Не работает ли она в режиме полудуплекса? На скорости 10MBps? Есть ли ошибки приема-передачи?</li>
+</ul>
+<h3 id="io_performances">Производительность ввода-вывода</h3>
+<p></p><!-- Crayon Syntax Highlighter v2.6.8 -->
+
+		<div id="crayon-6a527c35d610b211626128" class="crayon-syntax crayon-theme-solarized-light crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;">
+$ iostat -kx 2
+$ vmstat 2 10
+$ mpstat 2 10
+$ dstat --top-io --top-bio</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-6a527c35d610b211626128-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-6a527c35d610b211626128-2">2</div><div class="crayon-num" data-line="crayon-6a527c35d610b211626128-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-6a527c35d610b211626128-4">4</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-6a527c35d610b211626128-1"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-v">iostat</span><span class="crayon-h"> </span><span class="crayon-o">-</span><span class="crayon-i">kx</span><span class="crayon-h"> </span><span class="crayon-cn">2</span></div><div class="crayon-line crayon-striped-line" id="crayon-6a527c35d610b211626128-2"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-i">vmstat</span><span class="crayon-h"> </span><span class="crayon-cn">2</span><span class="crayon-h"> </span><span class="crayon-cn">10</span></div><div class="crayon-line" id="crayon-6a527c35d610b211626128-3"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-i">mpstat</span><span class="crayon-h"> </span><span class="crayon-cn">2</span><span class="crayon-h"> </span><span class="crayon-cn">10</span></div><div class="crayon-line crayon-striped-line" id="crayon-6a527c35d610b211626128-4"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-v">dstat</span><span class="crayon-h"> </span><span class="crayon-o">--</span><span class="crayon-v">top</span><span class="crayon-o">-</span><span class="crayon-v">io</span><span class="crayon-h"> </span><span class="crayon-o">--</span><span class="crayon-v">top</span><span class="crayon-o">-</span><span class="crayon-v">bio</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0002 seconds] -->
+<p>Очень полезные команды для анализа общей производительности системы хранения.</p>
+<ul>
+<li>Проверяем свободное место: есть ли в системе полностью занятые файловые системы или диски?</li>
+<li>Используется ли своп (si/so)?</li>
+<li>Что занимает процессор: системные вызовы? пользовательские процессы? много ли времени крадется гипервизором (VM)?</li>
+<li>Моя любимая команда — <code>dstat</code>. Какие процессы интенсивно используют ввод-вывод? Может быть MySQL грузит дисковую подсистему? Или это какой-то PHP-скрипт?</li>
+</ul>
+<h3 id="mount_points_and_filesystems">Точки монтирования и файловые системы</h3>
+<p></p><!-- Crayon Syntax Highlighter v2.6.8 -->
+
+		<div id="crayon-6a527c35d610d046411082" class="crayon-syntax crayon-theme-solarized-light crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;">
+$ mount
+$ cat /etc/fstab
+$ vgs
+$ pvs
+$ lvs
+$ df -h
+$ lsof +D / /* будьте осторожны, не положите сервер */</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-6a527c35d610d046411082-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-6a527c35d610d046411082-2">2</div><div class="crayon-num" data-line="crayon-6a527c35d610d046411082-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-6a527c35d610d046411082-4">4</div><div class="crayon-num" data-line="crayon-6a527c35d610d046411082-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-6a527c35d610d046411082-6">6</div><div class="crayon-num" data-line="crayon-6a527c35d610d046411082-7">7</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-6a527c35d610d046411082-1"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-i">mount</span></div><div class="crayon-line crayon-striped-line" id="crayon-6a527c35d610d046411082-2"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-v">cat</span><span class="crayon-h"> </span><span class="crayon-o">/</span><span class="crayon-v">etc</span><span class="crayon-o">/</span><span class="crayon-i">fstab</span></div><div class="crayon-line" id="crayon-6a527c35d610d046411082-3"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-i">vgs</span></div><div class="crayon-line crayon-striped-line" id="crayon-6a527c35d610d046411082-4"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-i">pvs</span></div><div class="crayon-line" id="crayon-6a527c35d610d046411082-5"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-i">lvs</span></div><div class="crayon-line crayon-striped-line" id="crayon-6a527c35d610d046411082-6"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-v">df</span><span class="crayon-h"> </span><span class="crayon-o">-</span><span class="crayon-i">h</span></div><div class="crayon-line" id="crayon-6a527c35d610d046411082-7"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-v">lsof</span><span class="crayon-h"> </span><span class="crayon-o">+</span><span class="crayon-v">D</span><span class="crayon-h"> </span><span class="crayon-o">/</span><span class="crayon-h"> </span><span class="crayon-c">/* будьте осторожны, не положите сервер */</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0002 seconds] -->
+<p></p>
+<ul>
+<li>Сколько файловых систем смонтировано?</li>
+<li>Есть ли файловые системы, выделенные для конкретных сервисов? (MySQL например?)</li>
+<li>Какие указаны опции монтирования: noatime? default? Есть ли какие-то файловые системы смонтированные в режиме только для чтения?</li>
+<li>Есть ли свободное место на дисках?</li>
+<li>Нет ли больших удаленных файлов, которые продолжают удерживаться каким-либо процессом?</li>
+<li>Есть ли место для расширения раздела, если проблема в свободном пространстве?</li>
+</ul>
+<h3 id="kernel_interrupts_and_network_usage">Ядро, прерывания и сеть</h3>
+<p></p><!-- Crayon Syntax Highlighter v2.6.8 -->
+
+		<div id="crayon-6a527c35d6110275951483" class="crayon-syntax crayon-theme-solarized-light crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;">
+$ sysctl -a | grep ...
+$ cat /proc/interrupts
+$ cat /proc/net/ip_conntrack /* может занять некоторое время на загруженных серверах */
+$ netstat
+$ ss -s</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-6a527c35d6110275951483-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-6a527c35d6110275951483-2">2</div><div class="crayon-num" data-line="crayon-6a527c35d6110275951483-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-6a527c35d6110275951483-4">4</div><div class="crayon-num" data-line="crayon-6a527c35d6110275951483-5">5</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-6a527c35d6110275951483-1"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-v">sysctl</span><span class="crayon-h"> </span><span class="crayon-o">-</span><span class="crayon-v">a</span><span class="crayon-h"> </span><span class="crayon-o">|</span><span class="crayon-h"> </span><span class="crayon-i">grep</span><span class="crayon-h"> </span><span class="crayon-sy">.</span><span class="crayon-sy">.</span><span class="crayon-sy">.</span></div><div class="crayon-line crayon-striped-line" id="crayon-6a527c35d6110275951483-2"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-v">cat</span><span class="crayon-h"> </span><span class="crayon-o">/</span><span class="crayon-v">proc</span><span class="crayon-o">/</span><span class="crayon-i">interrupts</span></div><div class="crayon-line" id="crayon-6a527c35d6110275951483-3"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-v">cat</span><span class="crayon-h"> </span><span class="crayon-o">/</span><span class="crayon-v">proc</span><span class="crayon-o">/</span><span class="crayon-v">net</span><span class="crayon-o">/</span><span class="crayon-v">ip_conntrack</span><span class="crayon-h"> </span><span class="crayon-c">/* может занять некоторое время на загруженных серверах */</span></div><div class="crayon-line crayon-striped-line" id="crayon-6a527c35d6110275951483-4"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-i">netstat</span></div><div class="crayon-line" id="crayon-6a527c35d6110275951483-5"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-v">ss</span><span class="crayon-h"> </span><span class="crayon-o">-</span><span class="crayon-v">s</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0004 seconds] -->
+<p></p>
+<ul>
+<li>Распределены ли прерывания равномерно по всем процессорам? Возможно одно из ядер перегружено из-за прерываний от сетевой карты, RAID-контроллера, …?</li>
+<li>Какое задано значение swappinness в системе? 60 подходит для персональных компьютеров, но не для серверов. Желательно, чтобы сервер никогда не использовал своп, иначе во время чтения/записи данных на диск, процессы вытесненные в своп окажутся заблокированными.</li>
+<li>Достаточно ли велико значение <code>conntrack_max</code> для существующего трафика?</li>
+<li>Как долго TCP-соединения могут находится в различных состояниях (<code>TIME_WAIT</code>, …)?</li>
+<li><code>netstat</code> может быть немного медленным при выводе всех существующих соединений, тогда используйте <code>ss -s</code>, чтобы быстро получить краткую статистику.</li>
+</ul>
+<p>Посмотрите статью про <a href="http://www.lognormal.com/blog/2012/09/27/linux-tcpip-tuning/" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://www.lognormal.com']);">настройку TCP в Linux</a>, в ней есть полезная информация на эту тему.</p>
+<h3 id="system_logs_and_kernel_messages">Системные журналы и сообщения ядра</h3>
+<p></p><!-- Crayon Syntax Highlighter v2.6.8 -->
+
+		<div id="crayon-6a527c35d6112314917277" class="crayon-syntax crayon-theme-solarized-light crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;">
+$ dmesg
+$ less /var/log/messages
+$ less /var/log/secure
+$ less /var/log/auth</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-6a527c35d6112314917277-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-6a527c35d6112314917277-2">2</div><div class="crayon-num" data-line="crayon-6a527c35d6112314917277-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-6a527c35d6112314917277-4">4</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-6a527c35d6112314917277-1"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-i">dmesg</span></div><div class="crayon-line crayon-striped-line" id="crayon-6a527c35d6112314917277-2"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-v">less</span><span class="crayon-h"> </span><span class="crayon-o">/</span><span class="crayon-t">var</span><span class="crayon-o">/</span><span class="crayon-v">log</span><span class="crayon-o">/</span><span class="crayon-i">messages</span></div><div class="crayon-line" id="crayon-6a527c35d6112314917277-3"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-v">less</span><span class="crayon-h"> </span><span class="crayon-o">/</span><span class="crayon-t">var</span><span class="crayon-o">/</span><span class="crayon-v">log</span><span class="crayon-o">/</span><span class="crayon-i">secure</span></div><div class="crayon-line crayon-striped-line" id="crayon-6a527c35d6112314917277-4"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-v">less</span><span class="crayon-h"> </span><span class="crayon-o">/</span><span class="crayon-t">var</span><span class="crayon-o">/</span><span class="crayon-v">log</span><span class="crayon-o">/</span><span class="crayon-v">auth</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0002 seconds] -->
+<p></p>
+<ul>
+<li>Ищите любые сообщение об ошибках или предупреждения. Есть ли сообщения о слишком большом количестве соединений в conntrack?</li>
+<li>Есть ли сообщения об аппаратных ошибках или ошибках файловой системы?</li>
+<li>Коррелируется ли время между ошибками в журналах и предоставленной информацией о проблеме?</li>
+</ul>
+<h3 id="cronjobs">Задания cron</h3>
+<p></p><!-- Crayon Syntax Highlighter v2.6.8 -->
+
+		<div id="crayon-6a527c35d6115474986210" class="crayon-syntax crayon-theme-solarized-light crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;">
+$ ls /etc/cron* + cat
+$ for user in $(cat /etc/passwd | cut -f1 -d:); do crontab -l -u $user; done</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-6a527c35d6115474986210-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-6a527c35d6115474986210-2">2</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-6a527c35d6115474986210-1"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-v">ls</span><span class="crayon-h"> </span><span class="crayon-o">/</span><span class="crayon-v">etc</span><span class="crayon-o">/</span><span class="crayon-e ">cron*</span><span class="crayon-h"> </span><span class="crayon-o">+</span><span class="crayon-h"> </span><span class="crayon-i">cat</span></div><div class="crayon-line crayon-striped-line" id="crayon-6a527c35d6115474986210-2"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-st">for</span><span class="crayon-h"> </span><span class="crayon-e">user </span><span class="crayon-st">in</span><span class="crayon-h"> </span><span class="crayon-sy">$</span><span class="crayon-sy">(</span><span class="crayon-v">cat</span><span class="crayon-h"> </span><span class="crayon-o">/</span><span class="crayon-v">etc</span><span class="crayon-o">/</span><span class="crayon-v">passwd</span><span class="crayon-h"> </span><span class="crayon-o">|</span><span class="crayon-h"> </span><span class="crayon-v">cut</span><span class="crayon-h"> </span><span class="crayon-o">-</span><span class="crayon-v">f1</span><span class="crayon-h"> </span><span class="crayon-o">-</span><span class="crayon-v">d</span><span class="crayon-o">:</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span><span class="crayon-h"> </span><span class="crayon-st">do</span><span class="crayon-h"> </span><span class="crayon-v">crontab</span><span class="crayon-h"> </span><span class="crayon-o">-</span><span class="crayon-v">l</span><span class="crayon-h"> </span><span class="crayon-o">-</span><span class="crayon-i">u</span><span class="crayon-h"> </span><span class="crayon-sy">$</span><span class="crayon-v">user</span><span class="crayon-sy">;</span><span class="crayon-h"> </span><span class="crayon-v">done</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0003 seconds] -->
+<p></p>
+<ul>
+<li>Есть ли задания, которые выполняются слишком часто?</li>
+<li>Есть ли персональные конфигурационные файлы cron, спрятанные от постороннего взгляда?</li>
+<li>Выполнялось ли какое-либо резервное копирование в то время, когда возникла проблема?</li>
+</ul>
+<h3 id="application_logs">Журнальные файл приложений</h3>
+<p>Здесь можно много что исследовать, но вряд ли у вас будет время, чтобы детально все просмотреть. Поэтому, сконцентрируйтесь на самом очевидном, например для LAMP-сервера:</p>
+<ul>
+<li><strong>Apache &amp; Nginx</strong>; посмотрите журналы доступа и ошибок, ищите ошибки <code>5xx</code>, возможные ошибки <code>limit_zone</code>.</li>
+<li><strong>MySQL</strong>; посмотрите есть ли ошибки в <code>mysql.log</code>, следы поврежденных таблиц, работающий процесс восстановления innodb. Посмотрите журнал медленных операций и определите есть ли проблемы с диском, индексами или запросами.</li>
+<li><strong>PHP-FPM</strong>; если включен журнал php-slow, покопайтесь в нем и попробуйте найти ошибки (php, mysql, memcache, …). Если журнал выключен, активируйте его.</li>
+<li><strong>Varnish</strong>; проверьте отношение hit/miss в <code>varnishlog</code> и <code>varnishstat</code>. Не пропущено ли правило в конфигурации, в результате чего запросы конечных пользователей проходят до бекэнда, минуя varnish?</li>
+<li><strong>HA-Proxy</strong>; какой статус у бекэндов? Правильно ли работает проверка здоровья бекэндов? Не переполнена ли очередь запросов на фронтэнде или бекэндах?</li>
+</ul>
+<h3 id="conclusion">Заключение</h3>
+<p>После этих первых пяти минут (плюс-минус десять), у вас должно будет сформироваться более полное понимание ситуации:</p>
+<ul>
+<li>Что запущено.</li>
+<li>Связана ли проблема с вводом-выводом/аппаратной частью/сетевой подсистемой или конфигурацией (плохой код, настройки ядра, …).</li>
+<li>Есть ли знакомые шаблоны: плохое использование индексов БД, слишком много процессов apache, и т.п.</li>
+</ul>
+<p>Вы даже могли уже найти непосредственную причину проблемы. Если нет, то вы находитесь в хорошей позиции для дальнейших поисков, зная, что все очевидное уже проверено.</p>
+<p>&nbsp;</p>
+</section>
+					</div><!-- .entry-content -->
+		
+		<footer class="entry-meta">
+			This entry was posted in <a href="../../category/translations/index.html" rel="category tag">Translations</a> and tagged <a href="index.html" rel="tag">devops</a>, <a href="../linux/index.html" rel="tag">linux</a>, <a href="../sa/index.html" rel="tag">SA</a>, <a href="../troubleshooting/index.html" rel="tag">troubleshooting</a> on <a href="/blog/2013/07/first-5-minutes-troubleshooting-a-server/" title="15:41" rel="bookmark"><time class="entry-date" datetime="2013-07-13T15:41:26+02:00">July 13, 2013</time></a><span class="by-author"> by <span class="author vcard"><a class="url fn n" href="/blog/2009/05/%d0%ba%d0%b0%d0%ba-%d0%be%d0%b1%d1%8a%d0%b5%d0%b4%d0%b8%d0%bd%d0%b8%d1%82%d1%8c-%d0%bd%d0%b5%d1%81%d0%ba%d0%be%d0%bb%d1%8c%d0%ba%d0%be-%d1%81%d0%b5%d1%82%d0%b5%d0%b2%d1%8b%d1%85-%d0%b8%d0%bd%d1%82/" title="View all posts by ivan" rel="author">ivan</a></span></span>.								</footer><!-- .entry-meta -->
+	</article><!-- #post -->
+
+	<article id="post-663" class="post-663 post type-post status-publish format-standard hentry category-translations tag-devops tag-interviewing">
+				<header class="entry-header">
+			
+						<h1 class="entry-title">
+				<a href="/blog/2012/02/building-a-devops-team-2/" rel="bookmark">Создание девопс-команды, часть 2</a>
+			</h1>
+								</header><!-- .entry-header -->
+
+				<div class="entry-content">
+			<p id="top" />
+<div>
+<p>Брайан Генри</p>
+<p>Building a DevOps Team, part 2 by Brian Henerey for<a href="http://agilesysadmin.net/" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://agilesysadmin.net']);"> agilesysadmin.net</a></p>
+<p>Original article:<a href="http://agilesysadmin.net/buiding-a-devops-team-part-2 " onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://agilesysadmin.net']);"> http://agilesysadmin.net/buiding-a-devops-team-part-2 </a><br />
+Translated by Ivan Pesin, February 2012</p>
+</div>
+<div>
+<div>
+<p>Несколько месяцев назад, я <a href="https://pesin.space/blog/2012/02/building-a-devops-team/" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','https://pesin.space']);">написал</a> про свой опыт создания девопс-команды в Sony. Руководство этой командой приносит мне массу удовольствия, и я очень горжусь людьми, которых я привел в Sony. Недавно мне увеличили число позиций в команде и я, с большим удовольствием, опять принялся за поиск людей.</p>
+<p>После того, как наш процесс скрининга попал на главную станицу <a href="http://news.ycombinator.com/item?id=2674841" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://news.ycombinator.com']);">HackerNews</a>, стало понятно, что его надо будет слегка перетряхнуть. Вот что нового мы добавили:</p>
+<ul>
+<li><a href="index.html#success">Критерии успеха</a></li>
+<li><a href="index.html#self-eval">Самооценка</a></li>
+<ul>
+<li><a href="index.html#eval-guide">Руководство по самооценке</a></li>
+</ul>
+<li><a href="index.html#eval-results">Сравнение результатов самооценки</a></li>
+<li><a href="index.html#remote-tech-screen">Удаленный технический тест</a></li>
+<li><a href="index.html#in-person">Персональные собеседования</a></li>
+<li><a href="index.html#programming-test">Задание по программированию</a></li>
+<li><a href="index.html#end-is-beginning">Конец – это начало</a></li>
+</ul>
+</div>
+<div>
+<div>
+<p><a name="success"></a></p>
+<h2 dir="ltr">Критерии успеха</h2>
+<p>Проводя в этот раз собеседования, я обнаружил, что задаю себе несколько одних и тех же вопросов, которые, в конечном счете, и стали критериями успешного прохождения собеседования:</p>
+<ol>
+<li>Могут ли они выполнять нужную работу?</li>
+<li>Станет ли команда с их приходом лучше?</li>
+<li>Есть ли чему нам у них поучится?</li>
+<li>Могут ли они быстро осваивать новые технологии и языки?</li>
+<li>Какая помощь им будет нужна от меня и команды?</li>
+</ol>
+<div>
+<p><a name="self-eval"></a></p>
+<h2 dir="ltr">Самооценка</h2>
+<p>Я люблю измерять и быть, насколько это возможно, объективным в своей работе. Достичь это в рекрутинге невероятно сложно, ведь это связано с живыми людьми, а не компьютерами, пропускной способностью и задержками. После того, как мы нашли первых несколько кандидатов, я стал просить их заполнить анкету самооценки. В результате, я засел за сравнение, взвешивание и рисование графиков оценок кандидатов, надеясь, что это может оказаться полезным. Форму для самооценки я стянул у гуглового процесса собеседований, и добавил туда несколько категорий, чтобы адаптировать его к потребностям моей команды:<br />
+<a name="eval-guide"></a><br />
+<strong>Руководство по самооценке:</strong></p>
+</div>
+</div>
+<div>
+<div>
+<div>
+<table class="MsoNormalTable" style="border-collapse: collapse;" border="0" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td style="width: 35.05pt; border-top: solid #CF7B79 1.0pt; border-left: solid #CF7B79 1.0pt; border-bottom: solid #CF7B79 1.0pt; border-right: none; background: #FABF8F; padding: 3pt 5.4pt 3pt 5.4pt;" width="47"><center><strong>0</strong></center></td>
+<td style="width: 460.7pt; border-top: solid #CF7B79 1.0pt; border-left: none; border-bottom: solid #CF7B79 1.0pt; border-right: solid #CF7B79 1.0pt; background: #EFD3D2; padding: 3pt 5.4pt 3pt 5.4pt;" valign="top" width="614">Опыта нет.</td>
+</tr>
+<tr>
+<td style="width: 35.05pt; border-top: none; border-left: solid #CF7B79 1.0pt; border-bottom: solid #CF7B79 1.0pt; border-right: none; background: #FABF8F; padding: 3pt 5.4pt 3pt 5.4pt;" width="47"><center><strong>1</strong></center></td>
+<td style="width: 460.7pt; border-top: none; border-left: none; border-bottom: solid #CF7B79 1.0pt; border-right: solid #CF7B79 1.0pt; padding: 3pt 5.4pt 3pt 5.4pt;" valign="top" width="614">Могу прочесть программу, внести маленькие изменения в существующие программы или изменить настройку уже установленных систем с книгой под рукой.</td>
+</tr>
+<tr>
+<td style="width: 35.05pt; border-top: none; border-left: solid #CF7B79 1.0pt; border-bottom: solid #CF7B79 1.0pt; border-right: none; background: #FBD4B4; padding: 3pt 5.4pt 3pt 5.4pt;" width="47"><center><strong>2</strong></center></td>
+<td style="width: 460.7pt; border-top: none; border-left: none; border-bottom: solid #CF7B79 1.0pt; border-right: solid #CF7B79 1.0pt; background: #EFD3D2; padding: 3pt 5.4pt 3pt 5.4pt;" valign="top" width="614">Могу написать «Здравствуй, мир!» без книги, при необходимости попытаться разобраться в том, как работает система.</td>
+</tr>
+<tr>
+<td style="width: 35.05pt; border-top: none; border-left: solid #CF7B79 1.0pt; border-bottom: solid #CF7B79 1.0pt; border-right: none; background: #FDE9D9; padding: 3pt 5.4pt 3pt 5.4pt;" width="47"><center><strong>3</strong></center></td>
+<td style="width: 460.7pt; border-top: none; border-left: none; border-bottom: solid #CF7B79 1.0pt; border-right: solid #CF7B79 1.0pt; padding: 3pt 5.4pt 3pt 5.4pt;" valign="top" width="614">Могу использовать основные средства без особой помощи, полностью управлять небольшим окружением.</td>
+</tr>
+<tr>
+<td style="width: 35.05pt; border-top: none; border-left: solid #CF7B79 1.0pt; border-bottom: solid #CF7B79 1.0pt; border-right: none; background: #EAF1DD; padding: 3pt 5.4pt 3pt 5.4pt;" width="47"><center><strong>4</strong></center></td>
+<td style="width: 460.7pt; border-top: none; border-left: none; border-bottom: solid #CF7B79 1.0pt; border-right: solid #CF7B79 1.0pt; background: #EFD3D2; padding: 3pt 5.4pt 3pt 5.4pt;" valign="top" width="614">Могу разрабатывать программы или разворачивать системы среднего размера, используя всю основную функциональность (без книги) и некоторую специфическую (с книгой). Достаточное представление об архитектуре для  решения нетривиальных проблем.</td>
+</tr>
+<tr>
+<td style="width: 35.05pt; border-top: none; border-left: solid #CF7B79 1.0pt; border-bottom: solid #CF7B79 1.0pt; border-right: none; background: #D6E3BC; padding: 3pt 5.4pt 3pt 5.4pt;" width="47"><center><strong>5</strong></center></td>
+<td style="width: 460.7pt; border-top: none; border-left: none; border-bottom: solid #CF7B79 1.0pt; border-right: solid #CF7B79 1.0pt; padding: 3pt 5.4pt 3pt 5.4pt;" valign="top" width="614">Могу разрабатывать программы или разворачивать системы большого масштаба, используя всю основную (без книги) и значительную часть специфической (часть с книгой, часть без) функциональности.</td>
+</tr>
+<tr>
+<td style="width: 35.05pt; border-top: none; border-left: solid #CF7B79 1.0pt; border-bottom: solid #CF7B79 1.0pt; border-right: none; background: #D6E3BC; padding: 3pt 5.4pt 3pt 5.4pt;" width="47"><center><strong>6</strong></center></td>
+<td style="width: 460.7pt; border-top: none; border-left: none; border-bottom: solid #CF7B79 1.0pt; border-right: solid #CF7B79 1.0pt; background: #EFD3D2; padding: 3pt 5.4pt 3pt 5.4pt;" valign="top" width="614">Могу разрабатывать программы большого масштаба или разворачивать новые системы с нуля.</td>
+</tr>
+<tr>
+<td style="width: 35.05pt; border-top: none; border-left: solid #CF7B79 1.0pt; border-bottom: solid #CF7B79 1.0pt; border-right: none; background: #C2D69B; padding: 3pt 5.4pt 3pt 5.4pt;" width="47"><center><strong>7</strong></center></td>
+<td style="width: 460.7pt; border-top: none; border-left: none; border-bottom: solid #CF7B79 1.0pt; border-right: solid #CF7B79 1.0pt; padding: 3pt 5.4pt 3pt 5.4pt;" valign="top" width="614">Представление и умение применить менее известные возможности.</td>
+</tr>
+<tr>
+<td style="width: 35.05pt; border-top: none; border-left: solid #CF7B79 1.0pt; border-bottom: solid #CF7B79 1.0pt; border-right: none; background: #C2D69B; padding: 3pt 5.4pt 3pt 5.4pt;" width="47"><center><strong>8</strong></center></td>
+<td style="width: 460.7pt; border-top: none; border-left: none; border-bottom: solid #CF7B79 1.0pt; border-right: solid #CF7B79 1.0pt; background: #EFD3D2; padding: 3pt 5.4pt 3pt 5.4pt;" valign="top" width="614">Глубокое понимание тонких моментов и малоизвестных возможностей.</td>
+</tr>
+<tr>
+<td style="width: 35.05pt; border-top: none; border-left: solid #CF7B79 1.0pt; border-bottom: solid #CF7B79 1.0pt; border-right: none; background: #92D050; padding: 3pt 5.4pt 3pt 5.4pt;" width="47"><center><strong>9</strong></center></td>
+<td style="width: 460.7pt; border-top: none; border-left: none; border-bottom: solid #CF7B79 1.0pt; border-right: solid #CF7B79 1.0pt; padding: 3pt 5.4pt 3pt 5.4pt;" valign="top" width="614">Мог бы написать книгу, но пока не написал.</td>
+</tr>
+<tr>
+<td style="width: 35.05pt; border-top: none; border-left: solid #CF7B79 1.0pt; border-bottom: solid #CF7B79 1.0pt; border-right: none; background: #92D050; padding: 3pt 5.4pt 3pt 5.4pt;" width="47"><center><strong>10</strong></center></td>
+<td style="width: 460.7pt; border-top: none; border-left: none; border-bottom: solid #CF7B79 1.0pt; border-right: solid #CF7B79 1.0pt; background: #EFD3D2; padding: 3pt 5.4pt 3pt 5.4pt;" valign="top" width="614">Написал про это книгу (должна быть такая книга).</td>
+</tr>
+</tbody>
+</table>
+<p><span style="font-size: small;"><span style="line-height: normal;"><br />
+</span></span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div>
+<div>
+<div>
+<table class="MsoTableMediumShading1Accent2" style="border-collapse: collapse; border: none;" border="1" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td style="width: 42.15pt; border-top: solid #CF7B79 1.0pt; border-left: solid #CF7B79 1.0pt; border-bottom: solid #CF7B79 1.0pt; border-right: none; background: #EFD3D2; padding: 3pt 5.4pt 3pt5.4pt;" valign="bottom" width="56"><center><strong><span style="font-family: 'Times New Roman','serif';">____</span></strong></center></td>
+<td style="width: 160.0mm; border-top: solid #CF7B79 1.0pt; border-left: none; border-bottom: solid #CF7B79 1.0pt; border-right: solid #CF7B79 1.0pt; background: #EFD3D2; padding: 3pt 5.4pt 3pt5.4pt;" valign="top" width="605">Сети TCP/IP</td>
+</tr>
+<tr>
+<td style="width: 42.15pt; border-top: none; border-left: solid #CF7B79 1.0pt; border-bottom: solid #CF7B79 1.0pt; border-right: none; padding: 3pt 5.4pt 3pt5.4pt;" valign="bottom" width="56"><center><strong><span style="font-family: 'Times New Roman','serif';">____</span></strong></center></td>
+<td style="width: 160.0mm; border-top: none; border-left: none; border-bottom: solid #CF7B79 1.0pt; border-right: solid #CF7B79 1.0pt; padding: 3pt 5.4pt 3pt5.4pt;" valign="top" width="605">Архитектура Unix/Linux</td>
+</tr>
+<tr>
+<td style="width: 42.15pt; border-top: none; border-left: solid #CF7B79 1.0pt; border-bottom: solid #CF7B79 1.0pt; border-right: none; background: #EFD3D2; padding: 3pt 5.4pt 3pt5.4pt;" valign="bottom" width="56"><center><strong><span style="font-family: 'Times New Roman','serif';">____</span></strong></center></td>
+<td style="width: 160.0mm; border-top: none; border-left: none; border-bottom: solid #CF7B79 1.0pt; border-right: solid #CF7B79 1.0pt; background: #EFD3D2; padding: 3pt 5.4pt 3pt5.4pt;" valign="top" width="605">Системное администрирование Unix/Linux</td>
+</tr>
+<tr>
+<td style="width: 42.15pt; border-top: none; border-left: solid #CF7B79 1.0pt; border-bottom: solid #CF7B79 1.0pt; border-right: none; padding: 3pt 5.4pt 3pt5.4pt;" valign="bottom" width="56"><center><strong><span style="font-family: 'Times New Roman','serif';">____</span></strong></center></td>
+<td style="width: 160.0mm; border-top: none; border-left: none; border-bottom: solid #CF7B79 1.0pt; border-right: solid #CF7B79 1.0pt; padding: 3pt 5.4pt 3pt5.4pt;" valign="top" width="605">Алгоритмы и структуры данных</td>
+</tr>
+<tr>
+<td style="width: 42.15pt; border-top: none; border-left: solid #CF7B79 1.0pt; border-bottom: solid #CF7B79 1.0pt; border-right: none; background: #EFD3D2; padding: 3pt 5.4pt 3pt5.4pt;" valign="bottom" width="56"><center><strong><span style="font-family: 'Times New Roman','serif';">____</span></strong></center></td>
+<td style="width: 160.0mm; border-top: none; border-left: none; border-bottom: solid #CF7B79 1.0pt; border-right: solid #CF7B79 1.0pt; background: #EFD3D2; padding: 3pt 5.4pt 3pt5.4pt;" valign="top" width="605">C</td>
+</tr>
+<tr>
+<td style="width: 42.15pt; border-top: none; border-left: solid #CF7B79 1.0pt; border-bottom: solid #CF7B79 1.0pt; border-right: none; padding: 3pt 5.4pt 3pt5.4pt;" valign="bottom" width="56"><center><strong><span style="font-family: 'Times New Roman','serif';">____</span></strong></center></td>
+<td style="width: 160.0mm; border-top: none; border-left: none; border-bottom: solid #CF7B79 1.0pt; border-right: solid #CF7B79 1.0pt; padding: 3pt 5.4pt 3pt5.4pt;" valign="top" width="605">C++</td>
+</tr>
+<tr>
+<td style="width: 42.15pt; border-top: none; border-left: solid #CF7B79 1.0pt; border-bottom: solid #CF7B79 1.0pt; border-right: none; background: #EFD3D2; padding: 3pt 5.4pt 3pt5.4pt;" valign="bottom" width="56"><center><strong><span style="font-family: 'Times New Roman','serif';">____</span></strong></center></td>
+<td style="width: 160.0mm; border-top: none; border-left: none; border-bottom: solid #CF7B79 1.0pt; border-right: solid #CF7B79 1.0pt; background: #EFD3D2; padding: 3pt 5.4pt 3pt5.4pt;" valign="top" width="605">Java</td>
+</tr>
+<tr>
+<td style="width: 42.15pt; border-top: none; border-left: solid #CF7B79 1.0pt; border-bottom: solid #CF7B79 1.0pt; border-right: none; padding: 3pt 5.4pt 3pt5.4pt;" valign="bottom" width="56"><center><strong><span style="font-family: 'Times New Roman','serif';">____</span></strong></center></td>
+<td style="width: 160.0mm; border-top: none; border-left: none; border-bottom: solid #CF7B79 1.0pt; border-right: solid #CF7B79 1.0pt; padding: 3pt 5.4pt 3pt5.4pt;" valign="top" width="605">Python</td>
+</tr>
+<tr>
+<td style="width: 42.15pt; border-top: none; border-left: solid #CF7B79 1.0pt; border-bottom: solid #CF7B79 1.0pt; border-right: none; background: #EFD3D2; padding: 3pt 5.4pt 3pt5.4pt;" valign="bottom" width="56"><center><strong><span style="font-family: 'Times New Roman','serif';">____</span></strong></center></td>
+<td style="width: 160.0mm; border-top: none; border-left: none; border-bottom: solid #CF7B79 1.0pt; border-right: solid #CF7B79 1.0pt; background: #EFD3D2; padding: 3pt 5.4pt 3pt5.4pt;" valign="top" width="605">Perl</td>
+</tr>
+<tr>
+<td style="width: 42.15pt; border-top: none; border-left: solid #CF7B79 1.0pt; border-bottom: solid #CF7B79 1.0pt; border-right: none; padding: 3pt 5.4pt 3pt5.4pt;" valign="bottom" width="56"><center><strong><span style="font-family: 'Times New Roman','serif';">____</span></strong></center></td>
+<td style="width: 160.0mm; border-top: none; border-left: none; border-bottom: solid #CF7B79 1.0pt; border-right: solid #CF7B79 1.0pt; padding: 3pt 5.4pt 3pt5.4pt;" valign="top" width="605">Ruby</td>
+</tr>
+<tr>
+<td style="width: 42.15pt; border-top: none; border-left: solid #CF7B79 1.0pt; border-bottom: solid #CF7B79 1.0pt; border-right: none; background: #EFD3D2; padding: 3pt 5.4pt 3pt5.4pt;" valign="bottom" width="56"><center><strong><span style="font-family: 'Times New Roman','serif';">____</span></strong></center></td>
+<td style="width: 160.0mm; border-top: none; border-left: none; border-bottom: solid #CF7B79 1.0pt; border-right: solid #CF7B79 1.0pt; background: #EFD3D2; padding: 3pt 5.4pt 3pt5.4pt;" valign="top" width="605">Shell Scripting</td>
+</tr>
+<tr>
+<td style="width: 42.15pt; border-top: none; border-left: solid #CF7B79 1.0pt; border-bottom: solid #CF7B79 1.0pt; border-right: none; padding: 3pt 5.4pt 3pt5.4pt;" valign="bottom" width="56"><center><strong><span style="font-family: 'Times New Roman','serif';">____</span></strong></center></td>
+<td style="width: 160.0mm; border-top: none; border-left: none; border-bottom: solid #CF7B79 1.0pt; border-right: solid #CF7B79 1.0pt; padding: 3pt 5.4pt 3pt5.4pt;" valign="top" width="605">SQL и/или администрирование БД</td>
+</tr>
+<tr>
+<td style="width: 42.15pt; border-top: none; border-left: solid #CF7B79 1.0pt; border-bottom: solid #CF7B79 1.0pt; border-right: none; background: #EFD3D2; padding: 3pt 5.4pt 3pt5.4pt;" valign="bottom" width="56"><center><strong><span style="font-family: 'Times New Roman','serif';">____</span></strong></center></td>
+<td style="width: 160.0mm; border-top: none; border-left: none; border-bottom: solid #CF7B79 1.0pt; border-right: solid #CF7B79 1.0pt; background: #EFD3D2; padding: 3pt 5.4pt 3pt5.4pt;" valign="top" width="605">Скриптовой язык на ваше усмотрение, не перечисленный выше: <span style="font-family: 'Times New Roman','serif';">__________________</span></td>
+</tr>
+<tr>
+<td style="width: 42.15pt; border-top: none; border-left: solid #CF7B79 1.0pt; border-bottom: solid #CF7B79 1.0pt; border-right: none; padding: 3pt 5.4pt 3pt5.4pt;" valign="bottom" width="56"><center><strong><span style="font-family: 'Times New Roman','serif';">____</span></strong></center></td>
+<td style="width: 160.0mm; border-top: none; border-left: none; border-bottom: solid #CF7B79 1.0pt; border-right: solid #CF7B79 1.0pt; padding: 3pt 5.4pt 3pt5.4pt;" valign="top" width="605">Сборочные системы и/или непрерывная интеграция</td>
+</tr>
+<tr>
+<td style="width: 42.15pt; border-top: none; border-left: solid #CF7B79 1.0pt; border-bottom: solid #CF7B79 1.0pt; border-right: none; background: #EFD3D2; padding: 3pt 5.4pt 3pt5.4pt;" valign="bottom" width="56"><center><strong><span style="font-family: 'Times New Roman','serif';">____</span></strong></center></td>
+<td style="width: 160.0mm; border-top: none; border-left: none; border-bottom: solid #CF7B79 1.0pt; border-right: solid #CF7B79 1.0pt; background: #EFD3D2; padding: 3pt 5.4pt 3pt5.4pt;" valign="top" width="605">Тестирование производительности и/или планирование мощностей</td>
+</tr>
+<tr>
+<td style="width: 42.15pt; border-top: none; border-left: solid #CF7B79 1.0pt; border-bottom: solid #CF7B79 1.0pt; border-right: none; padding: 3pt 5.4pt 3pt5.4pt;" valign="bottom" width="56"><center><strong><span style="font-family: 'Times New Roman','serif';">____</span></strong></center></td>
+<td style="width: 160.0mm; border-top: none; border-left: none; border-bottom: solid #CF7B79 1.0pt; border-right: solid #CF7B79 1.0pt; padding: 3pt 5.4pt 3pt5.4pt;" valign="top" width="605">Управление проектами и/или ITIL</td>
+</tr>
+<tr>
+<td style="width: 42.15pt; border-top: none; border-left: solid #CF7B79 1.0pt; border-bottom: solid #CF7B79 1.0pt; border-right: none; background: #EFD3D2; padding: 3pt 5.4pt 3pt5.4pt;" valign="bottom" width="56"><center><strong><span style="font-family: 'Times New Roman','serif';">____</span></strong></center></td>
+<td style="width: 160.0mm; border-top: none; border-left: none; border-bottom: solid #CF7B79 1.0pt; border-right: solid #CF7B79 1.0pt; background: #EFD3D2; padding: 3pt 5.4pt 3pt5.4pt;" valign="top" width="605">Конфигурационное управление (Puppet, Chef, Cfengine, и т.д.)</td>
+</tr>
+<tr>
+<td style="width: 42.15pt; border-top: none; border-left: solid #CF7B79 1.0pt; border-bottom: solid #CF7B79 1.0pt; border-right: none; padding: 3pt 5.4pt 3pt5.4pt;" valign="bottom" width="56"><center><strong><span style="font-family: 'Times New Roman','serif';">____</span></strong></center></td>
+<td style="width: 160.0mm; border-top: none; border-left: none; border-bottom: solid #CF7B79 1.0pt; border-right: solid #CF7B79 1.0pt; padding: 3pt 5.4pt 3pt5.4pt;" valign="top" width="605">Поддержка производственных сред или сред высокой доступности</td>
+</tr>
+<tr>
+<td style="width: 42.15pt; border-top: none; border-left: solid #CF7B79 1.0pt; border-bottom: solid #CF7B79 1.0pt; border-right: none; background: #EFD3D2; padding: 3pt 5.4pt 3pt5.4pt;" valign="bottom" width="56"><center><strong><span style="font-family: 'Times New Roman','serif';">____</span></strong></center></td>
+<td style="width: 160.0mm; border-top: none; border-left: none; border-bottom: solid #CF7B79 1.0pt; border-right: solid #CF7B79 1.0pt; background: #EFD3D2; padding: 3pt 5.4pt 3pt5.4pt;" valign="top" width="605">Amazon Web Services<span lang="RU"> (или другие «облачные» технологии/сервисы)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div>
+<p><a name="eval-results"></a></p>
+<h2 dir="ltr">Сравнение результатов самооценки<img src="https://lh6.googleusercontent.com/fC65XI6Mvkk-a0zaTajMhepqDEdhGMJAsGbVbdJiQB17g-3Z_0UWRlFqhW2eghF3W0vB7a1233SWf4u3QTBox7wxxSjAangnlDqm213R4Cw5SRe5sNI" alt="" width="690px;" height="258px;" /></h2>
+<p>Эта диаграмма оказалась действительно полезной в том смысле, что заставила меня задуматься о том, что же я хочу. Кандидат-8 набрал значительно больше очков, чем Кандидат-1, но значит ли это, что я больше хочу именно его? Например, до того, как я ввел весовые коэффициенты, кто-то, хорошо разбирающийся в Ruby, Python, Perl и Bash, мог набрать очень много очков. Но мне гораздо нужнее был человек, который мог легко учиться, чем разбирающийся во всех этих языках. В конце концов, я объединил эти категории в одну, давая одно-два дополнительных очка за широту знания, чем уменьшил эффект этих технологий на конечный результат.</p>
+<p>Кроме того, такая диаграмма поумерила мой восторг от специализированных кандидатов. Я же пытаюсь найти программистов-полиглотов широкого профиля, все таки. Несколько раз мы обнаруживали, что если кандидат зашел слишком далеко по пути специализации, то это, казалось, подавляло его способность к творческому мышлению.</p>
+<p>Однако, есть две вещи, о которых нужно помнить, анализируя приведенную диаграмму. Некоторые кандидаты переоценивают себя, а некоторые – недооценивают. Один из кандидатов сказал мне: «Если я не буду любить себя, то кто же тогда будет?». Это было весьма смешно, но это также значило, что я буду оценивать его знания относительно той высокой планки, которую он сам установил.</p>
+<div>
+<p><a name="remote-tech-screen"></a></p>
+<h2 dir="ltr">Удаленный технический тест</h2>
+<p>Когда я в прошлый раз писал о поиске людей, я раскрыл много подробностей нашего тестирования, так что нам пришлось его заново придумывать. В результате, мы снова просили людей установить WordPress в инстансе ec2, но теперь это было значительно сложнее. В задании было пять подвохов, которые нужно было преодолеть:</p>
+<ol>
+<li>iptables фильтровал входящий трафик на 80-м порту внешней сетевой карты.</li>
+<li>80-й порт был уже занят процессом, который нужно было убить.</li>
+<li>Этот процесс порождался из бесконечного цикла, так что каждый раз, когда его убивали, он запускался заново.</li>
+<li>Конфигурационные файлы Apache уже были в системе, и задавали для него 81-й порт.</li>
+<li>Мы не давали root-пароля к MySQL.</li>
+</ol>
+</div>
+<div>
+<p>В итоге, мы хотели убедиться, что кандидаты имеют базовые навыки в системном администрировании и достаточные знания о Linux. Использование таких вещей, как netstat, telnet, pstree и kill, составляет базовый набор навыков, а поскольку я давал людям всего один час на прохождение теста, времени на поиск в гугле было очень мало.</p>
+<p>После первых двух кандидатов я решил, что любой, чье резюме выглядит достаточно хорошо, должен пройти удаленный технический тест до телефонного собеседования. И хотя я потратил несколько часов на написание кукбука для chef, который создавал тестовые инстансы, это оказалось чрезвычайно эффективным средством отбора. Кандидат-3 не смог решить ни одной проблемы из вышеприведенных, хотя оценил свои умения по системному администрированию Linux по шкале на 4, что должно было значить «достаточное представление об архитектуре для решения нетривиальных проблем».</p>
+<p>Немногие кандидаты успешно прошли удаленное техническое тестирование, что и не удивительно, поскольку я, в основном, отбирал людей с опытом программирования, а не системного администрирования.</p>
+</div>
+<div>
+<p><a name="in-person"></a></p>
+<h2 dir="ltr">Персональные собеседования</h2>
+<ol>
+<li>Кандидат проводил 30-60 минут, программируя в паре с одним из членов моей команды. Писались простые вещи, обычно на языке, которого кандидат не знал. Если он не знал руби, они писали <a href="http://rubykoans.com/" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://rubykoans.com']);">коаны руби</a>. Основной целью было понять, сможем ли мы проводить много времени в тесной работе с кандидатом.</li>
+<li>Мы также проводили несколько вполне стандартных интервью, обсуждая резюме кандидата и рассказывая ему о той роли, которую ему предстояло выполнять в команде. Здесь же проходили теоретические собеседования у доски о программировании и алгоритмах.</li>
+</ol>
+<p><a name="programming-test"></a></p>
+<h2 dir="ltr">Задание по программированию</h2>
+<p>Когда я нанимал двух предыдущих людей, они оба выучили руби еще до того, как попали на интервью, потому что знали, что это важно. Один из них написал демо-программу, которая рассчитывала количество остановок между станциями лондонского метро. Он приложил эту программу к своему резюме, присланному на вакансию, и я был должным образом впечатлен. Мы решили, что для нас важно, чтобы кандидаты были заинтересованы в изучении нового языка программирования и, кроме того, мы хотели знать насколько быстро они могли его освоить. Я считаю, что спрашивать такое с кандидата без гарантий, что мы его возмём, это очень много. В конце концов, я сделал это опциональным требованием и пользовался им как решающим фактором в случае неопределенности. Другим фактором было наличие или участие в проектах с открытым исходным кодом.</p>
+<div>
+<p><a name="end-is-beginning"></a></p>
+<h2 dir="ltr">Конец – это начало</h2>
+<p>Я закрыл свои вакансии, и теперь начинается моя настоящая работа по поддержке моих ребят и организации максимально эффективной работы команды.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+					</div><!-- .entry-content -->
+		
+		<footer class="entry-meta">
+			This entry was posted in <a href="../../category/translations/index.html" rel="category tag">Translations</a> and tagged <a href="index.html" rel="tag">devops</a>, <a href="../interviewing/index.html" rel="tag">interviewing</a> on <a href="/blog/2012/02/building-a-devops-team-2/" title="14:17" rel="bookmark"><time class="entry-date" datetime="2012-02-19T14:17:50+02:00">February 19, 2012</time></a><span class="by-author"> by <span class="author vcard"><a class="url fn n" href="/blog/2009/05/%d0%ba%d0%b0%d0%ba-%d0%be%d0%b1%d1%8a%d0%b5%d0%b4%d0%b8%d0%bd%d0%b8%d1%82%d1%8c-%d0%bd%d0%b5%d1%81%d0%ba%d0%be%d0%bb%d1%8c%d0%ba%d0%be-%d1%81%d0%b5%d1%82%d0%b5%d0%b2%d1%8b%d1%85-%d0%b8%d0%bd%d1%82/" title="View all posts by ivan" rel="author">ivan</a></span></span>.								</footer><!-- .entry-meta -->
+	</article><!-- #post -->
+
+	<article id="post-623" class="post-623 post type-post status-publish format-standard hentry category-translations tag-devops tag-sa">
+				<header class="entry-header">
+			
+						<h1 class="entry-title">
+				<a href="/blog/2012/02/building-a-devops-team/" rel="bookmark">Создание DevOps-команды</a>
+			</h1>
+								</header><!-- .entry-header -->
+
+				<div class="entry-content">
+			<p id="top" />
+<div>
+<p dir="ltr">Брайан Генри</p>
+<p>Building a DevOps Team by Brian Henerey for <a href="http://agilesysadmin.net/" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://agilesysadmin.net']);">agilesysadmin.net</a></p>
+<p>Original article: <a href="http://agilesysadmin.net/building-a-devops-team" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://agilesysadmin.net']);">http://agilesysadmin.net/building-a-devops-team</a><br />
+Translated by Ivan Pesin, February 2012</p>
+<div>
+<ul>
+<li><a href="index.html#background">Предыстория</a></li>
+<li><a href="index.html#beginning">Начало</a></li>
+<li><a href="index.html#networking">Налаживание связей</a></li>
+<li><a href="index.html#definition">Рабочее определение DevOps</a></li>
+<li><a href="index.html#spec">Требования к DevOps-кандидатам</a></li>
+<li><a href="index.html#recruiters">Рекрутеры</a></li>
+<li><a href="index.html#resumes">Отбор резюме</a></li>
+<li><a href="index.html#phaseone">Первое собеседование – удалённое техническое тестирование</a></li>
+<li><a href="index.html#phasetwo">Этап 2 – личное собеседование</a></li>
+<li><a href="index.html#phasethree">Этап 3 – мой босс + любой член команды, которые ещё не встречался с кандидатом</a></li>
+<li><a href="index.html#hire">Отличный результат</a></li>
+<li><a href="index.html#beyond">После найма</a></li>
+<li><a href="index.html#about">Об авторе</a></li>
+</ul>
+</div>
+<p><a name="Background"></a></p>
+<h2 dir="ltr">Предыстория</h2>
+<p>С тех пор, как я начал работать в Sony в августе 2008-го, моя должность менялась 3 раза. Около года назад, я принял руководство командой, в которую я пришел с самого начала. И хотя это была, с любой точки зрения, разваливающаяся команда, я был очень доволен возможностью её изменить. Я знал, что оставшиеся люди были очень недовольны, и могли уйти в любую минуту, потому у меня было несколько неотложных задач:</p>
+<ul>
+<li>Брать новых людей!</li>
+<li>Удерживать тех, кто есть.</li>
+<li>Брать новых людей!</li>
+</ul>
+<p><em>Побочная история</em>: я наткнулся на одну важную задачу, которую не перечислил. Делать заказчиков довольными. Совершенно не важно, насколько классной ваша команда <em>может</em> быть, если, по старой памяти, с вами никто не хочет работать. Я даже не представлял себе, до какой степени демотивированный сотрудник может испортить отношения с заказчиком, просто в силу отсутствия интереса. У меня ушли <em>месяцы</em>, чтобы восстановить доверие одного из заказчиков. Я где-то слышал историю о менеджере, который периодически предлагал £500 каждому своему сотруднику, который уволится. Думаю, у этого подхода есть свои слабые стороны, но идея такой отбраковки немотивированных людей соблазнительна.</p>
+<p>Мой основной опыт связан с работой в организациях малого и среднего размеров. Адаптация к большой корпорации была непростой, но я не думаю, что те, противоположные DevOps подходы, с которыми я сталкивался за это время, чем-то уникальны для Sony. Я знаю несколько человек, которые говорят, что пользуются подходами DevOps с тех пор, когда еще и слова этого не было, и я с ними согласен. Тем не менее, проблемы обмена информацией между вертикалями, бюрократии, организационных границ, политики и т. п., присущи большим корпорациям в гораздо большей степени. Не могу ничего сказать о том, как прививать культуру DevOps в большой организации сверху вниз, но я напряжённо работаю над тем, чтобы создать её изнутри.<br />
+<a name="beginning"></a></p>
+<h2 dir="ltr">Начало</h2>
+<p>Ещё год назад я никогда не слышал слова DevOps. Если вы в таком же положении, то есть много статей о том, что представляет собой DevOps:</p>
+<ul>
+<li><a href="http://www.jedi.be/blog/2010/02/12/what-is-this-devops-thing-anyway/" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://www.jedi.be']);">Так что же такое DevOps?</a></li>
+<li><a href="http://www.kartar.net/2010/02/what-devops-means-to-me/" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://www.kartar.net']);">Что означает DevOps для меня</a></li>
+<li><a href="http://agileoperations.net/index.php?/archives/35-DevOps-and-Agile-Operations.html" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://agileoperations.net']);">DevOps и Agile эксплуатация</a></li>
+</ul>
+<p>И чего он не представляет:</p>
+<ul>
+<li><a href="http://www.agileweboperations.com/what-devops-is-not" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://www.agileweboperations.com']);">Чем DevOps не является</a></li>
+<li><a href="http://dev2ops.org/blog/2010/11/7/devops-is-not-a-technology-problem-devops-is-a-business-prob.html" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://dev2ops.org']);">DevOps – это не технологическая проблема</a></li>
+<li><a href="http://www.krisbuytaert.be/blog/apparently-devops-not-jobtitle" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://www.krisbuytaert.be']);">DevOps – это не должность</a></li>
+<li><a href="http://streamstep.com/index.php/blogs/armblog/devops_is_not_just_about_automation/" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://streamstep.com']);">DevOps – это не только автоматизация</a></li>
+</ul>
+<p>Тем не менее, я подозреваю, что у некоторых возникнут проблемы с тем, чтобы найти действительно стоящие перлы, среди водянистой болтовни. Вот хорошее место, чтобы начать: <a href="http://dev2ops.org/blog/2011/5/12/getting-started-with-devops.html" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://dev2ops.org']);">Приступая к работе с подходом DevOps</a>. Этот гигантский список ссылок на тему DevOps, собранный Патриком Дебуа (Patrick Debois), ясно продемонстрирует, почему не стоит пытаться прочесть <em>всё</em> о DevOps: <a href="http://jedi.be/bookmarks/" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://jedi.be']);">devops-закладки.</a></p>
+<p>Если же вы уже в курсе дела, DevOps вам нравиться и вы хотите построить команду вокруг этого принципа, то вот как это делал я.<br />
+<a name="networking"></a></p>
+<h2 dir="ltr">Налаживание связей</h2>
+<p>Понимание, что же такое DevOps <em>у меня</em> оформилось только после того, как я начал об этом говорить с другими людьми. К счастью, в Лондоне есть очень активное сообщество DevOps, и поэтому у меня было достаточно возможностей разговаривать на эту тему. Неутомимый Гарет Рашгров (Gareth Rushgrove) проводит множество мероприятий, а The Guardian их часто принимает у себя. Я принимал участие в сессиях, где обсуждалась Continuous Integration, Deployments, Google App Engine, Load Balancers, Chef, CloudFoundry, и т. д. Я обнаружил, что люди удивительно открыто говорят о своих технологиях, процессах, культуре, трудностях и успехах.</p>
+<p>Хотя Devops, конечно, больше, чем технологии и инструменты, лично для меня Devops оказался отличной вывеской, под которой ведутся действительно интересные разговоры. Наличие форума, где собираются люди с самым разнообразным опытом, помогло мне сформировать внутреннее понимание, о том, что именно <em>должно</em> формировать подход DevOps.</p>
+<p>Отправляясь на свои первые собрания Лондонского DevOps сообщества, я чувствовал себя немного лицемером, потому что меня в первую очередь интересовал рекрутинг.  Однако качество обсуждений было настолько высоким, что я с нетерпением ждал каждого следующего собрания, хоть больше и не искал сотрудников. Кроме того, я обнаружил, что добрая половина участников тоже ищут людей. Это оказался рынок девопсевцев.</p>
+<p><strong>Результат</strong>: я познакомился, а после и взял на работу, со Стивеном Нельсоном-Смиттом (Stephen Nelson-Smith) из Atalanta-Systems. (Он – автор блога <a href="http://agilesysadmin.net/" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://agilesysadmin.net']);">agilesysadmin.net</a> и пишет в твиттере под ником @Lordcope).<br />
+<a name="definition"></a></p>
+<h2 dir="ltr">Рабочее определение DevOps</h2>
+<p>Если вы собираетесь нанимать людей, ориентированных на DevOps, неплохо иметь для себя его рабочее определение. Мне нравятся «столпы DevOps»  (Culture, Automation, Measurement, Sharing = CAMS) предложенные Джоном Уиллисом (<a href="http://www.opscode.com/blog/2010/07/16/what-devops-means-to-me/" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://www.opscode.com']);">Что означает DevOps для меня</a>):</p>
+<ul>
+<li>Культура</li>
+<li>Автоматизация</li>
+<li>Измерение</li>
+<li>Обмен знаниями</li>
+</ul>
+<p>Мне кажется, что SMAC был бы лучшим акронимом, но буду пользоваться устоявшимся CAMS.<br />
+<a name="spec"></a></p>
+<h2 dir="ltr">Требования к DevOps-кандидатам</h2>
+<p>Хотя я и видел вакансии на DevOps, я не считаю это должностью. В своей вакансии я только упоминал, что ищу «подкованных в DevOps», а потом изменил это на «DevOps-ориентированных» или что-то в этом роде. Объявление про вакансию истекло, и я собирался его выкинуть, но Р. И. Пинар (R.I.Pinearr) у себя в твиттере назвал его «идеальным описанием работы devops». Я очень люблю последовательно уточнять описание вакансии до тех пор, пока в требованиях не остается лишь то, что мне действительно требуется, и что можно чётко оценить в процессе собеседований. Но то, как составлять описание вакансии, выходит далеко за пределы этой статьи. Вкратце, я искал людей:</p>
+<ul>
+<li>с хорошими навыками решения проблем</li>
+<li>исполнительных и энергичных</li>
+<li>хорошо вписывающихся в команду (очень трудно оценить)</li>
+<li>с широким набором профессиональных навыков (LAMP, Java, C++, Ruby, Python, Oracle, Scaling/Capacity, High-Availability, и т.д., и т.п.)</li>
+</ul>
+<p>Моя команда работает с огромным набором технологических стеков и они постоянно изменяются. Эта работа – настоящая мечта технаря, но самыми важными навыками для неё являются навыки межличностных отношений.<br />
+<a name="recruiters"></a></p>
+<h2 dir="ltr">Рекрутеры</h2>
+<p>Я твёрдо убежден, что рекрутерам нужно уделять достаточно своего времени. Многие люди относятся к ним грубо, игнорируют их, а потом удивляются тому, что им не достаются хорошие кандидаты. Я всегда стараюсь ввести рекрутеров в курс дела как можно полнее. Для этого я подробно объясняю, какую роль мне нужно закрыть, а иногда хожу с ними на кофе или пива. Обратная связь, конечно же, очень важна кандидатам и я всегда стараюсь отвечать честно и быстро, оставляя рекрутерам заботу о том, чтобы подсластить горькую пилюлю.<br />
+<a name="resumes"></a></p>
+<h2 dir="ltr">Отбор резюме</h2>
+<p>Это тяжело. У меня часто возникает «резюмешная слепота», когда все кандидаты начинают выглядеть одинаково. И, как правило, одинаково неподходящими. Я стараюсь помнить, что на другом конце находится живой человек и заставляю себя формулировать конкретные причины, по которым я кого-либо отсеиваю. Разговор с рекрутером на тему кандидатов помогает мне быть конкретным.<br />
+<a name="phaseone"></a></p>
+<h2 dir="ltr">Первое собеседование – удалённое техническое тестирование</h2>
+<p>Вот здесь начинается самое интересное! Я не знаю, лондонская ли это специфика, но у меня было <em>очень много</em> кандидатов из других стран, которые хотели присоединиться к команде. Для тех, у кого было хорошее резюме, а рекрутер ручался за хороший английский, я разработал отличный скрининг-тест, который можно было проводить удалённо. Это позволяло экономить на поездке в Лондон и проживании, а также быстро закончить разговор, если дела шли не лучшим образом. Вот как это выглядело:</p>
+<ul>
+<li>Я выслал кандидату или рекрутеру ссылку на инстанс ec2, который я запускал минут за 20 до собеседования.</li>
+<li>В инстансе был запущен веб-сервер, который содержал инструкцию для теста. Она лишь информировала, что кандидату будет нужен терминальный клиент, например Putty, если используется Windows.</li>
+<li>В оговоренное время я звонил кандидату. Я объяснял, что тест состоит из двух заданий. Первое задание ориентировано на системное администрирование, и на него выделяется 20 минут. Второе задание – на программирование, и на него можно использовать всё оставшееся время. Звонок закончится через час.</li>
+<li>Объясняю правила: вся работа должна быть выполнена на инстансе ec2, у кандидата есть тестовая учетная запись с паролем и root-доступ через sudo. Для выполнения задания можно пользоваться любыми ресурсами. Использование google, man-страниц, библиотек не только разрешено, но и предполагается.</li>
+<li>Объясняю, что я от них хочу: они должны разговаривать со мной, рассказывая, как и о чём они думают, демонстрируя мне свой процесс решения задачи. Мне гораздо важнее этот диалог, чем смогут ли они решить какую-либо из поставленных задач.</li>
+<li>Добавляю, что мы будем использовать Screen и я буду видеть всё, что они вводят.</li>
+<li>Подменяю файл index.html с полными инструкциями, отмечаю время и говорю кандидату начинать.</li>
+</ul>
+<p><strong>Задачи</strong></p>
+<p>1) На самом деле очень простая: установить WordPress и настроить его для корректной работы. Уловка в том, что mysql мы предварительно поставили и сломали, а теперь наблюдали, как кандидаты ломали себе голову над тем, что ж такое происходит. Для опытного администратора это детские игрушки.</p>
+<p>Как правило, мне приходилось собеседовать людей, больше ориентированных на разработку, чем администрирование. И практически сразу было понятно, насколько хорошо человек разбирается в Linux-системах. Было интересно видеть, какие предположения делали люди о самой системе (я ни разу не упоминал, что за операционная система установлена в инстансе; некоторые просто решили, что это Ubuntu). Некоторые люди читали инструкции, а некоторые – нет. В них был указан пароль для mysqladmin, но тем не менее были такие, кто искал как сбросить утерянный пароль. Один парень потратил 10 минут, пытаясь зайти по ssh на http://ec2&#8230; . Я сделал ему скидку из-за нервного напряжения, но он продолжал в том же духе и я вскоре закончил собеседование. Он жаловался на языковой барьер (он из Восточной Европы) и сказал, что если бы я только яснее выражался&#8230; Если я не могу с ним нормально общаться, то, я думаю, это весьма серьезная проблема, в независимости о того, чья это вина.</p>
+<p>2) Мы давали немного почищенные журнальные файлы от Tomcat с реальным приложением, которое мы поддерживаем, и просили написать скрипт для разбора этого журнального файла на любом языке, который выберет кандидат. Нас интересовало, чтобы скрипт выводил вызовы методов, их число, частоту, среднее и 90-ю персентиль задержки. Предпочитаемым языком был Ruby, но кандидат был волен выбирать любой.</p>
+<p>Один кандидат решил написать это на bash и ушёл в такую черную магию регулярных выражений, что я уже не понимал, как оно работает. Но в какой-то момент он застрял, и я не мог не спросить, почему он, по его словам ruby-программист, не делает это на Ruby, который, как я говорил, был предпочтительнее. Он начал заново, уже на ruby, и справился с задачей.</p>
+<p>В зависимости от того, сколько времени было потрачено на первую задачу, эта часть собеседования часто была для меня очень скучной. Я оставался на связи на случай, если будут вопросы, просил объяснить свой подход перед тем, как начать кодирование, но после этого всё, что мне оставалось, это читать почту и т. п. Когда проходило 60 минут от начала собеседования, я пояснял кандидату, что он может продолжать работать над заданием столько, сколько ему на это понадобиться, после чего прислать мне письмо. После чего я заканчивал разговор, сказав перед этим, что мы свяжемся с ними, после того, как рассмотрим их присланный код.</p>
+<p><strong>Результаты</strong></p>
+<p>Я провёл через этот процесс несколько кандидатов. Когда мы только начали формировать тест, кроме меня в разговоре принимало участие ещё несколько человек из моей команды, но это оказалось слишком затратным в плане времени и, кроме того, пугало некоторых кандидатов. Ограничение по времени первой задачи стало <em>огромным</em> шагом вперёд, а как только к нашей команде присоединился Стивен Нельсон-Смит, у меня появился человек, который мог оценить код на ruby лучше меня. Мы все считаем, что описанный процесс тестирования чрезвычайно хорошо демонстрирует навыки кандидатов, и я крайне его рекомендую.</p>
+<p>Один из самых хороших кандидатов принимал участие в собеседовании сидя за ноутбуком в людной и шумной зоне общего пользования wifi одного из лондонских хостелов. На заднем плане слышались громкие крики людей и сокрушительная рождественская музыка. Тем не менее, он смог отключится от всех отвлекающих факторов и решил обе задачи с лёгкостью, за что получил много бонусных очков.<br />
+<a name="phasetwo"></a></p>
+<h2 dir="ltr">Этап 2 – личное собеседование</h2>
+<p>Второй этап состоял из нескольких частей:</p>
+<ul>
+<li>Неформальный разговор за кофе/обедом/ужином, длинной до часа. Я объяснял, что я ищу, кандидаты рассказывали про себя, и мы оценивали, на сколько подходим друг другу.</li>
+<li>Упражнение на решение гипотетической проблемы у доски: вам звонит заказчик и говорит, что получает пустую страницу, когда заходит на http://yoursite.com. Ваши действия? Можно немного поимпровизировать с темой самой проблемы, но у неё должно быть две цели: показать подход человека к решению проблем и с архитектурами какой сложности он имел опыт работы.</li>
+<li>Два часа парного программирования с любым человеком из моей команды. Обычно, это самая настоящая работа, которую нужно сделать. Это может быть cookbook для chef, или тест в cucumber, и т.п. Нам нужно выяснить, насколько комфортна тесная работа с этим человеком. Моя команда часто практикует парное программирование. Готовы ли мы работать с ним в паре день за днём?</li>
+</ul>
+<p><a name="phasethree"></a></p>
+<h2 dir="ltr">Этап 3 – мой босс + любой член команды, которые ещё не встречался с кандидатом</h2>
+<ul>
+<li>Этот этап обычно очень свободный, хотя мой босс имеет своих собственные методы для оценки людей.</li>
+</ul>
+<p>Для меня очень важно, чтобы каждый в моей команде мог выразить своё мнение. Мне очень нравился один кандидат, но когда один человек из команды озвучил свои смутные сомнения на счёт того, подходит ли человек в команду, мы все остановились и задумались об этом. В конце концов мы отказались от этого кандидата, потому что как только первые сомнения были озвучены, другие люди тоже начали рассказывать о своих опасениях. Я понял, что спешил нанять человека, чтобы закрыть срочную потребность, и был рад, как всё в результате получилось.<br />
+<a name="hire"></a></p>
+<h2 dir="ltr">Отличный результат</h2>
+<p>Один из лучших людей, которых я нанял, знал не только C, Java и Linux, но и написал пример приложения на Ruby, потому что знал, что нам нужен был человек, умеющий писать на ruby. Его программа находила кратчайший маршрут между станциями лондонского метро, правда только по количеству остановок, а не времени в пути. Мне такая инициативность сказала о многом, и она полностью подтверждается с тех пор, как он присоединился к нашей команде. Жаждет новых знаний и хочет их применять. Любая проблема или задача для него «это просто». Единственная моя проблема с ним, это то, что он считает проблему решенной, как только придумает, как её решить. Это, конечно, немного шутка. На днях я ему сказал, что он объявляет задачу решённой, если твёрдо уверен, что ему потребуется ещё семь своих действий для её решения.<br />
+<a name="beyond"></a></p>
+<h2 dir="ltr">После найма</h2>
+<p>Что теперь? Ну, приём правильного человека – <em>большое</em> событие. Мы отмечали приход каждого человека, в противоположность типичным «прощальным столам», когда люди уходят. То, как я управляю командой, я ещё напишу (я надеюсь), но хочу сделать небольшой комментарий. Нанимая людей, в соответствии со своим видением, я должен буду отвечать перед ними. Всякий раз, когда я понимаю, что причиной моего решения стала «политика», я знаю, что это нужно менять.<br />
+<a name="about"></a></p>
+<h2 dir="ltr">Об авторе</h2>
+<p><img src="https://lh4.googleusercontent.com/-4-J-SIspMoIjyQzgQLAnUKbeXyb_5zluTorHry-e_TK53ekKMXEFAd9_8nLcf6Zli9-WQ9MSTaIM2EpCoo2B6Yr1bvzN84IBj8qrruANV4XTbQY2B8" alt="" width="114px;" height="134px;" /></p>
+<p>Брайан Генри возглавляет Operations Engineering из Online Technology Group в Sony Computer Entertainment Europe. Его увлечения включают Devops, Tool-chains, Web Operations, Continuous Delivery и Lean thinking. Сейчас он занимается разработкой линий автоматизированных инфраструктур, с применением Ruby, Chef и AWS, запуская само-обслуживаемые, создаваемые по требованию, информационные окружения для разработки и тестирования в Sony’s Worldwide Studios.</p>
+</div>
+					</div><!-- .entry-content -->
+		
+		<footer class="entry-meta">
+			This entry was posted in <a href="../../category/translations/index.html" rel="category tag">Translations</a> and tagged <a href="index.html" rel="tag">devops</a>, <a href="../sa/index.html" rel="tag">SA</a> on <a href="/blog/2012/02/building-a-devops-team/" title="22:00" rel="bookmark"><time class="entry-date" datetime="2012-02-05T22:00:16+02:00">February 5, 2012</time></a><span class="by-author"> by <span class="author vcard"><a class="url fn n" href="/blog/2009/05/%d0%ba%d0%b0%d0%ba-%d0%be%d0%b1%d1%8a%d0%b5%d0%b4%d0%b8%d0%bd%d0%b8%d1%82%d1%8c-%d0%bd%d0%b5%d1%81%d0%ba%d0%be%d0%bb%d1%8c%d0%ba%d0%be-%d1%81%d0%b5%d1%82%d0%b5%d0%b2%d1%8b%d1%85-%d0%b8%d0%bd%d1%82/" title="View all posts by ivan" rel="author">ivan</a></span></span>.								</footer><!-- .entry-meta -->
+	</article><!-- #post -->
+
+	<article id="post-556" class="post-556 post type-post status-publish format-standard hentry category-translations tag-devops tag-sa">
+				<header class="entry-header">
+			
+						<h1 class="entry-title">
+				<a href="/blog/2011/12/devops-from-a-sysadmin-perspective/" rel="bookmark">Девопс с точки зрения системного администратора</a>
+			</h1>
+								</header><!-- .entry-header -->
+
+				<div class="entry-content">
+			<p id="top" />
+<div>Автор: Патрик Дебуа (Patrick Debois)<br />
+Перевод: Иван Песин (Ivan Pesin)</div>
+<div>URL: <a href="http://www.jedi.be/blog/2011/12/07/devops-from-a-sysadmin-perspective/" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://www.jedi.be']);">http://www.jedi.be/blog/2011/12/07/devops-from-a-sysadmin-perspective/</a></div>
+<div>
+<div>
+<div>
+<div>
+<h3 dir="ltr">Введение</h3>
+<p>Не смотря на то, что <a href="http://www.jedi.be/blog/2011/09/06/devopsdays-melbourne-keynote/" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://www.jedi.be']);">общепринятого определения девопс нет (как и определения облака)</a>, его идеи построены вокруг четырех принципов: <a href="http://www.opscode.com/blog/2010/07/16/what-devops-means-to-me/" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://www.opscode.com']);">культура, автоматизация, измерение и обмен знаниями (Culture, Automation, Measurement and Sharing, CAMS)</a>. В этой статье мы рассмотрим, как это влияет на традиционные подходы системных администраторов.</p>
+<p>Наверное, как системный администратор, вы знакомы с подходами автоматизации и измерений. Автоматизация является признаком хорошей и профессиональной работы, позволяет поднять эффективность и обеспечить повторяемость. Сбор статистики тоже давно стал неотъемлемой частью работы сисадмина, обеспечивающей уверенность в том, что все работает хорошо.<strong><strong><br />
+</strong></strong></p>
+<h3 dir="ltr">Проблема</h3>
+<p>Многие годы, эксплуатация (частью которой, как правило, является системное администрирование) воспринималась как конечная точка процесса поставки программного обеспечения. Разработчики писали новую функциональность в изолированной от эксплуатации среде, а когда они заканчивали очередной большой этап, ПО передавалось отделу эксплуатации, чтобы обеспечить развертывание и запуск в работу.</p>
+<p>Во время развертывания обычно вылазит множество проблем. Классический пример — это несоответствие между средой, в которой велась разработка и тестирование, и средой, в которой будет эксплуатироваться программное обеспечение. Другой пример: слабая проработка средств резервного копирования и восстановления системы. Часто это выясняется, когда уже слишком поздно, чтобы серьезно менять архитектуру и структуру кода и, в результате, появляется множество «костылей» и «заплаток». Такое трение между разработчиками и эксплуатацией породило неуважение одних к другим: разработчики считают, что эксплуатация ничего не смыслит в программах, а эксплуатация уверена, что разработчики не имеют представления о том, как обеспечить работу серверов. Руководство же старается изолировать эти две группы друг от друга и свести взаимодействие к минимуму. В результате появляется «<a href="http://snews.com.ua/2011/06/23/devops-novaya-metodologiya-razrabotki/" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://snews.com.ua']);">стена непонимания</a>».<strong><strong><br />
+</strong></strong></p>
+<h3 dir="ltr">Культура сотрудничества</h3>
+<p>Исторически два фактора обусловили возникновение девопс: первый — это распространение методики Agile, что привело во многих компаниях к масштабам развертывания большим, чем возможности эксплуатации. Вторым фактором стало возникновение облачных сервисов и веб-систем большого масштаба, где требовалось значительно более тесное взаимодействие разработчиков и эксплуатации.</p>
+<p>Когда что-то действительно идет не так, организации часто создают кросс-функциональные оперативные группы для решения эксплуатационных проблем. Правда состоит в том, что в современном ИТ, среды стали настолько сложными, что полностью их не может понять один человек или даже одна группа. Потому, вместо разделения разработчиков и эксплуатации, как это было раньше принято, нам нужно собирать их вместе. Нужно, чтобы было больше практического опыта и правильным девизом должен стать такой: «если это трудно, то нужно это делать чаще».</p>
+<p>Девопс подразумевает, что программное обеспечение ценно только тогда, когда находится в эксплуатации и, следовательно, сами по себе сервера без ПО ценности не имеют. Такой подход приводит к тому, что и программисты, и эксплуатация работают ради клиента, а не ради своего отдела.</p>
+<p>Не смотря на то, что системные администраторы всегда сотрудничали с разными отделами, это никогда не считалось стратегическим преимуществом. Культура девопс направлена на продвижение постоянного сотрудничества между вертикалями (Здесь и далее, я использовал слово «вертикаль» для перевода английского «silo», поскольку обмен информацией между вертикалями в организациях часто отсутствует. Information silo — это система, неспособная к сотрудничеству с другими, релевантными системами. — Прим. пер.), с целью лучшего удовлетворения потребностей бизнеса. Это ведет к «friction-less» IT («безупречному ИТ») и стимулирует междисциплинарный подход и совместную работу отделов.</p>
+<p>Хорошие возможности для внедрения такого сотрудничества открываются там, где часто возникает диалог: развертывание, упаковка, тестирование, мониторинг, построение среды. Такие процессы могут рассматриваться, как <a href="http://theagileexecutive.com/2010/07/06/boundary-objects-in-devops/" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://theagileexecutive.com']);">граничные объекты</a>: объекты, о которых у каждой вертикали свое представление. И это как раз те процессы, где накапливается <a href="http://www.c2.com/cgi/wiki?TechnicalDebt" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://www.c2.com']);">технический долг</a>, и здесь же, наверняка, сосредоточено множество болевых точек.<strong><strong><br />
+</strong></strong></p>
+<h3 dir="ltr">Культура обмена знаниями</h3>
+<p>В организациях вертикали существуют в самых разных формах, не только между разработчиками и эксплуатацией. В некоторых организациях есть вертикали даже внутри эксплуатации, например группы по эксплуатации сети, хранилищ данных, серверов, и обеспечения безопасности, которые избегают сотрудничества и живут каждая в своем мирке. Эта ситуация получила название «проблема опс-опс» (Ops-Ops problem). Так что на айтишном жаргоне, девопс на самом деле является сокращением от «сотрудничество девопс*».</p>
+<p>Девопс не означает, что теперь все системные администраторы должны уметь писать программы, а все разработчики уметь устанавливать сервера. Постоянно работая вместе, обе группы могут учиться друг у друга, но, в первую очередь, они могут положиться друг на друга в том, что каждая группа будет делать свою работу. Подобный подход продвигается подходом Agile в работе программистов и тестировщиков. Девопс можно рассматривать, как расширение, включающее системных администраторов в уравнение Agile.</p>
+<p>Налаживание диалога иногда требует смелости, но подумайте о преимуществах: вы получаете возможность изучать приложение по мере его развития, и вы можете активно участвовать в его формировании, внося свои предложения в процессе разработки. Системных администратор может много чего предложить разработчикам. Например, у вас есть знания, как выглядит среда, в которой эксплуатируется ПО, следовательно вы можете построить приближенную среду для тестирования и разработки. Вы можете участвовать в нагрузочном тестировании, тестировании реакции на сбои, или настроить систему мониторинга, которая позволит разработчикам увидеть проблемы, дать доступ к журнальным файлам, чтобы программисты понимали реальную нагрузку.</p>
+<p>Парная работа с разработчиком или другим коллегой — это отличных способ обмена информацией и знаниями. Пока вы разворачиваете код, коллега может комментировать, какое влияние могут оказать ваши действия на работу ПО, а вы можете сразу же задавать интересующие вас вопросы. Взаимодействие такого рода сильно помогает в понимании взглядов и подходов эксплуатации и разработки.<strong><strong><br />
+</strong></strong></p>
+<h3 dir="ltr">Пересмотр автоматизации</h3>
+<p>Как и сказано в <a href="http://agilemanifesto.org/iso/ru/" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://agilemanifesto.org']);">манифесте Agile</a>, девопс полагает, что «люди и взаимодействие важнее процессов и инструментов». Самое замечательное в инструментах, это их определенность и возможность приносить прямую пользу, в отличии от культуры. Влияние виртуализации и облачных сервисов было трудно осознать до их массового распространения. Инструменты могут влиять на то, как мы работаем, тем самым меняя наше поведение.</p>
+<p>Хорошим примером здесь будет управление конфигурацией и подход к инфраструктуре, как к программному коду. Многие люди в восторге от гибкости и возможностей этих подходов в автоматизации. Но если посмотреть глубже, то кроме эффекта экономии времени, можно увидеть потрясающие аспекты обмена знаниями: появился способ, с помощью которого теперь можно обмениваться информацией с коллегами, даже из других компаний, о том, как вы управляете системами, публикуя рецепты и кукбуки на github-е. Использование таких подходов, как управление версиями и тестирование, приводит нас в то же пространство проблем, что и разработчиков. И что важнее всего, автоматизация освобождает нас от тривиальных задач и позволяет обсуждать и фокусироваться на <a href="http://blog.cutter.com/2011/09/11/originality-and-operations/" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://blog.cutter.com']);">действительно важных вещах</a>.<strong><strong><br />
+</strong></strong></p>
+<h3 dir="ltr">Пересмотр измерений</h3>
+<p>Эффект от сотрудничества нельзя <a href="http://en.wikipedia.org/wiki/The_Cuckoo" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://en.wikipedia.org']);"s_Egg_(book)">выразить</a> в количестве проведенных разговоров, ведь много разговоров не значит, что вечеринка будет хорошей. Это похоже на <a href="http://www.jedi.be/blog/2011/09/06/velocityconf-devops-metrics/" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://www.jedi.be']);">черную дыру: чтобы оценить ее эффект, нужно смотреть на объекты вокруг самой дыры</a>. Так как же понять, что есть улучшения? Как инженер, вы собираете статистику о числе инцидентов, тикетов, неудачных и удачных запусков. Но вместо того, чтобы держать эту информацию в своей вертикали, распространяйте ее среди других частей вашей компании и извлекаете из нее уроки. Празднуйте успехи и неудачи, и делайте выводы из них. Анализируйте причины проблем, вовлекая всех причастных, и улучшайте процессы. Еще раз: нужно менять фокус статистики и мониторинга с быстрого исправления проблемы, на обратную связь со всей организацией. Целью должна быть оптимизация всей системы, а не только лишь вашей части.<strong><strong><br />
+</strong></strong></p>
+<h3 dir="ltr">Секретный соус</h3>
+<p>Несколько «молодых» компаний являются лидерами в применении этих подходов. Amazon, с их <a href="http://highscalability.com/amazon-architecture" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://highscalability.com']);">правилом двух пицц</a> (если команда, работающая над одним проектом, может съесть больше двух пицц, то она слишком большая — Прим. пер.), Flickr, с политикой <a href="http://www.slideshare.net/jallspaw/10-deploys-per-day-dev-and-ops-cooperation-at-flickr" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://www.slideshare.net']);">десяти обновлений в день</a>, были одними из первых лидеров, но теперь всё более традиционные компании, как, например, National Instruments, видят ценность такой культуры сотрудничества. Теперь они называют культуру сотрудничества «<a href="http://radar.oreilly.com/2007/10/operations-is-a-competitive-ad.html" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://radar.oreilly.com']);">секретным соусом</a>», который позволит им оторваться от конкурентов. Почему? Потому что, такой подход позволяет перестать считать людей ресурсом, а начать считать, что это у людей есть ресурс для решения проблем, которые существуют в этом сложном мире, называемом ИТ.</p>
+</div>
+</div>
+</div>
+</div>
+					</div><!-- .entry-content -->
+		
+		<footer class="entry-meta">
+			This entry was posted in <a href="../../category/translations/index.html" rel="category tag">Translations</a> and tagged <a href="index.html" rel="tag">devops</a>, <a href="../sa/index.html" rel="tag">SA</a> on <a href="/blog/2011/12/devops-from-a-sysadmin-perspective/" title="19:47" rel="bookmark"><time class="entry-date" datetime="2011-12-23T19:47:23+02:00">December 23, 2011</time></a><span class="by-author"> by <span class="author vcard"><a class="url fn n" href="/blog/2009/05/%d0%ba%d0%b0%d0%ba-%d0%be%d0%b1%d1%8a%d0%b5%d0%b4%d0%b8%d0%bd%d0%b8%d1%82%d1%8c-%d0%bd%d0%b5%d1%81%d0%ba%d0%be%d0%bb%d1%8c%d0%ba%d0%be-%d1%81%d0%b5%d1%82%d0%b5%d0%b2%d1%8b%d1%85-%d0%b8%d0%bd%d1%82/" title="View all posts by ivan" rel="author">ivan</a></span></span>.								</footer><!-- .entry-meta -->
+	</article><!-- #post -->
+
+		
+		</div><!-- #content -->
+	</section><!-- #primary -->
+
+
+			<div id="secondary" class="widget-area" role="complementary">
+			<aside id="pages-4" class="widget widget_pages"><h3 class="widget-title">Pages</h3>		<ul>
+			<li class="page_item page-item-1467"><a href="/blog/reference-phonetic-alphabet/">Reference Phonetic Alphabet</a></li>
+<li class="page_item page-item-44"><a href="/blog/%d0%bf%d0%be%d0%b4%d0%b1%d0%be%d1%80%d0%ba%d0%b0-%d0%b2%d0%be%d0%bf%d1%80%d0%be%d1%81%d0%be%d0%b2-%d0%b8-%d0%be%d1%82%d0%b2%d0%b5%d1%82%d0%be%d0%b2-1/">Подборка вопросов и ответов #1</a></li>
+<li class="page_item page-item-239"><a href="/blog/%d0%bf%d0%be%d0%b4%d0%b1%d0%be%d1%80%d0%ba%d0%b0-%d0%b2%d0%be%d0%bf%d1%80%d0%be%d1%81%d0%be%d0%b2-%d0%b8-%d0%be%d1%82%d0%b2%d0%b5%d1%82%d0%be%d0%b2-2/">Подборка вопросов и ответов #2</a></li>
+<li class="page_item page-item-468"><a href="/blog/questions-and-answers-issue-3/">Подборка вопросов и ответов #3</a></li>
+		</ul>
+			</aside><aside id="search-4" class="widget widget_search"></aside><aside id="tag_cloud-4" class="widget widget_tag_cloud"><h3 class="widget-title">Tags</h3><div class="tagcloud"><a href="../aws/index.html" class="tag-cloud-link tag-link-182 tag-link-position-1" style="font-size: 8pt;" aria-label="AWS (2 items)">AWS</a>
+<a href="../bash/index.html" class="tag-cloud-link tag-link-12 tag-link-position-2" style="font-size: 12.277777777778pt;" aria-label="bash (4 items)">bash</a>
+<a href="../basics/index.html" class="tag-cloud-link tag-link-13 tag-link-position-3" style="font-size: 12.277777777778pt;" aria-label="basics (4 items)">basics</a>
+<a href="../bootstrap/index.html" class="tag-cloud-link tag-link-113 tag-link-position-4" style="font-size: 10.333333333333pt;" aria-label="bootstrap (3 items)">bootstrap</a>
+<a href="../cfengine/index.html" class="tag-cloud-link tag-link-96 tag-link-position-5" style="font-size: 13.833333333333pt;" aria-label="cfengine (5 items)">cfengine</a>
+<a href="../cfengine3/index.html" class="tag-cloud-link tag-link-93 tag-link-position-6" style="font-size: 8pt;" aria-label="cfengine3 (2 items)">cfengine3</a>
+<a href="../configuration/index.html" class="tag-cloud-link tag-link-18 tag-link-position-7" style="font-size: 13.833333333333pt;" aria-label="configuration (5 items)">configuration</a>
+<a href="../coursera/index.html" class="tag-cloud-link tag-link-111 tag-link-position-8" style="font-size: 8pt;" aria-label="coursera (2 items)">coursera</a>
+<a href="index.html" class="tag-cloud-link tag-link-88 tag-link-position-9" style="font-size: 16.166666666667pt;" aria-label="devops (7 items)">devops</a>
+<a href="../dns/index.html" class="tag-cloud-link tag-link-163 tag-link-position-10" style="font-size: 8pt;" aria-label="DNS (2 items)">DNS</a>
+<a href="../english/index.html" class="tag-cloud-link tag-link-95 tag-link-position-11" style="font-size: 20.25pt;" aria-label="English (12 items)">English</a>
+<a href="../getting_started/index.html" class="tag-cloud-link tag-link-25 tag-link-position-12" style="font-size: 12.277777777778pt;" aria-label="getting_started (4 items)">getting_started</a>
+<a href="../hardware/index.html" class="tag-cloud-link tag-link-26 tag-link-position-13" style="font-size: 8pt;" aria-label="hardware (2 items)">hardware</a>
+<a href="../interviewing/index.html" class="tag-cloud-link tag-link-92 tag-link-position-14" style="font-size: 8pt;" aria-label="interviewing (2 items)">interviewing</a>
+<a href="../kdump/index.html" class="tag-cloud-link tag-link-34 tag-link-position-15" style="font-size: 8pt;" aria-label="kdump (2 items)">kdump</a>
+<a href="../kexec/index.html" class="tag-cloud-link tag-link-35 tag-link-position-16" style="font-size: 8pt;" aria-label="kexec (2 items)">kexec</a>
+<a href="../lun/index.html" class="tag-cloud-link tag-link-37 tag-link-position-17" style="font-size: 8pt;" aria-label="lun (2 items)">lun</a>
+<a href="../lviv/index.html" class="tag-cloud-link tag-link-143 tag-link-position-18" style="font-size: 8pt;" aria-label="lviv (2 items)">lviv</a>
+<a href="../maidan/index.html" class="tag-cloud-link tag-link-180 tag-link-position-19" style="font-size: 8pt;" aria-label="Maidan (2 items)">Maidan</a>
+<a href="../mysql/index.html" class="tag-cloud-link tag-link-141 tag-link-position-20" style="font-size: 8pt;" aria-label="mysql (2 items)">mysql</a>
+<a href="../networking/index.html" class="tag-cloud-link tag-link-44 tag-link-position-21" style="font-size: 16.166666666667pt;" aria-label="networking (7 items)">networking</a>
+<a href="../oom/index.html" class="tag-cloud-link tag-link-47 tag-link-position-22" style="font-size: 8pt;" aria-label="oom (2 items)">oom</a>
+<a href="../performance/index.html" class="tag-cloud-link tag-link-50 tag-link-position-23" style="font-size: 12.277777777778pt;" aria-label="performance (4 items)">performance</a>
+<a href="../presentation/index.html" class="tag-cloud-link tag-link-91 tag-link-position-24" style="font-size: 13.833333333333pt;" aria-label="presentation (5 items)">presentation</a>
+<a href="../religion/index.html" class="tag-cloud-link tag-link-144 tag-link-position-25" style="font-size: 8pt;" aria-label="religion (2 items)">religion</a>
+<a href="../rhel3/index.html" class="tag-cloud-link tag-link-56 tag-link-position-26" style="font-size: 8pt;" aria-label="rhel3 (2 items)">rhel3</a>
+<a href="../rhel4/index.html" class="tag-cloud-link tag-link-57 tag-link-position-27" style="font-size: 8pt;" aria-label="rhel4 (2 items)">rhel4</a>
+<a href="/blog/2009/05/%d0%ba%d0%b0%d0%ba-%d0%be%d0%b1%d1%8a%d0%b5%d0%b4%d0%b8%d0%bd%d0%b8%d1%82%d1%8c-%d0%bd%d0%b5%d1%81%d0%ba%d0%be%d0%bb%d1%8c%d0%ba%d0%be-%d1%81%d0%b5%d1%82%d0%b5%d0%b2%d1%8b%d1%85-%d0%b8%d0%bd%d1%82/" class="tag-cloud-link tag-link-58 tag-link-position-28" style="font-size: 22pt;" aria-label="rhel5 (15 items)">rhel5</a>
+<a href="../rhel_basics/index.html" class="tag-cloud-link tag-link-59 tag-link-position-29" style="font-size: 8pt;" aria-label="rhel_basics (2 items)">rhel_basics</a>
+<a href="../rpm/index.html" class="tag-cloud-link tag-link-62 tag-link-position-30" style="font-size: 8pt;" aria-label="rpm (2 items)">rpm</a>
+<a href="../sa/index.html" class="tag-cloud-link tag-link-89 tag-link-position-31" style="font-size: 18.888888888889pt;" aria-label="SA (10 items)">SA</a>
+<a href="../san/index.html" class="tag-cloud-link tag-link-63 tag-link-position-32" style="font-size: 8pt;" aria-label="san (2 items)">san</a>
+<a href="../scale/index.html" class="tag-cloud-link tag-link-121 tag-link-position-33" style="font-size: 8pt;" aria-label="scale (2 items)">scale</a>
+<a href="../scsi/index.html" class="tag-cloud-link tag-link-65 tag-link-position-34" style="font-size: 8pt;" aria-label="scsi (2 items)">scsi</a>
+<a href="../security/index.html" class="tag-cloud-link tag-link-66 tag-link-position-35" style="font-size: 10.333333333333pt;" aria-label="security (3 items)">security</a>
+<a href="../ssl/index.html" class="tag-cloud-link tag-link-155 tag-link-position-36" style="font-size: 10.333333333333pt;" aria-label="SSL (3 items)">SSL</a>
+<a href="../storage/index.html" class="tag-cloud-link tag-link-70 tag-link-position-37" style="font-size: 8pt;" aria-label="storage (2 items)">storage</a>
+<a href="../talks/index.html" class="tag-cloud-link tag-link-85 tag-link-position-38" style="font-size: 15.194444444444pt;" aria-label="talks (6 items)">talks</a>
+<a href="../terminal/index.html" class="tag-cloud-link tag-link-146 tag-link-position-39" style="font-size: 8pt;" aria-label="terminal (2 items)">terminal</a>
+<a href="../troubleshooting/index.html" class="tag-cloud-link tag-link-102 tag-link-position-40" style="font-size: 8pt;" aria-label="troubleshooting (2 items)">troubleshooting</a>
+<a href="../ukraine/index.html" class="tag-cloud-link tag-link-199 tag-link-position-41" style="font-size: 8pt;" aria-label="Ukraine (2 items)">Ukraine</a>
+<a href="../vim/index.html" class="tag-cloud-link tag-link-77 tag-link-position-42" style="font-size: 10.333333333333pt;" aria-label="vim (3 items)">vim</a>
+<a href="../virtualization/index.html" class="tag-cloud-link tag-link-79 tag-link-position-43" style="font-size: 12.277777777778pt;" aria-label="virtualization (4 items)">virtualization</a>
+<a href="../xen/index.html" class="tag-cloud-link tag-link-82 tag-link-position-44" style="font-size: 10.333333333333pt;" aria-label="xen (3 items)">xen</a>
+<a href="../yum/index.html" class="tag-cloud-link tag-link-83 tag-link-position-45" style="font-size: 8pt;" aria-label="yum (2 items)">yum</a></div>
+</aside><aside id="meta-4" class="widget widget_meta"><h3 class="widget-title">Meta</h3>			<ul>
+						<li><a href="../../feed/index.html">Entries <abbr title="Really Simple Syndication">RSS</abbr></a></li>
+			<li><a href="https://wordpress.org/" title="Powered by WordPress, state-of-the-art semantic personal publishing platform.">WordPress.org</a></li>			</ul>
+			</aside>		</div><!-- #secondary -->
+		</div><!-- #main .wrapper -->
+	<footer id="colophon" role="contentinfo">
+		<div class="site-info">
+						<a href="https://wordpress.org/" title="Semantic Personal Publishing Platform">Proudly powered by WordPress</a>
+		</div><!-- .site-info -->
+	</footer><!-- #colophon -->
+</div><!-- #page -->
+
+<script type='text/javascript' src='../../wp-content/themes/twentytwelve/js/navigation.js'></script>
+<script type='text/javascript' src='../../wp-includes/js/wp-embed.min.js'></script>
+</body>
+</html>

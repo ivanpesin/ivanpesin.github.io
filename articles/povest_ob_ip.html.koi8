@@ -1,0 +1,1658 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"><html><head>
+    <meta name="generator" content="HTML Tidy, see www.w3.org">
+    <meta http-equiv="Content-Type" content="text/html; charset=KOI8-R"><title>Повесть об IP-адресации</title></head>
+
+<body>
+    
+<h1> Повесть об IP-адресации </h1>
+<h3>Автор (С): Иван Песин</h3>
+
+    <h2>
+      Оглавление
+    </h2>
+    
+<ol>
+  <li> <a href="#intro">Введение</a></li>
+  <li> <a href="#ip_addressing">Адреса протокола IP</a></li>
+  <li> <a href="#class_ip_addressing">Классическая адресная схема протокола 
+    IP</a></li>
+  <li><a href="#reserved_addresses">Зарезервированные адреса</a></li>
+  <li><a href="#subnetwork_creation">Организация подсетей</a> </li>
+  <li> <a href="#variable_net_mask">Маска подсети переменной длины (VLSM)</a> 
+  </li>
+  <li> <a href="#classical_scheme_problems">Проблемы классической схемы</a></li>
+  <li> <a href="#CIDR">Бесклассовая междоменная маршрутизация (CIDR)</a></li>
+  <li> <a href="#examples">Примеры</a></li>
+</ol>
+    <h2>
+      <a name="intro">Введение</a>
+    </h2>
+<p>
+      Стек протоколов TCP/IP тесно связан с сетью Internet, ее
+      историей и современностью. Создан он был в 1969 году, когда
+      для сети ARPANET понадобился ряд стандартов для объединения в
+      единую сеть компьютеров с различными архитектурами и
+      операционными системами. На базе этих стандартов и был
+      разработан набор протоколов, получивших название TCP/IP.
+    </p>
+    <p>
+      Вместе с ростом Internet протокол TCP/IP завоевывал позиции и
+      в других сетях. На сегодняшний день этот сетевой протокол
+      используется как для связи компьютеров всемирной сети, так и
+      в подавляющем большинстве корпоративных сетей.
+    </p>
+    <p>
+      В наши дни используется версия протокола IP, известная как
+      IPv4. В статье мы рассмотрим стандартную схему адресации и
+      более новые методы рационального использования адресного
+      пространства, введенные в результате обнаруженных недостатков
+      в реализации протокола IP.
+    </p>
+    
+<h2><a name="ip_addressing">Адреса протокола IP</a></h2>
+    <p>
+      Согласно спецификации протокола, каждому узлу,
+      подсоединенному к IP-сети, присваивается уникальный номер.
+      Узел может представлять собой компьютер, маршрутизатор,
+      межсетевой экран и др. Если один узел имеет несколько
+      физических подключений к сети, то каждому подключению должен
+      быть присвоен свой уникальный номер.
+    </p>
+    
+<p> Этот номер, или по-другому IP-адрес, имеет длину в четыре октета, и состоит 
+  из двух частей. Первая часть определяет сеть, к которой принадлежит узел, а 
+  вторая -- уникальный адрес самого узла внутри сети. </p>
+    
+<table border="1" width="66%" align="center">
+  <tbody><tr> 
+    <td width="66%" colspan="3" valign="top"> 
+      <p style="text-align: center;"> Номер сети </p>
+    </td>
+    <td width="28%" valign="top"> 
+      <p style="text-align: center;"> Номер узла </p>
+    </td>
+  </tr>
+  <tr> 
+    <td width="24%" valign="top"> 
+      <p style="text-align: center;"> 11011100 </p>
+    </td>
+    <td width="24%" valign="top"> 
+      <p style="text-align: center;"> 11010111 </p>
+    </td>
+    <td width="24%" valign="top"> 
+      <p style="text-align: center;"> 00001110 </p>
+    </td>
+    <td width="28%" valign="top"> 
+      <p style="text-align: center;"> 00010110 </p>
+    </td>
+  </tr>
+</tbody></table>
+    <p>
+      В классической реализации протокола первую часть адреса
+      называли "сетевым префиксом", поскольку она однозначно
+      определяла сеть. Однако в современной реализации это уже не
+      так и сеть идентифицируют другим образом, речь о чем пойдет
+      ниже.
+    </p>
+    
+<h2><a name="class_ip_addressing">Классическая адресная схема протокола IP</a></h2>
+    <p>
+      Изначально все адресное пространство разделили на пять
+      классов: A, B, C, D и Е. Такая схема получила название
+      "классовой". Каждый класс однозначно идентифицировался
+      первыми битами левого байта адреса. Сами же классы отличались
+      размерами сетевой и узловой частей. Зная класс адреса, вы
+      могли определить границу между его сетевой и узловой частями.
+      Кроме того, такая схема позволяла при маршрутизации не
+      передавать вместе с пакетом информацию о длине сетевой части
+      IP-адреса.
+    </p>
+    
+<table border="0" width="62%" align="center" cellpadding="0" cellspacing="0">
+  <tbody><tr> 
+    <td width="31%"> 
+      <p><font face="Courier New, Courier, mono" size="-1"> Класс А </font></p>
+    </td>
+    <td width="12%">  </td>
+    <td width="19%">  </td>
+    <td width="19%">  </td>
+    <td width="19%">  </td>
+  </tr>
+  <tr> 
+    <td width="31%"> 
+      <p><font face="Courier New, Courier, mono" size="-1"> Номер бита </font></p>
+    </td>
+    <td width="12%"> 
+      <p><font face="Courier New, Courier, mono"> 0 </font></p>
+    </td>
+    <td width="19%"> 
+      <p><font face="Courier New, Courier, mono"> 8 </font></p>
+    </td>
+    <td width="19%"> 
+      <p><font face="Courier New, Courier, mono"> 16 </font></p>
+    </td>
+    <td width="19%"> 
+      <p><font face="Courier New, Courier, mono"> 24    31 
+        </font></p>
+    </td>
+  </tr>
+  <tr> 
+    <td width="31%"> 
+      <p><font face="Courier New, Courier, mono" size="-1"> Адрес </font></p>
+    </td>
+    <td width="12%" bgcolor="#cccccc"> 
+      <p><font face="Courier New, Courier, mono"> 0<strong>.......</strong> </font></p>
+    </td>
+    <td width="19%" bgcolor="#cccccc"> 
+      <p> <font face="Courier New, Courier, mono"><strong>........</strong> </font></p>
+    </td>
+    <td width="19%" bgcolor="#cccccc"> 
+      <p> <font face="Courier New, Courier, mono"><strong>........</strong> </font></p>
+    </td>
+    <td width="19%" bgcolor="#cccccc"> 
+      <p> <font face="Courier New, Courier, mono"><strong>........</strong> </font></p>
+    </td>
+  </tr>
+  <tr> 
+    <td width="31%" class="Normal"> 
+      <p><font face="Courier New, Courier, mono" size="-1"> Сетевая часть </font></p>
+    </td>
+    <td width="12%" bgcolor="#666666">  </td>
+    <td width="19%">  </td>
+    <td width="19%">  </td>
+    <td width="19%">  </td>
+  </tr>
+  <tr> 
+    <td width="31%" valign="middle"><font face="Courier New, Courier, mono" size="-1"> </font> 
+    </td>
+    <td width="12%">  </td>
+    <td width="19%">  </td>
+    <td width="19%">  </td>
+    <td width="19%">  </td>
+  </tr>
+  <tr> 
+    <td width="31%"> 
+      <p><font face="Courier New, Courier, mono" size="-1"> Класс В </font></p>
+    </td>
+    <td width="12%">  </td>
+    <td width="19%">  </td>
+    <td width="19%">  </td>
+    <td width="19%">  </td>
+  </tr>
+  <tr> 
+    <td width="31%"> 
+      <p><font face="Courier New, Courier, mono" size="-1"> Номер бита </font></p>
+    </td>
+    <td width="12%"> 
+      <p><font face="Courier New, Courier, mono"> 0 </font></p>
+    </td>
+    <td width="19%"> 
+      <p><font face="Courier New, Courier, mono"> 8 </font></p>
+    </td>
+    <td width="19%"> 
+      <p><font face="Courier New, Courier, mono"> 16 </font></p>
+    </td>
+    <td width="19%"> 
+      <p><font face="Courier New, Courier, mono"> 24    31 
+        </font></p>
+    </td>
+  </tr>
+  <tr> 
+    <td width="31%"> 
+      <p><font face="Courier New, Courier, mono" size="-1"> Адрес </font></p>
+    </td>
+    <td width="12%" bgcolor="#cccccc"> 
+      <p><font face="Courier New, Courier, mono"> 10<strong>......</strong> </font></p>
+    </td>
+    <td width="19%" bgcolor="#cccccc"> 
+      <p> <font face="Courier New, Courier, mono"><strong>........</strong> </font></p>
+    </td>
+    <td width="19%" bgcolor="#cccccc"> 
+      <p> <font face="Courier New, Courier, mono"><strong>........</strong> </font></p>
+    </td>
+    <td width="19%" bgcolor="#cccccc"> 
+      <p> <font face="Courier New, Courier, mono"><strong>........</strong> </font></p>
+    </td>
+  </tr>
+  <tr> 
+    <td width="31%"> 
+      <p><font face="Courier New, Courier, mono" size="-1"> Сетевая часть </font></p>
+    </td>
+    <td width="12%" bgcolor="#666666">  </td>
+    <td width="19%" bgcolor="#666666">  </td>
+    <td width="19%">  </td>
+    <td width="19%">  </td>
+  </tr>
+  <tr> 
+    <td width="31%"><font face="Courier New, Courier, mono" size="-1"> </font> 
+    </td>
+    <td width="12%">  </td>
+    <td width="19%">  </td>
+    <td width="19%">  </td>
+    <td width="19%">  </td>
+  </tr>
+  <tr> 
+    <td width="31%"> 
+      <p><font face="Courier New, Courier, mono" size="-1"> Класс С </font></p>
+    </td>
+    <td width="12%">  </td>
+    <td width="19%">  </td>
+    <td width="19%">  </td>
+    <td width="19%">  </td>
+  </tr>
+  <tr> 
+    <td width="31%"> 
+      <p><font face="Courier New, Courier, mono" size="-1"> Номер бита </font></p>
+    </td>
+    <td width="12%"> 
+      <p><font face="Courier New, Courier, mono"> 0 </font></p>
+    </td>
+    <td width="19%"> 
+      <p><font face="Courier New, Courier, mono"> 8 </font></p>
+    </td>
+    <td width="19%"> 
+      <p><font face="Courier New, Courier, mono"> 16 </font></p>
+    </td>
+    <td width="19%"> 
+      <p><font face="Courier New, Courier, mono"> 24    31 
+        </font></p>
+    </td>
+  </tr>
+  <tr> 
+    <td width="31%"> 
+      <p><font face="Courier New, Courier, mono" size="-1"> Адрес </font></p>
+    </td>
+    <td width="12%" bgcolor="#cccccc"> 
+      <p><font face="Courier New, Courier, mono"> 110<strong>.....</strong> </font></p>
+    </td>
+    <td width="19%" bgcolor="#cccccc"> 
+      <p> <font face="Courier New, Courier, mono"><strong>........</strong> </font></p>
+    </td>
+    <td width="19%" bgcolor="#cccccc"> 
+      <p> <font face="Courier New, Courier, mono"><strong>........</strong> </font></p>
+    </td>
+    <td width="19%" bgcolor="#cccccc"> 
+      <p> <font face="Courier New, Courier, mono"><strong>........</strong> </font></p>
+    </td>
+  </tr>
+  <tr> 
+    <td width="31%"> 
+      <p><font face="Courier New, Courier, mono" size="-1"> Сетевая часть </font></p>
+    </td>
+    <td width="12%" bgcolor="#666666">  </td>
+    <td width="19%" bgcolor="#666666">  </td>
+    <td width="19%" bgcolor="#666666">  </td>
+    <td width="19%">  </td>
+  </tr>
+  <tr> 
+    <td width="31%"><font face="Courier New, Courier, mono" size="-1"> </font> 
+    </td>
+    <td width="12%">  </td>
+    <td width="19%">  </td>
+    <td width="19%">  </td>
+    <td width="19%">  </td>
+  </tr>
+  <tr> 
+    <td width="31%"> 
+      <p><font face="Courier New, Courier, mono" size="-1"> Класс D </font></p>
+    </td>
+    <td width="12%">  </td>
+    <td width="19%">  </td>
+    <td width="19%">  </td>
+    <td width="19%">  </td>
+  </tr>
+  <tr> 
+    <td width="31%"> 
+      <p><font face="Courier New, Courier, mono" size="-1"> Номер бита </font></p>
+    </td>
+    <td width="12%"> 
+      <p><font face="Courier New, Courier, mono"> 0 </font></p>
+    </td>
+    <td width="19%"> 
+      <p><font face="Courier New, Courier, mono"> 8 </font></p>
+    </td>
+    <td width="19%"> 
+      <p><font face="Courier New, Courier, mono"> 16 </font></p>
+    </td>
+    <td width="19%"> 
+      <p><font face="Courier New, Courier, mono"> 24    31 
+        </font></p>
+    </td>
+  </tr>
+  <tr> 
+    <td width="31%"> 
+      <p><font face="Courier New, Courier, mono" size="-1"> Адрес </font></p>
+    </td>
+    <td width="12%" bgcolor="#cccccc"> 
+      <p><font face="Courier New, Courier, mono"> 1110<strong>....</strong> </font></p>
+    </td>
+    <td width="19%" bgcolor="#cccccc"> 
+      <p> <font face="Courier New, Courier, mono"><strong>........</strong> </font></p>
+    </td>
+    <td width="19%" bgcolor="#cccccc"> 
+      <p> <font face="Courier New, Courier, mono"><strong>........</strong> </font></p>
+    </td>
+    <td width="19%" bgcolor="#cccccc"> 
+      <p> <font face="Courier New, Courier, mono"><strong>........</strong> </font></p>
+    </td>
+  </tr>
+  <tr> 
+    <td width="31%"><font face="Courier New, Courier, mono" size="-1"> </font> 
+    </td>
+    <td width="12%">  </td>
+    <td width="19%">  </td>
+    <td width="19%">  </td>
+    <td width="19%">  </td>
+  </tr>
+  <tr> 
+    <td width="31%"> 
+      <p><font face="Courier New, Courier, mono" size="-1"> Класс E </font></p>
+    </td>
+    <td width="12%">  </td>
+    <td width="19%">  </td>
+    <td width="19%">  </td>
+    <td width="19%">  </td>
+  </tr>
+  <tr> 
+    <td width="31%"> 
+      <p><font face="Courier New, Courier, mono" size="-1"> Номер бита </font></p>
+    </td>
+    <td width="12%"> 
+      <p><font face="Courier New, Courier, mono"> 0 </font></p>
+    </td>
+    <td width="19%"> 
+      <p><font face="Courier New, Courier, mono"> 8 </font></p>
+    </td>
+    <td width="19%"> 
+      <p><font face="Courier New, Courier, mono"> 16 </font></p>
+    </td>
+    <td width="19%"> 
+      <p><font face="Courier New, Courier, mono"> 24    31 
+        </font></p>
+    </td>
+  </tr>
+  <tr> 
+    <td width="31%"> 
+      <p><font face="Courier New, Courier, mono" size="-1"> Адрес </font></p>
+    </td>
+    <td width="12%" bgcolor="#cccccc"> 
+      <p><font face="Courier New, Courier, mono"> 1111<strong>....</strong> </font></p>
+    </td>
+    <td width="19%" bgcolor="#cccccc"> 
+      <p> <font face="Courier New, Courier, mono"><strong>........</strong> </font></p>
+    </td>
+    <td width="19%" bgcolor="#cccccc"> 
+      <p> <font face="Courier New, Courier, mono"><strong>........</strong> </font></p>
+    </td>
+    <td width="19%" bgcolor="#cccccc"> 
+      <p> <font face="Courier New, Courier, mono"><strong>........</strong> </font></p>
+    </td>
+  </tr>
+</tbody></table>
+    
+<h4 align="center"> Рис. 1 </h4>
+<p> Класс А ориентирован на очень большие сети. Все адреса, принадлежащие этому 
+  классу, имеют 8-битный сетевой префикс, на что указывает первый бит левого байта 
+  адреса установленный в нуль. Соответственно, на идентификацию узла отведено 
+  24 бита и каждая сеть "восьмерка" может содержать до 2<sup>24</sup>-2 
+  узлов. Два адреса необходимо отнять, поскольку адреса, содержащие в правом октете 
+  все нули (идентифицирует указанную сеть) и все единицы (широковещательный адрес) 
+  используются в служебных целях и не могут быть присвоены узлам. </p>
+    <p>
+      Самих же сетей "восьмерок" может быть 2<sup>7</sup>-2. Снова
+      мы вычитаем двойку, но это уже две служебных сети: 127/8 и
+      0/8 (по-старому: 127.0.0.0 и 0.0.0.0).
+    </p>
+    <p>
+      Наконец, можно заметить, что класс А содержит всего
+      2<sup>7</sup> * 2<sup>24</sup> = 2<sup>31</sup> адресов, или
+      половину всех возможных IP-адресов.
+    </p>
+    
+<p> Класс В предназначен для сетей большого и среднего размеров. Адреса этого 
+  класса идентифицируются двумя старшими битами, равными соответственно 1 и 0. 
+  Сетевой префикс класса состоит из шестнадцати бит или первых двух октетов адреса. 
+</p>
+    <p>
+      Поскольку два первых бита сетевого префикса заняты
+      определяющим класс ключом, то можно задать лишь
+      2<sup>14</sup> различных сетей. Узлов же в каждой сети можно
+      определить до 2<sup>16</sup>-2.
+    </p>
+    
+<p> В некоторых источниках, для определения количества возможных сетей используется 
+  формула 2<sup>х</sup>-2 для всех классов, а не только для А. Это связано с определенными 
+  причинами, которые более детально будут изложены ниже. На сегодняшний день нет 
+  никакой необходимости уменьшать количество возможных сетей на две. </p>
+    <p>
+      Проведя вычисления, аналогичные приведенным для класса А, мы
+      увидим, что класс В занимает четверть адресного пространства
+      протокола IP.
+    </p>
+    <p>
+      Наконец, самый употребляемый класс сетей &#8211; класс С &#8211; имеет 24
+      битный сетевой префикс, определяется старшими битами,
+      установленными в 110, и может идентифицировать до
+      2<sup>21</sup> сетей. Соответственно, класс позволяет
+      адресовать до 2<sup>8</sup>-2 узлов. Занимает восьмую часть
+      адресного пространства протокола TCP/IP.
+    </p>
+    
+<p> Последние два класса занимают оставшуюся восьмую часть в адресном пространстве 
+  и предназначены для служебного (класс D) и экспериментального (класс Е) использования. 
+  Для класса D старшие четыре бита адреса установлены в 1110, для класса Е -- 
+  1111. Сегодня класс D используется для групповой передачи информации. </p>
+    
+<p> Поскольку длинные последовательности из единиц и нулей трудно запомнить, IP 
+  адреса обычно записывают в десятичной форме. Для этого каждый октет адреса представляется 
+  в виде десятичного числа. Между собой октеты отделяются точкой. Иногда октеты 
+  обозначаются как w.x.y.z и называются "z-октет", "y-октет", 
+  "x-октет" и "w-октет". </p>
+    <p>
+      Представление IP-адреса в виде четырех десятичных чисел
+      разделенных точками и называется "точечно-десятичная
+      нотация".
+    </p>
+    
+<table cellspacing="0" cellpadding="0" align="center" width="80%" border="1">
+  <tbody><tr> 
+    <td width="34%" valign="top"> 
+      <p> Октет </p>
+    </td>
+    <td width="16%" valign="top"> 
+      <p style="text-align: center;"> W </p>
+    </td>
+    <td width="16%" valign="top"> 
+      <p style="text-align: center;"> X </p>
+    </td>
+    <td width="16%" valign="top"> 
+      <p style="text-align: center;"> Y </p>
+    </td>
+    <td width="18%" valign="top"> 
+      <p style="text-align: center;"> Z </p>
+    </td>
+  </tr>
+  <tr> 
+    <td width="34%" valign="top"> 
+      <p> Номер бита </p>
+    </td>
+    <td width="16%" valign="top"> 
+      <p><font face="Courier New, Courier, mono"> 0 </font></p>
+    </td>
+    <td width="16%" valign="top"> 
+      <p><font face="Courier New, Courier, mono"> 8 </font></p>
+    </td>
+    <td width="16%" valign="top"> 
+      <p><font face="Courier New, Courier, mono"> 16 </font></p>
+    </td>
+    <td width="18%" valign="top"> 
+      <p><font face="Courier New, Courier, mono"> </font><font face="Courier New, Courier, mono">24    31 
+        </font><font face="Courier New, Courier, mono"> </font><font face="Courier New, Courier, mono"></font></p>
+    </td>
+  </tr>
+  <tr> 
+    <td width="34%" valign="top"> 
+      <p> Адрес </p>
+    </td>
+    <td width="16%" valign="top"> 
+      <p align="left"><font face="Courier New, Courier, mono"> 11011100 </font></p>
+    </td>
+    <td width="16%" valign="top"> 
+      <p align="left"><font face="Courier New, Courier, mono"> 11010111 </font></p>
+    </td>
+    <td width="16%" valign="top"> 
+      <p align="left"><font face="Courier New, Courier, mono"> 00001110 </font></p>
+    </td>
+    <td width="18%" valign="top"> 
+      <p align="left"><font face="Courier New, Courier, mono"> 00010110 </font></p>
+    </td>
+  </tr>
+  <tr> 
+    <td width="34%" valign="top">  </td>
+    <td width="16%" valign="top" class="Normal"> 
+      <p style="text-align: center;"> 220 </p>
+    </td>
+    <td width="16%" valign="top"> 
+      <p style="text-align: center;"> 215 </p>
+    </td>
+    <td width="16%" valign="top"> 
+      <p style="text-align: center;"> 14 </p>
+    </td>
+    <td width="18%" valign="top"> 
+      <p style="text-align: center;"> 22 </p>
+    </td>
+  </tr>
+  <tr> 
+    <td width="34%" valign="top"> 
+      <p> Точечно-десятичный формат </p>
+    </td>
+    <td colspan="4"> 
+      <p style="text-align: center;"> 220.215.14.22 </p>
+    </td>
+  </tr>
+</tbody></table>
+    
+<h4 align="center"> Рис. 2 </h4>
+<p>
+      На рис. 2 показано, как IP-адрес представляется в
+      точечно-десятичной нотации.
+    </p>
+    <p>
+      Подытожим информацию о классах сетей в таблице:
+    </p>
+    
+<table border="0" cellspacing="0" cellpadding="0" width="95%" align="center">
+  <tbody><tr bgcolor="#cccccc"> 
+    <td width="8%" valign="top"> 
+      <p> Класс </p>
+    </td>
+    <td width="21%" valign="top"> 
+      <p> Количество сетей </p>
+    </td>
+    <td width="30%" valign="top"> 
+      <p> Количество узлов </p>
+    </td>
+    <td colspan="2" valign="top"> 
+      <p> Десятичный диапазон </p>
+    </td>
+  </tr>
+  <tr> 
+    <td width="8%" valign="top"> 
+      <p style="text-align: center;"> A </p>
+    </td>
+    <td width="21%" valign="top"> 
+      <p> 2<sup>7</sup> &#8211; 2 (126) </p>
+    </td>
+    <td width="30%" valign="top"> 
+      <p> 2<sup>24</sup> &#8211; 2 (2 147 483 648) </p>
+    </td>
+    <td width="17%" valign="top"> 
+      <p> 1.ххх.ххх.ххх </p>
+    </td>
+    <td width="24%" valign="top"> 
+      <p> - 126.ххх.ххх.ххх </p>
+    </td>
+  </tr>
+  <tr> 
+    <td width="8%" valign="top"> 
+      <p style="text-align: center;"> B </p>
+    </td>
+    <td width="21%" valign="top"> 
+      <p> 2<sup>14</sup> (16 384) </p>
+    </td>
+    <td width="30%" valign="top"> 
+      <p> 2<sup>16</sup> &#8211; 2 (65 534) </p>
+    </td>
+    <td width="17%" valign="top"> 
+      <p> 128.0.ххх.ххх </p>
+    </td>
+    <td width="24%" valign="top"> 
+      <p> - 191.255.ххх.ххх </p>
+    </td>
+  </tr>
+  <tr> 
+    <td width="8%" valign="top"> 
+      <p style="text-align: center;"> C </p>
+    </td>
+    <td width="21%" valign="top"> 
+      <p> 2<sup>21</sup> (2 097 152) </p>
+    </td>
+    <td width="30%" valign="top"> 
+      <p> 2<sup>8</sup> &#8211; 2 (254) </p>
+    </td>
+    <td width="17%" valign="top"> 
+      <p> 192.0.0.ххх </p>
+    </td>
+    <td width="24%" valign="top"> 
+      <p> - 223.255.255.ххх </p>
+    </td>
+  </tr>
+  <tr> 
+    <td width="8%" valign="top"> 
+      <p style="text-align: center;"> D </p>
+    </td>
+    <td width="21%" valign="top"> 
+      <p style="text-align: center;"> - </p>
+    </td>
+    <td width="30%" valign="top"> 
+      <p style="text-align: center;"> - </p>
+    </td>
+    <td width="17%" valign="top"> 
+      <p> 224.0.0.ххх </p>
+    </td>
+    <td width="24%" valign="top"> 
+      <p> - 239.255.255.ххх </p>
+    </td>
+  </tr>
+  <tr> 
+    <td width="8%" valign="top"> 
+      <p style="text-align: center;"> E </p>
+    </td>
+    <td width="21%" valign="top"> 
+      <p style="text-align: center;"> - </p>
+    </td>
+    <td width="30%" valign="top"> 
+      <p style="text-align: center;"> - </p>
+    </td>
+    <td width="17%" valign="top"> 
+      <p> 240.0.0.ххх </p>
+    </td>
+    <td width="24%" valign="top"> 
+      <p> - 254.255.255.ххх </p>
+    </td>
+  </tr>
+</tbody></table>
+<h4 align="center"> Рис. 3 </h4>
+    
+<h2> <a name="reserved_addresses">Зарезервированные адреса</a> </h2>
+    
+<p> Как уже отмечалось, в адресной схеме протокола выделяют особые IP-адреса. 
+</p>
+    <p>
+      Если биты всех октетов адреса равны нулю, то он обозначает
+      адрес того узла, который сгенерировал данный пакет. Это
+      используется в ограниченных случаях, например в некоторых
+      сообщениях протокола IP.
+    </p>
+    <p>
+      Если биты сетевого префикса равны нулю, полагается, что узел
+      назначения принадлежит той же сети, что и источник пакета.
+    </p>
+    
+<p> Когда биты всех октетов адреса назначения равны двоичной единице, пакет доставляется 
+  всем узлам, принадлежащим той же сети, что и отправитель пакета. Такая рассылка 
+  называется ограниченным широковещанием. </p>
+    <p>
+      Наконец, если в битах адреса, соответствующих узлу
+      назначения, стоят единицы, то такой пакет рассылается всем
+      узлам указанной сети. Это называется широковещанием.
+    </p>
+    <p>
+      Специальное значение имеет, так же, адреса сети 127/8. Они
+      используются для тестирования программ и взаимодействия
+      процессов в пределах одной машины. Пакеты, отправленные на
+      этот интерфейс, обрабатываются локально, как входящие. Потому
+      адреса из этой сети нельзя присваивать физическим сетевым
+      интерфейсам.
+    </p>
+    
+<h2> <a name="subnetwork_creation">Организация подсетей</a> </h2>
+    
+<p> Очень редко в локальную вычислительную сеть входит более 100-200 узлов: даже 
+  если взять сеть с б<em>о</em>льшим количеством узлов, многие сетевые среды накладывают 
+  ограничения, например, в 1024 узла. Исходя из этого, целесообразность использования 
+  сетей класса А и В весьма сомнительна. Да и использование класса С для сетей, 
+  состоящих из 20-30 узлов, тоже является расточительством. </p>
+    
+<p> Для решения этих проблем в двухуровневую иерархию IP-адресов (сеть -- 
+  узел) была введена новая составляющая -- подсеть. Идея заключается в "заимствовании" 
+  нескольких битов из узловой части адреса для определения подсети. </p>
+    
+<p> Полный префикс сети, состоящий из сетевого префикса и номера подсети, 
+  получил название расширенного сетевого префикса. Двоичное число, и его десятичный 
+  эквивалент, содержащее единицы в разрядах, относящихся к расширенному сетевому 
+  префиксу, а в остальных разрядах -- нули, назвали маской подсети. </p>
+    
+<table border="1" cellspacing="0" cellpadding="0" width="92%" align="center">
+  <tbody><tr> 
+    <td width="16%" valign="top">  </td>
+    <td width="19%" valign="top">  </td>
+    <td width="209" colspan="2" valign="top" bgcolor="#a6a6a6"> 
+      <p style="text-align: center;"> Сетевой префикс </p>
+    </td>
+    <td width="16%" valign="top" bgcolor="silver"> 
+      <p style="text-align: center;"> подсеть </p>
+    </td>
+    <td width="17%" valign="top"> 
+      <p style="text-align: center;"> узел </p>
+    </td>
+  </tr>
+  <tr> 
+    <td width="16%" valign="top"> 
+      <p> IP адрес </p>
+    </td>
+    <td width="19%" valign="top"> 
+      <p> 144.144.19.22 </p>
+    </td>
+    <td width="16%" valign="top" bgcolor="#a6a6a6"> 
+      <p style="text-align: center;"> 10010000 </p>
+    </td>
+    <td width="16%" valign="top" bgcolor="#a6a6a6"> 
+      <p style="text-align: center;"> 10010000 </p>
+    </td>
+    <td width="16%" valign="top" bgcolor="silver"> 
+      <p style="text-align: center;"> 00010011 </p>
+    </td>
+    <td width="17%" valign="top"> 
+      <p style="text-align: center;"> 00010110 </p>
+    </td>
+  </tr>
+  <tr> 
+    <td width="16%" valign="top"> 
+      <p> Маска </p>
+    </td>
+    <td width="19%" valign="top"> 
+      <p> 255.255.255.0 </p>
+    </td>
+    <td width="16%" valign="top" bgcolor="#d9d9d9"> 
+      <p style="text-align: center;"> 11111111 </p>
+    </td>
+    <td width="16%" valign="top" bgcolor="#d9d9d9"> 
+      <p style="text-align: center;"> 11111111 </p>
+    </td>
+    <td width="16%" valign="top" bgcolor="#d9d9d9"> 
+      <p style="text-align: center;"> 11111111 </p>
+    </td>
+    <td width="17%" valign="top"> 
+      <p style="text-align: center;"> 00000000 </p>
+    </td>
+  </tr>
+  <tr> 
+    <td width="16%" valign="top">  </td>
+    <td width="19%" valign="top">  </td>
+    <td width="313" colspan="3" valign="top" bgcolor="#d9d9d9"> 
+      <p style="text-align: center;"> Расширенный сетевой префикс </p>
+    </td>
+    <td width="17%" valign="top">  </td>
+  </tr>
+</tbody></table>
+    
+<h4 style="text-align: center;" align="center"> Рис.4 </h4>
+    
+<p> Но маску в десятичном представлении удобно использовать лишь тогда, когда 
+  расширенный сетевой префикс заканчивается на границе октетов, в других случаях 
+  ее расшифровать сложнее. Допустим, что в примере на рис. 4 мы хотели бы для 
+  подсети использовать не 8 бит, а десять. Тогда в последнем (z-ом) октете мы 
+  имели бы не нули, а число 11000000. В десятичном представлении получаем 255.255.255.192. 
+  Очевидно, что такое представление не очень удобно. В наше время чаще используют 
+  обозначение вида "/xx", где хх -- количество бит в расширенном сетевом 
+  префиксе. Таким образом, вместо указания: "144.144.19.22 с маской 255.255.255.192", 
+  мы можем записать: 144.144.19.22/26. Как видно, такое представление более компактно 
+  и понятно. </p>
+    <h2><a name="variable_net_mask">
+      Маска подсети переменной длины VLSM<br>
+       (Variable Length Subnet Mask)</a>
+    </h2>
+ 
+ <p>
+      Однако вскоре стало ясно, что подсети, несмотря на все их
+      достоинства, обладают и недостатками. Так, определив однажды
+      маску подсети, приходится использовать подсети фиксированных
+      размеров. Скажем, у нас есть сеть 144.144.0.0/16 с
+      расширенным префиксом /23.
+    </p>
+    
+<table border="1" cellspacing="0" cellpadding="0" align="center">
+  <tbody><tr> 
+    <td width="158" valign="top">  </td>
+    <td width="78" valign="top"><br>
+<font face="Courier New, Courier, mono" size="-1"></font> 
+    </td>
+    <td colspan="2" valign="top" bgcolor="#a6a6a6"> 
+      <p style="text-align: center;"> Сетевой префикс </p>
+    </td>
+    <td width="85" valign="top" bgcolor="#b3b3b3"> 
+      <p style="text-align: center;"> Подсеть </p>
+    </td>
+    <td width="107" colspan="2" valign="top"> 
+      <p style="text-align: center;"> Узел </p>
+    </td>
+  </tr>
+  <tr> 
+    <td width="158" valign="top" height="2"> 
+      <p style="text-align: center;"> 144.144.0.0/23 </p>
+    </td>
+    <td width="78" valign="top" height="2"> 
+      <p style="text-align: center;"><font face="Courier New, Courier, mono" size="-1"> 
+        &lt;--&gt; </font></p>
+    </td>
+    <td width="105" valign="top" bgcolor="#a6a6a6" height="2"> 
+      <p style="text-align: center;"> 10010000 </p>
+    </td>
+    <td width="105" valign="top" bgcolor="#a6a6a6" height="2"> 
+      <p style="text-align: center;"> 10010000 </p>
+    </td>
+    <td width="85" valign="top" bgcolor="#b3b3b3" height="2"> 
+      <p style="text-align: center;"> 0000000 </p>
+    </td>
+    <td colspan="2" valign="top" height="2" width="107"> 
+      <p style="text-align: center;"> 0          00000000 
+      </p>
+    </td>
+  </tr>
+  <tr> 
+    <td width="158" valign="top">  </td>
+    <td width="78" valign="top"><br>
+<font face="Courier New, Courier, mono" size="-1"></font> 
+    </td>
+    <td colspan="3" valign="top" bgcolor="#cccccc"> 
+      <p style="text-align: center;"> Расширенный сетевой префикс </p>
+    </td>
+    <td colspan="2" valign="top" width="107">  </td>
+  </tr>
+</tbody></table>
+    
+<h4 class="MsoFootnoteText" style="text-align: center;" align="center"> Рис. 5 </h4>
+    
+<p> Такая схема позволяет создать 2<sup>7</sup> подсетей размером в 2<sup>9</sup> 
+  узлов каждая. Это подходит к случаю, когда есть много подсетей с большим количеством 
+  узлов. Но если среди этих сетей есть такие, количество узлов в которых находится 
+  в пределах ста, то в каждой их них будет пропадать около 400 адресов. </p>
+    <p>
+      Решение состоит в том, что бы для одной сети указывать более
+      одного расширенного сетевого префикса. О такой сети говорят,
+      что это сеть с маской подсети переменной длины (VLSM).
+    </p>
+    
+<p> Действительно, если для сети 144.144.0.0/16 использовать расширенный сетевой 
+  префикс /25, то это больше бы подходило сетям размерами около ста узлов. Если 
+  допустить использование обеих масок, то это бы значительно увеличило гибкость 
+  применения подсетей. </p>
+    <p>
+      Общая схема разбиения сети на подсети с масками переменной
+      длины такова: сеть делится на подсети максимально
+      необходимого размера. Затем некоторые подсети делятся на
+      более мелкие, и рекурсивно далее, до тех пор, пока это
+      необходимо.
+    </p>
+    <p>
+      Кроме того, технология VLSM, путем скрытия части подсетей,
+      позволяет уменьшить объем данных, передаваемых
+      маршрутизаторами. Так, если сеть 12/8 конфигурируется с
+      расширенным сетевым префиксом /16, после чего сети 12.1/16 и
+      12.2/16 разбиваются на подсети /20, то маршрутизатору в сети
+      12.1 незачем знать о подсетях 12.2 с префиксом /20, ему
+      достаточно знать маршрут на сеть 12.1/16.
+    </p>
+    
+<h2> <a name="classical_scheme_problems">Проблемы классической схемы</a> </h2>
+    
+<p> В середине 80-х годов Internet впервые столкнулся с проблемой переполнения 
+  таблиц магистральных маршрутизаторов. Решение, однако, было быстро найдено 
+  -- подсети устранили проблему на несколько лет. Но уже в начале 90-х к проблеме 
+  большого количества маршрутов прибавилась нехватка адресного пространства. 
+  Ограничение в 4 миллиарда адресов, заложенное в протокол и казавшееся недосягаемой 
+  величиной, стало весьма ощутимым. </p>
+    
+<p> В качестве решения проблемы были одновременно предложены два подхода -- 
+  один на ближайшее будущее, другой комплексный и долгосрочный. Первое решение 
+  -- это внедрение протокола бесклассовой маршрутизации (CIDR), к которому 
+  позже присоединилась система NAT. </p>
+    
+<p> Долгосрочное решение -- это протокол IP следующей версии. Он обозначается, 
+  как IPv6, или IPng (Internet Protocol next generation). В этой реализации 
+  протокола длина адреса увеличена до 16-ти байтов (128 бит!), исключены некоторые 
+  элементы действующего протокола, которые оказались неиспользуемыми. </p>
+    <p>
+      Новая версия обеспечит, как любят указывать, плотность в 3
+      911 873 538 269 506 102 IP адресов на квадратный метр
+      поверхности Земли.
+    </p>
+    <p>
+      Однако то, что и в 2000-м году протокол все еще проходил
+      стандартизацию, и то, что протокол CIDR вместе с системой NAT
+      оказались эффективным решением, заставляет думать, что
+      переход с IPv4 на IPng потребует очень много времени.
+    </p>
+    
+<h2> <a name="CIDR">Бесклассовая междоменная маршрутизация CIDR<br>
+  (Classless Inter-Domain Routing)</a> </h2>
+    <p>
+      Появление этой технологии было вызвано резким увеличением
+      объема трафика в Internet и, как следствие, увеличением
+      количества маршрутов на магистральных маршрутизаторах. Так,
+      если в 1994 году, до развертывания CIDR, таблицы
+      маршрутизаторов содержали до 70 000 маршрутов, то после
+      внедрения их количество сократилось до 30 000. На сентябрь
+      2002, количество маршрутов перевалило за отметку 110 000!
+      Можете себе представить, сколько маршрутов нужно было бы
+      держать в таблицах сегодня, если бы не было CIDR!
+    </p>
+    <p>
+      Что же представляет собой эта технология? Она позволяет уйти
+      от классовой схемы адресации, эффективней использовать
+      адресное пространство протокола IP. Кроме того, CIDR
+      позволяет агрегировать маршрутные записи. Одной записью в
+      таблице маршрутизатора описываются пути ко многим сетям.
+    </p>
+    <p>
+      Суть технологии CIDR состоит в том, что каждому поставщику
+      услуг Internet (или, для корпоративных сетей, какому-либо
+      структурно-территориальному подразделению) должен быть
+      назначен неразрывный диапазон IP-адресов. При этом вводится
+      понятие обобщенного сетевого префикса, определяющего общую
+      часть всех назначенных адресов. Соответственно, маршрутизация
+      на магистральных каналах может реализовываться на основе
+      обобщенного сетевого префикса. Результатом является
+      агрегирование маршрутных записей, уменьшение размера таблиц
+      маршрутных записей и увеличение скорости обработки пакетов.
+    </p>
+    
+<p> Допустим, центральный офис компании выделяет одному своему региональному подразделению 
+  сети 172.16.0.0/16 и 172.17.0.0/16, а другому -- 172.18.0.0/16 и 172.19.0.0/16. 
+  У каждого регионального подразделения есть свои областные филиалы и из полученного 
+  адресного блока им выделяются подсети разных размеров. Использование технологии 
+  бесклассовой маршрутизации позволяет при помощи всего одной записи на маршрутизаторе 
+  второго подразделения адресовать все сети и подсети первого подразделения. Для 
+  этого указывается маршрут к сети 172.16.0.0 с обобщенным сетевым префиксом 15. 
+  Он должен указывать на маршрутизатор первого регионального подразделения. </p>
+    
+<p style="text-align: center;"> <img src="misc/tailip/routers.CIDR2.jpg" width="416" height="326" alt="Routers"></p>
+    
+<h4 align="center"> Рис. 6 </h4>
+    <p>
+      По своей сути технология CIDR родственна VLSM. Только если в
+      случае с VLSM есть возможность рекурсивного деления на
+      подсети, невидимые извне, то CIDR позволяет рекурсивно
+      адресовать целые адресные блоки.
+    </p>
+    <p>
+      Использование CIDR позволило разделить Internet на адресные
+      домены, внутри которых передается информация исключительно о
+      внутренних сетях. Вне домена используется только общий
+      префикс сетей. В результате многим сетям соответствует одна
+      маршрутная запись.
+    </p>
+    
+<h2><a name="examples"> Примеры</a> </h2>
+    
+<p> В конце статьи хотелось бы привести практические примеры по затронутым 
+  в статье темам. Проектирование адресной схемы требует от специалиста тщательной 
+  проработки многих факторов, учета возможного роста и развития сети. Начнем 
+  с примера разбиения сети на подсети. При любом планировании нужно знать, 
+  сколько подсетей необходимо сегодня и может понадобиться завтра, сколько 
+  узлов находится в самой большой подсети сегодня и сколько может быть в будущем. 
+</p>
+<p> Кроме того, следует разработать хотя бы схематическую топологию сети с 
+  указанием всех маршрутизаторов и шлюзов. Хорошей практикой является резервирование 
+  ресурсов на будущее. Так, если в самой большой подсети находится 60 узлов, 
+  не следует выделять подсеть размерностью в 2<sup>6</sup> - 2 (=62) узла! 
+  Не скупитесь, стоимость решения возможной проблемы будет больше, нежели 
+  стоимость выделения в два раза большего блока адресов. Однако не нужно впадать 
+  и в другую крайность. </p>
+    
+<h4> Пример 1</h4>
+    <p>
+      Организации выделен блок адресов 220.215.14.0/24. Разбить
+      блок на 4 подсети, наибольшая из которых насчитывает 50
+      узлов. Учесть возможный рост в 10%.
+    </p>
+    
+<p> На первом этапе необходимое число подсетей мы округляем в большую сторону 
+  к ближайшей степени числа 2. Поскольку в данном примере число необходимых 
+  подсетей равно 4, округлять не нужно. Определим количество бит, нужных для 
+  организации 4 подсетей. Для этого представим 4 в виде степени двойки: 4 
+  = 2<sup>2</sup> . Степень -- это и есть количество бит отводимых для номера 
+  подсети. Так как сетевой префикс блока равен 24, то расширенный сетевой 
+  префикс будет равен 24 + 2 = 26. </p>
+    
+<table border="0" cellspacing="0" cellpadding="0" align="center" width="591">
+  <tbody><tr> 
+    <td width="131" valign="top" height="2"><br>
+ 
+      <div align="center"></div>
+    </td>
+    <td width="37" valign="top" height="2"><br>
+ 
+      <div align="center"></div>
+    </td>
+    <td colspan="3" valign="top" bgcolor="#a6a6a6" height="2"> 
+      <div align="center">Сетевой префикс </div>
+    </td>
+    <td height="2" valign="top" bgcolor="#b3b3b3" width="55"> 
+      <div align="center">Подсеть</div>
+    </td>
+    <td width="61" valign="top" height="2" bgcolor="#cccccc"> 
+      <div align="center">Узел </div>
+    </td>
+  </tr>
+  <tr> 
+    <td width="131" valign="top"> </td>
+    <td width="37" valign="top"> </td>
+    <td width="92" valign="top" bgcolor="#a6a6a6"><font size="-1" face="Courier New, Courier, mono">0</font></td>
+    <td width="107" valign="top" bgcolor="#a6a6a6"><font size="-1" face="Courier New, Courier, mono">8</font></td>
+    <td width="108" valign="top" bgcolor="#a6a6a6"><font size="-1" face="Courier New, Courier, mono">16</font></td>
+    <td width="55" valign="top" bgcolor="#b3b3b3"><font size="-1" face="Courier New, Courier, mono">24 
+      25 </font></td>
+    <td width="61" valign="top" bgcolor="#cccccc"><font size="-1" face="Courier New, Courier, mono">    31</font></td>
+  </tr>
+  <tr> 
+    <td width="131" valign="top"> 
+      <p style="text-align: center;"> 220.215.14.0/26 </p>
+    </td>
+    <td width="37" valign="top"> 
+      <p style="text-align: center;"> <font face="Courier New, Courier, mono" size="-1">&lt;--&gt;</font></p>
+    </td>
+    <td width="92" valign="top" bgcolor="#a6a6a6"> 
+      <p style="text-align: left;"><font size="-1" face="Courier New, Courier, mono"> 
+        10010000 </font></p>
+    </td>
+    <td width="107" valign="top" bgcolor="#a6a6a6"> 
+      <p style="text-align: left;"><font size="-1" face="Courier New, Courier, mono"> 
+        10010000 </font></p>
+    </td>
+    <td width="108" valign="top" bgcolor="#a6a6a6"> 
+      <p style="text-align: left;"><font size="-1" face="Courier New, Courier, mono"> 
+        00001110 </font></p>
+    </td>
+    <td width="55" valign="top" bgcolor="#b3b3b3"> 
+      <p style="text-align: left;"><font size="-1" face="Courier New, Courier, mono"> 
+        0  0 </font></p>
+    </td>
+    <td width="61" valign="top" bgcolor="#cccccc"> 
+      <p style="text-align: left;"><font size="-1" face="Courier New, Courier, mono"> 
+        000000 </font></p>
+    </td>
+  </tr>
+  <tr> 
+    <td width="131" valign="top">  </td>
+    <td width="37" valign="top">  </td>
+    <td colspan="4" valign="top" bgcolor="#cccccc"> 
+      <p style="text-align: center;"> Расширенный сетевой префикс </p>
+    </td>
+    <td width="61" valign="top">  </td>
+  </tr>
+</tbody></table>
+    
+<p> Оставшиеся 32 - 26 = 6 бит будут использоваться для номера узла. Проверим, 
+  сколько узлов можно адресовать 6-ю битами: 2<sup>6</sup> - 2 = 62 узла. Достаточно 
+  ли это для 10% роста? 10% от 50 узлов -- это 5 узлов, а 55 узлов меньше возможных 
+  62-х. Следовательно, два бита для номера подсети нас устраивают. </p>
+    
+<p> Следующим этапом будет нахождение подсетей. Для этого двоичное представление 
+  номера подсети, начиная с нуля, подставляется в биты, отведенные для номера 
+  подсети. </p>
+ 
+    
+<table border="1" cellspacing="0" cellpadding="0" align="center" width="73%">
+  <tbody><tr> 
+    <td width="17%" valign="top" nowrap=""> Основная сеть </td>
+    <td width="12%" valign="top"> 11011100 </td>
+    <td width="12%" valign="top"> 11010111 </td>
+    <td width="14%" valign="top"> 00001110 </td>
+    <td width="9%" valign="top"> 00 </td>
+    <td width="9%" valign="top"> 000000 </td>
+    <td width="27%" valign="top"> 220.215.14.0/24 </td>
+  </tr>
+  <tr> 
+    <td width="17%" valign="top"> Подсеть 0(00) </td>
+    <td width="12%" valign="top" bgcolor="#999999"> 11011100 </td>
+    <td width="12%" valign="top" bgcolor="#999999"> 11010111 </td>
+    <td width="14%" valign="top" bgcolor="#999999"> 00001110 </td>
+    <td width="9%" valign="top" bgcolor="#a6a6a6"> 00 </td>
+    <td width="9%" valign="top"> 000000 </td>
+    <td width="27%" valign="top"> 220.215.14.0/26 </td>
+  </tr>
+  <tr> 
+    <td width="17%" valign="top"> Подсеть 1(01) </td>
+    <td width="12%" valign="top" bgcolor="#999999"> 11011100 </td>
+    <td width="12%" valign="top" bgcolor="#999999"> 11010111 </td>
+    <td width="14%" valign="top" bgcolor="#999999"> 00001110 </td>
+    <td width="9%" valign="top" bgcolor="#a6a6a6"> 01 </td>
+    <td width="9%" valign="top"> 000000 </td>
+    <td width="27%" valign="top"> 220.215.14.64/26 </td>
+  </tr>
+  <tr> 
+    <td width="17%" valign="top"> Подсеть 2(10) </td>
+    <td width="12%" valign="top" bgcolor="#999999"> 11011100 </td>
+    <td width="12%" valign="top" bgcolor="#999999"> 11010111 </td>
+    <td width="14%" valign="top" bgcolor="#999999"> 00001110 </td>
+    <td width="9%" valign="top" bgcolor="#a6a6a6"> 10 </td>
+    <td width="9%" valign="top"> 000000 </td>
+    <td width="27%" valign="top"> 220.215.14.128/26 </td>
+  </tr>
+  <tr> 
+    <td width="17%" valign="top"> Подсеть 3(11) </td>
+    <td width="12%" valign="top" bgcolor="#999999"> 11011100 </td>
+    <td width="12%" valign="top" bgcolor="#999999"> 11010111 </td>
+    <td width="14%" valign="top" bgcolor="#999999"> 00001110 </td>
+    <td width="9%" valign="top" bgcolor="#a6a6a6"> 11 </td>
+    <td width="9%" valign="top"> 000000 </td>
+    <td width="27%" valign="top"> 220.215.14.192/26 </td>
+  </tr>
+  <tr> 
+    <td width="17%" valign="top">  </td>
+    <td colspan="4" valign="top" bgcolor="#999999"> 
+      <div align="center">Расширенный сетевой префикс </div>
+    </td>
+    <td width="9%" valign="top">  </td>
+    <td width="27%" valign="top">  </td>
+  </tr>
+</tbody></table>
+    
+<p> Для проверки правильности наших вычислений, следует помнить простое правило: 
+  десятичные номера подсетей должны быть кратными номеру первой подсети. Из этого 
+  правила можно вывести и другое, упрощающее расчет подсетей: достаточно вычислить 
+  адрес первой подсети, а адреса последующих определяются произведением адреса 
+  первой на соответствующий номер подсети. В нашем примере мы легко могли установить 
+  адрес третьей подсети, просто умножив 64 * 3 = 192. </p>
+    
+<p> Как уже упоминалось, кроме адреса подсети, в котором все биты узловой части 
+  равны нулю, есть еще один служебный адрес &#8211; широковещательный. Особенность широковещательного 
+  адреса состоит в том, что все биты узловой части равны единице. Рассчитаем широковещательные 
+  адреса наших подсетей: <br>
+</p>
+<pre><font face="Courier New, Courier, mono">                                          подсеть |<br>ШВА подсети 0 (00) | 11011100.11011100.00001110.00 111111 | 220.215.14.63/26<br>ШВА подсети 0 (01) | 11011100.11011100.00001110.01 111111 | 220.215.14.127/26<br>ШВА подсети 0 (10) | 11011100.11011100.00001110.10 111111 | 220.215.14.191/26<br>ШВА подсети 0 (11) | 11011100.11011100.00001110.11 111111 | 220.215.14.255/26<br>                   |  Расширенный сетевой префикс | Узловая часть = все 1<br></font>
+</pre>
+    
+<p>
+      Легко заметить, что широковещательным адресом является
+      наибольший адрес подсети. Теперь, получив адреса подсетей и
+      их широковещательные адреса, мы можем построить таблицу
+      используемых адресов:
+    </p>
+    
+<table border="0" cellspacing="0" cellpadding="0" align="center">
+  <tbody><tr> 
+    <td width="91" valign="top" bgcolor="#b3b3b3"> &#8470; подсети </td>
+    <td width="216" valign="top" bgcolor="#b3b3b3"> Наименьший адрес подсети </td>
+    <td width="216" valign="top" bgcolor="#b3b3b3"> Наибольший адрес подсети </td>
+  </tr>
+  <tr> 
+    <td width="91" valign="top" bgcolor="#b3b3b3"> 
+      <p style="text-align: right;"> 0 </p>
+    </td>
+    <td width="216" valign="top"> 
+      <p style="text-align: right;"> 220.215.14.1 </p>
+    </td>
+    <td width="216" valign="top"> 
+      <p> - 220.215.14.62 </p>
+    </td>
+  </tr>
+  <tr> 
+    <td width="91" valign="top" bgcolor="#b3b3b3"> 
+      <p style="text-align: right;"> 1 </p>
+    </td>
+    <td width="216" valign="top"> 
+      <p style="text-align: right;"> 220.215.14.65 </p>
+    </td>
+    <td width="216" valign="top"> 
+      <p> - 220.215.14.126 </p>
+    </td>
+  </tr>
+  <tr> 
+    <td width="91" valign="top" bgcolor="#b3b3b3"> 
+      <p style="text-align: right;"> 2 </p>
+    </td>
+    <td width="216" valign="top"> 
+      <p style="text-align: right;"> 220.215.14.129 </p>
+    </td>
+    <td width="216" valign="top"> 
+      <p> - 220.215.14.190 </p>
+    </td>
+  </tr>
+  <tr> 
+    <td width="91" valign="top" bgcolor="#b3b3b3"> 
+      <p style="text-align: right;"> 3 </p>
+    </td>
+    <td width="216" valign="top"> 
+      <p style="text-align: right;"> 220.215.14.193 </p>
+    </td>
+    <td width="216" valign="top"> 
+      <p> - 220.215.14.254 </p>
+    </td>
+  </tr>
+</tbody></table>
+    <p>
+      Это и есть разбиение, удовлетворяющее условию.
+    </p>
+    
+<h4> Пример 2</h4>
+    
+<p> В первом примере все подсети были одинакового размера -- по 6 разрядов. 
+  Часто удобнее иметь подсети разного размера. Допустим, одна подсеть нужна 
+  для задания адресов двух маршрутизаторов, связанных по схеме "точка-точка". 
+  В этом случае используется всего лишь два адреса. </p>
+    <p>
+      Рассмотрим теперь случай, когда компании выделен блок адресов
+      144.144.0.0/16. Нужно разбить адресное пространство на три
+      части, выделить адреса для двух пар маршрутизаторов и
+      оставить некоторый резерв.
+    </p>
+    <p>
+      Разделим сеть 144.144.0.0/16 на четыре равных части, выделив
+      два бита для номера подсети:
+    </p>
+    
+<table border="1" cellspacing="0" cellpadding="0" align="center">
+  <tbody><tr> 
+    <td width="127" valign="top"> 
+      <p> Октет </p>
+    </td>
+    <td width="84" valign="top"> 
+      <p style="text-align: center;"> W </p>
+    </td>
+    <td width="84" valign="top"> 
+      <p style="text-align: center;"> X </p>
+    </td>
+    <td width="98" colspan="2" valign="top"> 
+      <p style="text-align: center;"> Y </p>
+    </td>
+    <td width="41" valign="top"> 
+      <p style="text-align: center;"> Z </p>
+    </td>
+    <td width="41" valign="top">  </td>
+  </tr>
+  <tr> 
+    <td width="127" valign="top"> 
+      <p> Подсеть 0(00) </p>
+    </td>
+    <td width="84" valign="top" bgcolor="#a6a6a6"> 
+      <p> 10010000 </p>
+    </td>
+    <td width="84" valign="top" bgcolor="#a6a6a6"> 
+      <p> 10010000 </p>
+    </td>
+    <td width="36" valign="top" bgcolor="#b3b3b3"> 
+      <p> 00 </p>
+    </td>
+    <td width="62" valign="top"> 
+      <p> 000000 </p>
+    </td>
+    <td width="41" valign="top"> 
+      <p> 00000000 </p>
+    </td>
+    <td width="41" valign="top"> 
+      <p> 144.144.0.0/18 </p>
+    </td>
+  </tr>
+  <tr> 
+    <td width="127" valign="top"> 
+      <p> Подсеть 1(01) </p>
+    </td>
+    <td width="84" valign="top" bgcolor="#a6a6a6"> 
+      <p> 10010000 </p>
+    </td>
+    <td width="84" valign="top" bgcolor="#a6a6a6"> 
+      <p> 10010000 </p>
+    </td>
+    <td width="36" valign="top" bgcolor="#b3b3b3"> 
+      <p> 01 </p>
+    </td>
+    <td width="62" valign="top"> 
+      <p> 000000 </p>
+    </td>
+    <td width="41" valign="top"> 
+      <p> 00000000 </p>
+    </td>
+    <td width="41" valign="top"> 
+      <p> 144.144.64.0/18 </p>
+    </td>
+  </tr>
+  <tr> 
+    <td width="127" valign="top"> 
+      <p> Подсеть 2(10) </p>
+    </td>
+    <td width="84" valign="top" bgcolor="#a6a6a6"> 
+      <p> 10010000 </p>
+    </td>
+    <td width="84" valign="top" bgcolor="#a6a6a6"> 
+      <p> 10010000 </p>
+    </td>
+    <td width="36" valign="top" bgcolor="#b3b3b3"> 
+      <p> 10 </p>
+    </td>
+    <td width="62" valign="top"> 
+      <p> 000000 </p>
+    </td>
+    <td width="41" valign="top"> 
+      <p> 00000000 </p>
+    </td>
+    <td width="41" valign="top"> 
+      <p> 144.144.128.0/18 </p>
+    </td>
+  </tr>
+  <tr> 
+    <td width="127" valign="top"> 
+      <p> Подсеть 3(11) </p>
+    </td>
+    <td width="84" valign="top" bgcolor="#a6a6a6"> 
+      <p> 10010000 </p>
+    </td>
+    <td width="84" valign="top" bgcolor="#a6a6a6"> 
+      <p> 10010000 </p>
+    </td>
+    <td width="36" valign="top" bgcolor="#b3b3b3"> 
+      <p> 11 </p>
+    </td>
+    <td width="62" valign="top"> 
+      <p> 000000 </p>
+    </td>
+    <td width="41" valign="top"> 
+      <p> 00000000 </p>
+    </td>
+    <td width="41" valign="top"> 
+      <p> 144.144.192.0/18 </p>
+    </td>
+  </tr>
+  <tr> 
+    <td width="127" valign="top">  </td>
+    <td width="84" valign="top">  </td>
+    <td width="84" valign="top">  </td>
+    <td width="98" colspan="2" valign="top">  </td>
+    <td width="41" valign="top">  </td>
+    <td width="41" valign="top">  </td>
+  </tr>
+</tbody></table>
+    <p>
+       Внутри третьей подсети выделим две подсети размером в четыре
+      адреса:
+    </p>
+    
+<table border="1" cellspacing="0" cellpadding="0" align="center" width="90%">
+  <tbody><tr> 
+    <td width="111" valign="top">  </td>
+    <td width="81" valign="top">  </td>
+    <td colspan="2" valign="top"> 
+      <p style="text-align: right;"> Подсеть &#8470; 3 </p>
+    </td>
+    <td width="65" valign="top">  </td>
+    <td width="65" valign="top">  </td>
+    <td colspan="2" valign="top"> 
+      <p> &#8470; узла </p>
+    </td>
+  </tr>
+  <tr> 
+    <td width="111" valign="top" nowrap=""> 
+      <p> Подсеть 0(0) </p>
+    </td>
+    <td width="81" valign="top" bgcolor="#999999"> 
+      <p> 10010000 </p>
+    </td>
+    <td width="85" valign="top" bgcolor="#999999"> 
+      <p> 10010000 </p>
+    </td>
+    <td width="25" valign="top" bgcolor="#999999"> 
+      <p> 11 </p>
+    </td>
+    <td width="65" valign="top" bgcolor="#b3b3b3"> 
+      <p> 000000 </p>
+    </td>
+    <td width="65" valign="top" bgcolor="#b3b3b3"> 
+      <p> 000000 </p>
+    </td>
+    <td width="25" valign="top"> 
+      <p> 00 </p>
+    </td>
+    <td width="150" valign="top"> 
+      <p> 144.144.192.0/30 </p>
+    </td>
+  </tr>
+  <tr> 
+    <td width="111" valign="top"> 
+      <p> Подсеть 1(1) </p>
+    </td>
+    <td width="81" valign="top" bgcolor="#999999"> 
+      <p> 10010000 </p>
+    </td>
+    <td width="85" valign="top" bgcolor="#999999"> 
+      <p> 10010000 </p>
+    </td>
+    <td width="25" valign="top" bgcolor="#999999"> 
+      <p> 11 </p>
+    </td>
+    <td width="65" valign="top" bgcolor="#b3b3b3"> 
+      <p> 000000 </p>
+    </td>
+    <td width="65" valign="top" bgcolor="#b3b3b3"> 
+      <p> 000001 </p>
+    </td>
+    <td width="25" valign="top"> 
+      <p> 00 </p>
+    </td>
+    <td width="150" valign="top"> 
+      <p> 144.144.192.4/30 </p>
+    </td>
+  </tr>
+  <tr> 
+    <td width="111" valign="top">  </td>
+    <td width="81" valign="top">  </td>
+    <td width="85" valign="top">  </td>
+    <td width="25" valign="top">  </td>
+    <td colspan="2" valign="top"> 
+      <p> Номер подсети </p>
+    </td>
+    <td width="25" valign="top">  </td>
+    <td width="150" valign="top">  </td>
+  </tr>
+</tbody></table>
+    <p>
+      Полученные две сети будем использовать для адресации
+      интерфейсов маршрутизаторов. Оставшееся адресное пространство
+      будет резервом, из которого можно будет выделять адресные
+      блоки по потребности. Из оставшихся адресов можно, например,
+      образовать 62 сети размерности класса С и еще несколько,
+      размером поменьше.
+    </p>
+    
+<h4> Пример 3</h4>
+    <p>
+      Компания организовывает корпоративную сеть. Схема
+      расположения филиалов и каналы, связывающие их, приведены на
+      рисунке.
+    </p>
+    
+<p align="center"> <img width="623" height="407" src="misc/tailip/image003.jpg" v:shapes="_x0000_i1026" alt="Example 3 network"> </p>
+    <p>
+      Имеется четыре региональных офиса, связанные каналами с
+      центральным офисом. К региональным офисам, в свою очередь,
+      подключены областные филиалы данного региона.
+    </p>
+    <p>
+      Решено использовать сеть 10/8 для корпоративной сети.
+      Требуется составить схему IP-адресации компании. Условимся
+      сразу выбирать способ адресации лучший с точки зрения
+      маршрутизации.
+    </p>
+    <p>
+      Для определения размеров региональных офисов, составим
+      таблицу количества подключенных областных филиалов к каждому
+      региональному офису.
+    </p>
+    
+<table border="1" cellspacing="0" cellpadding="0" align="center" width="72%">
+  <tbody><tr> 
+    <td width="33%" valign="top" bgcolor="#b3b3b3"> 
+      <p style="text-align: center;"> Региональный офис </p>
+    </td>
+    <td width="51%" valign="top" bgcolor="#b3b3b3"> 
+      <p style="text-align: center;"> Подключено областных филиалов </p>
+    </td>
+    <td width="16%" valign="top" bgcolor="#b3b3b3"> 
+      <p style="text-align: center;"> Процент </p>
+    </td>
+  </tr>
+  <tr> 
+    <td width="33%" valign="top"> 
+      <p style="text-align: center;"> А </p>
+    </td>
+    <td width="51%" valign="top"> 
+      <p style="text-align: center;"> 10 </p>
+    </td>
+    <td width="16%" valign="top"> 
+      <p style="text-align: center;"> 36% </p>
+    </td>
+  </tr>
+  <tr> 
+    <td width="33%" valign="top"> 
+      <p style="text-align: center;"> С </p>
+    </td>
+    <td width="51%" valign="top"> 
+      <p style="text-align: center;"> 7 </p>
+    </td>
+    <td width="16%" valign="top"> 
+      <p style="text-align: center;"> 25% </p>
+    </td>
+  </tr>
+  <tr> 
+    <td width="33%" valign="top"> 
+      <p style="text-align: center;"> D </p>
+    </td>
+    <td width="51%" valign="top"> 
+      <p style="text-align: center;"> 3 </p>
+    </td>
+    <td width="16%" valign="top"> 
+      <p style="text-align: center;"> 11% </p>
+    </td>
+  </tr>
+  <tr> 
+    <td width="33%" valign="top"> 
+      <p style="text-align: center;"> E </p>
+    </td>
+    <td width="51%" valign="top"> 
+      <p style="text-align: center;"> 3 </p>
+    </td>
+    <td width="16%" valign="top"> 
+      <p style="text-align: center;"> 11% </p>
+    </td>
+  </tr>
+</tbody></table>
+    <p>
+      В соответствии с этой таблицей разделим адресное пространство
+      следующим образом (сразу же укажем последовательные диапазоны
+      адресного пространства):
+
+    </p>
+    
+<table border="1" cellspacing="0" cellpadding="0" width="91%" align="center">
+  <tbody><tr> 
+    <td width="20%" valign="top" bgcolor="#b3b3b3"> 
+      <p style="text-align: center;"> Региональный офис </p>
+    </td>
+    <td width="25%" valign="top" bgcolor="#b3b3b3"> 
+      <p style="text-align: center;"> Процент адресного пространства </p>
+    </td>
+    <td width="32%" valign="top" bgcolor="#b3b3b3"> 
+      <p style="text-align: center;"> Диапазон адресов </p>
+    </td>
+    <td width="23%" valign="top" bgcolor="#b3b3b3"> 
+      <p style="text-align: center;"> Блок выделенных адресов </p>
+    </td>
+  </tr>
+  <tr> 
+    <td width="20%" valign="top"> 
+      <p style="text-align: center;"> А </p>
+    </td>
+    <td width="25%" valign="top"> 
+      <p style="text-align: center;"> 25% </p>
+    </td>
+    <td width="32%" valign="top"> 
+      <p style="text-align: center;"> 10.0-63.х.х </p>
+    </td>
+    <td width="23%" valign="top"> 
+      <p style="text-align: center;"> 10.0.0.0/10 </p>
+    </td>
+  </tr>
+  <tr> 
+    <td width="20%" valign="top"> 
+      <p style="text-align: center;"> С </p>
+    </td>
+    <td width="25%" valign="top"> 
+      <p style="text-align: center;"> 25% </p>
+    </td>
+    <td width="32%" valign="top"> 
+      <p style="text-align: center;"> 10.64-127.х.х </p>
+    </td>
+    <td width="23%" valign="top"> 
+      <p style="text-align: center;"> 10.64.0.0/10 </p>
+    </td>
+  </tr>
+  <tr> 
+    <td width="20%" valign="top"> 
+      <p style="text-align: center;"> D </p>
+    </td>
+    <td width="25%" valign="top"> 
+      <p style="text-align: center;"> 12,5% </p>
+    </td>
+    <td width="32%" valign="top"> 
+      <p style="text-align: center;"> 10.128-159.х.х </p>
+    </td>
+    <td width="23%" valign="top"> 
+      <p style="text-align: center;"> 10.128.0.0/11 </p>
+    </td>
+  </tr>
+  <tr> 
+    <td width="20%" valign="top"> 
+      <p style="text-align: center;"> E </p>
+    </td>
+    <td width="25%" valign="top"> 
+      <p style="text-align: center;"> 12,5% </p>
+    </td>
+    <td width="32%" valign="top"> 
+      <p style="text-align: center;"> 10.160-191.х.х </p>
+    </td>
+    <td width="23%" valign="top"> 
+      <p style="text-align: center;"> 10.160.0.0/11 </p>
+    </td>
+  </tr>
+  <tr> 
+    <td width="20%" valign="top"> 
+      <p style="text-align: center;"> Резерв </p>
+    </td>
+    <td width="25%" valign="top"> 
+      <p style="text-align: center;"> 25% </p>
+    </td>
+    <td width="32%" valign="top"> 
+      <p style="text-align: center;"> 10.192-255.х.х </p>
+    </td>
+    <td width="23%" valign="top"> 
+      <p style="text-align: center;"> 10.192.0.0/10 </p>
+    </td>
+  </tr>
+</tbody></table>
+    <p>
+      Вот мы уже и использовали разные маски подсети для одной и
+      той же сети 10/8. Почему мы использовали для каждого офиса
+      неразрывное адресное пространство? Для того, что бы на
+      центральном маршрутизаторе, путь ко всем подсетям (читай:
+      областным офисам данного региона) указывался одной строкой!
+    </p>
+    <p>
+      Для полноты схемы, остается определить, как лучше адресовать
+      районные офисы. На мой взгляд, достаточно отдать каждому
+      офису одну сеть /16. Этого будет достаточно даже для очень
+      больших офисов. Избыток сетей помещается в резерв.
+    </p>
+    <h2>
+      Литература
+    </h2>
+    <ol start="1" type="1">
+      <li>
+        Э. Танненбаум, Компьютерные сети, 3-е издание.
+      </li>
+      <li>
+        Э. Неммет, UNIX. Руководство системного администратора.
+      </li>
+      <li>
+        Д. Шиндлер, Основы компьютерных сетей
+      </li>
+      <li>
+        М. Кульгин, Технологии корпоративных сетей
+      </li>
+      <li>
+        Олифер и Олифер, Компьютерные сети
+      </li>
+      <li>
+        rfc990 (Адресная схема протокола IP)
+      </li>
+      <li>
+        rfc997(Адресная схема протокола IP)
+      </li>
+      <li>
+        rfc1003 (VLSM)
+      </li>
+      <li>
+        rfc1517 (CIDR)
+      </li>
+      <li>
+        rfc1518 (CIDR)
+      </li>
+      <li>
+        rfc1519 (CIDR)
+      </li>
+      <li>
+        rfc1520 (CIDR)
+      </li>
+    </ol>
+ 
+ </body></html>

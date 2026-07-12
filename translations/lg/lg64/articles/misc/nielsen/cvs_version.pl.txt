@@ -1,0 +1,38 @@
+#!/usr/bin/perl
+
+print "Content-type: text/html\n\n\n\n";
+
+  ### Получаем имя затребованного файла.
+my $Temp = $ENV{'REQUEST_URI'};
+my $Cvs = $Temp;
+
+  ### Разбиваем URL на части по "/".
+my (@Junk) = split(/\//, $Cvs);
+
+  ### Получаем конец URL, который является именем файла.
+my $File = pop @Junk;
+$Cvs =~ s/[^\/]+$//g;
+
+  ### Присоединяем корневой каталог документов, так, что получаем полный путь к 
+  ### файлу на нашем сервере. Так же подсоединяем имя CVS/Entries, что бы получить
+  ### информацию CVS.
+$Cvs = $ENV{'DOCUMENT_ROOT'} . $Cvs . "CVS/Entries"; 
+
+  ### Открываем файл, и если находим соответствие, записываем в  $Match
+my $Match = "";
+open(FILE,$Cvs);
+while (my $Line = &lt;FILE&gt;) 
+  {
+  if ($Line =~ /$File/) {$Match = $Line; chomp $Line}
+  }
+close FILE;
+
+   ### если соответствие не найдено, печатаем "не найдено", иначе получаем информацию.
+if ($Match eq "") {print "Информация CVS не найдена.  '$File'\n";}
+else 
+  {
+     ### Получаем необходимую информацию и выводим ее.
+  my ($Junk,$File,$Version,$Date,@Junk) = split(/\//, $Match);
+  print "Версия &lt;b&gt;$Version&lt;/b&gt; : Дата последнего изменения &lt;b&gt;$Date&lt;/b&gt;\n";
+  }
+

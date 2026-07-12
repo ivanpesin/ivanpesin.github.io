@@ -1,0 +1,690 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+
+
+
+
+  
+  
+  
+  <meta content="text/html; charset=utf-8" http-equiv="content-type">
+
+
+
+  
+
+
+  
+  
+  
+  
+  
+  <title>RedHat Magazine Tips &amp; Tricks 19</title>
+  <link rel="stylesheet" type="text/css" href="css/master.css">
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" type="text/css" href="css/rhmag11.css">
+</head>
+
+
+<body>
+
+
+
+
+<div id="rhmagCenter">
+<div class="department">
+<h1 id="tipstricks">Tips &amp; tricks</h1>
+
+
+
+
+
+
+
+
+
+
+
+
+
+This article is protected by the <a href="http://www.opencontent.org/openpub/">Open Publication
+License, V1.0 or later</a>. Copyright &copy; 2005 by Red Hat,
+Inc.<br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<p>
+Original article: <a href="http://www.redhat.com/magazine/019may06/departments/tips_tricks/">http://www.redhat.com/magazine/019may06/departments/tips_tricks/</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h4> <a href="http://www.redhat.com/magazine/019may06/departments/tips_tricks/">Red
+Hat Magazine, выпуск 19, май 2006</a></h4>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<p>Перевод: &copy; Иван Песин</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<p>Служба поддержки пользователей Red Hat получает технические
+вопросы со
+всего мира. Специалисты Red Hat
+ежедневно добавляют полученные вопросы и ответы на них в базу
+знаний&nbsp;<a href="http://kbase.redhat.com/">Red Hat
+Knowledgebase</a>. Доступ к ней свободен для всех. Каждый месяц Red Hat Magazine знакомит
+читателей с&nbsp;<a href="http://kbase.redhat.com/">Red
+Hat Knowledgebase</a>, публикуя несколько самых свежих вопросов и
+ответов.</p>
+
+
+
+
+<a name="rhce"></a>
+<div id="RHCEtip">
+<h1 id="rhcetips">Советы от&nbsp;RHCE</h1>
+
+
+
+
+<div class="rhceInner">
+<h2>Продолжение совета: "Неубиваемые" процессы</h2>
+
+
+
+
+<h3 class="byline">Джонатан Капферер (Johnathan Kupferer), Red Hat
+Certified Engineer&reg;</h3>
+
+
+
+
+<p>До&nbsp;Red Hat Enterprise Linux 4 не было действительно удобных
+способов работы с процессами, находящимися в состоянии непрерываемого
+сна, ожидающими ответа недоступного NFS-сервера. Это особенно огорчало,
+потому что страница руководства команды umount обещала, что
+ключ&nbsp;'-f' обеспечивает&nbsp;"Принудительное размонтирование.
+Позволяет размонтировать файловые системы NFS, если&nbsp;NFS-сервер
+недоступен". С пояснением, что файловая система должна быть
+смонтирована с опцией
+"soft" или "intr". И всё. Теперь, хотя это и не отражено в странице
+руководства,&nbsp;umount -f придёт к нам на помощь и размонтирует
+файловые системы, смонтированные как "жёсткие" и "непрерываемые".</p>
+
+
+
+
+</div>
+
+
+
+
+<comment title=" end rhceInner " xmlns="http://disruptive-innovations.com/zoo/nvu"><br>
+
+
+
+</comment></div>
+
+
+
+
+<comment title=" end RHCEtip " xmlns="http://disruptive-innovations.com/zoo/nvu"></comment><comment title=" QUESTION " xmlns="http://disruptive-innovations.com/zoo/nvu"></comment>
+<h2>Как можно настраивать листинги каталогов,&nbsp;автоматически генерируемые веб-сервером Apache?</h2>
+
+
+
+
+<h4 class="byline">Джастин Шеррилл (Justin Sherrill)</h4>
+
+
+
+
+<div class="answer">
+<p>Для генерации листингов используется модуль&nbsp;<tt class="command">mod_autoindex</tt>.</p>
+
+
+
+
+<p>Все рассматриваемые опции можно указывать в секции виртуального
+хоста, каталога или основных настроек. Можно просто добавить их в конец
+файла <tt class="command">/etc/httpd/conf/httpd.conf</tt>.</p>
+
+
+
+
+<p>Чтобы добавить комментарий для файлов определённого типа, укажите:</p>
+
+
+
+
+<pre class="screen">AddDescription "This is a text file" .txt</pre>
+
+
+
+
+<p>Эта директива добавит описание&nbsp;"This is a text file" ко всем файлам с расширением .txt.</p>
+
+
+
+
+<p>Чтобы добавить описание к конкретному файлу, укажите:</p>
+
+
+
+
+<pre class="screen">AddDescription "Our financial report" docs/finances.txt</pre>
+
+
+
+
+<p>Эта директива добавит описание&nbsp;"Our financial report" к файлу&nbsp;<tt class="command">docs/finances.txt</tt>.</p>
+
+
+
+
+<p>Чтобы исключить из листинга некоторые файлы, укажите:</p>
+
+
+
+
+<pre class="screen">IndexIgnore docs/hidden.txt</pre>
+
+
+
+
+<p>Теперь, при выводе каталога&nbsp;<tt class="command">docs</tt>, файл&nbsp;<tt class="command">hidden.txt</tt> показан не будет.</p>
+
+
+
+
+<p>С другими доступными директивами вы можете ознакомиться&nbsp;по адресу: <a href="http://httpd.apache.org/docs/1.3/mod/mod_autoindex.html" target="blank">http://httpd.apache.org/docs/1.3/mod/mod_autoindex.html</a>.</p>
+
+
+
+
+</div>
+
+
+
+
+<comment title=" answer " xmlns="http://disruptive-innovations.com/zoo/nvu"></comment><comment title=" QUESTION " xmlns="http://disruptive-innovations.com/zoo/nvu"></comment>
+<h2>В каком конфигурационном файле задаётся значение по-умолчанию&nbsp;dpi шрифтов?</h2>
+
+
+
+
+<h4 class="byline">Алекс Бруно (Alex Bruno)</h4>
+
+
+
+
+<div class="answer">
+<p><strong>Проблема:</strong><br>
+
+
+
+
+Необходимо сменить установленные по-умолчанию шрифты&nbsp;75 dpi на новые шрифты&nbsp;100 dpi.
+</p>
+
+
+
+
+<p><strong>Решение: </strong><br>
+
+
+
+
+Конфигурационный файл: <tt class="command">/etc/X11/fs/config</tt>.
+</p>
+
+
+
+
+<p>Откройте в редакторе файл&nbsp;<tt class="command">/etc/X11/fs/config</tt>
+и найдите строку:</p>
+
+
+
+
+<pre class="screen">default-resolutions=75,75,100,100</pre>
+
+
+
+
+<p>Замените её на такую:</p>
+
+
+
+
+<pre class="screen">default-resolutions=100,100,75,75</pre>
+
+
+
+
+<p>Сохраните файл. Новые установки активизируются после перезапуска <tt class="command">xfs</tt> (X Font
+Server).</p>
+
+
+
+
+</div>
+
+
+
+
+<comment title=" answer " xmlns="http://disruptive-innovations.com/zoo/nvu"></comment><comment title=" QUESTION " xmlns="http://disruptive-innovations.com/zoo/nvu"></comment>
+<h2>Как изменить разрешение экрана без перезапуска сервера X Window?</h2>
+
+
+
+
+<h4 class="byline">Джастин Шеррилл (Justin Sherrill)</h4>
+
+
+
+
+<div class="answer">
+<p>Эту функциональность предоставляет утилита&nbsp;xrandr. Чтобы получить список поддерживаемых разрешений, выполните команду&nbsp;<tt class="command">xrandr</tt>.</p>
+
+
+
+
+<p>Будет выведен приблизительно такой список:</p>
+
+
+
+
+<pre class="screen&quot;"> SZ: Pixels Physical Refresh<br> 0 1600 x 1200 ( 363mm x 272mm ) 75<br>*1 1280 x 1024 ( 363mm x 272mm ) *85<br> 2 1024 x 768 ( 363mm x 272mm ) 85<br> 3 800 x 600 ( 363mm x 272mm ) 85<br> 4 640 x 480 ( 363mm x 272mm ) 85<br>Current rotation - normal<br>Current reflection - none<br>Rotations possible - normal<br>Reflections possible - none<br></pre>
+
+
+
+
+<p>Текущее разрешение отмечено звёздочкой&nbsp;('*'). Для данной системы, текущее разрешение&nbsp;&mdash; 1280x1024. </p>
+
+
+
+
+<p>Чтобы изменить разрешение, выполните&nbsp;<tt class="command">xrandr
+-s 0</tt>, где&nbsp;<tt class="command">0</tt> это номер желаемого режима.</p>
+
+
+
+
+<p>Например, команда&nbsp;<tt class="command">xrandr -s 3</tt> сменит
+разрешение в этой системе на&nbsp;800x600. Номера доступных режимов не
+обязательно будут совпадать на разных системах. То есть, команда&nbsp;<tt class="command">xrandr
+-s 2</tt>, выполненная на разных системах, может задавать разное разрешение.</p>
+
+
+
+
+</div>
+
+
+
+
+<comment title=" answer " xmlns="http://disruptive-innovations.com/zoo/nvu"></comment><comment title=" QUESTION " xmlns="http://disruptive-innovations.com/zoo/nvu"></comment>
+<h2>Почему после настройки DSA-аутентификации для&nbsp;SSH система продолжает спрашивать пароль?</h2>
+
+
+
+
+<h4 class="byline">Джастин Шеррилл (Justin Sherrill)</h4>
+
+
+
+
+<div class="answer">
+<p>Определить причину проблемы с DSA аутентификацией могут помочь сообщения об ошибках в журнальном файле&nbsp;<tt class="command">/var/log/secure</tt>
+сервера. После попытки установить&nbsp;SSH-соединение, посмотрите в журнальный файл сервера:
+</p>
+
+
+
+
+<pre class="screen">tail /var/log/secure</pre>
+
+
+
+
+<p>Часто можно увидеть такую ошибку:</p>
+
+
+
+
+<pre class="screen">sshd[11425]: Authentication refused: bad ownership or modes for directory /home/shadowman</pre>
+
+
+
+
+<p>В этом случае, права доступа к домашнему каталогу пользователя
+shadowman слишком открыты. Чтобы изменить их, выполните команду&nbsp;<tt class="command">chmod
+700 /home/shadowman</tt>.</p>
+
+
+
+
+</div>
+
+
+
+
+<comment title=" answer " xmlns="http://disruptive-innovations.com/zoo/nvu"></comment><comment title=" QUESTION " xmlns="http://disruptive-innovations.com/zoo/nvu"></comment>
+<h2>Как увеличить число семафоров?</h2>
+
+
+
+
+<h4 class="byline">Джастин Пейн (Justin Payne)</h4>
+
+
+
+
+<div class="answer">
+<p><strong>Система:</strong> Red Hat Enterprise
+Linux</p>
+
+
+
+
+<p><strong>Проблема:</strong><br>
+
+
+Сервер Red Hat Enterprise Linux на котором запущен&nbsp;Lotus Domino
+падает после приблизительно дня работы. С помощью команды&nbsp;<tt class="command">ipcs</tt> определили, что авария происходит когда Domino занимает&nbsp;100 из&nbsp;128 доступных семафоров. </p>
+
+
+
+
+<p><strong>Решение: </strong><br>
+
+
+Сначала проверьте текущие значения, чтобы к ним можно было обратиться
+позже. Чтобы посмотреть параметры&nbsp;семафоров, воспользуйтесь
+командой&nbsp;<tt class="command">cat</tt>:</p>
+
+
+
+
+<pre class="screen"># cat /proc/sys/kernel/sem<br>250 32000 32 128<br><br></pre>
+
+
+
+
+<p>Ниже приводится пример, как сохранить изменения в настройках семафоров.</p>
+
+
+
+
+<p>Добавьте в файл&nbsp;<tt class="command">/etc/sysctl.conf
+</tt>строку:</p>
+
+
+
+
+<pre class="screen">kernel.sem = 250 32000 32 256</pre>
+
+
+
+
+<p><strong>Примечание:</strong> обратите внимание на пробелы вокруг знака&nbsp;<tt class="command">'='</tt>&nbsp;&mdash; они важны в этом файле. Пробел должен быть и перед, и после знака равно.</p>
+
+
+
+
+<p>Выполните команду&nbsp;<tt class="command">sysctl -p</tt>для
+активации внесённых изменений. Задание значений в данном файле также
+обеспечивает их автоматическую установку при загрузке системы.</p>
+
+
+
+
+</div>
+
+
+
+
+<comment title=" answer " xmlns="http://disruptive-innovations.com/zoo/nvu"></comment><comment title=" QUESTION " xmlns="http://disruptive-innovations.com/zoo/nvu"></comment>
+<h2>Как изменить поведение команды&nbsp;cp, если даже при указанном
+ключе "-f" она требует подтверждение на перезапись существующего файла?</h2>
+
+
+
+
+<h4 class="byline">Джастин Пейн (Justin Payne)</h4>
+
+
+
+
+<div class="answer">
+<p><strong>Проблема:</strong><br>
+
+
+
+Команда <tt class="command">cp -f &lt;<em>filename</em>&gt;
+&lt;<em>/path/to/some_existing_file</em>&gt;</tt>
+требует подтверждения перезаписи существующего файла несмотря на заданный параметр -f.
+</p>
+
+
+
+
+<p><strong>Решение: </strong><br>
+
+
+
+
+Чтобы изменить это поведение, откройте файл&nbsp;<tt class="command">/root/.bashrc</tt>
+в редакторе и закомментируйте (или удалите) строку с псевдонимом, который добавляет параметр <tt class="command">-i</tt> к команде <tt class="command">cp</tt>:</p>
+
+
+
+
+<pre class="screen"># alias cp='cp -i'<br></pre>
+
+
+
+
+<p>Изменения вступят в силу при&nbsp;следующей регистрации пользователя в системе или после пересчитывания файла <tt class="command">/root/.bashrc</tt> в текущей сессии.&nbsp;</p>
+
+
+
+
+</div>
+
+
+
+
+<comment title=" answer " xmlns="http://disruptive-innovations.com/zoo/nvu"></comment><comment title=" QUESTION " xmlns="http://disruptive-innovations.com/zoo/nvu"></comment>
+<h2>Какова разница между устройствами&nbsp;/dev/st0 и /dev/nst0 при работе с ленточными накопителями?</h2>
+
+
+
+
+<h4 class="byline">Джастин Пейн (Justin Payne)</h4>
+
+
+
+
+<div class="answer">
+<p>Устройство <tt class="command">/dev/nst0</tt>
+&mdash; это ленточное устройство без авто перемотки, а&nbsp;<tt class="command">/dev/st0</tt> &mdash; с автоперемоткой.</p>
+
+
+
+
+<p>Которое из устройств вы должны использовать зависит от ваших целей.
+Оба устройства представляют собой одно и то же аппаратное устройство,
+но поведение у них разное. Если, например, вы собираетесь просто
+сохранить несколько файлов на ленту с помощью&nbsp;<tt class="command">tar</tt>,
+то скорее всего вы будете использовать устройство с автоперемоткой,
+чтобы перемотать ленту сразу после записи. В этом случае, лента будет
+готова к чтению, когда бы вам это не понадобилось.</p>
+
+
+
+
+<p>С другой стороны, большинство систем резервного копирования на одну
+ленту пишут много файлов и, в таком случае, вам, вероятно, потребуется
+ленточное устройство без автоперемотки
+(т.е. <tt class="command">/dev/nst0</tt>).
+В противном случае, лента будет перематываться после записи каждого
+файла и каждый следующий файл будет записан поверх предыдущего.</p>
+
+
+
+
+</div>
+
+
+
+
+<comment title=" answer " xmlns="http://disruptive-innovations.com/zoo/nvu"></comment><comment title=" QUESTION " xmlns="http://disruptive-innovations.com/zoo/nvu"></comment>
+<h2>Как переименовать&nbsp;RAID-массив, если его нужно перенести на другую систему, где уже есть массив в таким же именем?</h2>
+
+
+
+
+<h4 class="byline">Брэдфорд Хинсон (Bradford Hinson)</h4>
+
+
+
+
+<div class="answer">
+<p>В следующем примере,&nbsp;<tt class="command">/dev/md0</tt>
+&mdash; исходное, а&nbsp;<tt class="command">/dev/md6</tt>
+&mdash; новое&nbsp;<tt class="command">md</tt>-устройство. <tt class="command">/dev/sda5</tt> и <tt class="command">/dev/sdb5</tt>&nbsp;&mdash; это два раздела, из которых формируется&nbsp; RAID-устройство. Для переименования выполните следующие команды:</p>
+
+
+
+
+<pre class="SCREEN"> <br># mdadm --stop /dev/md0<br># mdadm -A /dev/md6 -m0 --update=super-minor /dev/sda5 /dev/sdb5<br></pre>
+
+
+
+
+<p>В результате их выполнения, массив&nbsp;<tt class="command">/dev/md0</tt>
+будет остановлен и пересобран как <tt class="command">/dev/md6</tt>.
+В процессе пересборки ищутся устройства с существующим младшим номером
+устройства равным&nbsp;0 (-m0) и обновляет их значение в суперблоке на
+новый номер.</p>
+
+
+
+
+</div>
+
+
+
+
+<comment title=" answer " xmlns="http://disruptive-innovations.com/zoo/nvu"></comment><comment title=" QUESTION " xmlns="http://disruptive-innovations.com/zoo/nvu"></comment>
+<h2>Почему в Red Hat Enterprise Linux 3
+производительность&nbsp;Clearcase при доступе к тому NFS значительно
+ниже, чем в&nbsp;Red Hat
+Enterprise
+Linux 4?</h2>
+
+
+
+
+<h4 class="byline">Акана Рагаван (Archana Raghavan)</h4>
+
+
+
+
+<div class="answer">
+<p>Эта проблема порождается функциональностью обеспечения непротиворечивости кэша "open to close cache
+consistency", которая была добавлена в ядро&nbsp;2.4.20. Эта
+функциональность предназначена для обеспечения однородности кэша разных
+клиентов NFS. Когда приложение на&nbsp;NFS-клиенте открывает файл,
+расположенный на сервере, клиент проверяет существование файла и его
+права доступа, посылая вызов&nbsp;<tt class="command">GETATTR</tt>.
+При закрытии файла, все изменения записываются на сервере, чтобы
+следующий клиент, который будет читать этот файл мог их увидеть.
+Функциональность "open to close cache consistency" реализуется
+сравнением результатов&nbsp;<tt class="command">GETATTR</tt>
+возвращённых сразу после закрытия файла и непосредственно перед его открытием. Если результаты совпадают &mdash; кэш клиента достоверный, иначе кэш очищается.
+</p>
+
+
+
+
+<p>Вызовы&nbsp;<tt class="command">GETATTR</tt> негативно влияют на
+производительность вследствии&nbsp;большого сетевого трафика ими
+порождаемого. Этого можно избежать, указав при монтировании опцию&nbsp;<tt class="command">nocto</tt>.
+Однако, ценой будет целостность данных, поскольку при совместном
+доступе к данным разных клиентов, непротиворечивость кэша будет
+нарушена. Другим вариантом решения данной проблемы является
+использование&nbsp;Red Hat Enterprise
+Linux версии 4. Ядро&nbsp;2.6 использует другой механизм для
+обеспечения целостности данных.
+</p>
+
+
+
+
+</div>
+
+
+
+
+<comment title=" answer " xmlns="http://disruptive-innovations.com/zoo/nvu"></comment><comment title=" END OF TIPS AND TRICKS " xmlns="http://disruptive-innovations.com/zoo/nvu"></comment></div>
+
+
+
+
+</div>
+
+
+
+
+</body>
+</html>

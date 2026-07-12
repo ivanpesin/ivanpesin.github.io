@@ -1,0 +1,427 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+
+
+  
+  <meta content="text/html; charset=utf-8" http-equiv="content-type">
+
+  
+
+
+  
+  <title>Виртуализация рабочего стола с помощью VNC</title>
+  <link rel="stylesheet" type="text/css" href="css/master.css">
+
+
+  
+  <link rel="stylesheet" type="text/css" href="css/rhmag11.css">
+</head>
+
+
+<body>
+
+
+<div id="rhmagCenter">
+<div class="article">
+<h1 id="content">Виртуализация рабочего стола с
+помощью&nbsp;VNC</h1>
+
+
+<h4 class="byline">Тим Уоф (Tim Waugh)</h4>
+
+
+This article is protected by the <a href="http://www.opencontent.org/openpub/">Open Publication
+License, V1.0 or later</a>. <br>
+
+
+Copyright &copy; 2005 by Red Hat,
+Inc.<br>
+
+
+Original article: <a href="http://www.redhat.com/magazine/006apr05/features/vnc/"><span style="text-decoration: underline;">http://www.redhat.com/magazine/006apr05/features/vnc/</span></a><br>
+
+
+<br>
+
+
+Перевод: &copy; Иван Песин
+<ul id="articleMenu">
+
+
+  <li> <span class="sect1"> <a href="#intro">Введение</a>
+    </span> </li>
+
+
+  <li> <span class="sect1"> <a href="#use-cases">Применения
+VNC</a> </span> </li>
+
+
+  <li> <span class="sect1"> <a href="#persist">Настройка
+постоянного рабочего стола</a> </span> </li>
+
+
+  <li> <span class="sect1"> <a href="#viewer">Использование&nbsp;VNC-клиента</a>
+    </span> </li>
+
+
+  <li> <span class="sect1"> <a href="#quick-steps">Быстрые
+шаги</a> </span> </li>
+
+
+  <li> <span class="sect1"> <a href="#further-reading">Дальнейшее
+чтение</a> </span> </li>
+
+
+  <li> <span class="sect1"> <a href="#author">Об
+авторе</a> </span> </li>
+
+
+</ul>
+
+
+<h2 id="intro">Введение</h2>
+
+
+<p>Каждый день, заканчивая работу, я выключаю свой рабочий
+компьютер. Когда на следующий день я включаю его опять, я могу
+продолжить работу с того же момента, на котором остановился. Я
+включаю компьютер и вижу приложения, запущенные&nbsp;еще вчера.
+Веб-браузер находится на недочитанной мною странице. Каким образом? Я
+использую VNC:&nbsp;<em>Virtual Network Computing</em>.</p>
+
+
+<p>Моя сессия рабочего стола фактически запущена на
+компьютере,
+который находится в другом здании. На компьютере, за которым сижу я,
+запущен VNC-клиент, который показывает мне мой рабочий стол, а сами
+приложения запускаются в сессии на VNC-сервере.</p>
+
+
+<h2 id="use-cases">Применения VNC</h2>
+
+
+<p>Существуют несколько различных проблем, которые могут быть
+решены
+использованием VNC. Причина, по которой использую его я &mdash;
+описанный выше постоянный рабочий стол. Это одна из наиболее
+распространенных
+причин
+использования&nbsp;VNC.
+Один компьютер выполняет процесс&nbsp;VNC-сервера, который
+представляет
+собой вариант виртуального фреймбуфера: он управляет экранным
+изображением&nbsp;(двухмерным массивом пикселей), но не выводит его
+непосредственно на монитор. Другой компьютер выполняет
+процесс&nbsp;VNC-клиента, который получает изображение фрейм-буфера
+от VNC-сервера и выводит его на настоящий экран. Работая с рабочим
+столом при помощи&nbsp;VNC у меня нет необходимости постоянно
+регистрироваться в системе и выходить из нее, я просто продолжаю сессию
+с того момента, где закончил в прошлый раз.</p>
+
+
+<p>VNC-сервер и клиент доступны для многих операционных
+систем.&nbsp;Red Hat&reg; Enterprise Linux&reg; 4
+включает сервер и два клиента: обычный и
+Java-версию.&nbsp;VNC-сервер
+может быть настроен на предоставление доступа по HTTP, так что для
+доступа к нему вы
+можете использовать любой веб-браузер с поддержкой&nbsp;Java.</p>
+
+
+<p>Дизайн&nbsp;VNC предъявляет мало требований
+к&nbsp;VNC-клиенту. Большая часть работы выполняется на сервере. В
+результате, это очень подходящая технология для организации тонких
+клиентов (когда много бездисковых машин предоставляют графический
+интерфейс к одному мощному серверу). Тонкий клиент должен выполнять
+только процесс VNC-клиента, тогда как приложения могут находиться на
+сервере.</p>
+
+
+<p>Одним типом тонкого клиента является&nbsp;X-терминал:
+выделенная машина, подключенная к сети, на которой выполняется X Window
+System. В общем, эти машины настроены на подключение к серверу, который
+обеспечивает регистрацию и работу
+в&nbsp;системе.&nbsp;X-терминал отображает графику сервера с
+помощью протокола X Window System.</p>
+
+
+<p>Клиент VNC может работать как программный X-терминал к серверу
+VNC, предоставляющему окно регистрации в системе. Преимущество
+использования&nbsp;VNC состоит в том, что сессия не закончится,
+даже
+если пользователь отключит VNC-клиент, перейдет в другую комнату или
+здание, и снова подключится к VNC.</p>
+
+
+<p>Еще одно применение&nbsp;VNC&nbsp;&mdash; это
+удаленный контроль или просмотр экрана.
+Несколько способов реализации такого сценария включены в Red Hat
+Enterprise
+Linux 4. Самый простой&nbsp;&mdash; это использование&nbsp;<span class="guimenuitem">Remote
+Desktop</span> из меню&nbsp;<span class="guimenu">Main
+Menu</span> -&gt; <span class="guimenuitem">Preferences</span>.
+Чтобы разрешить управление или просмотр вашей рабочей сессии, отметьте
+пункты <span class="guilabel">Allow other users
+to view your desktop</span> (разрешить другим пользователям
+видеть ваш рабочий стол) и <span class="guilabel">Allow
+other users to control your desktop</span> (разрешить другим
+пользователям контроллировать ваш рабочий стол). В этом же диалоге вы
+можете установить пароль для доступа к&nbsp;VNC и указать на
+необходимость вашего разрешения при подключении удаленного VNC-клиента.</p>
+
+
+<a name="fig-remotedesktop" id="fig-remotedesktop"></a>
+<div class="mediaobject"> <img style="width: 389px; height: 351px;" src="img/vnc/vnc1-remotedesktop-en.png" alt="Remote desktop"></div>
+
+
+<div class="caption">Рисунок 1. Удаленный рабочий стол</div>
+
+
+<p>Менее простой, но более эффективный способ реализации такой же
+функциональности состоит в использовании загружаемого модуля VNC для X
+Window System.
+Инструкции по его настройке приведены на <a href="http://www.realvnc.com/documentation.html">сайте
+RealVNC</a>. При использовании этого модуля, можно просматривать
+и управлять экраном, даже если никто не зарегистрирован в системе.</p>
+
+
+<p>В Red Hat Enterprise Linux 4 VNC может сильно помочь вам даже
+при установке операционной системы! Вы, наверно, знаете, что есть
+возможность выполнять автоматические инсталляции с помощью kickstart,
+когда все параметры и наборы пакетов заранее заданы в конфигурационном
+файле kickstart. Но знаете ли вы, что можно получить интерактивный
+контроль над процессом установки Red Hat Enterprise Linux, даже когда
+машина, на которую устанавливается система, физически находится далеко
+от
+вас, возможно&nbsp;в другой стране.</p>
+
+
+<p>Машине, на которой устанавливается&nbsp;Red Hat Enterprise
+Linux, можно сказать, чтобы она работала как&nbsp;VNC-сервер с
+самого начала процесса установки. Если&nbsp;коротко, то для этого
+нужно загрузить систему с помощью&nbsp;PXE (или аналогичным
+способом), передав инсталлятору строку&nbsp;<code class="command">linux
+ks vnc</code> (ссылки на документацию по сетевой установке с
+помощью PXE
+можно найти в <a href="#further-reading" title="Further reading">разделе "Дальнейшее чтение"</a>).
+При помощи DHCP указать на минимальный конфигурационный
+файл&nbsp;kickstart, который содержит лишь местонахождение
+дистрибутива&nbsp;&mdash; как правило, сервера NFS. Теперь,
+когда
+загрузится инсталлятор, вы сможете подключиться к этой машине клиентом
+VNC, указав ее IP-адрес.</p>
+
+
+<h2 id="persist">Настройка постоянного рабочего стола</h2>
+
+
+<p>Ниже приводится описание шагов, необходимых для настройки
+постоянного рабочего стола с помощью VNC в&nbsp;Red Hat Enterprise
+Linux 4.</p>
+
+
+<p>Первым делом следует установить пароль
+на&nbsp;VNC-сервере. Для этого зарегистрируйтесь в системе и
+выполните команду <code class="command">vncpasswd</code>.
+Сервис&nbsp;VNC не запустится, пока вы не установите пароль.</p>
+
+
+<p>Далее, с помощью команды&nbsp;<code class="command">su
+-</code> получите права пользователя root и отредактируйте файл <code class="filename">/etc/sysconfig/vncservers</code>. Для
+настройки двух постоянных рабочих столов, одного для пользователя <code class="computeroutput">fred</code>, а другого для <code class="computeroutput">joe</code> (который
+предпочитает больший размер рабочего стола, чем&nbsp; <code class="computeroutput">fred</code>),
+этот файл должен выглядеть как <a href="#ex-vncservers" title="Example 1. /etc/sysconfig/vncservers example">Пример
+1. Файл /etc/sysconfig/vncservers</a>.</p>
+
+
+<a name="ex-vncservers" id="ex-vncservers"></a>
+<pre># The VNCSERVERS variable is a list of display:user pairs.<br>#<br># Uncomment the line below to start a VNC server on display :1<br># as my 'myusername' (adjust this to your own). You will also<br># need to set a VNC password; run 'man vncpasswd' to see how<br># to do that.<br>#<br># DO NOT RUN THIS SERVICE if your local area network is<br># untrusted! For a secure way of using VNC, see<br># &lt;URL:http://www.uk.research.att.com/vnc/sshvnc.html&gt;.<br><br>VNCSERVERS="1:fred 2:joe"<br><br># fred's VNC options<br>VNCSERVERARGS[1]="-geometry 1024x768"<br><br># joe's VNC options<br>VNCSERVERARGS[2]="-geometry 1280x1024"<br></pre>
+
+
+<div class="caption">Пример 1. Файл<code class="filename"> /etc/sysconfig/vncservers</code></div>
+
+
+<p>Для запуска всех рабочих столов&nbsp;VNC во время загрузки
+системы, активируйте сервис VNC командой <code class="userinput">chkconfig
+vncserver
+on</code> (вы должны иметь права&nbsp;root). Чтобы запустить
+рабочие столы&nbsp;VNC немедленно, выполните команду&nbsp;<code class="userinput">service vncserver start</code>.
+Оба пользователя смогут &nbsp;теперь подключиться
+клиентами&nbsp;VNC, <code class="computeroutput">fred</code>
+к дисплею&nbsp;1, а&nbsp;<code class="computeroutput">joe</code>
+к дисплею&nbsp;2.</p>
+
+
+<p>Сессия рабочего стола по-умолчанию в&nbsp;VNC очень
+простая, использует менеджер окон&nbsp;<span class="application">twm</span>.
+Вероятно, вы захотите работать с вашим обычным менеджером окон.
+Для этого, отредактируйте файл&nbsp;<code class="filename">/home/<i class="replaceable"><tt>username</tt></i>/.vnc/xstartup</code>
+и удалите символ&nbsp;<code class="computeroutput">#</code>
+из двух строк, следующих за строкой <code class="computeroutput">Uncomment
+the following two lines for
+normal desktop</code>.</p>
+
+
+<h2 id="viewer">Использование&nbsp;VNC-клиента</h2>
+
+
+<p>Вне зависимости от того, используете вы обычный
+или&nbsp;Java
+VNC-клиент в
+Red Hat Enterprise Linux 4, Microsoft&reg; Windows&reg; или в
+любой
+другой ОС, процедура везде приблизительно одна и та же. В Red Hat
+Enterprise Linux 4 клиент находится в меню <span class="guimenu">Main
+Menu</span> -&gt; <span class="guimenuitem">Accessories</span>
+-&gt; <span class="guimenuitem">VNC Viewer</span>.</p>
+
+
+<p>Появится диалог, спрашивающий к какому&nbsp;VNC-серверу
+нужно подключиться. Нажав кнопку&nbsp;<span class="guilabel">Options...
+вы можете настроить некоторый параметры работы&nbsp;</span>VNC-клиента.</p>
+
+
+<p>Сервер&nbsp;VNC определяется именем хоста&nbsp;(или
+IP-адресом) и номером дисплея. Если файл&nbsp;<code class="filename">/etc/sysconfig/vncservers</code>
+из <a href="#ex-vncservers" title="Example 1. /etc/sysconfig/vncservers example">примера
+1</a> находился на машине&nbsp;<code class="computeroutput">hoopoe.elk</code>,
+то для подключения к серверу&nbsp;VNC
+пользователя <code class="computeroutput">joe</code>,
+нужно указать строку&nbsp;<code class="computeroutput">hoopoe.elk:2</code>.</p>
+
+
+<p>Номер дисплея&nbsp;VNC это не номер порта, несмотря на
+использования синтаксиса <i class="replaceable"><tt>имя-хоста:номер</tt></i>,
+который используется для задания порта в веб-браузере. Но чтобы еще
+больше
+усложнить жизнь, для доступа к Java-клиенту VNC используется уже именно
+номер порта. Чтобы узнать номер порта для&nbsp;Java-клиента VNC вам
+нужно прибавить номер дисплея к 5800. Например, чтобы подключиться к
+VNC-сессии&nbsp;<code class="computeroutput">joe</code>,
+вам будет нужно указать в браузере URL&nbsp;<code class="userinput">http://hoopoe.elk:5802/</code>.</p>
+
+
+<p>Если на&nbsp;VNC-сервере установлен пароль, клиент
+запросит его у
+вас. Дальше появиться окно&nbsp;VNC-клиента, содержащее сессию
+рабочего
+стола (см <a href="#fig-viewer">Рисунок&nbsp;2.
+Окно VNC-клиента</a>). Закрытие окна VNC-клиента не завершает
+самой сессии рабочего стола.</p>
+
+
+<a name="fig-viewer" id="fig-viewer"></a>
+<div class="mediaobject"> <a href="file:///C:/Documents%20and%20Settings/ivan/%CC%EE%E8%20%E4%EE%EA%F3%EC%E5%ED%F2%FB/Translations/figs/vnc1-viewer-en.png"><img style="border: 0px solid ; width: 500px; height: 387px;" src="img/vnc/vnc1-viewer-en_sm.png" alt="VNC Viewer window"></a></div>
+
+
+<div class="caption">Рисунок 2. Окно&nbsp;VNC-клиента</div>
+
+
+<p>Для настройки параметров соединения, нажмите клавишу&nbsp;<span><b class="keycap">F8</b></span>. Появится меню,
+которое вы можете увидеть на <a href="#fig-viewermenu" title="Figure 3. VNC Viewer menu">рисунке 3</a>.
+Выполнение&nbsp;VNC-клиента в полноэкранном режиме (<span class="guimenuitem">Full
+screen</span>) позволяет ему перехватывать клавиатурные
+комбинации, обычно обрабатываемые оконным менеджером, например
+переключение между окнами с помощью&nbsp;<span><b class="keycap">Alt</b></span>-<span><b class="keycap">Tab</b></span>. В полноэкранном
+режиме, она будет переключать между окнами&nbsp;VNC-сессии, а не
+самим окном&nbsp;VNC-клиента и другими окнами на локальной системе.</p>
+
+
+<a name="fig-viewermenu" id="fig-viewermenu"></a>
+<div class="mediaobject"> <img style="width: 147px; height: 350px;" src="img/vnc/vnc1-viewermenu-en.png" alt="VNC Viewer menu"></div>
+
+
+<div class="caption">Рисунок 3. Меню VNC-клиента</div>
+
+
+<p>Нажатие&nbsp;<span><b class="keycap">F8</b></span>
+вызывает меню&nbsp;VNC, но если вы хотите, чтобы нажатие этой
+клавиши обработало приложение в сессии&nbsp;VNC, выберите в меню
+пункт&nbsp;<span class="guimenuitem">Send F8</span>.</p>
+
+
+<div class="quick-steps">
+<h2 id="quick-steps" class="quick-steps"><img style="width: 40px; height: 25px;" alt="" src="img/vnc/icon_steps.png"><img alt="" src="img/vnc/icon_steps.png" style="padding-right: 10px; width: 40px; height: 25px;">Быстрые
+шаги</h2>
+
+
+<p>Здесь собраны необходимые шаги для настройки постоянного
+рабочего стола с помощью VNC на Red Hat Enterprise Linux 4.</p>
+
+
+<ol>
+
+
+  <li>Установите пароль с помощью <code class="command">vncpasswd</code></li>
+
+
+  <li>Отредактируйте <code class="filename">/etc/sysconfig/vncservers</code></li>
+
+
+  <li>Активируйте автоматический запуск сервиса командой <code class="userinput">chkconfig
+vncserver on</code></li>
+
+
+  <li>Запустите сервис командой <code class="userinput">service
+vncserver start</code></li>
+
+
+  <li>Отредактируйте файл <code class="filename">/home/<i class="replaceable"><tt>username</tt></i>/.vnc/xstartup</code>,
+если вам нужна среда отличная от&nbsp;<span class="application">twm</span>
+и <span class="application">xterm</span></li>
+
+
+</ol>
+
+
+</div>
+
+
+<h2 id="further-reading">Дальнейшее чтение</h2>
+
+
+<ul>
+
+
+  <li><a href="http://www.realvnc.com/documentation.html">RealVNC</a>
+&mdash;&nbsp;документация от непосредственных разработчиков VNC</li>
+
+
+  <li><a href="http://www.redhat.com/docs/manuals/enterprise/RHEL-4-Manual/sysadmin-guide/ch-pxe.html">PXE
+Network Installations</a> &mdash; из
+документации&nbsp;Red Hat Enterprise
+Linux</li>
+
+
+  <li><a href="http://www.redhat.com/docs/manuals/enterprise/RHEL-4-Manual/sysadmin-guide/ch-kickstart2.html">Kickstart
+Installations</a> &mdash; из документации&nbsp;Red Hat
+Enterprise Linux</li>
+
+
+</ul>
+
+
+<p>В следующем месяце, вторая часть&nbsp;этой серии
+рассмотрит вопросы
+устранения неисправностей настройки VNC и ускорения его работы.</p>
+
+
+<h2 id="author">Об авторе</h2>
+
+
+<p>Тим Уоф работает системным
+инженером в&nbsp;Red Hat. В основном, он отвечает за подсистемы
+сканирования/печати,&nbsp;DocBook, VNC и некоторые утилиты
+командного процессора. Он использует&nbsp;Linux с&nbsp;1995
+года и живет со своей женой в Суррее&nbsp;(Англия).</p>
+
+
+</div>
+
+
+</div>
+
+
+</body>
+</html>

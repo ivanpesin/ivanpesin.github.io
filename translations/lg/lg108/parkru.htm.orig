@@ -1,0 +1,237 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+
+
+
+  
+  
+  <title>[lg108]: Командный интерпретатор bash и нестандартное</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
+</head>
+
+
+<body>
+
+
+<h1 align="center"><font color="#990033">Командный интерпретатор Bash и нестандартное</font></h1>
+
+
+<p align="center">Автор: &copy; Уильям Парк (<b><a href="http://www.tldp.org/LDP/LGNET/authors/park.html">William 
+  Park</a></b>)<br>
+
+
+  Перевод: &copy; Иван Песин</p>
+
+
+<p align="center"> </p>
+
+
+<h2>О данной серии статей</h2>
+
+
+<p> В этой серии ежемесячных статей, я попробую продемонстрировать мощь командного 
+  интерпретатора Bash. В частности, читатели познакомятся с проектом <a href="http://freshmeat.net/projects/bashdiff/">Bash.Diff</a>, 
+  который представляет собой коллекцию моих патчей, реализующих различные идеи 
+  из Ksh, Zsh, Awk, Python и других языков. </p>
+
+
+<p> Каждая статья будет посвящена одной теме или возможности, которая обычно не 
+  рассматривается в контексте командного интерпретатора. Также я предоставляю 
+  в свободное использование приведённые функции командного интерпретатора в виде, 
+  удобном для использования и поддержки. </p>
+
+
+<h2>string.sh</h2>
+
+
+<p> В языке C, &lt;string.h&gt; определяет функции strcat(3), strcpy(3), strlen(3) 
+  и strcmp(3) для конкатенации, копирования, определения размера и сравнения строк 
+  соответственно. Такие базовые операции постоянно нужны при программировании 
+  на любом языке и скрипты командного интерпретатора не исключение. </p>
+
+
+<h3>strcat() и strcpy()</h3>
+
+
+Для копирования и конкатенации строк в командном интерпретаторе, вам нужно будет 
+сделать что-то вроде: 
+<pre>    a=abc<br>    a=${a}'123'			# a=abc123<br></pre>
+
+
+Это простое присвоение переменной. Однако, вы не можете использовать в левой части 
+присвоения переменную, как ссылку на другую переменную. Вам придется либо указывать 
+непосредственно имя переменной, либо использовать команду <tt>eval</tt>, например 
+следующим образом: 
+<pre>    x=a<br>    eval "$x=abc"<br>    eval "$x=\${$x}'123'"<br></pre>
+
+
+Однако, такие конструкции использовать быстро надоедает, особенно когда имена 
+переменных читаются из файла или какой-либо строки. 
+<p> Всё что требуется -- это аналог функций strcat(3) и strcpy(3) языка C, которые 
+  позволят выполнять описанные задачи гораздо проще. Вот реализация указанных 
+  функций: </p>
+
+
+<pre>    strcat ()		# var+=string<br>    {<br>	local _VAR=$1 _STRING=$2 _a _b<br><br>	case $#.$3 in<br>	    2.) ;;<br>	    3.*:*) _a=${3%:*} _b=${3#*:}<br>		set -- `python_to_shell_range "$_a" "$_b" ${#_STRING}`<br>		_STRING=${_STRING:$1:$2}<br>		;;<br>	    *)  echo "Usage: strcat var string [a:b]"<br>		return 2<br>		;;<br>	esac<br>	eval "$_VAR=\${$_VAR}\$_STRING"<br>    }<br><br>    strcpy ()		# var=string<br>    {<br>	local _VAR=$1 _STRING=$2 _a _b<br><br>	case $#.$3 in<br>	    2.) ;;<br>	    3.*:*) _a=${3%:*} _b=${3#*:}<br>		set -- `python_to_shell_range "$_a" "$_b" ${#_STRING}`<br>		_STRING=${_STRING:$1:$2}<br>		;;<br>	    *)  echo "Usage: strcpy var string [a:b]"<br>		return 2<br>		;;<br>	esac<br>	eval "$_VAR=\$_STRING"<br>    }<br></pre>
+
+
+где 'var' -- это имя переменной, в которой нужно сохранить результат. Теперь, 
+вышепреведённый пример можно реализовать следующим образом: 
+<pre>    x=a<br>    strcpy $x abc		# a=abc<br>    strcat $x 123		# a+=123<br></pre>
+
+
+<h3>strlen()</h3>
+
+
+<p> В языке C, функция strlen(3) возвращает размер строки. В командном интерпретаторе 
+  для этого используется конструкция вида <code>${#var}</code>: </p>
+
+
+<pre>    a=abc123<br>    echo ${#a}			# 6<br></pre>
+
+
+Вот реализация функции strlen(3) : 
+<pre>    strlen ()		# echo ${#string} ...<br>    {<br>	for i in "$@"; do<br>	    echo ${#i}<br>	done<br>    }<br></pre>
+
+
+Эта фунция позволяет передавать более одного аргумента: 
+<pre>    strlen abc123 0123456789		# 6 10<br></pre>
+
+
+<h3>strcmp()</h3>
+
+
+<p> Для проверки равенства двух строк в языке С используется функция strcmp(3). 
+  В скриптах, конструкция вида</p>
+
+
+<pre>    [ $a = abc123 ]<br></pre>
+
+
+Ниже приведена версия strcmp(3): 
+<pre>    strcmp ()		# string == string<br>    {<br>	local _STRING1=$1 _STRING2=$2 _a _b<br>      <br>	case $#.$3 in<br>	    2.) ;;<br>	    3.*:*) _a=${3%:*} _b=${3#*:}<br>		set -- `python_to_shell_range "$_a" "$_b" ${#_STRING1}`<br>		_STRING1=${_STRING1:$1:$2}<br>		set -- `python_to_shell_range "$_a" "$_b" ${#_STRING2}`<br>		_STRING2=${_STRING2:$1:$2}<br>		;;<br>	    *)  echo "Usage: strcmp string1 string2 [a:b]"<br>		return 2<br>		;;<br>	esac<br>	[ "$_STRING1" == "$_STRING2" ]<br>    }<br></pre>
+
+
+Теперь можно использовать вызов 
+<pre>    strcmp $a abc123<br></pre>
+
+
+<h3>Работа с подстрокой [a:b] в стиле Python</h3>
+
+
+<p> Извлечение подстроки -- ещё одна распространённая операция. В шелле для этого 
+  используется конструкция <code>${var:a:n}</code>, где 'a' -- начальная позиция, 
+  а 'n' -- количество извлекаемых символов. Таким образом, </p>
+
+
+<pre>    b=0123456789<br>    echo ${b:0:3} ${b: -3} ${b:1:${#b}-2}<br></pre>
+
+
+напечатает первые 3 символа, последние 3 символа и все символы, кроме первого 
+и последнего. 
+<p> Основной проблемой является то, что 'n' -- это относительное число символов 
+  начиная с позиции 'a'. Обычно, абсолютный индекс более удобен и не только потому, 
+  что это более естественно, но и потому, что так сделано в языке C. В Python 
+  используется синтаксис var[a:b], где 'a' и 'b' -- индексы, которые могут быть 
+  положительными, отрицательными либо вообще опущены. И хотя это приблизительно 
+  эквивалентно шелловскому ${var:a:b-a}, отсутствующие 'a' и 'b' означают начало 
+  и конец строки, а отрицательные значения -- смещение от конца строки. </p>
+
+
+<p> Вышепреведённые функции strcat(), strcpy() и strcmp() поддерживают формат 
+  [a:b] в стиле Python, используя функцию </p>
+
+
+<pre>    # string[a:b] --&gt; ${string:a:n}<br>    #<br>    # Convert Python-style string[a:b] range into Shell-style ${string:a:n} range,<br>    # where<br>    #	0 &lt;= a &lt;= b &lt;= size  and  a + n = b<br>    #<br>    python_to_shell_range ()<br>    {<br>	local -i size=$3<br>	local -i b=${2:-$size}<br>	local -i a=${1:-0}<br><br>	if [ $# -ne 3 ]; then<br>	    echo "Usage: python_to_shell_range a b size"<br>	    return 2<br>	fi<br><br>	[[ a -lt 0 ]] &amp;&amp; a=$((a+size))<br>	[[ a -lt 0 ]] &amp;&amp; a=0<br>	[[ a -gt size ]] &amp;&amp; a=$size<br><br>	[[ b -lt 0 ]] &amp;&amp; b=$((b+size))<br>	[[ b -lt 0 ]] &amp;&amp; b=0<br>	[[ b -gt size ]] &amp;&amp; b=$size<br>	[[ b -lt a ]] &amp;&amp; b=$a<br><br>	echo $a $((b-a))<br>    }<br></pre>
+
+
+для конвертации диапазона в стиле Python, в представление шелла. Она не очень 
+удобна для постоянного прямого использования, но можете попробовать: 
+<pre>    python_to_shell_range '' 3 10		# 0 3<br>    python_to_shell_range -3 '' 10		# 7 3<br>    python_to_shell_range 1 -1 10		# 1 8<br></pre>
+
+
+Теперь, вы можете третьим параметром указать функциям strcat(), strcpy() и strcmp() 
+диапазон подстроки в стиле Python [a:b], например: 
+<pre>    b=0123456789<br>    strcpy x $b :3		# x=012<br>    strcpy y $b -3:		# y=789<br>    strcpy z $b 1:-1		# z=12345678<br>    echo $x $y $z<br></pre>
+
+
+<h3>Цепочки тестов</h3>
+
+
+<p> Функция strcmp() проверяет на равенство две строки. Когда же необходимо выполнить 
+  последовательность из двух или более двоичных тестов, например 'a &lt; c &gt; 
+  b' или '1 -lt 3 -gt 2', приходится их разбивать на части и проверять каждую 
+  пару: </p>
+
+
+<pre>    [[ a &lt; c ]] &amp;&amp; [[ c &gt; b ]]<br>    [ 1 -lt 3 ] &amp;&amp; [ 3 -gt 2 ]<br></pre>
+
+
+Это разрушает структуру вашего кода и часто вносит ошибки. Вот функция, которая 
+позволяет просто записывать последовательные сравнения в одной строке: 
+<pre>    testchain ()		# string OP string OP string ...<br>    {<br>	if [ $# -lt 3 ]; then<br>	    echo "Usage: testchain string OP string [OP string ...]"<br>	    return 2<br>	fi<br>	while [ $# -ge 3 ]; do<br>	    test "$1" "$2" "$3" || return 1<br>	    shift 2<br>	done<br>    }<br></pre>
+
+
+где 'OP' -- любой двоичный оператор, понимаемый командой <tt>test</tt>. Используется 
+функция наподобие команды <tt>test</tt>: 
+<pre>    testchain a '&lt;' c '&gt;' b<br>    testchain 1 -lt 3 -gt 2<br></pre>
+
+
+<h3>Заключение</h3>
+
+
+Исходный код шести функций командного интерпретатора, приведённых в этой статье, 
+доступен <a href="http://home.eol.ca/%7Eparkw/string.sh">здесь</a>. Чтобы использовать 
+их, просто укажите в начале скрипта: 
+<pre>    . string.sh<br></pre>
+
+
+В следующей статье, мы посмотрим как можно написать функции strcat(), strcpy(), 
+strlen() и strcmp() на языке C и скомпилировать как встроенные команды шелла. 
+И <em>это</em> будет введением в мой улучшенный командный интерпретатор Bash. 
+:-) 
+<p> 
+  <!-- *** BEGIN bio *** -->
+</p>
+
+
+<hr>
+<p> <img alt="[BIO]" src="park_files/note.png" class="bio" align="left"> 
+  <!-- 
+If the author has sent his pic, save it to the right directory
+and enable the line below.
+
+<img align="left" alt="[BIO]" src="../gx/authors/pic.jpg" class="bio">
+
+-->
+  <em> Я изучал Unix, используя Bourne shell. И, после моего путешествия сквозь 
+  множество языков, я сделал круг, вернувшись к шеллу. С недавних пор я занимаюсь 
+  разработкой новой функциональности Bash, которая делает его еще более опасным 
+  конкурентом других скриптовых языков. С самого начала я использовал дистрибутив 
+  Slackware, так как там я могу всё делать руками. Мои рабочие инструменты -- 
+  это Vim, Bash, Mutt, Tin, TeX/LaTeX, Python, Awk, Sed. Даже командная строка 
+  у меня находится в режиме Vi. </em> <br clear="all">
+
+
+  <!-- *** END bio *** -->
+  <!-- *** END author bio *** -->
+</p>
+
+
+<div id="articlefooter"> 
+  
+<p> Copyright &copy; 2004, William Park. Released under the <a href="http://linuxgazette.net/copying.html">Open 
+    Publication license</a>. Linux Gazette is not produced, sponsored, or endorsed 
+    by its prior host, SSC, Inc. </p>
+
+
+  
+<p> Published in Issue 108 of Linux Gazette, November 2004 </p>
+
+
+</div>
+
+
+</body>
+</html>

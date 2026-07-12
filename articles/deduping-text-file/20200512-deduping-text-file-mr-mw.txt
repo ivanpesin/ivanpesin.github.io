@@ -1,0 +1,10 @@
+rm fifo*txt
+for i in {0..4}; do perl -ne 'print $_ unless($a{$_}++)' >> fifo$i.txt <fifo$i & done
+time (for i in {0..5}; do <logs-popcount-org.txt perl -sne 'BEGIN{use Fcntl qw(:DEFAULT :flock);
+   $wrks=5;$step=int(25000000/6);$st=$p*$step;$end=$st+$step;
+   for $i (0..$wrks-1){open($fifos[$i],">./fifo$i");} }
+   $ln++;exit if($ln>$end);next unless($ln>$st);
+   $a[substr($_,0,2)%$wrks] .= $_;
+   if($ln%10000==0){for $c (0..$wrks-1){flock($fifos[$c],2);print {$fifos[$c]} $a[$c];flock($fifos[$c],LOCK_UN);$a[$c]="";}}
+   END{for $c (0..$wrks-1){flock($fifos[$c],2);print {$fifos[$c]} $a[$c];flock($fifos[$c],LOCK_UN);}
+   }' -- -p=$i & done; wait)

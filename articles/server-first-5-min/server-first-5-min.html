@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.10">
+<meta name="author" content="Ivan Pesin">
+<title>Первые 5 минут устранения неполадок на сервере</title>
+<link rel="stylesheet" href="./asciidoc-ip.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body class="article">
+<div id="header">
+<h1>Первые 5 минут устранения неполадок на сервере</h1>
+<div class="details">
+<span id="author" class="author">Ivan Pesin</span><br>
+<span id="revnumber">version 1.1,</span>
+<span id="revdate">2013-07-13</span>
+</div>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>First 5 Minutes Troubleshooting A Server by Vincent Viallet, 6 March 2013<br>
+Original post: <a href="http://devo.ps/blog/2013/03/06/troubleshooting-5minutes-on-a-yet-unknown-box.html" class="bare">http://devo.ps/blog/2013/03/06/troubleshooting-5minutes-on-a-yet-unknown-box.html</a></p>
+</div>
+<div class="paragraph">
+<p>Автор: Винсент Виалле<br>
+Translated by Ivan Pesin, July 2013</p>
+</div>
+<div id="toc" class="toc">
+<div id="toctitle" class="title">Содержание</div>
+<ul class="sectlevel1">
+<li><a href="#_Войдите_немного_в_контекст">Войдите немного в контекст</a></li>
+<li><a href="#_Кто_здесь">Кто здесь?</a></li>
+<li><a href="#_Что_делали_в_системе">Что делали в системе?</a></li>
+<li><a href="#_Что_запущено">Что запущено?</a></li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Когда наша команда еще занималась вопросами эксплуатации, оптимизации и масштабирования в
+<a href="http://wiredcraft.com/">предыдущей компании</a>, нам приходилось иметь дело с отладкой медленно работающих приложений и целых инфраструктур, часто большого размера (представьте CNN или the World Bank). Горящие сроки, экзотические стеки технологий и недостаток информации обычно гарантировали незабываемые впечатления.</p>
+</div>
+<div class="paragraph">
+<p>Причины неполадок редко были очевидными; ниже я привожу список шагов, с которых мы обычно начинали поиск проблемы.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_Войдите_немного_в_контекст"><a class="anchor" href="#_Войдите_немного_в_контекст"></a>Войдите немного в контекст</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Не спешите бросаться на сервера, сперва нужно выяснить, что уже известно о системе и специфике проблемы. Не стоит тратить время на поиск проблемы вслепую.</p>
+</div>
+<div class="paragraph">
+<p>Несколько обязательных вопросов, требующих ответа:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Какие конкретно наблюдаются симптомы? Подвисания? Ошибки?</p>
+</li>
+<li>
+<p>Когда проблема была замечена впервые?</p>
+</li>
+<li>
+<p>Воспроизводится ли она?</p>
+</li>
+<li>
+<p>Есть ли закономерность (например, происходит каждый час)?</p>
+</li>
+<li>
+<p>Какие были последние изменения в системе (код, сервисы, стек приложений)?</p>
+</li>
+<li>
+<p>Влияет ли проблема на определенную группу пользователей (авторизированных, не авторизированных, с общим географическим расположением&#8230;&#8203;)?</p>
+</li>
+<li>
+<p>Имеется ли документация на архитектуру (физическую и логическую)?</p>
+</li>
+<li>
+<p>Используется ли система мониторинга? Munin, Zabbix, Nagios, New Relic&#8230;&#8203; Подойдет любая.</p>
+</li>
+<li>
+<p>Ведется ли (централизированное) журналирование? Loggly, Airbrake, Graylog&#8230;&#8203;</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Последние два пункта представляют собой наиболее удобные источники информации, но не возлагайте на них больших надежд: как ни печально, именно мониторинг и журналирование часто отсутствуют. Если не повезло, сделайте заметку, что это нужно поправить, и двигайтесь дальше.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_Кто_здесь"><a class="anchor" href="#_Кто_здесь"></a>Кто здесь?</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>w
+<span class="gp">$</span><span class="w"> </span>last</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Не критично, но обычно не стоит заниматься устранением неполадок в системе, в то время когда с ней играются другие люди. На кухне достаточно одного повара.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_Что_делали_в_системе"><a class="anchor" href="#_Что_делали_в_системе"></a>Что делали в системе?</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">history</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Всегда полезно посмотреть на историю команд в комбинации с информацией о том, кто ранее заходил в систему. Не забывайте про ответственность: то, что вы администратор, не дает вам права нарушать чужую конфиденциальность.</p>
+</div>
+<div class="paragraph">
+<p>Маленькая заметка в уме на потом: можно задать переменную окружения <code>HISTTIMEFORMAT</code>, чтобы была возможность отслеживать время, когда выполнялись команды из истории. Нет ничего более раздражающего, чем анализ устаревшего списка команд, не имеющих отношения к проблеме&#8230;&#8203;</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_Что_запущено"><a class="anchor" href="#_Что_запущено"></a>Что запущено?</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>pstree <span class="nt">-a</span>
+<span class="gp">$</span><span class="w"> </span>ps aux</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Вывод <code>ps aux</code> содeржит, как правило, много подробной информации о процессах, тогда как <code>pstree -a</code> выводит наглядную и лаконичную картину запущенных процессов, вместе с родительской иерархией.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Version 1.1<br>
+Last updated 2020-08-27 15:12:20 +0300
+</div>
+</div>
+<link rel="stylesheet" href="./rouge-github.css">
+</body>
+</html>

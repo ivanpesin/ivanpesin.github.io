@@ -1,0 +1,227 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+  <head>
+
+    <title>[lg83]: Multi-Account E-mail with Mutt</title>
+    <meta
+     http-equiv="Content-Type"
+     content="text/html; charset=utf-8">
+    <link
+     rel="stylesheet"
+     href="../rus-lg.css"
+     type="text/css">
+  </head>
+
+  <body>
+    <table
+     align="center"
+     border="0"
+     cellspacing="0"
+     width="95%">
+      <tr>
+        <td
+         align="center">
+          <hr
+           noshade
+           size="2">
+
+          <p><strong>Использование нескольких учетных записей
+        электронной почты при работе с Mutt</strong><br>
+          <br>
+          Автор: (C) <a
+         href="../authors/klimkiewicz.html">Kamil
+        Klimkiewicz</a><br>
+          Перевод: (C) Иван Песин
+          </p>
+          <hr
+           noshade
+           size="2">
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+    <p>Приблизительно три или четыре месяца назад я перешел с Windows
+    на Linux. Я использовал Linux и до этого, но лишь как вторую, дополнительную
+    операционную систему. Когда же она стала "первичной", я столкнулся с
+    несколькими проблемами. Большинство из них я быстро решил. Но была
+    среди них одна, решение которой вызвало много трудностей -- у меня
+    были три учетных записи электронной почты.</p>
+
+    <p>Пользователь Windows может сказать: &quot;Загрузите какой-нибудь
+    почтовый клиент и настройте его на использование нескольких учетных
+    записей.&quot; Но есть то, что называется &#39;философией Unix&#39;.
+    Она говорит нам, что программист должен написать маленькую
+    программу, которая будет делать единственную задачу, но делать ее
+    хорошо. Что это значит для нас? Это значит, что нет единой утилиты,
+    которая загружает почту с сервера, позволяет ее читать и писать
+    письма <span class="comm-transl">(это, безусловно, не совсем так. --
+    <em>Прим.пер.</em>)</span>.</p>
+
+    <p>В этой короткой статье я покажу вам только то, как настроить утилиты
+    <em>fetchmail</em> и <em>mutt</em>. Если вы заинтересованы в более
+    детальной информации по данной теме, то вам следует прочесть:</p>
+
+    <ul>
+      <li>Mail-Administrator-HOWTO,</li>
+
+      <li>Mail-User-HOWTO.</li>
+    </ul>
+
+    <p>Эти документы можно получить на сайте <a
+     href="http://www.linuxdoc.org">http://www.linuxdoc.org</a>.</p>
+
+    <h2>1. Обстановка</h2>
+
+    <p>Давайте определим нашу почтовую &quot;обстановку&quot;: у нас
+    имеется три почтовых аккаунта, каждый из которых, размещен на
+    каком-то сервере. Назовем их &quot;First&quot;, &quot;Second&quot;
+    и &quot;Third&quot;. Соответствующими адресами будут:
+    first@firstdomain.com, second@seconddomain.com,
+    third@thirddomain.com. Более того, доступ к первой учетной записи
+    должен происходить по протоколу IMAP, в то время как к остальным --
+    по POP3.</p>
+
+    <p>Локальный пользователь, который должен получать всю почту,
+    называется &#39;john&#39;. Нам нужно установить новое значение для
+    переменной окружения $MAIL, поскольку мы не собираемся использовать
+    ее значение по умолчанию &#39;/var/spool/mail/john&#39; (это
+    небезопасно и не очень удобно). Чтобы сделать это, нам необходимо
+    добавить следующие строки в файл .bash_profile (естественно, если
+    вы используете другую оболочку, вам нужно будет изменить
+    соответствующим образом другой файл):</p>
+<pre>
+MAIL=$HOME/Mail/Inbox
+export MAIL
+</pre>
+
+    <p>(Не забудьте создать каталог &#39;$HOME/Mail&#39;!.) Мы также
+    используем дополнительные почтовые ящики для чтения сообщений (для
+    каждой учетной записи назначен свой почтовый ящик.)</p>
+
+    <h2>2. Fetchmail</h2>
+
+    <p>Перед тем, как прочесть нашу почту, ее нужно загрузить с
+    сервера. Для этого мы используем утилиту, которая называется
+    <strong>fetchmail</strong>. Она должна быть уже установлена в вашей
+    системе.</p>
+
+    <p>Настройка программы fetchmail -- очень простая задача. Кроме того,
+    можно использовать утилиту &#39;fetchmailconf&#39;, которая делает
+    настройку еще более простой. Файл настроек, который нужно править --
+    это <em>HOME/.fetchmailrc</em>. В подходящем нам варианте он
+    выглядит таким образом:</p>
+<pre>
+set postmaster &quot;john&quot;
+set bouncemail
+set properties &quot;&quot;
+set daemon 300
+poll First via firstdomain.com
+ with proto IMAP
+       user first there with password тут_должен_быть_пароль is john here warnings 3600
+
+poll Second via seconddomain.com
+ with proto POP3
+       user second there with password тут_должен_быть_пароль is john here warnings 3600
+
+poll Third via thirddomain.com
+ with proto POP3
+       user third there with password тут_должен_быть_пароль is john here warnings 3600
+</pre>
+
+    <p>Для запуска fetchmail просто введите <em>fetchmail</em> в командной строке. Программа
+    запустится в режиме демона и будет проверять почту каждые 5
+    минут.</p>
+
+    <h2>3. Mutt</h2>
+
+    <p>Теперь наша почта находится у нас на машине и ее можно прочесть
+    любым почтовым агентом. Я предполагаю, что это <em>mutt</em>,
+    потому что эта статья связана именно с ним.</p>
+
+    <p>Перед работой Mutt требует настройки. Сперва нужно добавить
+    некоторые основные установки в его конфигурационный файл (обычно он
+    называется <em>$HOME/.muttrc</em>.) Они могут выглядеть таким
+    образом:</p>
+<pre>
+set mbox = &quot;~/Mail/Inbox&quot;
+set move = no
+set folder = &quot;~/Mail&quot;
+set record = +Sent
+mailboxes +Inbox +First +Second +Third
+</pre>
+
+    <p>Это все, что нужно для чтения почты, но все исходящие письма в
+    поле <em>From</em> будут содержать что-то вроде
+    <em>john@localhost</em> . Нам нужна возможность изменять
+    отправителя так, чтобы сообщение выглядело посланным от
+    <em>firstdomain.com</em> или <em>seconddomain.com</em> или любого
+    другого вашего домена.</p>
+
+    <p>Чтобы достичь этого, мы будем использовать дополнительные
+    почтовые ящики (First, Second и Third) и так называемый
+    <em>hooks</em>-механизм mutt. Этот механизм позволяет при каком-либо
+    действии выполнять заданные пользователем команды. Существует
+    <em>folder-hook</em>, который вызывается каждый раз, когда
+    пользователь меняет почтовую папку (при помощи клавиши
+    &#39;c&#39;.) Для изменения поля <em>From</em>, нам нужно
+    модифицировать переменные mutt <em>from</em> и <em>realname</em>
+    :</p>
+<pre>
+# Действие по умолчанию:
+folder-hook . set from = first@firstdomain.com
+folder-hook . set realname = First
+# аккаунт First:
+folder-hook First set from = first@firstdomain.com
+folder-hook First set realname = First
+# аккаунт Second:
+folder-hook Second set from = second@seconddomain.com
+folder-hook Second set realname = Second
+# аккаунт Third:
+folder-hook Third set from = third@thirddomain.com
+folder-hook Third set realname = Third
+</pre>
+
+    <p>Нужно еще определить переменную <em>alternates</em>, чтобы
+    mutt мог узнать сообщения, посланные нами или от нас:</p>
+<pre>
+set alternates = &quot;first@firstdomain\.com|second@seconddomain\.com|third@thirddomain\.com&quot;
+</pre>
+
+    <p><strong>Примечание:</strong>Существует Web-утилита, которая называется
+    <em>MuttrcBuilder</em>и доступна по адресу <a
+     href="http://mutt.netliberte.org">http://mutt.netliberte.org</a>.
+    Ее можно использовать для более легкой настойки mutt.</p>
+
+          <hr
+           noshade
+           size="2">
+    <p align="center"><small><strong>Copyright (С) 2002, Kamil
+           Klimkiewicz.<br>
+	    Copying license <a
+     href= "http://www.linuxgazette.com/copying.html">
+           http://www.linuxgazette.com/copying.html </a><br>
+     Published in Issue 83 of <em>Linux Gazette</em>, October
+    2002</strong></small></p>
+        </td>
+      </tr>
+
+      <tr>
+        <td
+         align="center">
+          <hr
+           noshade
+           size="2">
+          <a
+           href="http://gazette.linux.ru.net">Вернуться на главную
+          страницу</a> 
+          <hr
+           noshade
+           size="2">
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
+

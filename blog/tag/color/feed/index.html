@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>color &#8211; Ivan Pesin</title>
+	<atom:link href="/blog/tag/color/feed/" rel="self" type="application/rss+xml" />
+	<link>https://pesin.space/blog</link>
+	<description>Articles &#38; Translations</description>
+	<lastBuildDate>
+	Wed, 19 Oct 2016 02:08:18 +0000	</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=5.1.1</generator>
+	<item>
+		<title>Как выключить цветовую подсветку в vi или vim из Red Hat Enterprise Linux</title>
+		<link>/blog/2009/05/%d0%ba%d0%b0%d0%ba-%d0%b2%d1%8b%d0%ba%d0%bb%d1%8e%d1%87%d0%b8%d1%82%d1%8c-%d1%86%d0%b2%d0%b5%d1%82%d0%be%d0%b2%d1%83%d1%8e-%d0%bf%d0%be%d0%b4%d1%81%d0%b2%d0%b5%d1%82%d0%ba%d1%83-%d0%b2-vi-%d0%b8%d0%bb/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=%25d0%25ba%25d0%25b0%25d0%25ba-%25d0%25b2%25d1%258b%25d0%25ba%25d0%25bb%25d1%258e%25d1%2587%25d0%25b8%25d1%2582%25d1%258c-%25d1%2586%25d0%25b2%25d0%25b5%25d1%2582%25d0%25be%25d0%25b2%25d1%2583%25d1%258e-%25d0%25bf%25d0%25be%25d0%25b4%25d1%2581%25d0%25b2%25d0%25b5%25d1%2582%25d0%25ba%25d1%2583-%25d0%25b2-vi-%25d0%25b8%25d0%25bb</link>
+				<pubDate>Sun, 24 May 2009 09:24:05 +0000</pubDate>
+		<dc:creator><![CDATA[ivan]]></dc:creator>
+				<category><![CDATA[RedHat KB]]></category>
+		<category><![CDATA[color]]></category>
+		<category><![CDATA[configuration]]></category>
+		<category><![CDATA[getting_started]]></category>
+		<category><![CDATA[highlight]]></category>
+		<category><![CDATA[rhel_basics]]></category>
+		<category><![CDATA[vim]]></category>
+
+		<guid isPermaLink="false">http://www.n-ix.com/ipesin/?p=19</guid>
+				<description><![CDATA[Copyright (c) 2009 by Red Hat, Inc. This material may be distributed only subject to the terms and conditions set forth in the Open Publication License, v1.0 or later (available at http://www.opencontent.org/openpub/). Original article: http://kb.redhat.com/faq/docs/DOC-6899.pdf Translated by Ivan Pesin, May 2009 Система: Red Hat Enterprise Linux, все версии Проблема: В Red Hat Enterprise Linux команда [&#8230;]]]></description>
+								<content:encoded><![CDATA[<p id="top" />
+<div class="copyright">Copyright (c) 2009 by Red Hat, Inc. This material may be distributed only subject to the terms and conditions set forth in<br />
+the Open Publication License, v1.0 or later (available at http://www.opencontent.org/openpub/).<br />
+Original article: <a href="http://kb.redhat.com/faq/docs/DOC-6899.pdf">http://kb.redhat.com/faq/docs/DOC-6899.pdf</a></p>
+<p>Translated by Ivan Pesin, May 2009</p></div>
+<p><strong>Система</strong>: Red Hat Enterprise Linux, все версии</p>
+<p><strong>Проблема:</strong> В Red Hat Enterprise Linux команда vi является псевдонимом текстового редактора vim, улучшенной версии <span class="jive-noformat-content">vi</span>. Некоторым людям не нравится цветной вариант и подсветка в <span class="jive-noformat-content">vim</span> и они хотят того же стиля, как в старом <span class="jive-noformat-content">vi</span>.</p>
+<p><strong><span>Решение:</span></strong></p>
+<p>Самый простой способ решения этой проблемы &#8212; выключить синтаксическую подсветку в vim. Введите следующую команду в vim для отключения синтаксической подсветки:</p>
+<blockquote><p><code>:syntax off</code></p></blockquote>
+<p style="padding: 0px; min-height: 8pt; height: 8pt;">
+<p>Если вы захотите опять включить цвета и подсветку, просто введите:</p>
+<blockquote><p><code> :syntax on</code></p></blockquote>
+<p><strong>Примечание:</strong> если вы хотите, чтобы запрет подсветки синтаксиса сохранялся при последующих запусках <span class="jive-noformat-content">vim</span> для данной учётной записи, вы можете отредактировать файл <strong><span class="jive-noformat-content">.vimrc</span></strong> в домашнем каталоге пользователя.</p>
+<p>Выполните команду:</p>
+<blockquote><p><code>vi ~/.vimrc</code></p></blockquote>
+<p>Добавьте следующую строку в файл <strong><span class="jive-noformat-content">.vimrc</span></strong>, чтобы запретить подсветку синтаксиса для текущей учётной записи:</p>
+<blockquote><p><code>syntax off</code></p></blockquote>
+<p>Если вы захотите вернуть обратно синтаксическую подсветку в <span class="jive-noformat-content">vim</span>, укажите &#8220;syntax on&#8221;.</p>
+<p>vim &#8212; программа с богатым набором настроек. Вы даже можете создавать собственные наборы цветовых схем и синтаксических подсветок. Подробная информация о возможностях vim доступна в документации, которую можно прочесть, введя в редакторе команды:</p>
+<blockquote><p><code>:help<br />
+:help syntax </code></p></blockquote>
+]]></content:encoded>
+										</item>
+	</channel>
+</rss>

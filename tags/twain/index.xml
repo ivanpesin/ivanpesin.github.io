@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>twain on Articles, Translations, and Blog</title>
+    <link>http://pesin.space/tags/twain/</link>
+    <description>Recent content in twain on Articles, Translations, and Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 07 Mar 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://pesin.space/tags/twain/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Opinion</title>
+      <link>http://pesin.space/posts/2020-03-07-twain/</link>
+      <pubDate>Sat, 07 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2020-03-07-twain/</guid>
+      <description>  Reason never changed a man&amp;rsquo;s opinion which by reason he never acquired. Mark Twain   </description>
+    </item>
+    
+  </channel>
+</rss>

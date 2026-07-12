@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Ivan Pesin | 
+      Review: Getting started with Docker and containers
+      </title>
+    <meta name="description" content="">
+
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/custom.css">
+    
+    
+    
+    
+
+    
+    <meta property="og:locale" content="en_US">
+    <meta property="og:title" content="Review: Getting started with Docker and containers">
+    
+    <meta property="og:description" content="Articles, Translations, and Blog">
+    <meta property="og:site_name" content="Ivan Pesin">
+
+  </head>
+
+
+<body>
+  <nav class="navbar navbar-default">
+    <div class="container">
+      
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        
+        <a class="navbar-brand" href="/">Articles, Translations, and Blog</a>
+      </div>
+  
+      
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="/posts/">Blog</a></li>
+            <li><a href="/photos/">Photos</a></li>
+            <li><a href="/#articles-translations">Articles & Translations</a></li>
+            <li><a href="/talks/">Talks</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Links <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="/phonetic-alphabet">Phonetic Alphabet</a></li>
+                <li><a href="/emoji">Emoji shortcuts</a></li>
+                <li><a href="/vim-cheatsheet">VIM cheatsheet</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="/articles/kb/">Assorted tips&trciks</a></li>
+              </ul>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+  <div class="container">
+    <article>
+      
+
+    <div class="row">
+        <div class="col-md-9">
+
+        <div class="text-muted">
+    November 7, 2018
+</div>
+<h2 class="title" style="margin-top: 0">Review: Getting started with Docker and containers</h2>
+<div>
+     
+     <span class="text-muted">&sect;
+     
+             <a href="/categories/tech/">tech</a>
+    </span>
+
+    &nbsp;&nbsp;&nbsp;<span class="text-muted"> # 
+    
+      <a href="/tags/lisa/">lisa</a>
+      <span class="separator">•</span>
+      <a href="/tags/conf/">conf</a>
+      <span class="separator">•</span>
+      <a href="/tags/docker/">docker</a>
+      <span class="separator">•</span>
+      <a href="/tags/figlet/">figlet</a>
+      <span class="separator">•</span>
+      <a href="/tags/ascii/">ascii</a>
+      <span class="separator">•</span>
+      <a href="/tags/asciiart/">asciiart</a>
+      <span class="separator">•</span>
+      <a href="/tags/review/">review</a>
+    </span>
+
+</div>
+
+
+        <div style="margin-top: 10px">
+        
+
+        <div class="bs-callout bs-callout-info">
+    This is the LISA2017 conference talk review I wrote for
+<a href="https://www.usenix.org/blog/review-disaster-recovery">their official blog</a>. Just saving a copy here in case they decide to rework their blog and content disappears or something.
+</div>
+<p>Submitted by ipesin on November 1, 2017 - 3:38 pm</p>
+<p>What makes a good conference so special? With vast amounts of information available virtually on any topic imaginable at a click’s distance, would it not be more efficient to spend time in comfortable home setting learning new technology?</p>
+<p>Jérôme Petazzo’s <a href="https://www.usenix.org/conference/lisa17/training-program/session/getting-started-docker-and-containers">“Getting Started with Docker and Containers”</a> tutorial at <a href="https://www.usenix.org/conference/lisa17">LISA17</a> was a great example of the fact that despite all the online content and self-paced trainings, an outstanding lecturer can pass on a whole lot more information in limited amount of time than you could possibly hope to learn on your own. What is even more important, by listening to a person keen on the topic, you often pick up the same excitement yourself.</p>
+<p>That was definitely the case with me. Containers are not a new concept under the sun: <a href="https://openvz.org/">OpenVZ</a> container technology is more than a decade old. In 2008, I led an effort at a firm where I worked back then to introduce containers for infrastructure services like LDAP, DNS, NTP, etc. A year ago, a project required simulation of thousands of Puppet nodes and to do so with reasonable resources, I opted for <a href="https://linuxcontainers.org/lxd/">LXC/LXD</a> containers with great success.</p>
+<p>Being a long-time container user, however, Docker is something I was missing out on. For some odd reason, projects I have been working on lately do not leverage containers. I decided to catch up on it during LISA17. I did not anticipate how Jérôme’s training would affect me though.</p>
+<p>To start, training was packed with outstanding educational approaches. Participants received access to personal cloud Cocker instances. This meant no one needed to litter their laptops with files and binaries, training time was not spent on resolving issues with tools not being correctly installed. There was no wifi collapse, because instances were provisioned ahead of time, and everyone was using low-bandwidth ssh access to work with them.</p>
+<p>Next, Jérôme started to explain Docker capabilities and used <code>fidget</code> for that. This is a well known tool for generating nice renderings of text in ASCII art. I am using this tool to put hostnames or host functions in <code>/etc/motd</code>, so it is displayed when people log on to machines via <code>ssh</code>. The demo resonated with me so much, that an idea hatched in my mind how to improve the way I generate these titles for <code>/etc/motd</code>: a simple web application, that takes a font name and text as parameters and returns rendered ASCII caption. Then I could simply do a curl request during host provisioning or from Puppet and capture the output into <code>/etc/motd</code> file.</p>
+<p>Finally, you hardly can get such a holistic end-to-end explanation and demonstration of container pipeline online &ndash; from coding on a developer’s workstation, through the build and test process, to the deployment in production.</p>
+<p>My idea of a web app was so burning, that I simply went online during the first break and bought <a href="figlet.me">figlet.me</a> domain, then wrote <a href="https://github.com/ivanpesin/figlet.me">a simple web application</a> in Go which takes parameters in URL and sends rendering back:</p>
+<pre><code class="language-console" data-lang="console">$ curl localhost:8080/?text=LISA17
+
+#       ###  #####     #      #   #######
+#        #  #     #   # #    ##   #    # 
+#        #  #        #   #  # #       #  
+#        #   #####  #     #   #      # 
+#        #        # #######   #     # 
+#        #  #     # #     #   #     #  
+####### ###  #####  #     # #####   # 
+</code></pre><p>The only remaining thing was to put knowledge from the training to use and build a container with this application. In the evening I wrote a multistage <a href="https://github.com/ivanpesin/figlet.me/blob/master/Dockerfile">Dockerfile</a>, pushed it to Docker Hub, and then started it on a Docker host. Just 3 hours of training and not only I was able to set up the whole Docker development pipeline, I wanted to do it!</p>
+<p>Now the web service is available for everyone to use (<a href="http://figlet.me/?font=slant&amp;text=bonjour">give it a try</a>):</p>
+<pre><code class="language-console" data-lang="console">$ curl -d &quot;font=slant&quot; -d &quot;text=USENIX LISA17 San Francisco&quot; http://figlet.me/
+
+   __  _______ _______   _______  __    __    _________ ___   ________
+  / / / / ___// ____/ | / /  _/ |/ /   / /   /  _/ ___//   | &lt;  /__  /
+ / / / /\__ \/ __/ /  |/ // / |   /   / /    / / \__ \/ /| | / /  / / 
+/ /_/ /___/ / /___/ /|  // / /   |   / /____/ / ___/ / ___ |/ /  / /   
+\____//____/_____/_/ |_/___//_/|_|  /_____/___//____/_/  |_/_/  /_/   
+   
+                                                                      
+   _____                ______                      _                 
+  / ___/____ _____     / ____/________ _____  _____(_)_____________   
+  \__ \/ __ `/ __ \   / /_  / ___/ __ `/ __ \/ ___/ / ___/ ___/ __ \  
+ ___/ / /_/ / / / /  / __/ / /  / /_/ / / / / /__/ (__  ) /__/ /_/ /  
+/____/\__,_/_/ /_/  /_/   /_/   \__,_/_/ /_/\___/_/____/\___/\____/   
+</code></pre><pre><code class="language-console" data-lang="console">$ curl -d &quot;font=straight&quot; -d &quot;text=USENIX LISA17 San Francisco&quot; figlet.me
+
+     __ __               __        ___   __         __                 
+/  \(_ |_ |\ ||\_/  |  |(_  /\  /|   /  (_  _  _   |__ _  _  _. _ _ _  
+\__/__)|__| \||/ \  |__|__)/--\  |  /   __)(_|| )  || (_|| )(_|_)(_(_) 
+</code></pre><p>Would I do this if I watched YouTube video of a lecture sitting at home? Frankly, I doubt it. And this is why LISA is so special.</p>
+
+
+        </div>
+    </div>
+</div>
+
+
+    </article>
+
+    <hr>
+<div class="text-muted text-center small">
+    <i>
+        &mdash; `If you knew Time as well as I do,' said the Hatter, `you wouldn't talk about wasting IT. It's HIM.'
+    </i>
+</div>
+<div class="text-muted text-center m-20 small">
+<samp>$ Last updated: Feb 7, 2021 at 13:38 (EET) $</samp>
+</div>
+  </div>
+      
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+    
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+  
+  
+
+</body>
+
+</html>

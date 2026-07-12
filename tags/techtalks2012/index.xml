@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>techtalks2012 on Articles, Translations, and Blog</title>
+    <link>http://pesin.space/tags/techtalks2012/</link>
+    <description>Recent content in techtalks2012 on Articles, Translations, and Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 19 Apr 2012 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://pesin.space/tags/techtalks2012/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Завершальна презентація циклу лекцій у Львівський Політехніці</title>
+      <link>http://pesin.space/posts/2012-04-19-final-talk-nulp/</link>
+      <pubDate>Thu, 19 Apr 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2012-04-19-final-talk-nulp/</guid>
+      <description>Завершальна презентація циклу лекцій у Львівський Політехніці, що ми показали 18 квітня 2012 року.
+ Повнорозмірна версія презентації.</description>
+    </item>
+    
+    <item>
+      <title>Презентація з лекції “SQL. Основи Темної Магії. Не SQL.”</title>
+      <link>http://pesin.space/posts/2012-04-05-sql/</link>
+      <pubDate>Thu, 19 Apr 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2012-04-05-sql/</guid>
+      <description>Привіт!
+Презентація з лекції “SQL. Основи Темної Магії. Не SQL.”, яку читала Леся Гой у Львівський Політехніці в середу, 4 квітня.</description>
+    </item>
+    
+    <item>
+      <title>Презентація з лекції “Чистий код”</title>
+      <link>http://pesin.space/posts/2012-04-19-clean-code/</link>
+      <pubDate>Thu, 19 Apr 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2012-04-19-clean-code/</guid>
+      <description>Презентація з лекції “Чистий код”, яку читала Іра Заяць у Львівський Політехніці 18 квітня.
+ Повнорозмірна версія презентації.</description>
+    </item>
+    
+    <item>
+      <title>Презентація з лекції &#34;По дорозі з хмарками&#34;</title>
+      <link>http://pesin.space/posts/2012-03-16-clouds/</link>
+      <pubDate>Fri, 16 Mar 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2012-03-16-clouds/</guid>
+      <description>&lt;p&gt;Всім привіт!&lt;/p&gt;
+&lt;p&gt;Викладаю презентацію до лекції “По дорозі з хмарками”, якою я читав у Львівській Політехніці 14-го березня. Нажаль, через технічні проблеми з проектором мені не вдалося показати все, що я планував. Однак я сподіваюся, що зможу включити цю частину у іншу свою лекцію про системне адміністрування.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Презентація з лекції “Ruby on Rails”</title>
+      <link>http://pesin.space/posts/2012-02-24-ror/</link>
+      <pubDate>Fri, 24 Feb 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2012-02-24-ror/</guid>
+      <description>&lt;p&gt;Привіт!&lt;/p&gt;
+&lt;p&gt;Презентація з лекції “Ruby on Rails”, яку читала Іра Заяць у Львівський Політехніці в середу, 22 лютого.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Презентація з лекції “Роздуми про критичне мислення”</title>
+      <link>http://pesin.space/posts/2012-02-23-critica-thinking/</link>
+      <pubDate>Thu, 23 Feb 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2012-02-23-critica-thinking/</guid>
+      <description>&lt;p&gt;Всім привіт!&lt;/p&gt;
+&lt;p&gt;Викладаю презентацію до лекції “Роздуми про критичне мислення”, якою ми відкривали цикл наших лекцій у Львівській Політехніці 1-го лютого.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Презентація з лекції “Магія SQL”</title>
+      <link>http://pesin.space/posts/2012-02-16-sql-magic/</link>
+      <pubDate>Thu, 16 Feb 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2012-02-16-sql-magic/</guid>
+      <description>&lt;p&gt;Привіт!&lt;/p&gt;
+&lt;p&gt;Презентація з лекції “Магія SQL”, яку читала Леся Гой у Львівський Політехніці в середу, 15 лютого.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Лекція “За лаштунками співбесіди”</title>
+      <link>http://pesin.space/posts/2012-02-08-interviews/</link>
+      <pubDate>Wed, 08 Feb 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2012-02-08-interviews/</guid>
+      <description>&lt;p&gt;Всім привіт!&lt;/p&gt;
+&lt;p&gt;Викладаю презентацію до лекції “За лаштунками співбесіди”, яку я читав у Львівській Політехніці.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

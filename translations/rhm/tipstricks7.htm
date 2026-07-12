@@ -1,0 +1,403 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+
+  
+
+
+  
+  <title>RedHat Magazine Tips &amp; Tricks 7</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+
+  
+  <style type="text/css">
+<!--
+code {
+font-weight: bold;
+font-size: x-small;
+}
+h1 {
+color: #660000;
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-size: 24px;
+}
+pre {
+padding-top: 10pt;
+padding-bottom: 10pt;
+padding-left: 5px;
+border: 1px solid;
+}
+.byline {
+color: #666666;
+}
+h2 {
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-size: medium;
+}
+h3 {
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-size: small;
+}
+p {
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-size: small;
+}
+ul {
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-size: x-small;
+}
+h4 {
+font-family: Arial, Helvetica, sans-serif;
+font-size: x-small;
+}
+-->
+  </style>
+  
+  <style type="text/css">
+<!--
+.rhceInner {
+background-color: #CECeCe;
+border: 1px solid;
+margin: 0px;
+text-indent: 0pt;
+padding: 5px;
+}
+-->
+  </style>
+</head>
+
+
+<body>
+
+
+<h1 id="tipstricks">Tips &amp; Tricks</h1>
+
+
+<p>This article is protected by the <a href="http://www.opencontent.org/openpub/">Open Publication
+License, V1.0 or later</a>. Copyright &copy; 2005 by Red Hat,
+Inc.<br>
+
+
+Original article: <a href="http://www.redhat.com/magazine/007may05/departments/tips_tricks/">http://www.redhat.com/magazine/007may05/departments/tips_tricks/</a></p>
+
+
+<h4> <a href="http://www.redhat.com/magazine/007may05/departments/tips_tricks/">Red
+Hat Magazine, выпуск 7, май 2005</a></h4>
+
+
+<p>Перевод: &copy; Иван Песин</p>
+
+
+<p>Раздел "Tips &amp; Tricks" этого месяца посвящён основной
+теме выпуска <cite>Open source: Узнай свои права</cite>, а
+также включает некоторые старые и хорошие приёмы системных
+администраторов. </p>
+
+
+<a name="rhce"></a>
+<div id="RHCEtip">
+<h1 id="rhcetips">Советы от RHCE</h1>
+
+
+<div class="rhceInner">
+<h2>Существуют ли способы считывания файла kickstart не с дискеты
+и не по сети?</h2>
+
+
+<h4 class="byline">Брайн Ривз (Bryn Reeves), RHCE</h4>
+
+
+<p>Большинство администраторов Red Hat знакомы с возможностью
+kickstart инсталлятора Anaconda, которая позволяет задавать параметры
+установки с помощью обычного текстового файла, вместо интерактивной
+работы с графическим инсталлятором системы. Использование этой
+возможности для автоматической установки на большого количества
+компьютеров позволяет сэкономить огромное количество времени и сил. </p>
+
+
+<p> Многие также знают, что файлы kickstart могут считываться с
+дискет и с сетевых ресурсов по протоколам FTP и HTTP (в том числе, при
+помощи CGI). И хотя обе эти возможности по своему полезны, есть и
+несколько других, которые могут быть очень удобными в определенных
+ситуациях. </p>
+
+
+<p> Режим kickstart активируется командой <code>linux ks</code>,
+указанной в ответ на приглашение <code>boot:</code>. В
+результате инсталлятор запускается в режиме kickstart с настройками
+по-умолчанию, сетевые интерфейсы настраиваются с помощью DHCP, а файл
+kickstart загружается по NFS. Однако, можно указать и некоторые
+параметры, которые переопределяют, откуда следует загружать файл. </p>
+
+
+<p> Доступные параметры: </p>
+
+
+<ul>
+
+
+  <li>ks</li>
+
+
+  <li>ks=nfs:&lt;сервер&gt;:/&lt;путь&gt;</li>
+
+
+  <li>ks=http://&lt;сервер&gt;/&lt;путь&gt;</li>
+
+
+  <li>ks=floppy</li>
+
+
+  <li>ks=floppy:/&lt;путь&gt;</li>
+
+
+  <li>ks=hd:&lt;устройство&gt;:/&lt;файл&gt;</li>
+
+
+  <li>ks=file:/&lt;файл&gt;</li>
+
+
+  <li>ks=cdrom:/&lt;путь&gt;</li>
+
+
+</ul>
+
+
+<p> Большинство этих параметры достаточно самоописательны. За
+подробным описанием, обратитесь к главе <cite><a href="http://www.redhat.com/docs/manuals/enterprise/RHEL-4-Manual/sysadmin-guide/ch-kickstart2.html">Kickstart
+Installations</a></cite> Руководства системного
+администратора <cite>Red Hat Enterprise Linux System
+Administration Guide</cite>. </p>
+
+
+<p> Параметры особенно полезны, когда используются для достижения
+различного поведения инсталлятора. Попробуйте, например, следующее: </p>
+
+
+<ul style="margin-top: 0pt; margin-bottom: 0pt;">
+
+
+  <li style="margin-top: 0pt; margin-bottom: 0pt;">Создайте
+раздел ext2 размером 5GB и запишите туда инсталляционные ISO-образы.
+Скопируйте туда же файл kickstart. Если вы создали раздел <code>hda2</code>,
+то теперь можно использовать в вашем файле kickstart команду:</li>
+
+
+</ul>
+
+
+<pre style="margin-top: 0pt; margin-left: 30px; width: 450px;">harddrive --partition=hda2 --dir=/path/to/isos</pre>
+
+
+<ul style="margin-bottom: 0pt;">
+
+
+  <li style="margin-bottom: 0pt;">Для установки с раздела,
+который может быть внешним носителем, таким как, например, USB-диск,
+укажите следующую команду в приглашении <code>boot:</code>
+:</li>
+
+
+</ul>
+
+
+<pre style="margin-top: 0pt; margin-left: 30px; width: 450px;">linux ks=hd:hda2:/mykickstart.cfg</pre>
+
+
+</div>
+
+
+<!-- end rhceInner --></div>
+
+
+<!-- end RHCEtip -->
+<h2>Распространяет ли Red Hat программное обеспечение по лицензии
+отличной от GPL?</h2>
+
+
+<h4 class="byline">Рауль Сандерем (Rahul Sundaram)</h4>
+
+
+<p> Большинство программного обеспечения, распространяемого Red
+Hat использует лицензию GNU General Public License (GPL). Однако, Red
+Hat включает и другое ПО с открытым исходным кодом, доступное под
+разными лицензиями. Среди них можно отметить, например, GNU Lesser
+General Public License (LGPL) (вариант лицензии GPL), исправленную
+лицензию BSD и лицензию MIT. </p>
+
+
+<h2>В чем разница между лицензией GPL и общественным достоянием?</h2>
+
+
+<h4 class="byline">Рауль Сандерем (Rahul Sundaram)</h4>
+
+
+<p> Широко распространено ошибочное мнение, что лицензии
+свободного ПО, такие как GPL, тоже самое что и прибывание в
+общественном достоянии. Тем не менее, есть ключевые различия между
+лицензиями свободного ПО и общественным достоянием.</p>
+
+
+<p> ПО, находящееся в общественном достоянии, это такое ПО,
+разработчики которого недвусмысленно отказались от своих прав,
+гарантированных законом об авторских правах. Это значит, что никто не
+может заявить о своих правах на это ПО и каждый может делать с этим ПО
+что угодно. </p>
+
+
+<p> Например, <a href="http://sqlite.org/copyright.html">sqlite</a>
+&mdash; встраиваемая база данных &mdash; является общественным
+достоянием. </p>
+
+
+<p> С другой стороны, лицензия GPL &mdash; это охраняемая
+авторским правом лицензия, разрешающая использование лишь с соблюдением
+всех своих положений. Однако, лицензия GPL уникальна тем, что её
+положения разработаны с целью защиты свобод пользователя, а не её
+ограничения. </p>
+
+
+<p> Примерами программного обеспечения, использующего лиценизию
+GPL, являются ядро Linux, основа любой ОС Linux, таких как Red Hat
+Enterprise Linux и Fedora Core. </p>
+
+
+<h2>Могу ли я изменять GPL ПО и включать его в проприетарное ПО?</h2>
+
+
+<h4 class="byline">Рауль Сандерем (Rahul Sundaram)</h4>
+
+
+<p> Вы можете изменять программное обеспечение, распространяемое
+под лицензией GPL и включать его в проприетарное ПО, но в этом случае
+не можете распространять его. Таким образом, конечный пользователь,
+который не занимается распространением, может делать с GPL ПО что
+угодно. Лицензия GPL не требует, чтобы все производные работы
+использовали лицензию GPL, а лишь те производные, которые будут
+распространятся. </p>
+
+
+<p> Вы можете вносить свои изменения в программное обеспечение
+под GPL и сохранять эксклюзивные права на свои правки до тех пор, пока
+вы не распространяете измененное ПО в исходной либо двоичной формах
+среди третьих сторон. </p>
+
+
+<h2>Как я могу ограничить доступ пользователей в систему через
+SSH?</h2>
+
+
+<h4 class="byline">Рауль Сандерем (Rahul Sundaram)</h4>
+
+
+<p> Иногда может быть небезопасно разрешать удаленных доступ для
+всех пользователей. Существует много способов ограничить удаленный
+доступ к системе. Можно, например, использовать PAM, IPwrappers или
+IPtables. Однако, проще всего ограничить доступ через SSH -- это
+соответствующе настроить демон SSH. </p>
+
+
+<p> Добавьте в конец файла <code>/etc/ssh/sshd_config</code>
+строку, аналогичную нижеприведенной: </p>
+
+
+<pre>AllowUsers [имяпользователя]<br></pre>
+
+
+<p> Где [имяпользователя] -- это имя пользователя, которому вы
+хотите разрешить доступ. Например: </p>
+
+
+<pre>AllowUsers joe<br></pre>
+
+
+<p> Эта директива определяет пользователей, которым разрешён
+доступ в систему через SSH. В примере, пользователь joe уже существует
+в системе. Несколько пользователей могут быть заданы через пробел. </p>
+
+
+<p> За дополнительной информацией и описанием опций, обратитесь к
+страницам руководства <code>sshd_config</code> и <code>sshd</code>
+с помощью команд <code>man sshd_config</code> и <code>man
+sshd</code>, соответственно. </p>
+
+
+<h2>Какие порты использует Samba?</h2>
+
+
+<h4 class="byline">Рауль Сандерем (Rahul Sundaram)</h4>
+
+
+<p> Ниже приведен список портов и протоколов, которые использует
+Samba: </p>
+
+
+<ul>
+
+
+  <li>Порт 137 (UDP) &mdash; Служба имен NetBIOS и <code>nmbd</code></li>
+
+
+  <li>Порт 138 (UDP) &mdash; Служба дейтаграмм NetBIOS</li>
+
+
+  <li>Порт 139 (TCP) &mdash; Совместное использование файлов
+и принтеров, и <code>smbd</code></li>
+
+
+  <li>Порт 445 (TCP) &mdash; NetBIOS стал использовать порт
+445 после 2000 и позже, (CIFS)</li>
+
+
+  <li>Порт 901 (TCP) &mdash; для SWAT</li>
+
+
+</ul>
+
+
+<p> <em>Внимание:</em> Использование Samba при
+работе через Internet может представлять опасность для безопасности
+системы. Системный администратор не должен открывать эти порты (для
+внешних сетей) без полного понимания возможных последствий. </p>
+
+
+<h2>Каково назначение и в чём разница между файлами pci.ids и
+pcitable?</h2>
+
+
+<h4 class="byline">Рауль Сандерем (Rahul Sundaram)</h4>
+
+
+<p> Файлы <code>pci.ids</code> и <code>pcitable</code>
+находятся в каталоге <code>/usr/share/hwdata/</code>. </p>
+
+
+<ul>
+
+
+  <li><code>pci.ids</code> представляет собой базу
+данных, которая связывает идентификаторы производителя PCI, устройства,
+класса с удобными для восприятия человеком названиями. Это проект
+SourceForge, используется утилитами подобными <code>lspci</code>,
+которая читает файл <code>/proc/pci</code> и говорит, что
+представляет собой каждое устройство.</li>
+
+
+  <li><code>pcitable</code> это файл, который
+используется практически исключительно Kudzu (и Anaconda). Он связывает
+теже идентификаторы PCI с именами модулей ядра. Kudzu (и Anaconda)
+используют этот файл для добавления соответствующих записей в файлы <code>/etc/modules.conf</code>
+и <code>/etc/modprobe.conf</code> так, что для
+обнаруженных PCI устройств будут установлены подходящие драйвера.</li>
+
+
+</ul>
+
+
+<!-- END OF TIPS AND TRICKS -->
+<p class="palenote">&nbsp;</p>
+
+
+</body>
+</html>

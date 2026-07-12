@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Ivan Pesin | 
+      Latency numbers every engineer should know
+      </title>
+    <meta name="description" content="">
+
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/custom.css">
+    
+    
+    
+    
+
+    
+    <meta property="og:locale" content="en_US">
+    <meta property="og:title" content="Latency numbers every engineer should know">
+    
+    <meta property="og:description" content="Articles, Translations, and Blog">
+    <meta property="og:site_name" content="Ivan Pesin">
+
+  </head>
+
+
+<body>
+  <nav class="navbar navbar-default">
+    <div class="container">
+      
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        
+        <a class="navbar-brand" href="/">Articles, Translations, and Blog</a>
+      </div>
+  
+      
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="/posts/">Blog</a></li>
+            <li><a href="/photos/">Photos</a></li>
+            <li><a href="/#articles-translations">Articles & Translations</a></li>
+            <li><a href="/talks/">Talks</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Links <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="/phonetic-alphabet">Phonetic Alphabet</a></li>
+                <li><a href="/emoji">Emoji shortcuts</a></li>
+                <li><a href="/vim-cheatsheet">VIM cheatsheet</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="/articles/kb/">Assorted tips&trciks</a></li>
+              </ul>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+  <div class="container">
+    <article>
+      
+
+    <div class="row">
+        <div class="col-md-9">
+
+        <div class="text-muted">
+    September 22, 2020
+</div>
+<h2 class="title" style="margin-top: 0">Latency numbers every engineer should know</h2>
+<div>
+     
+     <span class="text-muted">&sect;
+     
+             <a href="/categories/tech/">tech</a>
+    </span>
+
+    &nbsp;&nbsp;&nbsp;<span class="text-muted"> # 
+    
+      <a href="/tags/latency/">latency</a>
+      <span class="separator">•</span>
+      <a href="/tags/numbers/">numbers</a>
+    </span>
+
+</div>
+
+
+        <div style="margin-top: 10px">
+        
+
+        <p>I have been re-reading Tom Limoncelli&rsquo;s et al. <em>The Practice of Cloud System Administration</em> book (which is great and is well worth reading even 5 years after it has been published) and it has this wonderful reference table called <em>Latency Numbers Every Engineer/Programmer Should Know</em>. This table was popularized by Jeff Dean, and originally presented by Peter Norvig.</p>
+<p>I find it handy and wanted to copy it here, on my blog, but then realized it&rsquo;s almost a decade old as the data was from 2012. This made me do a little research (read: googling) to see how the decade affected the numbers listed. The answer: not much! The only noticeable changes are in disk and network performance thanks to better SSDs/NVMe and 10/100Gb networks.</p>
+<p>Which googling though I discovered two interesting bits though: some nice representations of data, and a <em>scaled</em> similar systems latency table from Brendan Gregg&rsquo;s <em>Systems Performance</em> book. Besides of nice scaling of the latency numbers, that table neatly arranges different subsystems by speed: cpu, memory, disk io, networking, and reboot times.</p>
+<p>I have added a scaling columns to the original latency table and updated numbers a bit in both tables to reflect current situations and putting them below for reference.</p>
+<h4 id="latency-numbers-every-engineer-should-know">Latency Numbers Every Engineer Should Know</h4>
+<pre>
+3GHz CPU cycle                     0.3 |   1 s    |
+L1 cache reference                 0.5 |   2 s    |    
+Branch mispredict                  3   |  10 s    |
+L2 cache reference                 5   |  20 s    | ~10x L1 cache
+Mutex lock/unlock                ~20   |   1 min  |
+Main memory reference            100   |   5 min  | 20x L2 cache, 200x L1 cache
+Compress 1K with Zippy         2,000   |   2 h    |
+Send 1K over 1Gbps network    10,000   |  10 h    | 10Gbps is 10x faster, duh
+Read 4K randomly from SSD    150,000   |   6 days | ~1GB/sec SSD
+Read 1 MB seq from memory    250,000   |  10 days |
+Round trip within same DC    500,000   |  20 days |
+Read 1 MB seq from SSD*    1,000,000   |   1 mo   | ~1GB/sec SSD, 4x memory
+Disk seek                 10,000,000   |  10 mo   | 20x DC roundtrip
+Read 1 MB seq from disk   20,000,000   |   2 yrs  | 80x memory, 20x SSD
+Send pkt CA->NL->CA      150,000,000   |  12 yrs  |
+                        |   |   | ns|  | ~scaled  |
+                        |   | us|
+                        | ms|
+</pre>
+<p>I have updated disk/net numbers with data from <a href="https://colin-scott.github.io/personal_website/research/interactive_latency.html">this handy site</a> which provides reference historical performance data over the last few decades.</p>
+<h4 id="example-time-scale-of-system-latencies">Example Time Scale of System Latencies</h4>
+<pre>
+3GHz CPU cycle                  0.3 ns  |   1 s    |
+L1 cache access                 0.5 ns  |   2 s    |    
+L2 cache access                 2.8 ns  |   9 s    |    
+L3 cache access                12.9 ns  |  43 s    |    
+Main memory access            120   ns  |   6 min  | 
+Solid-state disk IO       150,000   ns  |   6 days |
+Rotational disk IO             10   ms  |  12 mo   |
+Internet: SF to NY             40   ms  |   4 yrs  |
+Internet: SF to UK             80   ms  |   8 yrs  |
+Internet: SF to AU            185   ms  |  19 yrs  |
+TCP packet retransmit           3   s   | 317 yrs  |
+Container OS reboot             4   s   | 423 yrs  |
+SCSI command time-out          30   s   |  3k yrs  |
+VM reboot                      40   s   |  4k yrs  |
+Physical system reboot          5   min | 32k yrs  |
+</pre>
+<p>References:</p>
+<ul>
+<li><a href="http://norvig.com/21-days.html#answers">Peter Norvig&rsquo;s original source</a></li>
+<li><a href="https://gist.github.com/jboner/2841832">Latency Comparison Numbers (~2012)</a></li>
+<li><a href="https://stackoverflow.com/questions/47300647/python-real-time-streaming-data/47307727#47307727">Python: Real-Time Streaming Data</a></li>
+<li><a href="https://twitter.com/rzezeski/status/398306728263315456">Brendan Gregg&rsquo;s table 1</a> and <a href="https://twitter.com/piecalculus/status/459485747842523136">2</a></li>
+</ul>
+
+
+        </div>
+    </div>
+</div>
+
+
+    </article>
+
+    <hr>
+<div class="text-muted text-center small">
+    <i>
+        &mdash; `If you knew Time as well as I do,' said the Hatter, `you wouldn't talk about wasting IT. It's HIM.'
+    </i>
+</div>
+<div class="text-muted text-center m-20 small">
+<samp>$ Last updated: Feb 7, 2021 at 13:38 (EET) $</samp>
+</div>
+  </div>
+      
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+    
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+  
+  
+
+</body>
+
+</html>

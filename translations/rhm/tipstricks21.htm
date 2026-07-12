@@ -1,0 +1,1054 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+
+
+
+
+
+  
+  
+  
+  
+  <meta content="text/html; charset=utf-8" http-equiv="content-type">
+
+
+
+
+  
+
+
+  
+  
+  
+  
+  
+  
+  
+  <title>RedHat Magazine Tips &amp; Tricks 21</title>
+  <link rel="stylesheet" type="text/css" href="css/master.css">
+
+
+
+
+
+  
+  
+  
+  
+  <link rel="stylesheet" type="text/css" href="css/rhmag11.css">
+</head>
+
+
+<body>
+
+
+
+
+<div id="rhmagCenter">
+<div class="department">
+<h1 id="tipstricks">Tips &amp; tricks</h1>
+
+
+
+
+
+This article is protected by the <a href="http://www.opencontent.org/openpub/">Open Publication
+License, V1.0 or later</a>. Copyright &copy; 2005 by Red Hat,
+Inc.<br>
+
+
+
+
+
+<p>
+Original article: <a href="http://www.redhat.com/magazine/021jul06/departments/tips_tricks/">http://www.redhat.com/magazine/021jul06/departments/tips_tricks/</a></p>
+
+
+
+
+
+<h4> <a href="http://www.redhat.com/magazine/021jul06/departments/tips_tricks/">Red
+Hat Magazine, выпуск 21, июль 2006</a></h4>
+
+
+
+
+
+<p>Перевод: &copy; Иван Песин</p>
+
+
+
+
+
+<p>Служба поддержки пользователей Red Hat получает технические
+вопросы со
+всего мира. Специалисты Red Hat
+ежедневно добавляют полученные вопросы и ответы на них в базу
+знаний&nbsp;<a href="http://kbase.redhat.com/">Red Hat
+Knowledgebase</a>. Доступ к ней свободен для всех. Каждый месяц
+Red Hat Magazine знакомит
+читателей с&nbsp;<a href="http://kbase.redhat.com/">Red
+Hat Knowledgebase</a>, публикуя несколько самых свежих вопросов и
+ответов.</p>
+
+
+
+
+
+<a name="rhce"></a>
+<div id="RHCEtip">
+<h1 id="rhcetips">Советы от&nbsp;RHCE</h1>
+
+
+
+
+
+<div class="rhceInner">
+<h2>Совместное использование устройства горячего резерва в
+программном&nbsp;RAID</h2>
+
+
+
+
+
+<h3 class="byline">Форрест Тейлор (Forrest Taylor), Red
+Hat Certified
+Engineer&reg;</h3>
+
+
+
+
+
+<p>Задумывались ли вы когда-нибудь над возможностью совместного
+использования устройства горячего резерва двумя RAID-массивами? Вы можете реализовать такую схему, если запустить&nbsp;mdadm
+в режиме демона и настроить опрос ваших RAID-массивов.</p>
+
+
+
+
+
+<p>Давайте представим, что у нас есть два&nbsp;RAID-массива
+уровня 1 с одним устройством горячего резерва, настроенные следующим
+образом:</p>
+
+
+
+
+
+<pre>/dev/md0 RAID1<br>--<br>/dev/sda1<br>/dev/sdb1<br><br>/dev/md1 RAID1<br>--<br>/dev/sdc1<br>/dev/sdd1<br>/dev/sde1 (устройство горячего резерва)<br></pre>
+
+
+
+
+
+<p>Как видно, имеется массив&nbsp;/dev/md0, состоящий из двух
+устройств, и массив /dev/md1, состоящий из трех, причем&nbsp;/dev/sde1
+является устройством горячего резерва. Таким образом, мы хотим
+использовать, если&nbsp;возникнет необходимость, устройство /dev/sde1
+и для массива&nbsp;/dev/md0. Для этого, мы должны создать
+конфигурационный файл&nbsp;/etc/mdadm.conf и определить имя группы
+резерва.</p>
+
+
+
+
+
+<p>Начнем с перечисления всех устройств в файле&nbsp;/etc/mdadm.conf:</p>
+
+
+
+
+
+<pre>echo "DEVICE /dev/sda1 /dev/sdb1 /dev/sdc1 /dev/sdd1 /dev/sde1"<br><br>&gt;&gt; /etc/mdadm.conf<br></pre>
+
+
+
+
+
+<p>Запросим&nbsp;RAID-массивы об их параметрах и добавим эту информацию в файл:</p>
+
+
+
+
+
+<pre>mdadm -D -s &gt;&gt; /etc/mdadm.conf<br></pre>
+
+
+
+
+
+<p>Теперь&nbsp;файл /etc/mdadm.conf должен содержать примерно следующую информацию:</p>
+
+
+
+
+
+<pre># Caution, the ARRAY and UUID should be on the same line.<br><br>DEVICE /dev/sda1 /dev/sdb1 /dev/sdc1 /dev/sdd1 /dev/sde1<br>ARRAY /dev/md0 level=raid1 num-devices=2<br>UUID=29bc861f:6f1c72b0:162f7a88:1db03ffe<br>devices=/dev/sda1,/dev/sdb1<br>ARRAY /dev/md1 level=raid1 num-devices=2<br>UUID=aee2ae4c:ec7e4bab:51aefe40:9b54af78<br>devices=/dev/sdc1,/dev/sdd1,/dev/sde1<br></pre>
+
+
+
+
+
+<p>На данном этапе, нам нужно определить группу резерва для каждого
+массива. Имя не имеет значения, важно чтобы оно было одинаковым для
+всех массивов, которые должны совместно использовать устройства горячего
+резерва.</p>
+
+
+
+
+
+<p>Здесь мы назвали группу резерва&nbsp;"shared" и добавили ее определения к каждому массиву в файле /etc/mdadm.conf:</p>
+
+
+
+
+
+<pre># Caution, the ARRAY and UUID should be on the same line.<br><br>DEVICE /dev/sda1 /dev/sdb1 /dev/sdc1 /dev/sdd1 /dev/sde1<br>ARRAY /dev/md0 level=raid1 num-devices=2<br>UUID=29bc861f:6f1c72b0:162f7a88:1db03ffe<br>devices=/dev/sda1,/dev/sdb1<br>spare-group=shared<br>ARRAY /dev/md1 level=raid1 num-devices=2<br>UUID=aee2ae4c:ec7e4bab:51aefe40:9b54af78<br>devices=/dev/sdc1,/dev/sdd1,/dev/sde1<br>spare-group=shared<br></pre>
+
+
+
+
+
+<p>Закончив с настройкой, можно запускать&nbsp;mdadm в режиме демона
+для опроса массивов. Если&nbsp;mdadm определит, что какое-либо
+устройство вышло из строя, то&nbsp;попытается найти, в&nbsp;той же группе резерва,&nbsp;массив
+с устройством горячего резерва. Если такой массив существует, mdadm
+переносит устройство горячего резерва в массив, которому оно
+необходимо. В нашем случае, если /dev/md0 потеряет
+устройства,&nbsp;mdadm найдет массив /dev/md1, в котором есть два
+штатных устройства и одно горячего резерва. Устройство горячего резерва
+будет перенесено в /dev/md0, после чего запустится процесс
+восстановления.</p>
+
+
+
+
+
+<p>Запустите&nbsp;mdadm в режиме демона для мониторинга массивов:</p>
+
+
+
+
+
+<pre>mdadm -F -s -m root@localhost -f<br></pre>
+
+
+
+
+
+<p>Интервал между опросами по-умолчанию равен 60 секундам, но может
+быть изменен с помощью опции&nbsp;-d (т.е.&nbsp;-d 300 установит
+интервал равным 5 минутам).</p>
+
+
+
+
+
+<p>Проверим нашу конфигурацию, убрав устройство из массива /dev/md0:</p>
+
+
+
+
+
+<pre>mdadm /dev/md0 -f /dev/sda1 -r /dev/sda1<br></pre>
+
+
+
+
+
+<p>При следующем опросе,&nbsp;mdadm должен определить, что&nbsp;/dev/md1
+имеет устройство горячего резерва, перенести&nbsp;/dev/sde1
+в массив /dev/md0 и запустить процесс его восстановления. После этого,
+вы можете добавить /dev/sda1 и оно станет вашим устройством горячего
+резерва:</p>
+
+
+
+
+
+<pre>mdadm /dev/md0 -a /dev/sda1<br></pre>
+
+
+
+
+
+</div>
+
+
+
+
+
+<comment title=" end rhceInner " xmlns="http://disruptive-innovations.com/zoo/nvu"><br>
+
+
+
+
+</comment></div>
+
+
+
+
+
+<!-- end RHCEtip -->
+<a name="one"></a><!-- QUESTION -->
+<h2>Как активировать конвейеризацию HTTP V1.1 в&nbsp;Mozilla Firefox?</h2>
+
+
+
+
+
+<h4 class="byline">Джастин Пейн (Justin Payne)</h4>
+
+
+
+
+
+<div class="answer">
+<p>Ниже описывается&nbsp;последовательность действий, необходимая для
+активации технологии конвейеризации HTTP V1.1, которая по-умолчанию
+запрещена. Поскольку большинство веб-серверов сегодня поддерживает
+соединения по протоколу версии&nbsp;1.1, а применение конвейеризации
+согласовывается, использование данной технологии не должно повлечь за
+собой какие-либо проблемы. Обратите внимание, что мы не меняем
+максимальное количество параллельных соединений&nbsp;(которое равно
+стандарту де-факто -- 4), а просто разрешаем возможность их сохранения
+для выполнения дальнейших запросов. В противном случае, при каждом
+запросе, каждое соединение создается и разрушается.
+</p>
+
+
+
+
+
+<ol>
+
+
+
+
+
+  <li>Набирите в адресной строке&nbsp;"<tt class="command">about:config</tt>"
+и нажмите&nbsp;return. Найдите следующие параметры:
+    
+    
+    
+    
+    <ul>
+
+
+
+
+
+      <li>network.http.pipelining
+      </li>
+
+
+
+
+
+      <li>network.http.proxy.pipelining
+      </li>
+
+
+
+
+
+      <li>network.http.pipelining.maxrequests
+      </li>
+
+
+
+
+
+    
+    
+    
+    
+    </ul>
+
+
+
+
+
+  </li>
+
+
+
+
+
+  <li>Измените их:
+    
+    
+    
+    
+    <ul>
+
+
+
+
+
+      <li>Установите&nbsp;"network.http.pipelining" равным "<tt class="command">true</tt>"
+      </li>
+
+
+
+
+
+      <li>Установите&nbsp;"network.http.proxy.pipelining" равным "<tt class="command">true</tt>"
+      </li>
+
+
+
+
+
+      <li>Установите&nbsp;"network.http.pipelining.maxrequests"
+равным приблизительно&nbsp;30. Это означает, выполнять сразу до 30
+запросов. </li>
+
+
+
+
+
+    
+    
+    
+    
+    </ul>
+
+
+
+
+
+  </li>
+
+
+
+
+
+  <li>Наконец, нажмите правую кнопку мыши и выберите&nbsp;<tt class="command">New-&gt; Integer</tt>. Назовите параметр&nbsp;"<tt class="command">nglayout.initialpaint.delay</tt>" и установите его значение в&nbsp;"<tt class="command">0</tt>". Это значение задает время задержки перед началом прорисовки страницы.
+  </li>
+
+
+
+
+
+</ol>
+
+
+
+
+
+</div>
+
+
+
+
+
+<!-- answer --><a name="two"></a>
+<!-- QUESTION -->
+<h2>Как можно контролировать arp-ответы для&nbsp;LVS?</h2>
+
+
+
+
+
+<h4 class="byline">Джастин Пейн (Justin Payne)</h4>
+
+
+
+
+
+<div class="answer">
+<p>В&nbsp;Red Hat&reg; Enterprise Linux&reg; 4
+управлять&nbsp;arp-ответами на разных интерфейсах можно с помощью
+параметров, задаваемых в файле&nbsp;<strong>/etc/sysctl.conf</strong>. Они могут принимать следующие значения:
+</p>
+
+
+
+
+
+<pre class="screen"><tt class="command">arp_ignore</tt> - INTEGER<br> Задает режимы отсылки ответов на полученные ARP-запросы, <br> относящиеся к локальным IP-адресам:<br> <b>0</b> - (по-умолчанию): отвечать на запросы о любом локальном <br> IP-адресе, сконфигурированном на любом интерфейсе<br> <b>1</b> - отвечать только в том случае, если интересующий IP-адрес<br> является локальным на интерфейсе, получившем запрос<br> <b>2</b> - отвечать только в том случае, если интересующий IP-адрес<br>&nbsp;является локальным на интерфейсе, получившем запрос, и находится<br> в той же подсети, из которой поступил запрос<br> <b>3</b> - отвечать только на запросы для глобальных и канальных адресов<br> <b>4-7</b> - зарезервированы<br> <b>8</b> - не отвечать ни для каких локальных адресов<br><br> При получения ARP-запроса на {интерфейсе} используется большее<br>&nbsp;значение из <tt class="command">conf/{all,интерфейс}/arp_ignore</tt> <br><br><br><br><tt class="command">arp_announce - INTEGER</tt><br>Задает уровень ограничений при анонсировании локальных <br>IP-адресов на интерфейсе:<br><b> 0</b> - (по-умолчанию) использовать любой локальных IP-адрес,<br> сконфигурированный на данном интерфейсе<br> <b>1</b> - пытаться избегать передачи локального адреса, который<br> не относится к подсети получателя. Этот режим полезен в тех <br> случаях, когда адресат, доступный через данный интерфейс,<br>&nbsp;в ARP-запросе требует, чтобы IP-адрес отправителя находился<br>&nbsp;в той же подсети, что и он сам. При генерации ответа <br> проверяются все подсети, включающие IP-адрес получателя, и <br> выбирается в качестве исходящего адрес в одной из таких <br> подсетей, если таковые есть. Если же их нет, исходящий <br> адрес выбирается в соответствии с правилами уровня 2.<br> <b>2</b> - всегда использовать лучший из локальных адресов для<br> данного получателя. В этом режиме адрес источника в IP-пакете<br> игнорируется и принимается попытка выбрать локальный адрес,<br> наиболее предпочтительный для общения с целевым хостом. <br> Такой адрес выбирается путем просмотра первичных IP-адресов<br>&nbsp;всех сетей на исходящих интерфейсах в поисках адреса, входящего<br> в подсеть получателя. Если подходящий адрес не найден, <br> выбирается первый локальный адрес исходящего или прочих <br> интерфейсов, в надежде на получение ответа на запрос,<br> иногда даже не зависимо от анонсируемого IP-адреса.<br><br> Используется большее значение из <tt class="command">conf/{all,interface}/arp_announce</tt>.<br><br> Увеличение уровня ограничений повышает шансы на получение<br> ответа, тогда как уменьшение позволяет анонсировать более<br>&nbsp;достоверную информацию.<br></pre>
+
+
+
+
+
+<p>Типичная настройка&nbsp;LVS выглядит следующим образом:
+</p>
+
+
+
+
+
+<pre class="screen">net.ipv4.conf.lo.arp_ignore = 1<br>net.ipv4.conf.lo.arp_announce = 2<br></pre>
+
+
+
+
+
+</div>
+
+
+
+
+
+<!-- answer --><a name="three"></a>
+<!-- QUESTION -->
+<h2>Как можно восстановить поврежденный архив bzip2?</h2>
+
+
+
+
+
+<h4 class="byline">Ю Вей Тен (Yew Wei Tan)</h4>
+
+
+
+
+
+<div class="answer">
+<p>Чтобы восстановить поврежденный архив bzip2, выполните следующие действия:</p>
+
+
+
+
+
+<ol>
+
+
+
+
+
+  <li>Проверьте целостность архива&nbsp;<tt class="command">bzip2</tt> командой:
+    
+    
+    
+    
+    <pre class="screen">bzip2 -t [имя_файла]<br></pre>
+
+
+
+
+
+  </li>
+
+
+
+
+
+  <li>Если файл поврежден, выполните:
+    
+    
+    
+    
+    <pre class="screen">bzip2recover [имя_файла]<br></pre>
+
+
+
+
+
+  </li>
+
+
+
+
+
+  <li>Наконец, дайте команду:
+    
+    
+    
+    
+    <pre class="screen">bzip2 -dc rec*file.bz2 &gt; [восстановленные_данные]<br></pre>
+
+
+
+
+
+  </li>
+
+
+
+
+
+</ol>
+
+
+
+
+
+</div>
+
+
+
+
+
+<!-- answer --><a name="four"></a>
+<!-- QUESTION -->
+<h2>Как можно задать сообщение, выдаваемое при входе в систему менеджером&nbsp;gdm, в Red Hat Enterprise
+Linux 3?</h2>
+
+
+
+
+
+<h4 class="byline">Ритч Кедгерай (Ritesh Khadgaray)</h4>
+
+
+
+
+
+<div class="answer">
+<p><strong>Система:</strong> Red Hat Enterprise
+Linux 3</p>
+
+
+
+
+
+<p><strong>Ограничение:</strong> Данная статья применима только к рабочему столу Gnome. <br>
+
+
+
+
+
+</p>
+
+
+
+
+
+<p><strong>Решение: </strong><br>
+
+
+
+
+
+</p>
+
+
+
+
+
+<p>У компаний и государственных организаций часто&nbsp;возникает
+необходимость выдавать информационное сообщение при регистрации в
+системе. Чтобы реализовать окно с таким сообщением на 5-м уровне
+выполнения системы (графический режим), выполните следующие шаги:</p>
+
+
+
+
+
+<ol>
+
+
+
+
+
+  <li>Создайте резервную копию файла <tt class="command">/etc/X11/gdm/PreSession/Default</tt>:
+    
+    
+    
+    
+    <pre class="screen">cp /etc/X11/gdm/PreSession/Default /etc/X11/gdm/PreSession/Default.orig<br></pre>
+
+
+
+
+
+  </li>
+
+
+
+
+
+  <li>Отредактируйте файл с помощью текстового редактора:
+    
+    
+    
+    
+    <pre class="screen">vi /etc/X11/gdm/PreSession/Default<br></pre>
+
+
+
+
+
+  </li>
+
+
+
+
+
+  <li>Добавьте приведенные ниже команды после директивы <tt class="command">PATH</tt>:
+    
+    
+    
+    
+    <pre class="screen"># Login banner<br>/usr/bin/gdialog --yesno "Standard Disclaimer Text" <height> <width><br>if ( test 1 -eq $? );then<br># To avoid staring at a blank screen for next 10 second,<br># and to miss the date with xsession-error dialog<br>gdialog --infobox "Loggin Out in 10secs" 1 20 &amp;<br>sleep 10<br>exit 1<br>fi<br></width></height></pre>
+
+
+
+
+
+  </li>
+
+
+
+
+
+  <li>Чтобы проверить изменения, выйдите и зайдите в систему. При регистрации должно появиться окно с сообщением.
+  </li>
+
+
+
+
+
+</ol>
+
+
+
+
+
+<p>За подробной информацией о программе gdialog, обратитесь к странице руководства:</p>
+
+
+
+
+
+<pre class="screen">man gdialog<br></pre>
+
+
+
+
+
+</div>
+
+
+
+
+
+<!-- answer --><a name="five"></a>
+<!-- QUESTION -->
+<h2>Как настроить&nbsp;Red Hat Enterprise Linux в качестве
+маршрутизатора, выполняющего преобразование адресов&nbsp;(NAT) с
+помощью&nbsp;iptables?</h2>
+
+
+
+
+
+<h4 class="byline">Кевин Крафтефер (Kevin Krafthefer)</h4>
+
+
+
+
+
+<div class="answer">
+<p><strong>Ограничения:</strong><br>
+
+
+
+
+Применимо к&nbsp;Red Hat Enterprise Linux 3 и выше.</p>
+
+
+
+
+
+<p>Есть несколько способов настройки&nbsp;Linux-машины в качестве
+маршрутизатора. Ниже описан&nbsp;относительно простой и стандартный
+метод. Он требует использования iptables для трансляции сетевых адресов
+(Network Address Translation,&nbsp;NAT).</p>
+
+
+
+
+
+<p>Разрешить продвижение пактов:</p>
+
+
+
+
+
+<pre class="screen"> echo "1" &gt; /proc/sys/net/ipv4/ip_forward<br><br></pre>
+
+
+
+
+
+<p>Чтобы сделать данную настройку постоянной, укажите&nbsp;<tt class="COMMAND">net.ipv4.ip_forward = 1</tt> в файле&nbsp;<tt class="COMMAND">/etc/sysctl.conf</tt>. Например:</p>
+
+
+
+
+
+<pre class="screen"> <br> # Controls IP packet forwarding<br> net.ipv4.ip_forward = 1<br></pre>
+
+
+
+
+
+<p>Далее, передайте трансляцию сетевых адресов&nbsp;iptables:</p>
+
+
+
+
+
+<pre class="screen"> /sbin/iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE<br></pre>
+
+
+
+
+
+<p>где&nbsp;<tt class="COMMAND">eth0</tt> это интерфейс "внешнего"
+подключения. Нужно, также, задать ограничивающий набор
+правил&nbsp;iptables. Не забудьте сохранить настройки iptables
+командой:
+</p>
+
+
+
+
+
+<pre class="screen">service iptables save</pre>
+
+
+
+
+
+<p>Обратитесь к другим статьям из базы знаний за информацией и советами по настройке&nbsp;iptables.</p>
+
+
+
+
+
+<p>Чтобы посмотреть таблицу маршрутизации, введите:</p>
+
+
+
+
+
+<pre class="screen"> netstat -rn<br></pre>
+
+
+
+
+
+<p>Чтобы посмотреть набор правил, выполните:</p>
+
+
+
+
+
+<pre class="screen"> iptables -L<br></pre>
+
+
+
+
+
+</div>
+
+
+
+
+
+<!-- answer --><a name="six"></a>
+<!-- QUESTION -->
+<h2>Может ли&nbsp;64-битный x86-64 GDB генерировать
+корректные&nbsp;32-битные дампы памяти с помощью&nbsp;gcore из Red Hat
+Enterprise Linux 4 Update 3?</h2>
+
+
+
+
+
+<h4 class="byline">Мерисол Мартинез (Marisol Martinez)</h4>
+
+
+
+
+
+<div class="answer">
+<p>Нет. Поставляемый с дистрибутивом (Red Hat Enterprise Linux 4 Update
+3) rpm-пакет с 64-битным x86-64 GDB на данный момент не может создавать
+корректные дампы памяти&nbsp;32-битных приложений с помощью
+команды&nbsp;GDB <tt class="command&quot;">gcore</tt>. Тем не менее, он может считывать&nbsp;32-битные дампы памяти.</p>
+
+
+
+
+
+<p><strong>Примечание:</strong> Рассматриваются варианты устранения данного органичения в следующем обновлении&nbsp;Red Hat Enterprise Linux 4.</p>
+
+
+
+
+
+</div>
+
+
+
+
+
+<!-- answer --><a name="seven"></a>
+<!-- QUESTION -->
+<h2>Как можно изменить время бездействия по-умолчанию для autofs?</h2>
+
+
+
+
+
+<h4 class="byline">Дженни Брембл (Jenny Bramble)</h4>
+
+
+
+
+
+<div class="answer">
+<p>Время бездействия по-умолчанию для&nbsp;autofs равно&nbsp;300
+секундам&nbsp;(5 минутам).
+После пяти минут бездействия, смонтированная файловая система будет
+автоматически размонтирована. Это типичное и безопасное значение. Если
+его нужно изменить, то новое значение можно указать в файле&nbsp;<tt class="command">/etc/auto.master</tt>. Значение задается в секундах.</p>
+
+
+
+
+
+<p>Например, следующая строка указывает на необходимость размонтирования после 60 секунд бездействия:</p>
+
+
+
+
+
+<pre class="screen">/misc /etc/auto.misc --timeout=60<br></pre>
+
+
+
+
+
+<p>Установка опции&nbsp;<tt class="command">--timeout</tt> равной&nbsp;<tt class="command">0</tt>&nbsp;полностью запрещает размонтирование.</p>
+
+
+
+
+
+<p><em>Внимание:</em> В некоторых ситуациях, запрет автоматического
+размонтирования, может иметь отрицательные побочные эффекты.
+Принимайте во внимание доступные сетевые ресурсы и объем свободной оперативной памяти.</p>
+
+
+
+
+
+</div>
+
+
+
+
+
+<!-- answer --><a name="eight"></a>
+<!-- QUESTION -->
+<h2>Как восстановить работу панели&nbsp;GNOME в Red Hat Enterprise
+Linux 4, если после сворачивания приложений перестает отображаться
+селектор окон&nbsp;?</h2>
+
+
+
+
+
+<h4 class="byline">Джейсон Хиббетс (Jason Hibbets)</h4>
+
+
+
+
+
+<div class="answer">
+<p><strong>Система:</strong> Red Hat Enterprise
+Linux 4</p>
+
+
+
+
+
+<p><strong>Проблема:</strong><br>
+
+
+
+После полной загрузки системы при регистрации пользователя в системе, на экран выводится следующее сообщение:
+</p>
+
+
+
+
+
+<pre class="screen">The "Windows List" applets appears to have died unexpectedly.<br><br>Do you want to reload this applet?<br><br>If you choose not to reload it at this time you can always add it by<br>right clicking on the panel and clicking the "Add to Panel" submenu.<br><br>No Yes<br><br></pre>
+
+
+
+
+
+<p>
+Если вы нажмете&nbsp;"<tt class="command">Yes</tt>", апплет будет перезагружен, а панель будет работать нормально. Выбор "<tt class="command">No</tt>"
+нарушает работу панели и при сворачивании приложений с неё исчезает селектор окон.
+</p>
+
+
+
+
+
+<p><strong>Решение: </strong><br>
+
+Если панель была удалена с рабочего стола, кликните правой кнопкой мыши на существующей (главной) панели и выберите "<tt class="command">New
+Panel</tt>". Должна появиться пустая панель. Теперь, кликните правой кнопкой мыши на новой панели и выберите "<tt class="command">Add
+to Panel...</tt>"
+</p>
+
+
+
+
+
+<p>Появится селектор&nbsp;<strong>Add to the Panel</strong>.
+Выберите из него&nbsp;"<tt class="command">Window Selector, Switch between open
+windows</tt>". Нажмите кнопку
+<strong>Add</strong>. Это должно решить данную проблему.
+</p>
+
+
+
+
+
+<p>
+<strong>Совет:</strong> во избежание повторения этой ошибки при следующих входах в систему, попробуйте удалить файл <tt class="command">.gnome2/session</tt> из
+домашнего каталога пользователя. Этот файл будет создан при следующем
+запуске&nbsp;GNOME. Однако&nbsp;перед удалением рекомендуется сделать
+резервную копию этого файла:
+</p>
+
+
+
+
+
+<pre class="screen">cp .gnome2/session .gnome2/session.bak<br>rm .gnome2/session<br></pre>
+
+
+
+
+
+<p>Ждем отзывов об этом совете. Проблема возникает эпизодично, а данный совет был опробован на нескольких тестовых системах.
+</p>
+
+
+
+
+
+</div>
+
+
+
+
+
+<!-- answer --><!-- END OF TIPS AND TRICKS -->
+</body>
+</html>

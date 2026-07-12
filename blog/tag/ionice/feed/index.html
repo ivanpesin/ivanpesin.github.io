@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>ionice &#8211; Ivan Pesin</title>
+	<atom:link href="/blog/tag/ionice/feed/" rel="self" type="application/rss+xml" />
+	<link>https://pesin.space/blog</link>
+	<description>Articles &#38; Translations</description>
+	<lastBuildDate>
+	Wed, 19 Oct 2016 02:08:18 +0000	</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=5.1.1</generator>
+	<item>
+		<title>Как увеличить приоритет операций ввода-вывода некоторых процессов в Red Hat Enterprise Linux 5?</title>
+		<link>/blog/2009/05/%d0%ba%d0%b0%d0%ba-%d1%83%d0%b2%d0%b5%d0%bb%d0%b8%d1%87%d0%b8%d1%82%d1%8c-%d0%bf%d1%80%d0%b8%d0%be%d1%80%d0%b8%d1%82%d0%b5%d1%82-%d0%be%d0%bf%d0%b5%d1%80%d0%b0%d1%86%d0%b8%d0%b9-%d0%b2%d0%b2%d0%be/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=%25d0%25ba%25d0%25b0%25d0%25ba-%25d1%2583%25d0%25b2%25d0%25b5%25d0%25bb%25d0%25b8%25d1%2587%25d0%25b8%25d1%2582%25d1%258c-%25d0%25bf%25d1%2580%25d0%25b8%25d0%25be%25d1%2580%25d0%25b8%25d1%2582%25d0%25b5%25d1%2582-%25d0%25be%25d0%25bf%25d0%25b5%25d1%2580%25d0%25b0%25d1%2586%25d0%25b8%25d0%25b9-%25d0%25b2%25d0%25b2%25d0%25be</link>
+				<pubDate>Sat, 30 May 2009 09:12:06 +0000</pubDate>
+		<dc:creator><![CDATA[ivan]]></dc:creator>
+				<category><![CDATA[RedHat KB]]></category>
+		<category><![CDATA[ionice]]></category>
+		<category><![CDATA[performance]]></category>
+		<category><![CDATA[rhel5]]></category>
+		<category><![CDATA[scheduler]]></category>
+
+		<guid isPermaLink="false">http://www.n-ix.com/ipesin/?p=85</guid>
+				<description><![CDATA[Copyright (c) 2009 by Red Hat, Inc. This material may be distributed only subject to the terms and conditions set forth in the Open Publication License, v1.0 or later (available at http://www.opencontent.org/openpub/). Original article: http://kbase.redhat.com/faq/docs/DOC-16649.pdf Translated by Ivan Pesin, May 2009 Система: Red Hat Enterprise Linux 5 и новее Введение: Приоритет и класс ввода/вывода процесса [&#8230;]]]></description>
+								<content:encoded><![CDATA[<p id="top" />
+<div class="copyright">Copyright (c) 2009 by Red Hat, Inc. This material may be distributed only subject to the terms and conditions set forth in the Open Publication License, v1.0 or later (available at <a href="http://www.opencontent.org/openpub/">http://www.opencontent.org/openpub/</a>).<br />
+Original article: <a href="http://kbase.redhat.com/faq/docs/DOC-16649.pdf">http://kbase.redhat.com/faq/docs/DOC-16649.pdf</a></p>
+<p>Translated by Ivan Pesin, May 2009</p></div>
+<p><strong>Система:</strong> Red Hat Enterprise Linux 5 и новее</p>
+<p><strong>Введение:</strong><br />
+Приоритет и класс ввода/вывода процесса могут быть изменены командой <code>ionice</code>. Linux поддерживает три класса ввода/вывода:</p>
+<ul>
+<li><strong>Idle</strong>: процесс, имеющий класс idle, получает возможность работать с диском только если никакая другая программа не выполняет операций ввода/вывода в течении некоторого периода времени.</li>
+<li><strong>Best effort</strong>:  этот класс используется всеми процессами по-умолчанию, если не был задан определённый класс ввода/вывода.</li>
+<li><strong>Real time</strong>:  процессы, работающие в классе реального времени, получают доступ к диску в перую очередь, вне зависимости от того, что еще происходит в системе.</li>
+</ul>
+<p>По-умолчанию, процессы работают в классе Best Effort с приоритетом равным нулю, т.е. с наивысшим приоритетом в этом классе. Наилучший вариант применения <code>ionice</code> &#8212; улучшение производительности в случаях, когда нужно одновременно выполнять два класса задач: такие, которые не требуют много ввода/вывода, но чувствительны к скорости выполнения операций, и такие, которые наоборот нетребовательны к скорости отклика, но выполняют много операций ввода/вывода.</p>
+<p><strong>Решение:</strong><br />
+Для повышения приоритета ввода/вывода процесса используйте следующую команду:</p>
+<blockquote><p><code># ionice -c1 -n0 -p&lt;PID&gt;</code></p></blockquote>
+<p>Где:</p>
+<ul>
+<li><code>-c1</code> указывает класс реального времени</li>
+<li><code>-n0</code> задаёт наивысший приоритет</li>
+<li><code>-p &lt;PID&gt;</code> указывает идентификатор процесса</li>
+</ul>
+<p>Понизить приоритет ввода/вывода процесса можно командой:</p>
+<blockquote><p><code># ionice -c2 -n4 -p&lt;PID&gt;</code></p></blockquote>
+<p>Где:</p>
+<ul>
+<li><code>-c2</code> указывает класс best-effort</li>
+<li><code>-n4</code> задаёт приоритет 4</li>
+</ul>
+<p>Чтобы узнать текущий приоритет ввода/вывода процесса, выполните команду:</p>
+<blockquote><p><code># ionice &lt;PID&gt;</code></p></blockquote>
+<p>Например:</p>
+<blockquote><p><code># ionice 9709<br />
+realtime: prio 7</code></p></blockquote>
+<p>За подробной информацией о ключах команды <code>ionice</code>, обращайтесь к руководству, которое доступно по команде <code>man ionice</code>.</p>
+<p><strong>Применения</strong><br />
+Если текущему командному интерпретатору задать класс idle, то все команды, которые из него вызываются, будут тоже выполняться в классе idle. Чтобы это сделать, нам понадобится переменная $$ интерпретаторов <code>bash</code> и <code>sh</code>.</p>
+<p>Например:</p>
+<blockquote><p><code># echo $$<br />
+29033</code></p></blockquote>
+<p>Этот вывод означает, что PID вашего текущего интерпретатора равен <code>29033</code>. Если вы хотите назначить назначить ему класс idle, выполните команду:</p>
+<blockquote><p><code># ionice -c3 -p$$</code></p></blockquote>
+<p>Теперь всё, что вы делаете в этом интерпретаторе, выполняется в классе idle.</p>
+<p>Другим специальным применением <code>ionice</code> является приоритезация системных бекапов. Вы можете изменить приоритет ввода/вывода архивирующего программного обеспечения так, чтобы оно не мешало другим приложениям в системе.</p>
+<p>Примечание: приоритеты и классы ввода/вывода поддерживаются начиная с версии ядра 2.6.13, при использовании планировщика ввода/вывода CFQ. В Red Hat Enterprise Linux 5 для того, чтобы узнать какой планировщик используется в данный момент, используйте команду <code>cat /sys/block/[sh]d[a-z]*/queue/scheduler</code>. Текущий планировщик будет выделен квадратными скобками..</p>
+<p>Например, следующий вывод показывает, что сейчас используется планировщик CFQ:</p>
+<blockquote><p><code>$ cat /sys/block/[sh]d[a-z]*/queue/scheduler<br />
+noop anticipatory deadline [cfq]<br />
+</code></p></blockquote>
+]]></content:encoded>
+										</item>
+	</channel>
+</rss>

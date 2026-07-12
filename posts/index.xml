@@ -1,0 +1,598 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Articles, Translations, and Blog</title>
+    <link>http://pesin.space/posts/</link>
+    <description>Recent content in Posts on Articles, Translations, and Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 30 Jan 2021 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://pesin.space/posts/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Opportunity</title>
+      <link>http://pesin.space/posts/2021-01-30-quote/</link>
+      <pubDate>Sat, 30 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2021-01-30-quote/</guid>
+      <description>  Knocked, you weren’t in. Opportunity   </description>
+    </item>
+    
+    <item>
+      <title>Ruby Wizardry translation to Ukrainian</title>
+      <link>http://pesin.space/posts/2020-12-18-ruby-wizardry/</link>
+      <pubDate>Fri, 18 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2020-12-18-ruby-wizardry/</guid>
+      <description>&lt;p&gt;The Ruby Wizardry book translation into Ukrainian is published!&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Correct English</title>
+      <link>http://pesin.space/posts/2020-11-15-quote/</link>
+      <pubDate>Sun, 15 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2020-11-15-quote/</guid>
+      <description>  Even if you do learn to speak correct English, whom are you going to speak it to? Clarence Darrow   </description>
+    </item>
+    
+    <item>
+      <title>Producing histograms in terminal</title>
+      <link>http://pesin.space/posts/2020-10-31-histograms/</link>
+      <pubDate>Sat, 31 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2020-10-31-histograms/</guid>
+      <description>&lt;p&gt;Quite often I end up with the need to quickly visualize information in a terminal as a histogram or a chart of some sort. Here are three methods I use most often.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Setting up autossh autostart with systemd</title>
+      <link>http://pesin.space/posts/2020-10-16-autossh-systemd/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2020-10-16-autossh-systemd/</guid>
+      <description>Just a quick note on setting up autossh on system&amp;rsquo;s startup. I use it to proxy-forward traffic from the internet exposed host to a firewalled host inside a private network. This way all the data and apps stay on-prem but are available to external users if needed.
+autossh advantage is that it restart ssh in case connection breaks for some reason. It&amp;rsquo;s important to configure it in a way so that it can detect such breakdowns.</description>
+    </item>
+    
+    <item>
+      <title>Fixing mosh failing on MacOS</title>
+      <link>http://pesin.space/posts/2020-10-05-mosh-macos/</link>
+      <pubDate>Mon, 05 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2020-10-05-mosh-macos/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;TLDR&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Problem&lt;/em&gt;: trying to connect to a remote server with &lt;code&gt;mosh&lt;/code&gt; you see error messages like:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;mosh-client needs a UTF-8 native locale to run.
+mosh-server needs a UTF-8 native locale to run.
+The locale requested by LC_CTYPE=UTF-8 isn&#39;t available here.
+locale: Cannot set LC_CTYPE to default locale: No such file or directory
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;OR when connecting with &lt;code&gt;ssh&lt;/code&gt; from &lt;code&gt;iTerm2&lt;/code&gt; you get the error message&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;-bash: warning: setlocale: LC_CTYPE: cannot change locale (UTF-8): No such file or directory
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    
+    <item>
+      <title>Latency numbers every engineer should know</title>
+      <link>http://pesin.space/posts/2020-09-22-latencies/</link>
+      <pubDate>Tue, 22 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2020-09-22-latencies/</guid>
+      <description>I have been re-reading Tom Limoncelli&amp;rsquo;s et al. The Practice of Cloud System Administration book (which is great and is well worth reading even 5 years after it has been published) and it has this wonderful reference table called Latency Numbers Every Engineer/Programmer Should Know. This table was popularized by Jeff Dean, and originally presented by Peter Norvig.
+I find it handy and wanted to copy it here, on my blog, but then realized it&amp;rsquo;s almost a decade old as the data was from 2012.</description>
+    </item>
+    
+    <item>
+      <title>Interesting bits and bobs: 2020-08-14</title>
+      <link>http://pesin.space/posts/2020-08-14/</link>
+      <pubDate>Fri, 14 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2020-08-14/</guid>
+      <description>&lt;p&gt;Google Photos on iOS does &lt;em&gt;not&lt;/em&gt; have a slideshow function! 😱 They did however roll out a new designed and killed off &lt;em&gt;For You&lt;/em&gt; feature.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Fixing home/end behaviour on macos</title>
+      <link>http://pesin.space/posts/2020-07-28-home-end-keys-macosx/</link>
+      <pubDate>Tue, 28 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2020-07-28-home-end-keys-macosx/</guid>
+      <description>&lt;p&gt;This is just a quick note for how to make &lt;code&gt;Home&lt;/code&gt; and &lt;code&gt;End&lt;/code&gt; keys behave sensibly, i.e. take you to the beginning or end of a line:&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Epigrams in English and Russian</title>
+      <link>http://pesin.space/posts/2020-07-25-burns-marshak/</link>
+      <pubDate>Sat, 25 Jul 2020 13:50:34 +0300</pubDate>
+      
+      <guid>http://pesin.space/posts/2020-07-25-burns-marshak/</guid>
+      <description>&lt;p&gt;Wonderful Burns&amp;rsquo; epigram in Marshak&amp;rsquo;s translation:&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Complexity solving catch-22</title>
+      <link>http://pesin.space/posts/2020-07-02-tonsky-docker-k8s/</link>
+      <pubDate>Thu, 02 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2020-07-02-tonsky-docker-k8s/</guid>
+      <description>&lt;p&gt;Today I&amp;rsquo;ve stumbled upon an amusing post &lt;a href=&#34;https://tonsky.me/blog/disenchantment/&#34;&gt;&amp;ldquo;Software disenchantment&amp;rdquo;&lt;/a&gt; by Nikita Tonski which resonated with me quite a bit. The following fragment in particular:&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Maths is simple</title>
+      <link>http://pesin.space/posts/2020-06-06/</link>
+      <pubDate>Sat, 06 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2020-06-06/</guid>
+      <description>  If people do not believe that mathematics is simple, it is only because they do not realize how complicated life is. John von Neumann   </description>
+    </item>
+    
+    <item>
+      <title>On writing blog posts</title>
+      <link>http://pesin.space/posts/2020-05-22-on-writing-posts/</link>
+      <pubDate>Fri, 22 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2020-05-22-on-writing-posts/</guid>
+      <description>Was talking recently with a friend about how hard it is to write blog posts and give talks these days. The longer you’re in the tech industry the more your opinions end up being “well it depends” and “I’m not sure”. These don’t quite make for good blog posts, hah.
+ Was talking recently with a friend about how hard it is to write blog posts and give talks these days.</description>
+    </item>
+    
+    <item>
+      <title>Opinion</title>
+      <link>http://pesin.space/posts/2020-03-07-twain/</link>
+      <pubDate>Sat, 07 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2020-03-07-twain/</guid>
+      <description>  Reason never changed a man&amp;rsquo;s opinion which by reason he never acquired. Mark Twain   </description>
+    </item>
+    
+    <item>
+      <title>Excellence</title>
+      <link>http://pesin.space/posts/2020-02-08-excellence/</link>
+      <pubDate>Sat, 08 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2020-02-08-excellence/</guid>
+      <description>What exactly means &amp;ldquo;Center of Excellence&amp;rdquo;? Whatever we want it to mean.   We should be brimming with excellence by nightfall.   Centers of excellence create more excellence. Evidence? None.   </description>
+    </item>
+    
+    <item>
+      <title>AWK vs Big Data</title>
+      <link>http://pesin.space/posts/2019-07-02/</link>
+      <pubDate>Tue, 02 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2019-07-02/</guid>
+      <description>Don’t sleep on the basics. Someone probably solved your problem in the 80s.  There&amp;rsquo;s been a lot of talk about big data recently. Lots of people just shove data into whatever software is currently all the rage (think Hadoop some time ago, Spark, etc) and get excited with results that actually aren&amp;rsquo;t that amazing. You can get very decent results by using the standard data processing toolset (awk/grep/sed/sort/xargs/find) paired with understanding of what data you process and how the software works.</description>
+    </item>
+    
+    <item>
+      <title>Review: Have you tried turning it off and on again?</title>
+      <link>http://pesin.space/posts/2018-11-14-lisa-2/</link>
+      <pubDate>Wed, 14 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2018-11-14-lisa-2/</guid>
+      <description>This is the LISA2017 conference talk review I wrote for their official blog. Just saving a copy here in case they decide to rework their blog and content disappears or something.  Submitted by ipesin on November 7, 2017 - 11:38 am
+When you attend a talk that starts with a Google engineer asking, “What would happen if all of the machines you are running on restarted right now?” you might get really worried.</description>
+    </item>
+    
+    <item>
+      <title>Review: Getting started with Docker and containers</title>
+      <link>http://pesin.space/posts/2018-11-07-lisa-1/</link>
+      <pubDate>Wed, 07 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2018-11-07-lisa-1/</guid>
+      <description>This is the LISA2017 conference talk review I wrote for their official blog. Just saving a copy here in case they decide to rework their blog and content disappears or something.  Submitted by ipesin on November 1, 2017 - 3:38 pm
+What makes a good conference so special? With vast amounts of information available virtually on any topic imaginable at a click’s distance, would it not be more efficient to spend time in comfortable home setting learning new technology?</description>
+    </item>
+    
+    <item>
+      <title>Conway&#39;s Life simulation in Go</title>
+      <link>http://pesin.space/posts/2018-02-10-life-go/</link>
+      <pubDate>Fri, 03 Aug 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2018-02-10-life-go/</guid>
+      <description>Implemeting Conway&amp;rsquo;s life is one of the first things I do when exploring a new programming language.
+Conway&amp;rsquo;s Game of Life, also known as the Game of Life or simply Life, is a cellular automaton devised by the British mathematician John Horton Conway in 1970. It is the best-known example of a cellular automaton. Ever since its publication, Conway&amp;rsquo;s Game of Life has attracted much interest because of the surprising ways in which the patterns can evolve.</description>
+    </item>
+    
+    <item>
+      <title>The Schelling Model of Ethnic Residential Dynamics</title>
+      <link>http://pesin.space/posts/2018-08-03-segregation-model/</link>
+      <pubDate>Fri, 03 Aug 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2018-08-03-segregation-model/</guid>
+      <description>In 1971, the American economist Thomas Schelling created an agent-based model that might help explain why segregation is so difficult to combat. His model of segregation showed that even when individuals (or &amp;ldquo;agents&amp;rdquo;) didn&amp;rsquo;t mind being surrounded or living by agents of a different race, they would still choose to segregate themselves from other agents over time! Although the model is quite simple, it gives a fascinating look at how individuals might self-segregate, even when they have no explicit desire to do so.</description>
+    </item>
+    
+    <item>
+      <title>Pike</title>
+      <link>http://pesin.space/posts/2018-03-09-shchuka-glibov/</link>
+      <pubDate>Wed, 09 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2018-03-09-shchuka-glibov/</guid>
+      <description>&lt;p&gt;This is Glibov&amp;rsquo;s Pike poem in Ukrainian&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>How much airlines are making on passengers?</title>
+      <link>http://pesin.space/posts/2018-04-14-pax-fare/</link>
+      <pubDate>Sat, 14 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2018-04-14-pax-fare/</guid>
+      <description>A curious table from The Economist with information on how much airlines make on passengers. Turns out, not that much:
+ </description>
+    </item>
+    
+    <item>
+      <title>Experience</title>
+      <link>http://pesin.space/posts/2017-06-06-experience/</link>
+      <pubDate>Tue, 06 Jun 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2017-06-06-experience/</guid>
+      <description>Is experience exactly the same as pessimism?   </description>
+    </item>
+    
+    <item>
+      <title>Reference Phonetic Alphabet</title>
+      <link>http://pesin.space/posts/2017-02-09-phonetic-alphabet/</link>
+      <pubDate>Thu, 09 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2017-02-09-phonetic-alphabet/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Peter&#39;s principle</title>
+      <link>http://pesin.space/posts/2017-01-20-peter-s-principle/</link>
+      <pubDate>Sat, 21 Jan 2017 14:36:06 -0500</pubDate>
+      
+      <guid>http://pesin.space/posts/2017-01-20-peter-s-principle/</guid>
+      <description>I&amp;rsquo;m sure you have heard about Peter&amp;rsquo;s principle, if not the name then the principle:
+ In a hierarchy every employee tends to rise to his level of incompetence.
+ and the corollary:
+ In time, every post tends to be occupied by an employee who is incompetent to carry out its duties.
+ But what struck me recently is that I didn&amp;rsquo;t know how old this principle was. It was first published in 1969!</description>
+    </item>
+    
+    <item>
+      <title>Hofstadter&#39;s Law</title>
+      <link>http://pesin.space/posts/2016-11-06-hofstadters-law/</link>
+      <pubDate>Sun, 06 Nov 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2016-11-06-hofstadters-law/</guid>
+      <description>  It always takes longer than you expect, even when you take into account Hofstadter’s Law. Douglas Hofstadter, Gödel, Escher, Bach in  An Eternal Golden Braid    </description>
+    </item>
+    
+    <item>
+      <title>Air quality in Europe</title>
+      <link>http://pesin.space/posts/2016-06-29-eu-air-pollution/</link>
+      <pubDate>Wed, 29 Jun 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2016-06-29-eu-air-pollution/</guid>
+      <description>Surprisingly, Poland has the worst air quality in Europe. Here is an infographics from the Economist:
+
+See also Air Quality Indexes website.</description>
+    </item>
+    
+    <item>
+      <title>Media Ideological Placement</title>
+      <link>http://pesin.space/posts/2016-06-28-media-ideology/</link>
+      <pubDate>Tue, 28 Jun 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2016-06-28-media-ideology/</guid>
+      <description>&lt;p&gt;Interesting information on ideological placement of various news outlets
+by &lt;a href=&#34;https://www.washingtonpost.com/news/the-fix/wp/2014/10/21/lets-rank-the-media-from-liberal-to-conservative-based-on-their-audiences/&#34;&gt;Washington Post&lt;/a&gt;:&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Catch22 of closed-mindedness</title>
+      <link>http://pesin.space/posts/2016-06-12-ukraine-catch22/</link>
+      <pubDate>Sun, 12 Jun 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2016-06-12-ukraine-catch22/</guid>
+      <description>&lt;p&gt;For the Nth time have found myself referring back to an exceptionally vivid
+infographics on how many Ukrainians have ever been abroad:&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>My zenburn-based terminal colour palletes</title>
+      <link>http://pesin.space/posts/2016-01-17-terminal-zenburn/</link>
+      <pubDate>Sun, 17 Jan 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2016-01-17-terminal-zenburn/</guid>
+      <description>&lt;p&gt;I  was a big fan of standard linux terminal colour palette. Initially, the default was a saturated version and later it shifted to pastel colours. I still enjoy the way it looks – bright and clear; it also works great if you are giving a demo over a beamer, opposed to dark backgrounds.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Messages emoji auto-substitutions</title>
+      <link>http://pesin.space/posts/2016-01-09-emoji/</link>
+      <pubDate>Sat, 09 Jan 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2016-01-09-emoji/</guid>
+      <description>&lt;p&gt;While everybody on the internet seem to be concerned with how to turn off emoji auto-substitution in Messages, I’m quite fond of it. Here is the list of working shortcuts for emojis:&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Multitasking in System Administration</title>
+      <link>http://pesin.space/posts/2015-12-29-sa-multitasking/</link>
+      <pubDate>Tue, 29 Dec 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2015-12-29-sa-multitasking/</guid>
+      <description>&lt;p&gt;Just a quick thought on multitasking in SA (or DevOps, if you prefer). There is a common knowledge that multitasking is bad, it hurts your performance, quality, and whatnot.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Links: 17th May</title>
+      <link>http://pesin.space/posts/2015-05-17-links/</link>
+      <pubDate>Sun, 17 May 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2015-05-17-links/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;He [Galton] even measured the life spans of sovereigns and clergymen, which, being similar to the lifespans of people in other professions, led him to conclude that prayer brought no benefit.&lt;br&gt;
+&amp;ndash; &lt;em&gt;Leonard Mlodinov&lt;/em&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Mlodinov’s &amp;ldquo;The Drunkard’s Walk&amp;hellip;&amp;rdquo; is a fantastically good book. I couldn’t pull myself away of it, I’d read it in the morning before the work starts and right after I wrap it up for a day. A captivating overview of mathematics of chance, randomness, and statistics put in a very comprehensible form and language, intertwined with amusing digressions into history of mathematical thought, it connects randomness with our everyday life.  Scientific American’s comment reflect my feelings: &amp;ldquo;Delightfully entertaining&amp;rdquo;.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Links: 24th Oct</title>
+      <link>http://pesin.space/posts/2014-10-24-links/</link>
+      <pubDate>Fri, 24 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2014-10-24-links/</guid>
+      <description>&lt;blockquote&gt;
+    &lt;p&gt;
+        Computer Science is no more about computers than astronomy is about telescopes.
+    &lt;/p&gt;
+    &lt;footer style=&#34;padding-left: 1em;&#34;&gt;
+        
+        
+            
+            Edsger Dijkstra
+        
+
+        
+    &lt;/footer&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+    <item>
+      <title>Links: 3th Jun</title>
+      <link>http://pesin.space/posts/2014-06-03-links/</link>
+      <pubDate>Tue, 03 Jun 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2014-06-03-links/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;Writing is nature’s way of telling you how sloppy your thinking is.&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+    <item>
+      <title>Links: 4th Apr</title>
+      <link>http://pesin.space/posts/2014-04-04-links/</link>
+      <pubDate>Fri, 04 Apr 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2014-04-04-links/</guid>
+      <description>&lt;p&gt;My, when would they finally invent a direct connection interface from a brain to computer? Can’t wait, really.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>VIM cheatsheet</title>
+      <link>http://pesin.space/posts/2014-04-04-vim-cheatsheet/</link>
+      <pubDate>Fri, 04 Apr 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2014-04-04-vim-cheatsheet/</guid>
+      <description>&lt;p&gt;Putting my favourite vim cheat sheet here, so  that I don’t have to plough through google results next time I need to recall how to use named registers.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Maidan: 23rd of February</title>
+      <link>http://pesin.space/posts/2014-02-23-maidan/</link>
+      <pubDate>Sun, 23 Feb 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2014-02-23-maidan/</guid>
+      <description>&lt;p&gt;No links today. The only thoughts are with those on the Maindan who gave their lives to the future of Ukraine.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Links: 29th Sept</title>
+      <link>http://pesin.space/posts/2013-09-29-links/</link>
+      <pubDate>Sun, 29 Sep 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2013-09-29-links/</guid>
+      <description>&lt;blockquote&gt;
+    &lt;p&gt;
+        &lt;strong&gt;Acronyms&lt;/strong&gt; are new words formed from the initial letters (or parts) of a series of words, such as &lt;em&gt;RAM&lt;/em&gt; from &lt;em&gt;random access memory&lt;/em&gt;, and &lt;em&gt;radar&lt;/em&gt; from &lt;em&gt;radio detecting and ranging&lt;/em&gt;. &lt;strong&gt;Initialisms&lt;/strong&gt; are a similar sort of abbreviation but are pronounced by saying each letter separately, for example &lt;em&gt;BBC&lt;/em&gt;, &lt;em&gt;VHS&lt;/em&gt;, and the &lt;em&gt;FYI&lt;/em&gt; of this post’s title. The distinction, BTW, is not always strictly observed – initialisms are often loosely called acronyms. This imprecision is rarely problematic, but it’s good to know the difference. HTH.
+    &lt;/p&gt;
+    &lt;footer style=&#34;padding-left: 1em;&#34;&gt;
+        
+        
+
+        
+            
+                from
+             
+            &lt;cite&gt;
+                Macmillan Dictionary Blog
+            &lt;/cite&gt;
+        
+    &lt;/footer&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+    <item>
+      <title>Links: 20th Sep</title>
+      <link>http://pesin.space/posts/2013-09-20-links/</link>
+      <pubDate>Fri, 20 Sep 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2013-09-20-links/</guid>
+      <description>&lt;p&gt;This week: technology links and some other interesting articles.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Links: 4th Sep</title>
+      <link>http://pesin.space/posts/2013-09-04-links/</link>
+      <pubDate>Wed, 04 Sep 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2013-09-04-links/</guid>
+      <description>&lt;p&gt;This week: technology links and a chart with sunlight hours.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Links: 16th Aug</title>
+      <link>http://pesin.space/posts/2013-08-16-links/</link>
+      <pubDate>Fri, 16 Aug 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2013-08-16-links/</guid>
+      <description>&lt;p&gt;This week: technology links and Stephen Fry&amp;rsquo;s open letter.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Links: 3rd Aug</title>
+      <link>http://pesin.space/posts/2013-08-03-links/</link>
+      <pubDate>Sat, 03 Aug 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2013-08-03-links/</guid>
+      <description>&lt;p&gt;This week: technology links and some English titbits.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Links: 21st Jul</title>
+      <link>http://pesin.space/posts/2013-07-21-links/</link>
+      <pubDate>Sun, 21 Jul 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2013-07-21-links/</guid>
+      <description>&lt;p&gt;This week: technology links, algorithm courses, bootstrap goodies, and Ukrainian IT.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Links: 14th Jul</title>
+      <link>http://pesin.space/posts/2013-07-14-links/</link>
+      <pubDate>Sun, 14 Jul 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2013-07-14-links/</guid>
+      <description>&lt;p&gt;This week: technology links and AmE vs BrE talk.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>The Elements of Style</title>
+      <link>http://pesin.space/posts/2013-07-10-elements-of-style/</link>
+      <pubDate>Wed, 10 Jul 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2013-07-10-elements-of-style/</guid>
+      <description>&amp;ldquo;No book in shorter space, with fewer words, will help any writer more than this persistent little volume.&amp;rdquo; — The Boston Globe
+  A friend recommended a book to read, “The Elements of Style” by W. Strunk. It resonated with me strongly, here are a couple of quotes:
+ Vigorous writing is concise. A sentence should contain no unnecessary words, a paragraph no unnecessary sentences, for the same reason that a drawing should have no unnecessary lines and a machine no unnecessary parts.</description>
+    </item>
+    
+    <item>
+      <title>vim syntax highlighting for cfengine3</title>
+      <link>http://pesin.space/posts/2012-07-21-cfenging-vim-highlighting/</link>
+      <pubDate>Sat, 21 Jul 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2012-07-21-cfenging-vim-highlighting/</guid>
+      <description>A major part of my work these days is connected with cfengine3 and writing promises. I’m kind of a vim-guy, so clearly I’m using it when writing cfengine promises and when you write a lot of code, you’d definitely want to make your development environment comfy and snug. Part of being comfy and sung in my understanding is syntax highlighting, which tremendously simplifies reading the code and makes you spot typos and other sorts of mistakes right away.</description>
+    </item>
+    
+    <item>
+      <title>Завершальна презентація циклу лекцій у Львівський Політехніці</title>
+      <link>http://pesin.space/posts/2012-04-19-final-talk-nulp/</link>
+      <pubDate>Thu, 19 Apr 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2012-04-19-final-talk-nulp/</guid>
+      <description>Завершальна презентація циклу лекцій у Львівський Політехніці, що ми показали 18 квітня 2012 року.
+ Повнорозмірна версія презентації.</description>
+    </item>
+    
+    <item>
+      <title>Презентація з лекції “SQL. Основи Темної Магії. Не SQL.”</title>
+      <link>http://pesin.space/posts/2012-04-05-sql/</link>
+      <pubDate>Thu, 19 Apr 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2012-04-05-sql/</guid>
+      <description>Привіт!
+Презентація з лекції “SQL. Основи Темної Магії. Не SQL.”, яку читала Леся Гой у Львівський Політехніці в середу, 4 квітня.</description>
+    </item>
+    
+    <item>
+      <title>Презентація з лекції “Чистий код”</title>
+      <link>http://pesin.space/posts/2012-04-19-clean-code/</link>
+      <pubDate>Thu, 19 Apr 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2012-04-19-clean-code/</guid>
+      <description>Презентація з лекції “Чистий код”, яку читала Іра Заяць у Львівський Політехніці 18 квітня.
+ Повнорозмірна версія презентації.</description>
+    </item>
+    
+    <item>
+      <title>Презентація з лекції &#34;По дорозі з хмарками&#34;</title>
+      <link>http://pesin.space/posts/2012-03-16-clouds/</link>
+      <pubDate>Fri, 16 Mar 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2012-03-16-clouds/</guid>
+      <description>&lt;p&gt;Всім привіт!&lt;/p&gt;
+&lt;p&gt;Викладаю презентацію до лекції “По дорозі з хмарками”, якою я читав у Львівській Політехніці 14-го березня. Нажаль, через технічні проблеми з проектором мені не вдалося показати все, що я планував. Однак я сподіваюся, що зможу включити цю частину у іншу свою лекцію про системне адміністрування.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Презентація з лекції “Ruby on Rails”</title>
+      <link>http://pesin.space/posts/2012-02-24-ror/</link>
+      <pubDate>Fri, 24 Feb 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2012-02-24-ror/</guid>
+      <description>&lt;p&gt;Привіт!&lt;/p&gt;
+&lt;p&gt;Презентація з лекції “Ruby on Rails”, яку читала Іра Заяць у Львівський Політехніці в середу, 22 лютого.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Презентація з лекції “Роздуми про критичне мислення”</title>
+      <link>http://pesin.space/posts/2012-02-23-critica-thinking/</link>
+      <pubDate>Thu, 23 Feb 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2012-02-23-critica-thinking/</guid>
+      <description>&lt;p&gt;Всім привіт!&lt;/p&gt;
+&lt;p&gt;Викладаю презентацію до лекції “Роздуми про критичне мислення”, якою ми відкривали цикл наших лекцій у Львівській Політехніці 1-го лютого.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Презентація з лекції “Магія SQL”</title>
+      <link>http://pesin.space/posts/2012-02-16-sql-magic/</link>
+      <pubDate>Thu, 16 Feb 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2012-02-16-sql-magic/</guid>
+      <description>&lt;p&gt;Привіт!&lt;/p&gt;
+&lt;p&gt;Презентація з лекції “Магія SQL”, яку читала Леся Гой у Львівський Політехніці в середу, 15 лютого.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Лекція “За лаштунками співбесіди”</title>
+      <link>http://pesin.space/posts/2012-02-08-interviews/</link>
+      <pubDate>Wed, 08 Feb 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2012-02-08-interviews/</guid>
+      <description>&lt;p&gt;Всім привіт!&lt;/p&gt;
+&lt;p&gt;Викладаю презентацію до лекції “За лаштунками співбесіди”, яку я читав у Львівській Політехніці.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Додаткові матеріали до лекції &#34;П&#39;ять ідей&#34; @EJF 2011</title>
+      <link>http://pesin.space/posts/2011-12-04-ejf-five-ideas/</link>
+      <pubDate>Sun, 04 Dec 2011 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2011-12-04-ejf-five-ideas/</guid>
+      <description>&lt;p&gt;Після моєї лекції у Львівській політехніці на EJF 2011 я отримав багато відгуків і тому викладую деякі матеріали, які, на мою думку, будуть корисні тим, кого зачепила та розповідь.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Migration in progress ...</title>
+      <link>http://pesin.space/posts/migration-note/</link>
+      <pubDate>Sat, 01 Jan 2000 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/migration-note/</guid>
+      <description>&lt;p&gt;Please note, the blog is being migrated from the &lt;a href=&#34;http://pesin.space/blog/&#34;&gt;old WordPress&lt;/a&gt; installation.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

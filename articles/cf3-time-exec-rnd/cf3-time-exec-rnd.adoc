@@ -1,0 +1,102 @@
+= Bundle execution time randomization in cfengine3
+:author: Ivan Pesin
+:revnumber: 1.1
+:revdate: 2012-07-17
+:toc: left
+:sectanchors:
+:icons: font
+:source-highlighter: rouge
+// :stylesdir: ./stylesheets
+:stylesheet: asciidoc-ip.css
+:linkcss:
+
+:TODO: pass:q[<span style="background-color: gold">&nbsp; *TODO* </span>:]
+
+In our environment we use cfengine to manage servers across the organization. Having a fairly large infrastructure we have to give a lot of thought to such things as smoothing the load on cfengine hubs and other parts of the infrastructure.
+
+This article presents some approaches to bundle execution time randomization. This might be useful when you have a bundle which is going to affect a lot of servers and you don't want it to execute simultaneously across a whole lot, thus causing a pressure point and possible event storms.
+
+The first approach which comes to mind is `splayclass()` function, which defines a class if the system clock falls within a scheduled time-interval that maps to a hash of the first argument -- an arbitrary string, usually set to fqdn. Different strings will hash to different time intervals, and thus one can map different tasks to time-intervals. The code utilizing this function looks like this:
+
+[source]
+----
+classes:
+  "ok_to_run" expression => splayclass("$(sys.host)$(sys.ipv4)","hourly");
+
+reports:
+  ok_to_run::
+    "Here we go!";
+----
+
+This will execute report at a random moment every hour.
+
+The nuisance with this function is that it's somewhat limited, having only "hourly" and "daily" policies. With "hourly" policy, the class will be defined for a 5-minute interval every hour, and with "daily" policy then the class will be defined for one 5-minute interval every day. This might be either too frequent or too seldom for a specific case. This also might be a problem if you use an cfengine run interval different from a default one.
+
+To address this nuisance we might employ `dist` keyword in classes' definition which generates a probabilistic class distribution. For example:
+
+[source%nowrap]
+----
+classes:
+    "percent_of_runs"
+        dist => { "15", "85" };
+
+reports:
+    percent_of_runs_15::
+        "GOTCHA! This moment ( $(sys.date) ) seems to be in 15%!";
+
+    percent_of_runs_85::
+        "This moment ( $(sys.date) ) seems to be in 85%!";
+----
+
+In this example class "percent_of_runs_15" will be defined in 15 out of (15+85=) 100 cases or in 15% of cf-agent runs. Considering that cf-agent runs with 5 minutes interval by default, that makes 15% out of (24*12 =) 288 runs per day, or 43 runs, or approximately twice per hour at a random moment. Tuning the sum and the initial number we might change the random frequency at which the class will get defined.
+
+`dist` might give us even more flexibility. For instance, when we need the bundle to execute at the random hour every 12 hours, but at that hour we’d like bundle to run every 5 minutes. This might be needed when bundle requires multiple runs to fix things (deleting stuff from a file is a good example). So for that matter we might combine `dist` keyword with persistent classes, like in:
+
+[source%nowrap,role=marginwide]
+----
+bundle agent dist_test {
+    classes:
+        "percent_of_runs"
+            dist => { "1", "99" }; # sets percent_of_runs_1 with prob. of 1/(1+99)=1/100 or twice a day.
+
+    commands:
+        percent_of_runs_1::
+            "/bin/false ok_to_run"
+                classes => persistent_for_hour("ok_to_run");
+
+    reports:
+        ok_to_run::
+            "This report will execute every 5 mins throughout two random hours of the day";
+}
+
+bundle classes persistent_for_hour(class) {
+    promise_kept => { "$(class)" };
+    persist_time => "60";
+}
+----
+
+[.marginnote]
+--
+At the default 5-min interval, cfengine executes no more than 288 times a day, so 1% is 2.8 times a day.
+--
+
+This approach seems to be more flexible, but it also has an issue: due to its nature, `dist` is probabilistic and that means it doesn't guarantee that the percent of distribution will be exact. In fact, you should keep in mind that +/- error is a norm here and, for instance, running the 15%/85% example drew results from 13% to 18% for 15% class.
+
+To address this problem, we can also apply the approach with persistent classes to `splayclass()` function in the following manner:
+
+[source%nowrap]
+----
+classes:
+  "right_moment" expression => splayclass("$(sys.host)$(sys.ipv4)","daily");
+
+commands:
+    right_moment::
+        "/bin/false ok_to_run" classes => persistent_for_hour("ok_to_run");
+
+reports:
+  ok_to_run::
+    "Here we go!;
+----
+
+This would allow us to execute a report (or a bundle) every 5 mins throughout a random hour of the day.
+

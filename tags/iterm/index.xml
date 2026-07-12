@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>iterm on Articles, Translations, and Blog</title>
+    <link>http://pesin.space/tags/iterm/</link>
+    <description>Recent content in iterm on Articles, Translations, and Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 05 Oct 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://pesin.space/tags/iterm/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Fixing mosh failing on MacOS</title>
+      <link>http://pesin.space/posts/2020-10-05-mosh-macos/</link>
+      <pubDate>Mon, 05 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2020-10-05-mosh-macos/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;TLDR&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Problem&lt;/em&gt;: trying to connect to a remote server with &lt;code&gt;mosh&lt;/code&gt; you see error messages like:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;mosh-client needs a UTF-8 native locale to run.
+mosh-server needs a UTF-8 native locale to run.
+The locale requested by LC_CTYPE=UTF-8 isn&#39;t available here.
+locale: Cannot set LC_CTYPE to default locale: No such file or directory
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;OR when connecting with &lt;code&gt;ssh&lt;/code&gt; from &lt;code&gt;iTerm2&lt;/code&gt; you get the error message&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;-bash: warning: setlocale: LC_CTYPE: cannot change locale (UTF-8): No such file or directory
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

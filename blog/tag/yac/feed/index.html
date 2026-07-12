@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>yac &#8211; Ivan Pesin</title>
+	<atom:link href="/blog/tag/yac/feed/" rel="self" type="application/rss+xml" />
+	<link>https://pesin.space/blog</link>
+	<description>Articles &#38; Translations</description>
+	<lastBuildDate>
+	Wed, 19 Oct 2016 02:08:18 +0000	</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=5.1.1</generator>
+	<item>
+		<title>Links: 4 Sep</title>
+		<link>/blog/2013/09/links-4-sep/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=links-4-sep</link>
+				<pubDate>Wed, 04 Sep 2013 18:54:19 +0000</pubDate>
+		<dc:creator><![CDATA[ivan]]></dc:creator>
+				<category><![CDATA[Links]]></category>
+		<category><![CDATA[apple]]></category>
+		<category><![CDATA[grep]]></category>
+		<category><![CDATA[iphone]]></category>
+		<category><![CDATA[kids]]></category>
+		<category><![CDATA[less]]></category>
+		<category><![CDATA[osx]]></category>
+		<category><![CDATA[photos]]></category>
+		<category><![CDATA[recording]]></category>
+		<category><![CDATA[rpmdb]]></category>
+		<category><![CDATA[SA]]></category>
+		<category><![CDATA[scale]]></category>
+		<category><![CDATA[signals]]></category>
+		<category><![CDATA[sunlight]]></category>
+		<category><![CDATA[yac]]></category>
+
+		<guid isPermaLink="false">https://pesin.space/blog/2013/09/links-4-sep/</guid>
+				<description><![CDATA[Technology: grep tricks: grep files recursively, show only filenames where matching string was/wasn&#8217;t found. Did you know that: $ less &#60;directory&#62; — shows directory listing $ less &#60;archive.zip&#62; — shows archive content Teacher&#8217;s rumblings &#8220;Kids can&#8217;t use computers&#8220;. Agree to a T. Going back to iPhone [from Android]. Again having pretty much the same thoughts. Reddit: Lessons Learned [&#8230;]]]></description>
+								<content:encoded><![CDATA[<p id="top" />
+<h3>Technology:</h3>
+<ul>
+<li><span style="line-height: 14px;"><a href="http://bencane.com/2013/08/19/grepping-a-file-without-using-cat-and-grep-other-tricks/">grep tricks</a>: grep files recursively, show only filenames where matching string was/wasn&#8217;t found.</span></li>
+<li><span style="line-height: 14px;">Did you know that:</span>
+<ul>
+<li>$ less &lt;directory&gt; — shows directory listing</li>
+<li>$ less &lt;archive.zip&gt; — shows archive content</li>
+</ul>
+</li>
+<li>Teacher&#8217;s rumblings &#8220;<a href="http://www.coding2learn.org/blog/2013/07/29/kids-cant-use-computers/">Kids can&#8217;t use computers</a>&#8220;. Agree to a T.</li>
+<li><a href="http://linguisticmystic.com/2012/11/11/going-back-to-iphone/">Going back to iPhone</a> [from Android]. Again having pretty much the same thoughts.</li>
+<li>Reddit: <a href="http://highscalability.com/blog/2013/8/26/reddit-lessons-learned-from-mistakes-made-scaling-to-1-billi.html?utm_source=feedburner&amp;utm_medium=feed&amp;utm_campaign=Feed%3A+HighScalability+%28High+Scalability%29">Lessons Learned</a> From Mistakes Made Scaling To 1 Billion Pageviews A Month</li>
+<li><a href="http://osxdaily.com/2013/08/22/start-web-search-from-command-line/">Start a Web Search</a> in a GUI Browser from the Command Line on Mac OS X</li>
+<li><a href="http://osxdaily.com/2013/08/23/record-screen-animated-gif-mac-os-x/">Screen recording</a> to an animated GIF on Mac OS X</li>
+<li><a href="http://stackoverflow.com/questions/284325/how-to-make-child-process-die-after-parent-exits">How to know</a> from a child process that its parent exited:
+<ul>
+<li>a pipe between parent and a child, child gets SIGPIPE when parent exits</li>
+<li>if a child has not detached, PPID becomes 1 when parent exits</li>
+<li>Linux-specific: a child can ask kernel to deliver a signal when parent dies by specifying option PR_SET_PDEATHSIG in <code>prctl()</code> syscall</li>
+</ul>
+</li>
+<li>Two talks from YAC which I liked:
+<ul>
+<li><a href="http://events.yandex.ru/events/yac/2011/talks/36/">Small service administration</a></li>
+<li><a href="http://events.yandex.ru/events/yac/2012/talks/379/">Fault-tolerance and load balancing</a></li>
+</ul>
+</li>
+</ul>
+<p>rpmdb locking issues, notorious on RHEL4/5, manifest as hanging rpm command. To see active locks:</p>
+<p><code># cd /var/lib/rpm; /usr/lib/rpm/rpmdb_stat -CA</code></p>
+<p>Normally there should be no locks, given no rpm command is running. In case there are stale locks, just remove <code>__db.00*</code> files.</p>
+<h3>Other:</h3>
+<ul>
+<li><a href="http://www.upi.com/Science_News/2013/08/29/Study-finds-learning-second-language-later-in-life-brings-brain-change/UPI-83421377811161/#ixzz2dwxjReP0">Learning second language later in life brings brain change</a></li>
+<li><a href="http://botalex.livejournal.com/120514.html">Evolution: educating pupils</a> (in Russian)</li>
+<li><a href="http://natgeofound.tumblr.com">Wonderful photos</a> by National Geographic</li>
+</ul>
+<h3>Sunlight in Europe and the USA in hours per year.</h3>
+<p><a href="https://twitter.com/Amazing_Maps/status/369243408616783873/photo/1"><img class="alignleft" alt="" src="https://pbs.twimg.com/media/BR_Q7H7CAAASFdS.png" width="503" height="798" /></a></p>
+]]></content:encoded>
+										</item>
+	</channel>
+</rss>

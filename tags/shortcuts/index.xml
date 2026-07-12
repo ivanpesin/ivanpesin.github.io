@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>shortcuts on Articles, Translations, and Blog</title>
+    <link>http://pesin.space/tags/shortcuts/</link>
+    <description>Recent content in shortcuts on Articles, Translations, and Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 09 Jan 2016 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://pesin.space/tags/shortcuts/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Messages emoji auto-substitutions</title>
+      <link>http://pesin.space/posts/2016-01-09-emoji/</link>
+      <pubDate>Sat, 09 Jan 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2016-01-09-emoji/</guid>
+      <description>&lt;p&gt;While everybody on the internet seem to be concerned with how to turn off emoji auto-substitution in Messages, I’m quite fond of it. Here is the list of working shortcuts for emojis:&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

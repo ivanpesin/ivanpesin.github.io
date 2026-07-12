@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Ivan Pesin | 
+      vim syntax highlighting for cfengine3
+      </title>
+    <meta name="description" content="">
+
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/custom.css">
+    
+    
+    
+    
+
+    
+    <meta property="og:locale" content="en_US">
+    <meta property="og:title" content="vim syntax highlighting for cfengine3">
+    
+    <meta property="og:description" content="Articles, Translations, and Blog">
+    <meta property="og:site_name" content="Ivan Pesin">
+
+  </head>
+
+
+<body>
+  <nav class="navbar navbar-default">
+    <div class="container">
+      
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        
+        <a class="navbar-brand" href="/">Articles, Translations, and Blog</a>
+      </div>
+  
+      
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="/posts/">Blog</a></li>
+            <li><a href="/photos/">Photos</a></li>
+            <li><a href="/#articles-translations">Articles & Translations</a></li>
+            <li><a href="/talks/">Talks</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Links <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="/phonetic-alphabet">Phonetic Alphabet</a></li>
+                <li><a href="/emoji">Emoji shortcuts</a></li>
+                <li><a href="/vim-cheatsheet">VIM cheatsheet</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="/articles/kb/">Assorted tips&trciks</a></li>
+              </ul>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+  <div class="container">
+    <article>
+      
+
+    <div class="row">
+        <div class="col-md-9">
+
+        <div class="text-muted">
+    July 21, 2012
+</div>
+<h2 class="title" style="margin-top: 0">vim syntax highlighting for cfengine3</h2>
+<div>
+     
+     <span class="text-muted">&sect;
+     
+             <a href="/categories/tech/">tech</a>
+    </span>
+
+    &nbsp;&nbsp;&nbsp;<span class="text-muted"> # 
+    
+      <a href="/tags/vi/">vi</a>
+      <span class="separator">•</span>
+      <a href="/tags/vim/">vim</a>
+      <span class="separator">•</span>
+      <a href="/tags/cfengine/">cfengine</a>
+      <span class="separator">•</span>
+      <a href="/tags/highlighting/">highlighting</a>
+      <span class="separator">•</span>
+      <a href="/tags/syntax/">syntax</a>
+      <span class="separator">•</span>
+      <a href="/tags/sa/">sa</a>
+    </span>
+
+</div>
+
+
+        <div style="margin-top: 10px">
+        
+
+        <p>A major part of my work these days is connected with cfengine3 and writing promises. I’m kind of a vim-guy, so clearly I’m using it when writing cfengine promises and when you write a lot of code, you’d definitely want to make your development environment comfy and snug. Part of being comfy and sung in my understanding is syntax highlighting, which tremendously simplifies reading the code and makes you spot typos and other sorts of mistakes right away.</p>
+<p>There’s an initial version of syntax highlighting for cfeninge, written by Neil Watson available on github. However, I wanted more sophisticated highlighting functionality, so I took Neil’s work and spent couple of weekends extending it. Here are some screenshots with results of that extension:</p>
+<p><figure>
+    <img src="/imgs/posts/cf3-vim-hl-white.png"/> 
+</figure>
+
+<figure>
+    <img src="/imgs/posts/cf3-vim-hl-black.png"/> 
+</figure>
+</p>
+<p>At the moment, the module highlights correctly <code>cfengine-stdlib.cf</code> and all cf files in <code>examples/</code> directory of cfengine with exception of knowledge-related promises. There’s still a lot of work to do – a bit of refactoring and then, perhaps, a rudimental syntax checker – but it seems to me already usable, so I decided to release it’s “first” version.</p>
+<p>The syntax highlighting module is available at <a href="https://github.com/ivanpesin/vim_cf3/tree/master/syntax">https://github.com/ivanpesin/vim_cf3/tree/master/syntax</a>. To activate it, you’ll need to save <code>cf3.vim</code> in <code>~/.vim/</code> directory and add following lines to your <code>~/.vimrc</code>:</p>
+<pre><code>au BufRead,BufNewFile *.cf set ft=cf3
+au! Syntax cf3 source $HOME/.vim/cf3.vim
+</code></pre>
+
+        </div>
+    </div>
+</div>
+
+
+    </article>
+
+    <hr>
+<div class="text-muted text-center small">
+    <i>
+        &mdash; `If you knew Time as well as I do,' said the Hatter, `you wouldn't talk about wasting IT. It's HIM.'
+    </i>
+</div>
+<div class="text-muted text-center m-20 small">
+<samp>$ Last updated: Feb 7, 2021 at 13:38 (EET) $</samp>
+</div>
+  </div>
+      
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+    
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+  
+  
+
+</body>
+
+</html>

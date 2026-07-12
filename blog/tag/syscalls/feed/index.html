@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>syscalls &#8211; Ivan Pesin</title>
+	<atom:link href="/blog/tag/syscalls/feed/" rel="self" type="application/rss+xml" />
+	<link>https://pesin.space/blog</link>
+	<description>Articles &#38; Translations</description>
+	<lastBuildDate>
+	Wed, 19 Oct 2016 02:08:18 +0000	</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=5.1.1</generator>
+	<item>
+		<title>Links: Feb 16</title>
+		<link>/blog/2014/02/links-feb-16/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=links-feb-16</link>
+				<pubDate>Sun, 16 Feb 2014 15:47:49 +0000</pubDate>
+		<dc:creator><![CDATA[ivan]]></dc:creator>
+				<category><![CDATA[Links]]></category>
+		<category><![CDATA[blockade]]></category>
+		<category><![CDATA[English]]></category>
+		<category><![CDATA[flapjack]]></category>
+		<category><![CDATA[java]]></category>
+		<category><![CDATA[limoncelli]]></category>
+		<category><![CDATA[monitoring]]></category>
+		<category><![CDATA[nagios]]></category>
+		<category><![CDATA[sensu]]></category>
+		<category><![CDATA[syscalls]]></category>
+		<category><![CDATA[systemd]]></category>
+		<category><![CDATA[systemtap]]></category>
+		<category><![CDATA[vector]]></category>
+		<category><![CDATA[was]]></category>
+
+		<guid isPermaLink="false">https://pesin.space/blog/2014/02/links-feb-16/</guid>
+				<description><![CDATA[Change of plan! Will now try to write shorter posts but more often. With bigger posts, if I miss a date, they start to scare me off writing them as I know that would require substantial time investment. Recently I have discovered how once never-failing task prioritisation strategy can backfire. You most certainly know the [&#8230;]]]></description>
+								<content:encoded><![CDATA[<p id="top" />Change of plan! Will now try to write shorter posts but more often. With bigger posts, if I miss a date, they start to scare me off writing them as I know that would require substantial time investment.</p>
+<p>Recently I have discovered how once never-failing task prioritisation strategy can backfire. You most certainly know the strategy: an interesting, engaging, and enjoyable task should be stashed and used as a treat after one sorts out boring or urgent assignments.</p>
+<p>You&#8217;d wonder how this could possibly go wrong? Here&#8217;s what happened with me: one of the tasks, which I long wanted to implement myself, was finally approved and assigned to me with low priority. I revelled and carefully set it aside so I could come back to it with enough time to do it neat and proper. Alas! For the next three (!) weeks, due to routine, urgent, and other business, I haven&#8217;t got enough time to tackle it.</p>
+<p>Eventually, the task received medium priority and I had to implement it within certain time constraints. This obviously meant it wasn&#8217;t as neat as I wanted it to be; this also meant it wasn&#8217;t a treat anymore! Broken hopes and bad mood instead of delight and satisfaction! Horrible experience, beware. Now I&#8217;m trying to get back to it and rework the way I would at least be content with.</p>
+<p>Okay, let&#8217;s shove in some of the interesting links I came across last month:</p>
+<h2>Other:</h2>
+<p><a href="http://everythingsysadmin.com/2013/12/avoiding-the-cost-center-menta.html?utm_source=feedburner&amp;utm_medium=feed&amp;utm_campaign=Feed%3A+EverythingSysadmin+%28Everything+Sysadmin%29">Tom Limoncelli referred</a> an interesting article that defines five stages of how management, owners, and investors treat IT in their businesses:</p>
+<ol>
+<li>Cost center</li>
+<li>Service Provider</li>
+<li>IT Partner</li>
+<li>Business Peer</li>
+<li>Business Game Changer</li>
+</ol>
+<p>Implication is the further stage you&#8217;re in, the better it is. It struck me though that some firms actually may advance in a backward direction! I would not want to stay with the firm that made more than one step backwards (one step might be a coincidence, two &#8212; a pattern).</p>
+<p>Why would someone writing in Python and Ruby want to learn Java? Here&#8217;s an explanation: <a href="http://devopsanywhere.blogspot.co.uk/2013/11/why-im-learning-java.html">Why I&#8217;m Learning Java</a>.</p>
+<h2>Technology:</h2>
+<ul>
+<ul>
+<li>Valuable bookmark: how to count and quantify the number of syscalls a program makes? Here&#8217;s <a href="https://access.redhat.com/site/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/SystemTap_Beginners_Guide/syscallsbyprocpidsect.html">an example using SystemTap</a>.</li>
+<li>Very good explanation why systemd raises so many questions and fires heated debate &#8212; <a href="http://ewontfix.com/14/">systemd: broken by design</a>.</li>
+<li><a href="https://github.com/instructure/vector">Vector</a> &#8212; an interesting tool for predictive scaling and flexible downscaling of your AWS environments.</li>
+<li><a href="http://blockade.readthedocs.org">Blockade</a> &#8212; a <span style="line-height: 1.5em;">utility for testing network failures and partitions in distributed applications.</span></li>
+<li>Provocatively titled post &#8216;<a href="http://word.bitly.com/post/74839060954/ten-things-to-monitor">10 things we forgot to monitor</a>&#8216; lists some of the things you shouldn&#8217;t be missing in your monitoring. Included mostly for scripts examples.</li>
+<li><a href="http://flapjack.io">Flapjack</a> &#8212; monitoring notification routing + event processing system. More details on <a href="http://fractio.nl/2014/01/03/the-how-and-why-of-flapjack/">how and why</a> and <a href="http://fractio.nl/2014/02/12/data-driven-alerting-with-flapjack-puppet-hiera/">a live demo</a>.</li>
+<li>Very expressive presentation on how to build a modern monitoring subsystem:</li>
+</ul>
+</ul>
+<p><center><br />
+<iframe style="border: 1px solid #CCC; border-width: 1px 1px 0; margin-bottom: 5px; max-width: 100%;" src="http://www.slideshare.net/slideshow/embed_code/31168250" height="356" width="427" allowfullscreen="" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe></center>&nbsp;</p>
+<div style="margin-bottom: 5px;" align="center"><a title="Stop using Nagios (so it can die peacefully)" href="https://www.slideshare.net/superdupersheep/stop-using-nagios-so-it-can-die-peacefully" target="_blank">Stop using Nagios (so it can die peacefully)</a> from <strong><a href="http://www.slideshare.net/superdupersheep" target="_blank">Andy Sykes</a></strong></div>
+<p>&nbsp;</p>
+<h2>English</h2>
+<ul>
+<li><a href="http://www.theguardian.com/media/mind-your-language/2014/jan/31/mind-your-language-no-english-words">The Guardian&#8217;s article</a> dwelling on language devices summarising a relatively complex concept in a single word.</li>
+<li>Language purism seems to be an omnipresent phenomenon. The Economist&#8217;s article describing <a href="http://www.economist.com/blogs/prospero/2014/01/english-purism">purism in English language</a>.</li>
+<li>Yet another post on reduplications: <a href="http://www.macmillandictionaryblog.com/willy-nilly-word-development">willy-nilly word development</a>.</li>
+<li>Few ways of saying <a href="http://www.macmillandictionaryblog.com/life-skills-tip-of-the-week-ways-of-saying-i-dont-know">&#8220;I don&#8217;t know&#8221;</a>.</li>
+</ul>
+<hr>
+Seems I&#8217;ve failed to make this post short. Have so many interesting things in my drafts that it&#8217;s challenging to stop once started. Will improve next time. That&#8217;ll be all for today, folks.</p>
+<p><span style="line-height: 1.5em;"> </span></p>
+]]></content:encoded>
+										</item>
+	</channel>
+</rss>

@@ -1,0 +1,1959 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <meta content="text/html; charset=utf-8" http-equiv="content-type">
+
+
+
+
+
+
+
+
+  
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <title>RedHat Magazine Tips &amp; Tricks 13</title>
+  <link rel="stylesheet" type="text/css" href="css/master.css">
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <link rel="stylesheet" type="text/css" href="css/rhmag11.css">
+</head>
+
+
+<body>
+
+
+
+
+
+
+
+		
+	
+
+
+<div id="rhmagCenter">
+<div class="department">
+<h1 id="tipstricks">Tips &amp; tricks</h1>
+
+
+
+
+
+
+
+
+
+This article is protected by the <a href="http://www.opencontent.org/openpub/">Open Publication
+License, V1.0 or later</a>. Copyright &copy; 2005 by Red Hat,
+Inc.<br>
+
+
+
+
+
+
+
+
+
+<p>
+Original article: <a href="http://www.redhat.com/magazine/013nov05/departments/tips_tricks/">http://www.redhat.com/magazine/013nov05/departments/tips_tricks/</a></p>
+
+
+
+
+
+
+
+
+
+<h4> <a href="http://www.redhat.com/magazine/013nov05/departments/tips_tricks/">Red
+Hat Magazine, выпуск 13, ноябрь 2005</a></h4>
+
+
+
+
+
+
+
+
+
+<p>Перевод: &copy; Иван Песин</p>
+
+
+
+
+
+
+
+
+
+<p>Служба поддержки пользователей Red Hat получает технические
+вопросы со
+всего мира. Специалисты Red Hat
+ежедневно добавляют полученные вопросы и ответы на них в базу
+знаний&nbsp;<a href="http://kbase.redhat.com/">Red Hat
+Knowledgebase</a>. Доступ к ней возможен при наличии учетной
+записи на сайте redhat.com. Каждый месяц Red Hat Magazine знакомит
+читателей с&nbsp;<a href="http://kbase.redhat.com/">Red
+Hat Knowledgebase</a>, публикуя несколько самых свежих вопросов и
+ответов.</p>
+
+
+
+
+
+
+
+<div id="RHCEtip">
+<h1 id="rhcetips">Советы от&nbsp;RHCE</h1>
+
+
+
+
+
+
+
+
+
+<h2>Математика в командной строке</h2>
+
+
+
+
+
+
+
+
+<h3 class="byline">Брэд Смит (Brad Smith), Инструктор Red Hat</h3>
+
+
+
+
+
+
+
+
+<p>Знаете ли вы, что выполнять простые математические действия можно непосредственно в командной строке? Попробуйте, например:</p>
+
+
+
+
+
+
+
+
+<pre>[brad@satsuki ~]$ X=5<br>[brad@satsuki ~]$ Y=10<br>[brad@satsuki ~]$ echo $[ ($X+$Y)*2/10 ]<br>3<br></pre>
+
+
+
+
+
+
+
+
+<p>Это может оказаться очень удобным,&nbsp;если вы хотите&nbsp;что-то быстро
+подсчитать, но не желаете запускать приложение-калькулятор. Но учтите,
+что bash не поддерживает дроби. При вычислениях, дробное число округляется
+к меньшему целому:</p>
+
+
+
+
+
+
+
+
+<pre> <br>[brad@satsuki ~]$ echo $[ 3/2 ]<br>1<br></pre>
+
+
+
+
+
+
+
+
+<p>Для более сложных вычислений, вам придется использовать графическое
+приложение, например gnome-calculator, или более точный консольный
+калькулятор, например bc:</p>
+
+
+
+
+
+
+
+
+<pre> <br>[brad@satsuki ~]$ echo "3/2" | bc -l<br>1.50000000000000000000</pre>
+
+
+
+
+
+
+<comment title=" end rhceInner " xmlns="http://disruptive-innovations.com/zoo/nvu"><br>
+
+</comment>
+</div>
+
+
+
+
+
+
+<comment title=" end RHCEtip " xmlns="http://disruptive-innovations.com/zoo/nvu"></comment>
+<h2>Можно ли извлечь из архива tar один или несколько файлов, не распаковывая весь архив?</h2>
+
+
+
+
+
+
+
+<h4 class="byline">Мэтью Дейвис (Matthew Davis)</h4>
+
+
+
+
+
+
+
+
+<p>Следующая команда извлекает один файл из тарбола:</p>
+
+
+
+
+
+
+
+
+<pre class="screen"># tar xf file.tar full/path/to/file</pre>
+
+
+
+
+
+
+ 
+
+<p>Например, создадим следующий архив:</p>
+
+
+
+
+
+
+
+
+<pre class="screen"># tar cvf pictures.tar pictures<br>pictures/<br>pictures/seattle.jpg<br>pictures/WG.jpg<br></pre>
+
+
+
+
+
+
+ 
+
+<p>А теперь извлечем из него&nbsp;файл seattle.jpg без распаковки всего архива. Для этого выполните команду:</p>
+
+
+
+
+
+
+
+
+<pre class="screen"># tar xf pictures.tar pictures/seattle.jpg<br># ls -al pictures/seattle.jpg<br>-rw-rw-r--  1 user user 1458298 Jul 26 16:16 pictures/seattle.jpg<br></pre>
+
+
+
+
+
+
+ 
+
+<p><strong>Примечание:</strong>  Вы должны указать ПОЛНЫЙ путь к файлу, который нужно разархивировать.</p>
+
+
+
+
+
+
+
+
+
+<comment title=" QUESTION " xmlns="http://disruptive-innovations.com/zoo/nvu"></comment>
+<h2>Как с помощью&nbsp;dm-crypt создать зашифрованный PV (физический том) в LVM2?</h2>
+
+
+
+
+
+
+
+<h4 class="byline">Бастин Носера (Bastien Nocera)</h4>
+
+
+
+
+
+
+
+
+<p>Рассмотрим пример использования&nbsp;<tt class="command">dm-crypt</tt>. DATA&nbsp;&mdash; это существующая группа томов (Volume Group).</p>
+
+
+
+
+
+
+
+
+
+<ol>
+
+
+
+
+
+
+  <li>Создайте с помощью <tt class="command">lvcreate</tt> раздел CRYPTO:
+    
+    
+    
+    
+    
+    
+    <pre class="screen">[root@testmachine /]# lvcreate -n CRYPTO -L+100M DATA<br>Logical volume "CRYPTO" created<br></pre>
+
+
+
+
+
+
+
+  </li>
+
+
+
+
+
+
+  <li>В разделе CRYPTO создайте с помощью&nbsp;<tt class="command">cryptsetup</tt> блочное устройство:
+    
+    
+    
+    
+    
+    
+    <pre class="screen">[root@testmachine /]# cryptsetup create DMCRYPT /dev/DATA/CRYPTO<br>Enter passphrase:<br></pre>
+
+
+
+
+
+
+
+  </li>
+
+
+
+
+
+
+  <li>Проверьте состояние созданного устройства:
+    
+    
+    
+    
+    
+    
+    <pre class="screen">[root@testmachine /]# cryptsetup status DMCRYPT<br>/dev/mapper/DMCRYPT is active:<br>cipher: aes-plain<br>keysize: 256 bits<br>device: /dev/dm-6<br>offset: 0 sectors<br>size: 204800 sectors<br></pre>
+
+
+
+
+
+
+
+  </li>
+
+
+
+
+
+
+  <li>Создайте файловую систему утилитой <tt class="command">mke2fs</tt>:
+    
+    
+    
+    
+    
+    
+    <pre class="screen">[root@testmachine /]# mke2fs /dev/mapper/DMCRYPT<br>mke2fs 1.35 (28-Feb-2004)<br>max_blocks 104857600, rsv_groups = 12800, rsv_gdb = 256<br>Filesystem label=<br>OS type: Linux<br>Block size=1024 (log=0)<br>Fragment size=1024 (log=0)<br>25688 inodes, 102400 blocks<br>5120 blocks (5.00%) reserved for the super user<br>First data block=1<br>Maximum filesystem blocks=67371008<br>13 block groups<br>8192 blocks per group, 8192 fragments per group<br>1976 inodes per group<br>Superblock backups stored on blocks:<br>8193, 24577, 40961, 57345, 73729<br><br>Writing inode tables: done<br>inode.i_blocks = 3074, i_size = 67383296<br>Writing superblocks and filesystem accounting information: done<br><br>This filesystem will be automatically checked every 35 mounts or<br>180 days, whichever comes first. Use tune2fs -c or -i to override.<br></pre>
+
+
+
+
+
+
+
+  </li>
+
+
+
+
+
+
+  <li>Смонтируйте файловую систему и создайте на ней файл:
+
+    
+    
+    
+    
+    
+    
+    <pre class="screen">[root@testmachine /]# mkdir /mnt/crypt;<br>[root@testmachine /]# mount /dev/mapper/DMCRYPT /mnt/crypt<br>[root@testmachine /]# cd /mnt/crypt<br>[root@testmachine crypt]# ls -al<br>total 17<br>drwxr-xr-x 3 root root 1024 Feb 16 12:32 .<br>drwxr-xr-x 4 root root 4096 Feb 16 12:33 ..<br>drwx------ 2 root root 12288 Feb 16 12:32 lost+found<br>[root@testmachine crypt]# df -h<br>Filesystem Size Used Avail Use% Mounted on<br>[...]<br>/dev/mapper/DMCRYPT 97M 1.6M 91M 2% /mnt/crypt<br>[root@testmachine crypt]# touch FOOBAR<br>[root@testmachine crypt]# ls -al<br>total 17<br>drwxr-xr-x 3 root root 1024 Feb 16 13:42 .<br>drwxr-xr-x 4 root root 4096 Feb 16 12:33 ..<br>-rw-r--r-- 1 root root 0 Feb 16 13:42 FOOBAR<br>drwx------ 2 root root 12288 Feb 16 12:32 lost+found<br>[root@testmachine crypt]# cd ..<br></pre>
+
+
+
+
+
+
+
+  </li>
+
+
+
+
+
+
+  <li>Теперь размонтируйте ее и удалите шифрованное блочное устройство -&gt; устройство теперь в безопасности.
+    
+    
+    
+    
+    
+    
+    <pre class="screen">[root@testmachine mnt]# umount /mnt/crypt<br>[root@testmachine mnt]# cryptsetup remove DMCRYPT<br></pre>
+
+
+
+
+
+
+
+    
+    
+    
+    
+    
+    
+    <p>Дальнейшие действия могут выполняться и после перезагрузки системы.</p>
+
+
+
+
+
+
+
+  </li>
+
+
+
+
+
+
+  <li>Создайте еще раз блочное устройство и попробуйте ввести неправильный пароль:
+    
+    
+    
+    
+    
+    
+    <pre class="screen">[root@testmachine mnt]# cryptsetup create DMCRYPT /dev/DATA/CRYPTO<br>Enter passphrase: &lt;----------- ВВЕДИТЕ НЕПРАВИЛЬНУЮ ПАРОЛЬНУЮ ФРАЗУ!<br>[root@testmachine mnt]# mount /dev/mapper/DMCRYPT /mnt/crypt<br>mount: you must specify the filesystem type<br></pre>
+
+
+
+
+
+
+
+  </li>
+
+
+
+
+
+
+  <li>Попробуйте еще раз, но теперь с правильным паролем:
+    
+    
+    
+    
+    
+    
+    <pre class="screen">[root@testmachine mnt]# cryptsetup remove DMCRYPT<br>[root@testmachine mnt]# cryptsetup create DMCRYPT /dev/DATA/CRYPTO<br>Enter passphrase:<br>[root@testmachine mnt]# mount /dev/mapper/DMCRYPT /mnt/crypt<br>[root@testmachine mnt]# ls -al /mnt/crypt/<br>total 17<br>drwxr-xr-x 3 root root 1024 Feb 16 12:32 .<br>drwxr-xr-x 4 root root 4096 Feb 16 12:33 ..<br>-rw-r--r-- 1 root root 0 Feb 16 13:42 FOOBAR<br>drwx------ 2 root root 12288 Feb 16 12:32 lost+found<br></pre>
+
+
+
+
+
+
+
+  </li>
+
+
+
+
+
+
+</ol>
+
+
+
+
+
+
+
+
+<comment title=" QUESTION " xmlns="http://disruptive-innovations.com/zoo/nvu"></comment>
+<h2>Как отключить&nbsp;Hyper-Threading из загрузчика&nbsp;GRUB?</h2>
+
+
+
+
+
+
+
+<h4 class="byline">Мэтью Дейвис (Matthew Davis)</h4>
+
+
+
+
+
+
+<h3>Временно</h3>
+
+
+
+
+
+
+
+
+<p>Во время загрузки вы можете добавить опцию в строку параметров ядра.</p>
+
+
+
+
+
+
+
+<ul>
+
+
+
+
+
+
+  <li>В меню&nbsp;GRUB выберите необходимое ядро.</li>
+
+
+
+
+
+
+  <li>Нажмите&nbsp;'e', чтобы изменить строку параметров перед загрузкой.</li>
+
+
+
+
+
+
+  <li>В конце строки добавьте пробел и введите 'noht'.</li>
+
+
+
+
+
+
+  <li>Нажмите&nbsp;return, чтобы загрузка выполнялась с измененной строкой параметров.</li>
+
+
+
+
+
+
+  <li>Нажмите 'b', чтобы загрузить выбранное ядро.</li>
+
+
+
+
+
+
+</ul>
+
+
+
+
+
+
+
+<h3>Постоянно</h3>
+
+
+
+
+
+
+
+<ul>
+
+
+
+
+
+
+  <li>Откройте в редакторе файл&nbsp;<tt class="command">/etc/grub.conf</tt>.</li>
+
+
+
+
+
+
+  <li>Найдите необходимое ядро.</li>
+
+
+
+
+
+
+  <li>Добавьте к строке описания ядра опцию <tt class="command">noht</tt>. Например:
+
+    
+    
+    
+    
+    
+    
+    <pre class="screen">        kernel /vmlinuz-2.4.21-15.EL ro root=LABEL=/ <strong>noht</strong>
+    </pre>
+
+
+
+
+
+
+
+  </li>
+
+
+
+
+
+
+</ul>
+
+
+
+
+
+
+
+
+<p>Более подробная информация о технологии&nbsp;Hyper-Threading доступна по адресу:
+<a href="http://www.intel.com/technology/hyperthread/" target="blank">http://www.intel.com/technology/hyperthread/</a>.</p>
+
+
+
+
+
+
+
+
+
+<comment title=" QUESTION " xmlns="http://disruptive-innovations.com/zoo/nvu"></comment>
+<h2>Как настроить в Red Hat Enterprise Linux 4 Update 2 использование
+раздела подкачки в качестве устройства для дампов системы diskdump?</h2>
+
+
+
+
+
+
+
+<h4 class="byline">Акира Имамура (Akira Imamura)</h4>
+
+
+
+
+
+
+
+
+<p><b>Система:</b> Red Hat Enterprise Linux 4 Update 2</p>
+
+
+
+
+
+
+
+
+<p><b>Решение: </b><br>
+
+
+
+
+
+
+
+Не следуйте инструкциям из файла&nbsp;README, включенного в RPM-пакет&nbsp;<tt class="command">diskdumputils-1.1.9</tt>,
+для настройки использования раздела подкачки системой diskdump. Иначе
+раздел подкачки будет заблокирован. Инструкции в файле&nbsp;README
+указывают на необходимость форматирования раздела подкачки, что ведет к его разрушению. Устройства
+дампирования, кроме разделов подкачки, всегда требуют выполнения&nbsp;<tt class="command">service diskdump initialformat</tt> для использования в качестве выделенных устройств для дампов. Другими словами,
+разделы подкачки форматировать не нужно. Более детальная информация
+приведена в разделе "Настройки" последней версии файла&nbsp;README.
+</p>
+
+
+
+
+
+
+
+
+<h3>Обзор</h3>
+
+
+
+
+
+
+
+<p>Пакет <tt class="command">diskdumputils</tt> устанавливается на
+машине, где&nbsp;вы хотите сохранять дамп, генерируемый в случае
+системного сбоя. Соответствующие скрипты загружают и настраивают модуль
+ядра&nbsp;diskdump таким образом, что при сбое дамп памяти записывается
+на диск.</p>
+
+
+
+
+
+
+
+
+<h3>Поддерживаемые драйверы</h3>
+
+
+
+
+
+
+
+<p>Функциональность diskdump поддерживается только с нижеперечисленными адаптерами:</p>
+
+
+
+
+
+
+
+
+<pre class="screen">Red Hat Enterprise Linux 3 Red Hat Enterprise Linux 4<br>---------------------------------<br>aic7xxx aic7xxx<br>aic79xx aic79xx<br>dpt_i2o<br>ipr<br>megaraid2 megaraid<br>mptfusion mptfusion<br>sym53c8xx sym53c8xx<br>sata_promise sata_promise<br>ata_piix ata_piix<br>CCISS<br></pre>
+
+
+
+
+
+
+
+
+<h3>Поддерживаемые ядра</h3>
+
+
+
+
+
+
+
+<p>Функциональность diskdump поддерживается следующими ядрами&nbsp;Red
+Hat, где&nbsp;&lt;kernel-version&gt; соответствует версии, содержащей
+данный пакет&nbsp;<tt class="command">diskdumputils</tt>:</p>
+
+
+
+
+
+
+
+
+<pre class="screen">Red Hat Enterprise Linux 3<br>kernel-&lt;kernel-version&gt;.i686.rpm<br>kernel-smp-&lt;kernel-version&gt;.i686.rpm<br>kernel-hugemem-&lt;kernel-version&gt;.i686.rpm<br>kernel-&lt;kernel-version&gt;.athlon.rpm<br>kernel-smp-&lt;kernel-version&gt;.athlon.rpm<br>kernel-&lt;kernel-version&gt;.ia64.rpm<br>kernel-&lt;kernel-version&gt;.x86-64.rpm<br>kernel-smp-&lt;kernel-version&gt;.x86-64.rpm<br>kernel-smp-&lt;kernel-version&gt;.ia32e.rpm<br><br>Red Hat Enterprise Linux 4<br>kernel-&lt;kernel-version&gt;.i686.rpm<br>kernel-smp-&lt;kernel-version&gt;.i686.rpm<br>kernel-hugemem-&lt;kernel-version&gt;.i686.rpm<br>kernel-&lt;kernel-version&gt;.ia64.rpm<br>kernel-&lt;kernel-version&gt;.ppc64.rpm<br>kernel-&lt;kernel-version&gt;.x86-64.rpm<br>kernel-smp-&lt;kernel-version&gt;.x86-64.rpm<br><br></pre>
+
+
+
+
+
+
+
+
+<h3>Настройка</h3>
+
+
+
+
+
+
+
+<ol>
+
+
+
+
+
+
+  <li>
+    
+    
+    
+    
+    
+    
+    <p>Выбор устройства для дампов</p>
+
+
+
+
+
+
+
+
+    
+    
+    
+    
+    
+    
+    <p>Первым шагом в процессе настройки, есть выбор дискового
+устройства куда будет записываться дамп памяти в случае системного
+сбоя. Устройство для дампа может представлять собой:</p>
+
+
+
+
+
+
+
+    
+    
+    
+    
+    
+    
+    <ul>
+
+
+
+
+
+
+      <li>дисковый накопитель (например <tt class="command">/dev/sda</tt>)</li>
+
+
+
+
+
+
+      <li>раздел диска (например <tt class="command">/dev/sda4</tt>)</li>
+
+
+
+
+
+
+      <li>раздел подкачки&nbsp;&mdash; только в&nbsp;Red Hat Enterprise Linux 4&nbsp;&mdash; (например <tt class="command">/dev/sda2</tt> или <tt class="command">/dev/VolGroup00/LogVol01</tt>)</li>
+
+
+
+
+
+
+    
+    
+    
+    
+    
+    
+    </ul>
+
+
+
+
+
+
+
+
+    
+    
+    
+    
+    
+    
+    <p>Если вы настраиваете раздел подкачки в качестве устройства для дампа, то, по нижерассмотренным причинам, каталоги <tt class="command">/usr</tt> и <tt class="command">/var</tt> должны находится на локальных файловых системах.</p>
+
+
+
+
+
+
+
+
+    
+    
+    
+    
+    
+    
+    <p>В случае системного сбоя, содержимое памяти сохраняется в&nbsp;<tt class="command">/var/crash</tt>.
+При загрузке системы, для записи сохраненного содержимого памяти,
+выполняются программы пакета&nbsp;diskdumputils, которые должны
+считать&nbsp;<tt class="command">/var/crash</tt>. Эти программы находятся в подкаталогах&nbsp;<tt class="command">/usr</tt>,
+а операции сохранения памяти запускаются при загрузке до активации
+раздела подкачки и монтирования сетевых файловых систем. Таким образом,
+если&nbsp;<tt class="command">/usr</tt> и <tt class="command">/var</tt>
+находятся на сетевых файловых системах, сервис&nbsp;diskdump не будет запущен во время загрузки системы.</p>
+
+
+
+
+
+
+
+
+    
+    
+    
+    
+    
+    
+    <p>Размер устройства для дампов должен быть достаточно большим,
+чтобы вмещать весь дамп. Размер сохраняемого дампа состоит из размера
+всей физической памяти системы плюс заголовок. Чтобы определить точный
+размер необходимого пространства, посмотрите в файл <tt class="command">/proc/diskdump</tt> после загрузки модуля&nbsp;diskdump:</p>
+
+
+
+
+
+
+
+
+    
+    
+    
+    
+    
+    
+    <pre class="screen"># modprobe diskdump<br><br># cat /proc/diskdump<br><br># sample_rate: 8<br># block_order: 2<br># fallback_on_err: 1<br># allow_risky_dumps: 1<br># total_blocks: 262042<br></pre>
+
+
+
+
+
+
+
+
+    
+    
+    
+    
+    
+    
+    <p>Размер блока в параметре total_blocks равен размеру страницы.
+Таким образом, в данном случае, на машине с архитектурой i386, нам
+необходим раздел, размером минимум&nbsp;(262042 * 4096)
+байт.</p>
+
+
+
+
+
+
+
+
+    
+    
+    
+    
+    
+    
+    <p><strong>Примечание:</strong> При сохранении дампа памяти,
+содержимое памяти, находящееся в разделе подкачки, не сохраняется.
+Потому размер устройства для дампов должен соответствовать размеру
+физической памяти, без учета размера раздела подкачки.</p>
+
+
+
+
+
+
+
+
+    
+    
+    
+    
+    
+    
+    <p>Теперь, исходя из приведенной информации, выберите подходящее
+устройство для сохранения дампов и настройте подсистему diskdump на его
+использование. Делается это следующим образом.</p>
+
+
+
+
+
+
+
+
+    
+    
+    
+    
+    
+    
+    <p>Отредактируйте файл <tt class="command">/etc/sysconfig/diskdump</tt> и задайте устройство для дампов:</p>
+
+
+
+
+
+
+
+    
+    
+    
+    
+    
+    
+    <pre class="screen">DEVICE=/dev/sde1</pre>
+
+
+
+
+
+
+
+
+    
+    
+    
+    
+    
+    
+    <p>Можно указать несколько устройств, разделив их двоеточием:</p>
+
+
+
+
+
+
+
+    
+    
+    
+    
+    
+    
+    <pre class="screen">DEVICE=/dev/sda2:/dev/sdb</pre>
+
+
+
+
+
+
+
+
+    
+    
+    
+    
+    
+    
+    <p>Преимуществом использования нескольких устройств является
+избыточность. Например, если каждое из устройств для дампов управляется
+отдельным драйвером, то даже в случае сбоя из-за проблем драйвера,
+управляющего одним из устройств для дампов, содержимое памяти будет
+сохранено на другом устройстве.&nbsp;Каждое из устройств должно быть
+достаточно большим, чтобы вместить весь дамп. При использовании раздела
+подкачки в качестве устройства для дампа, указывать более одного
+устройства нельзя.</p>
+
+
+
+
+
+
+
+	</li>
+
+
+
+
+
+
+  <li>
+    
+    
+    
+    
+    
+    
+    <p>Форматирование устройства для дампов</p>
+
+
+
+
+
+
+
+
+    
+    
+    
+    
+    
+    
+    <p><strong>Примечание:</strong> пропустите этот шаг, если вы используете раздел подкачки в качестве устройства для дампов.</p>
+
+
+
+
+
+
+
+
+    
+    
+    
+    
+    
+    
+    <p>Второй шаг в процессе настройки&nbsp;&mdash; это форматирование устройства для дампов.</p>
+
+
+
+
+
+
+
+
+    
+    
+    
+    
+    
+    
+    <p>Любое выбранное вами устройство для дампов, за исключением
+раздела подкачки, должно быть специальным образом отформатировано перед
+его использованием. Соответственно, это устройство не может быть
+использовано для создания обычной файловой системы.</p>
+
+
+
+
+
+
+
+
+    
+    
+    
+    
+    
+    
+    <p>Форматирование устройства для дампов выполняется системным администратором один раз перед его использованием.&nbsp;(<span style="font-weight: bold;">Примечание</span><strong>:</strong>
+этот шаг должен быть опущен, если в качестве устройства для дампов
+используется раздел подкачки. В противном случае, раздел подкачки
+станет непригодным для использования по назначению):</p>
+
+
+
+
+
+
+
+    
+    
+    
+    
+    
+    
+    <pre class="screen"># service diskdump initialformat</pre>
+
+
+
+
+
+
+
+	</li>
+
+
+
+
+
+
+  <li>
+    
+    
+    
+    
+    
+    
+    <p>Активирование сервиса diskdump</p>
+
+
+
+
+
+
+
+
+    
+    
+    
+    
+    
+    
+    <p>Наконец, запустите сервис&nbsp;diskdump:</p>
+
+
+
+
+
+
+
+
+    
+    
+    
+    
+    
+    
+    <pre class="screen"># chkconfig diskdump on<br># service diskdump start<br></pre>
+
+
+
+
+
+
+
+
+    
+    
+    
+    
+    
+    
+    <p>Выбранное устройство/раздел можно проверить с помощью интерфейса&nbsp;<tt class="command">/proc/diskdump</tt>.</p>
+
+
+
+
+
+
+
+
+    
+    
+    
+    
+    
+    
+    <pre class="screen"># cat /proc/diskdump<br>/dev/sde1 514080 1012095<br></pre>
+
+
+
+
+
+
+
+
+    
+    
+    
+    
+    
+    
+    <p>Если нужно заменить устройство для дампов, отредактируйте файл&nbsp;<tt class="command">/etc/sysconfig/diskdump</tt>, отформатируйте новое устройство, как это было описано выше, и перезапустите сервис&nbsp;<tt class="command">diskdump</tt>. Для перезапуска сервиса выполните команду:</p>
+
+
+
+
+
+
+
+
+    
+    
+    
+    
+    
+    
+    <pre class="screen"># service diskdump restart</pre>
+
+
+
+
+
+
+
+	</li>
+
+
+
+
+
+
+</ol>
+
+
+
+
+
+
+
+<h3>Тестирование сервиса diskdump</h3>
+
+
+
+
+
+
+
+
+<p>Чтобы проверить функциональность&nbsp;diskdump, нажмите&nbsp;<tt class="command">Alt-SysRq-C</tt> или выполните <tt class="command">echo c &gt; /proc/sysrq-trigger</tt>.
+После завершения дампа, во время следующей загрузки системы будет
+создан файл&nbsp;vmcore в каталоге, с названием&nbsp;вида:</p>
+
+
+
+
+
+
+
+
+<pre class="screen">/var/crash/127.0.0.1-&lt;date&gt;<br></pre>
+
+
+
+
+
+
+
+
+<p>Формат файла&nbsp;vmcore соответствует формату, создаваемому
+средством netdump, так что для анализа файла можно использовать
+утилиту&nbsp;<tt class="command">crash(8)<span style="font-family: &quot;Lucida Grande&quot;,&quot;Luxi Sans&quot;,&quot;Bitstream Vera Sans&quot;,&quot;Trebuchet MS&quot;,helvetica,verdana,arial,sans-serif;">.</span></tt></p>
+
+
+
+
+
+
+
+
+<h3>Примечание</h3>
+
+
+
+
+
+
+
+<p>После первоначальной настройки вам больше ничего не нужно делать.
+Единственное, за чем вам необходимо следить, так это за размером
+раздела, выделенного для дампов. Если там не хватит места, дамп будет
+сохранен лишь частично, а результирующий файл&nbsp;&mdash; носить имя&nbsp;<tt class="command">vmcore-incomplete</tt>.</p>
+
+
+
+
+
+
+
+
+<p>Система Diskdump содержит настраиваемый скрипт&nbsp;<tt class="command">diskdump-nospace</tt>. Этот скрипт вызывается перед созданием файла vmcore, если в <tt class="command">/var/crash</tt> нет
+достаточного количества свободного места. Таким образом, в нем вы
+можете задать команды для очистки файловой системы.</p>
+
+
+
+
+
+
+
+
+<h3>Регулируемые параметры</h3>
+
+
+
+
+
+
+
+<p>Модуль&nbsp;diskdump поддерживает следующие параметры:</p>
+
+
+
+
+
+
+
+
+<p><tt class="command">block_order</tt>: Задает размер блока ввода-вывода при создании дампа. Значение по умолчанию равно 2, что устанавливает размер блока в <tt class="command">page-size &lt;&lt; 2</tt>
+или 16 кбайт на архитектуре i386. Большее значение увеличивает
+производительность, но, вместе с тем, и объем занимаемой модулем памяти.</p>
+
+
+
+
+
+
+
+
+<p><tt class="command">sample_rate</tt>: Определяет количество блоков,
+проверяемых перед записью. Значение по-умолчанию равно 8, что означает
+проверку одного блока из&nbsp;<tt class="command">1&lt;&lt;8</tt>
+(256). Нулевое значение говорит, что нужно проверять каждый блок, а отрицательные значения отключают проверку вовсе.</p>
+
+
+
+
+
+
+
+
+<p><tt class="command">dump_level</tt>: Уровень сбора памяти указывает
+какие именно страницы памяти будут дампироваться. Значение по-умолчанию&nbsp;&mdash; нуль&nbsp;&mdash; говорит о необходимости записи всех страниц физической
+памяти в файл&nbsp;vmcore. Чтобы уменьшить размер файла vmcore, можно
+исключить из дампа кэш-страницы, нуль-страницы, свободные страницы и
+страницы, содержащие данные пользовательских приложений. Указывая
+значение&nbsp;<tt class="command">dump_level</tt>
+от&nbsp;1 до 15 можно задать тип страниц, которые будут исключены из
+дампа. В следующей таблице указано соответствие между уровнем дампа и
+исключаемыми из дампа типами страниц памяти:</p>
+
+
+
+
+
+
+
+
+<pre class="screen">уровень кэш-     нуль-    свободные пользовательские описание<br>дампа   страницы страницы страницы  страницы<br>-------------------------------------------------------------<br>0 значение по-умолчанию<br>1 X<br>2 X<br>3 X X рекомендуется<br>4 X<br>5 X X<br>6 X X<br>7 X X X<br>8 X<br>9 X X<br>10 X X<br>11 X X X<br>12 X X<br>13 X X X<br>14 X X X<br>15 X X X X минимальный размер дампа<br></pre>
+
+
+
+
+
+
+
+
+<p>Функция частичного дампа памяти позволяет регулировать количество
+дампируемой памяти. Часто для исследования возникающей проблемы ядра
+все содержимое ОЗУ не требуется. Большая&nbsp;часть памяти обычно занята
+данными пользовательских приложений, кэшем&nbsp;(файловыми данными), нуль- и
+свободными страницами. Игнорирование таких типов страниц при создании
+файла&nbsp;vmcore, значительно уменьшает его размер, а сама процедура
+создания дампа занимает меньше времени. И хотя реальный размер
+файла&nbsp;vmcore может варьироваться в зависимости от состояния
+системы и значения параметра&nbsp;<tt class="command">dump_level</tt>,
+минимальный объем памяти, необходимый для анализа дампа, всегда будет
+доступен. Тем не менее, всегда может возникнуть ситуация, когда необходимо
+сохранить все содержимое памяти, потому не рекомендуется использовать для
+дампов раздел, размер которого меньше реального объема физической памяти.</p>
+
+
+
+
+
+
+
+
+<p>Необходимо помнить, что частичное дампирование памяти несет
+некоторую опасность. При выполнении дампа памяти, система просматривает
+специальные структуры, в которых записаны атрибуты страниц памяти. Если
+такая структура по каким-либо причинам разрушена, процесс сканирования
+может завершится сбоем. Например, если&nbsp;<tt class="command">dump_level</tt>имеет
+значение в диапазоне&nbsp;
+4-7 или 12-15, будут просмотрены списки ядра, содержащие указатели на
+свободные страницы. Если этот список поврежден, процесс может
+"повиснуть". Более того, возможно, что опущенный тип страницы памяти
+необходим для полного анализа причины некоторых сбоев. Потому, уровень
+сбора памяти должен выбираться индивидуально для каждой ситуации.
+Рекомендуемым уровнем является&nbsp;3, потому что обнаружить нуль- и
+кэш-страницы проще всего и нет необходимость просматривать списки
+страниц.
+</p>
+
+<h2>Как сделать изменения в файле&nbsp;/etc/resolv.conf постоянными, если они сбрасываются при перезагрузке?</h2>
+
+
+
+
+
+
+
+<h4 class="byline">Архана Рагхаван (Archana Raghavan)</h4>
+
+
+
+
+
+
+
+
+<p>Добавьте в файл&nbsp;<tt class="command">/etc/sysconfig/network-scripts/ifcfg-eth&lt;N&gt;</tt> опцию&nbsp;<tt class="command">PEERDNS</tt>.
+&lt;N&gt; может быть&nbsp;0, 1, 2, и т.д. и должно соответствовать
+конфигурационному файлу сетевого интерфейса. Например, первой сетевое
+устройство ethernet в системе называется&nbsp;eth0, значит его
+конфигурационный файл называется&nbsp;<tt class="command">/etc/sysconfig/network-scripts/ifcfg-eth0</tt>.</p>
+
+
+
+
+
+
+
+
+<p>Установите параметр&nbsp;<tt class="command">PEERDNS</tt> в 'no'. Например:</p>
+
+
+
+
+
+
+
+
+<pre class="screen">DEVICE=eth0<br>BOOTPROTO=dhcp<br>ONBOOT=yes<br>TYPE=Ethernet<br>PEERDNS=no<br></pre>
+
+
+
+
+
+
+
+
+<p>Этот параметр гарантирует, что файл&nbsp;<tt class="command">/etc/resolv.conf</tt> не будет перезаписан при загрузке системы.</p>
+
+
+
+
+
+
+
+
+<comment title=" QUESTION " xmlns="http://disruptive-innovations.com/zoo/nvu"></comment>
+<h2>Как настроить&nbsp;vsftpd в Red Hat Enterprise Linux 3 так, чтобы определенные&nbsp;пользователи имели доступ только к FTP?</h2>
+
+
+
+
+
+
+
+<h4 class="byline">Крис Эвич (Chris Evich)</h4>
+
+
+
+
+
+
+
+
+<p><strong>Система: </strong>Red Hat Enterprise Linux 3</p>
+
+
+
+
+
+
+
+
+<p><strong>Задача:</strong><br>
+
+
+
+Вам нужно настроить безопасный сервер&nbsp;FTP с тщательным контролем
+за пользователями, имеющими к нему доступ. Вы не хотите предоставлять
+анонимный доступ, а существующие пользователи не должны иметь
+возможности регистрации в системе. Пространство, доступное&nbsp;
+пользователям, должно быть ограничено определенным каталогом.
+Пользователи не должны иметь возможность получать почту на этой
+системе. Все необходимые пакеты в системе уже установлены&nbsp; (т.е. <tt class="command">vsftpd</tt>, <tt class="command">sendmail</tt>
+и пр.) и настроены они по-умолчанию. Вы имеете доступ к учетной записи&nbsp;<tt class="command">root</tt> и умеете редактировать конфигурационные файлы.</p>
+
+
+
+
+
+
+
+
+<p><strong>Решение: </strong>
+<br>
+
+
+
+
+
+
+
+Используйте следующие шаги:</p>
+
+
+
+
+
+
+
+
+<ol>
+
+
+
+
+
+
+  <li>Убедитесь, что сервис&nbsp;FTP запускается при загрузке системы. Это можно сделать с помощью команды&nbsp;<tt class="command">chkconfig vsftpd on</tt>.  Также удостоверьтесь, с помощью команды&nbsp;<tt class="command">chkconfig gssftp off</tt>, что сервис&nbsp;<tt class="command">gssftp</tt>&nbsp;<strong>выключен</strong>.</li>
+
+
+
+
+
+
+  <li>Откройте в редакторе файл <tt class="command">/etc/vsftpd/vsftpd.conf</tt>.  В начале файла установите параметр&nbsp;<tt class="command">anonymous_enable=NO</tt>.  В&nbsp;<strong>конце</strong> файла добавьте&nbsp;<tt class="command">chroot_local_user=YES</tt>.</li>
+
+
+
+
+
+
+  <li>Добавьте необходимые учетные записи, командой&nbsp;<tt class="command">useradd -d &lt;каталог&gt; -s /sbin/nologin &lt;имя_пользователя&gt;</tt>.  Замените&nbsp;<tt class="command">&lt;имя_пользователя&gt;</tt> непосредственно именем создаваемого пользователя. Вместо <tt class="command">&lt;каталог&gt;</tt> укажите каталог, к которому будет иметь доступ данный пользователей. <strong>Примечание:</strong>&nbsp;<tt class="command">&lt;имя_пользователя&gt;</tt> должно быть уникальным, тогда как&nbsp;<tt class="command">&lt;каталог&gt;</tt>&nbsp;&mdash; необязательно.</li>
+
+
+
+
+
+
+  <li>Задайте пароль для учетных записей командой&nbsp;<tt class="command">passwd &lt;username&gt;</tt>.</li>
+
+
+
+
+
+
+  <li>Добавьте в файл <tt class="command">/etc/vsftpd.user_list</tt> имена пользователей, которые должны иметь доступ (по одному на строку).</li>
+
+
+
+
+
+
+  <li>Откройте в редакторе файл <tt class="command">/etc/aliases</tt> и добавьте в любое место строки (по одной на пользователя) <tt class="command">&lt;имя пользователя&gt; : /dev/null</tt>. <span style="font-weight: bold;">Примечание</span><strong>:</strong> это отключает доставку почты в локальный ящик пользователя.</li>
+
+
+
+
+
+
+  <li>Выполните команду&nbsp;<tt class="command">newaliases</tt>, чтобы активировать изменения внесенные в файл <tt class="command">/etc/aliases</tt>.</li>
+
+
+
+
+
+
+  <li>Установите соответствующие права доступа к каталогу(-ам), указанному в команде <tt class="command">useradd</tt>.  Обратитесь к другим статьям из базы знаний за информацией о настройке прав доступа пользователей и групп.</li>
+
+
+
+
+
+
+  <li>Запустите сервер&nbsp;<tt class="command">vsftpd</tt> с помощью команды&nbsp;<tt class="command">service vsftpd start</tt>.</li>
+
+
+
+
+
+
+  <li>Попробуйте зарегистрироваться&nbsp;под созданными пользователями, чтобы убедиться в отсутствии доступа к системе.</li>
+
+
+
+
+
+
+  <li>Проверьте возможность доступа созданных пользователей к серверу&nbsp;FTP командой ftp localhost.
+Убедитесь, что пользователи не имеют доступа к каталогам вне указанного.</li>
+
+
+
+
+
+
+  <li>Проверьте ваши дополнительные ограничения по загрузке данных.</li>
+
+
+
+
+
+
+</ol>
+
+
+
+
+
+
+
+
+<comment title=" QUESTION " xmlns="http://disruptive-innovations.com/zoo/nvu"></comment>
+<h2>Как мне ограничить доступ пользователей через SSH
+с помощью директив&nbsp;allow и deny?</h2>
+
+
+
+
+
+
+
+<h4 class="byline">Майкл Нэполис (Michael Napolis)</h4>
+
+
+
+
+
+
+
+
+<p>Конфигурационный файл сервера SSH <tt class="command">/etc/ssh/sshd_config</tt> предоставляет несколько путей ограничения доступа</p>
+
+
+
+
+
+
+
+
+<p>Директива&nbsp;<tt class="command">AllowUsers</tt> может быть
+использована для задания списка пользователей, которым разрешен доступ
+через&nbsp;SSH. После директивы следует перечислить через пробел шаблоны имен пользователей. </p>
+
+
+
+
+
+
+
+
+<p>А для того, чтобы задать список пользователей, которым запрещен доступ по&nbsp;SSH, используется директива&nbsp;<tt class="command">DenyUsers</tt>.
+Обе директивы понимают метасимволы '*' и
+'?' в шаблонах имен пользователей. К сожалению, числовые идентификаторы
+пользователей (UID) не поддерживаются. По-умолчанию, доступ разрешен
+всем пользователям.</p>
+
+
+
+
+
+
+
+
+<p>Для ограничения доступа на уровне групп пользователей, можно применять директивы <tt class="command">AllowGroups</tt> и <tt class="command">DenyGroups</tt>.
+Эти опции разрешают или запрещают доступ пользователям, чья основная
+или вспомогательная группа соответствует заданному шаблону.</p>
+
+
+
+
+
+
+
+
+<p>Ниже приведен пример файла&nbsp;<tt class="command">/etc/ssh/sshd_config</tt>, который запрещает доступ по&nbsp;SSH пользователю <tt class="command">haller</tt>:</p>
+
+
+
+
+
+
+
+
+<pre class="screen"># This is the sshd server system-wide configuration file.  See<br># sshd_config(5) for more information.<br><br># This sshd was compiled with PATH=/usr/local/bin:/bin:/usr/bin<br><br># The strategy used for options in the default sshd_config shipped with<br># OpenSSH is to specify options with their default value where<br># possible, but leave them commented.  Uncommented options change a<br># default value.<br><br>#Port 22<br>#Protocol 2,1<br>#ListenAddress 0.0.0.0<br>#ListenAddress ::<br><br># HostKey for protocol version 1<br>#HostKey /etc/ssh/ssh_host_key<br># HostKeys for protocol version 2<br>#HostKey /etc/ssh/ssh_host_rsa_key<br>#HostKey /etc/ssh/ssh_host_dsa_key<br><br># Lifetime and size of ephemeral version 1 server key<br>#KeyRegenerationInterval 3600<br>#ServerKeyBits 768<br><br># Logging<br>#obsoletes QuietMode and FascistLogging<br>#SyslogFacility AUTH<br>SyslogFacility AUTHPRIV<br>#LogLevel INFO<br><br># Authentication:<br><br>#LoginGraceTime 120<br>#PermitRootLogin yes<br>#StrictModes yes<br><br>#RSAAuthentication yes<br>#PubkeyAuthentication yes<br>#AuthorizedKeysFile     .ssh/authorized_keys<br><br># rhosts authentication should not be used<br>#RhostsAuthentication no<br># Don't read the user's ~/.rhosts and ~/.shosts files<br>#IgnoreRhosts yes<br># For this to work you will also need host keys in /etc/ssh/ssh_known_hosts<br>#RhostsRSAAuthentication no<br># similar for protocol version 2<br>#HostbasedAuthentication no<br># Change to yes if you don't trust ~/.ssh/known_hosts for<br># RhostsRSAAuthentication and HostbasedAuthentication<br>#IgnoreUserKnownHosts no<br><br># To disable tunneled clear text passwords, change to no here!<br>#PasswordAuthentication yes<br>#PermitEmptyPasswords no<br><br># Change to no to disable s/key passwords<br>#ChallengeResponseAuthentication yes<br><br># Kerberos options<br>#KerberosAuthentication no<br>#KerberosOrLocalPasswd yes<br>#KerberosTicketCleanup yes<br><br>#AFSTokenPassing no<br><br># Kerberos TGT Passing only works with the AFS kaserver<br>#KerberosTgtPassing no<br><br># Set this to 'yes' to enable PAM keyboard-interactive authentication<br># Warning: enabling this may bypass the setting of 'PasswordAuthentication'<br>#PAMAuthenticationViaKbdInt no<br><br>#X11Forwarding no<br>X11Forwarding yes<br>#X11DisplayOffset 10<br>#X11UseLocalhost yes<br>#PrintMotd yes<br>#PrintLastLog yes<br>#KeepAlive yes<br>#UseLogin no<br>UsePrivilegeSeparation no<br>#PermitUserEnvironment no<br>Compression no<br><br>#MaxStartups 10<br># no default banner path<br>#Banner /some/path<br>#VerifyReverseMapping no<br>#ShowPatchLevel no<br><br># override default of no subsystems<br>Subsystem       sftp    /usr/libexec/openssh/sftp-server<br>DenyUsers haller<br></pre>
+
+
+
+
+
+
+
+
+<p>После изменения файла&nbsp;<tt class="command">/etc/ssh/sshd_config</tt> перезапустите сервис&nbsp;<tt class="command">sshd</tt>:</p>
+
+
+
+
+
+
+
+
+<pre class="screen">service sshd restart</pre>
+
+
+
+
+
+
+
+
+<p>Другим способом ограничения доступа по SSH, является использование подсистемы Pluggable Authentication
+Module (PAM). За подробной информацией по этому вопросу, обратитесь к другим статьям из базы знаний.</p>
+
+
+
+
+
+
+
+
+
+<comment title=" QUESTION " xmlns="http://disruptive-innovations.com/zoo/nvu"></comment>
+<h2>Почему я получаю ошибки&nbsp;"read only filesystem", хотя файловая система смонтирована в режиме чтения-записи?</h2>
+
+
+
+
+
+
+
+<h4 class="byline">Демосфен Матео (Demosthenes Mateo)</h4>
+
+
+
+
+
+
+
+
+<p>Если ядро обнаруживает критическое разрушение на диске или некоторые
+особо важные операции записи, например запись данных в журнал,
+заканчиваются сбоем, ядро может перемонтировать файловую систему в
+режиме только для чтения. Это связано с тем, что в данных условиях нет
+возможности поддерживать целостность файловой системы. Такое поведение
+тщательно протоколируется в файле&nbsp;<tt class="command">/var/log/messages</tt>.</p>
+
+
+
+
+
+
+
+
+<p>Если вы обнаружили описанные симптомы, сархивируйте ваши данные,
+поскольку такое поведение может&nbsp;говорить о грозящем сбое диска.
+Как только будет возможность, выполните проверку файловой системы
+утилитой&nbsp;<tt class="command">e2fsck</tt> с опцией&nbsp;<tt class="command">-c</tt>&nbsp;&mdash; проверкой на сбойные сектора. Обычная утилита&nbsp;<tt class="command">fsck</tt> может не обнаружить всех ошибок. Пример:</p>
+
+
+
+
+
+
+
+
+<pre class="screen">e2fsck -c /dev/sda3</pre>
+
+
+
+
+
+
+
+
+<comment title=" END OF TIPS AND TRICKS " xmlns="http://disruptive-innovations.com/zoo/nvu"><br>
+
+
+
+
+</comment></div>
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+</body>
+</html>

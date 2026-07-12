@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>kexec &#8211; Ivan Pesin</title>
+	<atom:link href="/blog/tag/kexec/feed/" rel="self" type="application/rss+xml" />
+	<link>https://pesin.space/blog</link>
+	<description>Articles &#38; Translations</description>
+	<lastBuildDate>
+	Wed, 19 Oct 2016 02:08:18 +0000	</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=5.1.1</generator>
+	<item>
+		<title>Как загрузить новое ядро с помощью kexec?</title>
+		<link>/blog/2009/06/%d0%ba%d0%b0%d0%ba-%d0%b7%d0%b0%d0%b3%d1%80%d1%83%d0%b7%d0%b8%d1%82%d1%8c-%d0%bd%d0%be%d0%b2%d0%be%d0%b5-%d1%8f%d0%b4%d1%80%d0%be-%d1%81-%d0%bf%d0%be%d0%bc%d0%be%d1%89%d1%8c%d1%8e-kexec/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=%25d0%25ba%25d0%25b0%25d0%25ba-%25d0%25b7%25d0%25b0%25d0%25b3%25d1%2580%25d1%2583%25d0%25b7%25d0%25b8%25d1%2582%25d1%258c-%25d0%25bd%25d0%25be%25d0%25b2%25d0%25be%25d0%25b5-%25d1%258f%25d0%25b4%25d1%2580%25d0%25be-%25d1%2581-%25d0%25bf%25d0%25be%25d0%25bc%25d0%25be%25d1%2589%25d1%258c%25d1%258e-kexec</link>
+				<pubDate>Mon, 15 Jun 2009 07:17:59 +0000</pubDate>
+		<dc:creator><![CDATA[ivan]]></dc:creator>
+				<category><![CDATA[RedHat KB]]></category>
+		<category><![CDATA[kexec]]></category>
+		<category><![CDATA[rhel5]]></category>
+
+		<guid isPermaLink="false">http://www.n-ix.com/ipesin/?p=259</guid>
+				<description><![CDATA[Copyright (c) 2009 by Red Hat, Inc. This material may be distributed only subject to the terms and conditions set forth in the Open Publication License, v1.0 or later (available at http://www.opencontent.org/openpub/). Original article: http://kbase.redhat.com/faq/docs/DOC-9797.pdf. Translated by Ivan Pesin, June 2009. Система: Red Hat Enterprise Linux 5 Решение: Kexec это механизм быстрой загрузки, который позволяет [&#8230;]]]></description>
+								<content:encoded><![CDATA[<p id="top" />
+<div class="copyright">Copyright (c) 2009 by Red Hat, Inc. This material may be distributed only subject to the terms and conditions set forth in the Open Publication License, v1.0 or later (available at <a href="http://www.opencontent.org/openpub/">http://www.opencontent.org/openpub/</a>).<br />
+Original article: <a href="http://kbase.redhat.com/faq/docs/DOC-9797.pdf">http://kbase.redhat.com/faq/docs/DOC-9797.pdf</a>.</p>
+<p>Translated by Ivan Pesin, June 2009.</p></div>
+<p><strong>Система:</strong> Red Hat Enterprise Linux 5</p>
+<p><strong>Решение:</strong></p>
+<p><code>Kexec</code> это механизм быстрой загрузки, который позволяет загружать ядро Linux из контекста уже запущенного ядра без передачи управления BIOS. Процедуры инициализации BIOS-а могут занимать очень много времени, особенно на больших серверах со множеством периферийных устройств. Механизм <code>kexec</code> позволяет сэкономить массу времени разработчикам, которые должны многократно перезагружать систему.</p>
+<p>Проверьте, установлен ли пакет <code>kexec-tools</code>:</p>
+<blockquote><p></p><pre class="crayon-plain-tag"># rpm -qa | grep kexe
+kexec-tools-1.101-194.4.el5</pre><p></p></blockquote>
+<p>Следующие команды показывают, как можно подготовить к загрузке (загрузить) kernel-2.6.18-53.1.4.el5:</p>
+<blockquote><p></p><pre class="crayon-plain-tag"># cat /proc/cmdline
+ro root=/dev/VolGroup00/LogVol00 rhgb quiet
+# kexec -l /boot/vmlinuz-2.6.18-53.1.4.el5   \
+    --initrd=/boot/initrd-2.6.18-53.1.4.el5.img \
+        --command-line=&quot;ro root=/dev/VolGroup00/LogVol00 rhgb quiet&quot;</pre><p></p></blockquote>
+<p>Чтобы передать управление подготовленному (загруженному) ядру, выполните:</p>
+<blockquote><p></p><pre class="crayon-plain-tag"># kexec -e</pre><p></p></blockquote>
+]]></content:encoded>
+										</item>
+		<item>
+		<title>Как настроить kexec/kdump в Red Hat Enterprise Linux 5?</title>
+		<link>/blog/2009/06/%d0%ba%d0%b0%d0%ba-%d0%bd%d0%b0%d1%81%d1%82%d1%80%d0%be%d0%b8%d1%82%d1%8c-kexeckdump-%d0%b2-red-hat-enterprise-linux-5/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=%25d0%25ba%25d0%25b0%25d0%25ba-%25d0%25bd%25d0%25b0%25d1%2581%25d1%2582%25d1%2580%25d0%25be%25d0%25b8%25d1%2582%25d1%258c-kexeckdump-%25d0%25b2-red-hat-enterprise-linux-5</link>
+				<pubDate>Sun, 14 Jun 2009 11:00:31 +0000</pubDate>
+		<dc:creator><![CDATA[ivan]]></dc:creator>
+				<category><![CDATA[RedHat KB]]></category>
+		<category><![CDATA[core_dump]]></category>
+		<category><![CDATA[kdump]]></category>
+		<category><![CDATA[kexec]]></category>
+		<category><![CDATA[rhel5]]></category>
+
+		<guid isPermaLink="false">http://www.n-ix.com/ipesin/?p=193</guid>
+				<description><![CDATA[Copyright (c) 2009 by Red Hat, Inc. This material may be distributed only subject to the terms and conditions set forth in the Open Publication License, v1.0 or later (available at http://www.opencontent.org/openpub/). Original article: http://kbase.redhat.com/faq/docs/DOC-6039.pdf. Translated by Ivan Pesin, June 2009. Общее представление Kexec это механизм быстрой загрузки, который позволяет загружать ядро Linux из контекста [&#8230;]]]></description>
+								<content:encoded><![CDATA[<p id="top" />
+<div class="copyright">Copyright (c) 2009 by Red Hat, Inc. This material may be distributed only subject to the terms and conditions set forth in the Open Publication License, v1.0 or later (available at <a href="http://www.opencontent.org/openpub/">http://www.opencontent.org/openpub/</a>).<br />
+Original article: <a href="http://kbase.redhat.com/faq/docs/DOC-6039.pdf">http://kbase.redhat.com/faq/docs/DOC-6039.pdf</a>.</p>
+<p>Translated by Ivan Pesin, June 2009.</p></div>
+<h5>Общее представление</h5>
+<p><code>Kexec</code> это механизм быстрой загрузки, который позволяет загружать ядро Linux из контекста уже запущенного ядра без передачи управления BIOS. Процедуры инициализации BIOS-а могут занимать очень много времени, особенно на больших серверах со множеством периферийных устройств. Механизм <code>kexec</code> позволяет сэкономить массу времени разработчикам, которые должны многократно перезагружать систему.</p>
+<p><code>Kdump</code> это новый очень надёжный механизм получения дампа памяти при крахе ядра. Дамп захватывается в контексте свежезагруженного ядра, а не в контексте сбойного ядра. <code>Kdump</code> использует <code>kexec</code> чтобы загрузить второе ядро при сбое основного ядра. Это второе ядро, которое часто называют &#8220;ядром захвата&#8221; (capture kernel), загружается в небольшой участок памяти и создаёт образ памяти основного ядра.</p>
+<p>Первое ядро резервирует часть памяти, которая используется вторым ядром при загрузке. Учтите, что <code>kdump</code> резервирует значительную часть памяти при загрузке, что меняет фактические минимальные требования к оперативной памяти Red Hat Enterprise Linux 5. Чтобы рассчитать их, обратитесь к документу <a href="http://www.redhat.com/rhel/details/limits/">http://www.redhat.com/rhel/details/limits/</a>, где указаны минимальные требования к ОЗУ и прибавьте к ним количество памяти, необходимое для <code>kdump</code>.</p>
+<p><code>Kexec</code> реализует загрузку ядра захвата без передачи управления BIOS-у, а значит сохраняется содержимое памяти основного ядра, что и представляет собой дамп памяти ядра при крахе.</p>
+<h5>Установка Kdump</h5>
+<p>Проверьте, что пакет <code>kexec-tools</code> установлен:</p>
+<blockquote><p></p><pre class="crayon-plain-tag"># rpm -q kexec-tools</pre><p></p></blockquote>
+<p>Если он не установлен, установите его с помощью yum:</p>
+<blockquote><p></p><pre class="crayon-plain-tag"># yum install kexec-tools</pre><p></p></blockquote>
+<h5>Расположение дампа Kdump</h5>
+<p>В файле <code>/etc/kdump.conf</code> должно быть указано место для сохранения дампа памяти ядра при крахе. Отсутствие этого параметра ведёт к неопределённому поведению <code>Kdump</code>. Есть возможность сохранять дамп непосредственно на устройство, в файл, или через сеть по протоколам NFS и SSH.</p>
+<h6>Дампирование на устройство</h6>
+<p>Вы можете настроить <code>Kdump</code> выполнять дамп непосредственно на устройство, указав директиву raw в файле kdump.conf. Синтаксис этой директивы такой:</p>
+<blockquote><p></p><pre class="crayon-plain-tag">raw имя_устройства</pre><p></p></blockquote>
+<p>Например:</p>
+<blockquote><p></p><pre class="crayon-plain-tag">raw /dev/sda1</pre><p></p></blockquote>
+<p>Пожалуйста учтите, что эта конфигурация уничтожит все данные, которые находятся на этом устройстве.</p>
+<h6>Дампирование в файл на диске</h6>
+<p><code>Kdump</code> может быть настроен монтировать раздел и сохранять дамп в файл на диске. Это делается указанием типа файловой системы и раздела в файле <code>kdump.conf</code>. Раздел может быть задан именем устройства, меткой файловой системы или UUID, аналогично тому, как это указывается в файле <code>/etc/fstab</code>.</p>
+<p>По-умолчанию, каталог в котором будет сохранятся дамп, называется <code>/var/crash/%DATE/</code>, где %DATE &#8212; это текущая дата на момент создания дампа. Например, конфигурация:</p>
+<blockquote><p></p><pre class="crayon-plain-tag">ext3 /dev/sda1</pre><p></p></blockquote>
+<p>смонтирует /dev/sda1, как устройство с файловой системой ext3, и запишет дамп в каталог /var/crash/, тогда как</p>
+<blockquote><p></p><pre class="crayon-plain-tag">ext3 LABEL=/boot</pre><p></p></blockquote>
+<p>смонтирует устройство с файловой системой ext3 и меткой /boot. На большинстве инсталляций Red Hat Enterprise Linux, это будет каталог /boot. Самый простой способ узнать, какое устройство нужно указать в конфигурации &#8212; посмотреть файл <code>/etc/fstab</code>. Как уже говорилось, каталог по-умолчанию для сохранения дампов называется <code>/var/crash/%DATE/</code>. Изменить его можно с помощью директивы path в файле <code>kdump.conf</code>. Например:</p>
+<blockquote><p></p><pre class="crayon-plain-tag">ext3 UUID=f15759be-89d4-46c4-9e1d-1b67e5b5da82 
+path /usr/local/cores</pre><p></p></blockquote>
+<p>Эта конфигурация указывает, что сохранять файлы дампов нужно в каталоге <code>/usr/local/cores/</code> вместо <code>/var/crash/</code>.</p>
+<h6>Дампирование на сетевое устройство по NFS</h6>
+<p>Чтобы настроить kdump для дампирования на том NFS, отредатируйте файл <code>/etc/kdump.conf</code> и добавьте в него строку в формате:</p>
+<blockquote><p></p><pre class="crayon-plain-tag">net &amp;lt;nfs-сервер&amp;gt;:/nfs/mount</pre><p></p></blockquote>
+<p>Например:</p>
+<blockquote><p></p><pre class="crayon-plain-tag">net nfs.example.com:/export/vmcores</pre><p></p></blockquote>
+<p>Эта директива указывает, что дамп памяти нужно сохранять в файл <code>/export/vmcores/var/crash/[имя_хоста]-[дата]</code> на сервере <code>nfs.example.com</code>. Система-клиент должна иметь права на запись для этого тома.</p>
+<h6>Дампирование на сетевое устройство по SSH</h6>
+<p>Преимущество SSH &#8212; шифрование передаваемого по сети трафика. По этой причине, этот метод является наилучшим в ситуации, когда дамп памяти нужно передавать через сеть с общем доступом, такую как Internet или корпоративную WAN.</p>
+<blockquote><p></p><pre class="crayon-plain-tag">net user@&amp;lt;ssh-сервер&amp;gt;</pre><p></p></blockquote>
+<p>Например:</p>
+<blockquote><p></p><pre class="crayon-plain-tag">net kdump@crash.example.com</pre><p></p></blockquote>
+<p>В этом случае, kdump будет использовать <code>scp</code> для подключения к серверу <code>crash.example.com</code> под пользователем <code>kdump</code>. Дамп памяти будет скопирован в каталог <code>/var/crash/[имя_хоста]-[дата]/</code>. Пользователь kdump должен иметь необходимые права для записи на удалённом сервере.</p>
+<p>Чтобы активировать внесённые в настройку изменения, выполните команду <code>service kdump propagate</code>, которая должна выдать примерно следующий вывод:</p>
+<blockquote><p></p><pre class="crayon-plain-tag">Generating new ssh keys... done,
+kdump@crash.example.com's password:
+/root/.ssh/kdump_id_rsa.pub has been added to
+~kdump/.ssh/authorized_keys2 on crash.example.com</pre><p></p></blockquote>
+<h5>Задание выборки страниц и сжатие</h5>
+<p>На системах с большим объемом оперативной памяти рекомендуется не дампировать ненужные страницы памяти и сжимать остальные. Это настраивается в файле <code>kdump.conf</code> командой <code>core_collector</code>. На текущий момент единственным полностью поддерживаемым коллектором является  <code>makedumpfile</code>. Его опции можно посмотреть командой <code>makedumpfile --help</code>. Опция <code>-d</code> указывает какие типы страниц не нужно дампировать. Параметр этой опции представляет битовую маску следующих типов:</p>
+<blockquote><p></p><pre class="crayon-plain-tag">zero pages   = 1
+cache pages   = 2
+cache private = 4
+user  pages   = 8
+free  pages   = 16</pre><p></p></blockquote>
+<p>Вообще говоря, все эти страницы не содержат ценной для отладки информации. Чтобы исключить их из дампа, укажите параметр <code>-d 31</code>.  Опция <code>-c</code> говорит makedumpfile сжимать остальные страницы памяти.</p>
+<blockquote><p></p><pre class="crayon-plain-tag">#core_collector makedumpfile -d 1          # throw out zero pages (containing no data)
+#core_collector makedumpfile -d 31         # throw out all trival pages
+#core_collector makedumpfile -c            # compress all pages, but leave them all
+core_collector makedumpfile -d 31 -c       # throw out trival pages and compress (recommended)</pre><p></p></blockquote>
+<p>Помните, что использование ключей <code>-d</code> и <code>-c</code> немного увеличивает время, необходимое для создания дампа памяти.</p>
+<h5>Добавление параметров загрузки</h5>
+<p>Необходимо модифицировать параметры загрузки основного ядра, чтобы зарезервировать память для ядра захвата. Для архитектур i386 и x86_64 отредактируйте файл  <code>/etc/grub.conf</code> и добавьте <code>crashkernel=128M@16M</code> в конец строки с параметрами ядра.</p>
+<p>Примечание: вы можете указать размер резервируемой памяти меньше 128M, но тестирование показало, что уже при 64M <code>kdump</code> может работать ненадёжно. </p>
+<p>Пример файла <code>/etc/grub.conf</code> с добавленными параметрами kdump:</p>
+<blockquote><p></p><pre class="crayon-plain-tag"># grub.conf generated by anaconda
+ #
+ # Note that you do not have to rerun grub after making changes to this file
+ # NOTICE:  You do not have a /boot partition.  This means that
+ #          all kernel and initrd paths are relative to /, eg.
+ #          root (hd0,0)
+ #          kernel /boot/vmlinuz-version ro root=/dev/hda1
+ #          initrd /boot/initrd-version.img
+ #boot=/dev/hda
+ default=0
+ timeout=5
+ splashimage=(hd0,0)/boot/grub/splash.xpm.gz
+ hiddenmenu
+ title Red Hat Enterprise Linux Client (2.6.17-1.2519.4.21.el5)
+         root (hd0,0)
+         kernel /boot/vmlinuz-2.6.17-1.2519.4.21.el5 ro root=LABEL=/ rhgb quiet crashkernel=128M@16M
+         initrd /boot/initrd-2.6.17-1.2519.4.21.el5.img</pre><p></p></blockquote>
+<h5>Тестирование</h5>
+<p>После внесения указанных изменений, перезагрузите систему. 128M памяти (начиная с 16M), зарезервированные для ядра захвата, не будут использоваться основной системой. Обратите внимание, что команда <code>free -m</code> покажет на 128M доступной памяти меньше, чем до настройки kdump.</p>
+<p>Теперь, когда необходимая память выделена и зарезервирована, включите скрипт автозапуска kdump и запустите сервис:</p>
+<blockquote><p></p><pre class="crayon-plain-tag">#  chkconfig kdump on
+ #  service kdump start</pre><p></p></blockquote>
+<p>В результате через <code>kexec</code> будет загружен образ ядра, что приготовит систему к захвату дампа памяти при крахе. Чтобы это проверить, вызовите крах системы с помощью sysrq:</p>
+<blockquote><p></p><pre class="crayon-plain-tag"># echo &quot;c&quot; &amp;gt; /proc/sysrq-trigger</pre><p></p></blockquote>
+<p>Эта команда вызовет панику ядра, после чего система должна загрузить ядро <code>kdump</code>. Когда процесс загрузки дойдёт до момента запуска сервиса <code>kdump</code>, дамп памяти основного ядра будет скопирован на диск или другое место, указанное в файле <code>/etc/kdump.conf</code>.</p>
+<p><strong>Примечание:</strong> kdump не поддерживает работу консоли в режиме frame-buffers или X-ов. В системах, обычно работающих с параметром ядра вроде &#8220;vga=791&#8221; или с запущенным сервером X, изображение на консоли при загрузке ядра через kexec будет искажено. Тем не менее, это не помешает ядру kdump создать дамп памяти, а изображение восстановится после перезагрузки системы.</p>
+]]></content:encoded>
+										</item>
+	</channel>
+</rss>

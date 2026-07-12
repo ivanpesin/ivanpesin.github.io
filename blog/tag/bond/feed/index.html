@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>bond &#8211; Ivan Pesin</title>
+	<atom:link href="/blog/tag/bond/feed/" rel="self" type="application/rss+xml" />
+	<link>https://pesin.space/blog</link>
+	<description>Articles &#38; Translations</description>
+	<lastBuildDate>
+	Wed, 19 Oct 2016 02:08:18 +0000	</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=5.1.1</generator>
+	<item>
+		<title>Как объединить несколько сетевых интерфейсов в один логический (bonding) в Red Hat Enterprise Linux?</title>
+		<link>/blog/2009/08/%d0%ba%d0%b0%d0%ba-%d0%be%d0%b1%d1%8a%d0%b5%d0%b4%d0%b8%d0%bd%d0%b8%d1%82%d1%8c-%d0%b2-%d0%be%d0%b4%d0%b8%d0%bd-%d0%bb%d0%be%d0%b3%d0%b8%d1%87%d0%b5%d1%81%d0%ba%d0%b8%d0%b9-%d0%bd%d0%b5%d1%81%d0%ba/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=%25d0%25ba%25d0%25b0%25d0%25ba-%25d0%25be%25d0%25b1%25d1%258a%25d0%25b5%25d0%25b4%25d0%25b8%25d0%25bd%25d0%25b8%25d1%2582%25d1%258c-%25d0%25b2-%25d0%25be%25d0%25b4%25d0%25b8%25d0%25bd-%25d0%25bb%25d0%25be%25d0%25b3%25d0%25b8%25d1%2587%25d0%25b5%25d1%2581%25d0%25ba%25d0%25b8%25d0%25b9-%25d0%25bd%25d0%25b5%25d1%2581%25d0%25ba</link>
+				<pubDate>Mon, 10 Aug 2009 19:15:21 +0000</pubDate>
+		<dc:creator><![CDATA[ivan]]></dc:creator>
+				<category><![CDATA[RedHat KB]]></category>
+		<category><![CDATA[bond]]></category>
+		<category><![CDATA[rhel3]]></category>
+		<category><![CDATA[team]]></category>
+		<category><![CDATA[teaming]]></category>
+
+		<guid isPermaLink="false">http://www.n-ix.com/ipesin/?p=499</guid>
+				<description><![CDATA[Copyright (c) 2009 by Red Hat, Inc. This material may be distributed only subject to the terms and conditions set forth in the Open Publication License, v1.0 or later (available at http://www.opencontent.org/openpub/). Original article: http://kbase.redhat.com/faq/docs/DOC-7944.pdf Original article: http://kbase.redhat.com/faq/docs/DOC-4284.pdf Translated by Ivan Pesin, August 2009 Red Hat Enterprise Linux позволяет администраторам объединять несколько сетевых интерфейсов в [&#8230;]]]></description>
+								<content:encoded><![CDATA[<p id="top" />
+<div class="copyright">Copyright (c) 2009 by Red Hat, Inc. This material may be distributed only subject to the terms and conditions set forth in the Open Publication License, v1.0 or later (available at <a href="http://www.opencontent.org/openpub/">http://www.opencontent.org/openpub/</a>).<br />
+Original article: <a href="http://kbase.redhat.com/faq/docs/DOC-7944.pdf">http://kbase.redhat.com/faq/docs/DOC-7944.pdf</a><br />
+Original article: <a href="http://kbase.redhat.com/faq/docs/DOC-4284.pdf">http://kbase.redhat.com/faq/docs/DOC-4284.pdf</a></p>
+<p>Translated by Ivan Pesin, August 2009</p></div>
+<p>Red Hat Enterprise Linux позволяет администраторам объединять несколько сетевых интерфейсов в один с помощью модуля ядра <code>bonding</code> и специального сетевого интерфейса, который называется &#8220;интерфейсом объединенного канала&#8221; (channel bonding interface). Объединение каналов даёт возможность двум или более сетевым интерфейсам работать как одному, увеличивая пропускную способность и обеспечивая отказоустойчивость.</p>
+<p>Чтобы создать bonding-интерфейс, создайте файл в каталоге <code>/etc/sysconfig/network-scripts/</code> с именем <code>ifcfg-bond&lt;N&gt;</code>, заменив <code>&lt;N&gt;</code> номером интерфейса, например <code>0</code>.</p>
+<p>Содержимое этого файла может быть идентичным содержимому файлов настройки объединяемых интерфейсов. Единственное отличие состоит в том, что директива <code>DEVICE</code> должна быть равна <code>bond&lt;N&gt;</code>, где <code>&lt;N&gt;</code> это номер интерфейса.</p>
+<p>Ниже приведён пример конфигурационного файла для bonding-интерфейса:</p>
+<blockquote><p></p><pre class="crayon-plain-tag">DEVICE=bond0
+BOOTPROTO=none
+ONBOOT=yes
+NETWORK=10.0.1.0
+NETMASK=255.255.255.0
+IPADDR=10.0.1.27
+USERCTL=no</pre><p></p></blockquote>
+<p>После того, как вы создадите настройку для bonding-интерфейса, нужно внести изменения в настройку объединяемых интерфейсов. Они должны быть сконфигурированы с директивами <code>MASTER=</code> и <code>SLAVE=</code>. Файлы настройки объединяемых интерфейсов могут быть практически идентичными.</p>
+<p>Например, если ваш bonding-интерфейс объединяет два Ethernet-интерфейса &#8212; <code>eth0</code> и <code>eth1</code>, тогда их конфигурационные файлы могут выглядеть так:</p>
+<blockquote><p></p><pre class="crayon-plain-tag">DEVICE=eth&amp;lt;N&amp;gt;
+BOOTPROTO=none
+ONBOOT=yes
+MASTER=bond0
+SLAVE=yes
+USERCTL=no</pre><p></p></blockquote>
+<p>В примере замените <code>&lt;N&gt;</code> на номер интерфейса.</p>
+<p>Для работы bonding-интерфейса необходимо загрузить соответствующий модуль ядра. Процедура загрузки модуля ядра слегка отличается в Red Enterprise Linux версии 3 и Red Hat Enterprise Linux версии 4.</p>
+<h3>Red Hat Enterprise Linux версии 3</h3>
+<p>Чтобы обеспечить автоматическую загрузку модуля при активации bonding-интерфейса, добавьте в файл <code>/etc/modules.conf</code> строку:</p>
+<blockquote><p></p><pre class="crayon-plain-tag">alias bond&amp;lt;N&amp;gt; bonding</pre><p></p></blockquote>
+<p>Замените <code>&lt;N&gt;</code> на номер интерфейса, например <code>0</code>. Для bonding-интерфейсов, отличных от <code>bond0</code> также требуется строка:</p>
+<blockquote><p></p><pre class="crayon-plain-tag">options bond&amp;lt;N&amp;gt; -o bond&amp;lt;N&amp;gt; mode=1 miimon=100</pre><p></p></blockquote>
+<p>Для каждого сконфигурированного bonding-интерфейса должна быть соответствующая запись в файле <code>/etc/modules.conf</code>.</p>
+<h3>Red Hat Enterprise Linux версии 4</h3>
+<p>Чтобы обеспечить автоматическую загрузку модуля при активации bonding-интерфейса, добавьте в файл <code>/etc/modprobe.conf</code> строки:</p>
+<blockquote><p></p><pre class="crayon-plain-tag">alias bond&amp;lt;N&amp;gt; bonding
+options bond&amp;lt;N&amp;gt; miimon=100 mode=0</pre><p></p></blockquote>
+<p>Замените <code>&lt;N&gt;</code> на номер интерфейса, например <code>0</code>. Также замените другие значение, такие как &#8220;miimon&#8221; и &#8220;mode&#8221;, на необходимые вам. Подробную информацию о различных параметрах можно найти в документации, перечисленной в конце документа </p>
+<p>Для каждого сконфигурированного bonding-интерфейса должна быть соответствующая запись в файле <code>/etc/modprobe.conf</code>.</p>
+<p><b>Примечание</b>: До выхода Update 2 для Red Hat Enterprise Linux version 4, система не поддерживала более одного bonding-интерфейса. Если вы пытаетесь настроить более одного bonding-интерфейса, вам необходимо обновить вашу систему до Red Hat Enterprise Linux 4 Update 2 или более поздней.</p>
+<p>После настройки файлов конфигурации интерфейсов и параметров в файле <code>/etc/modules.conf</code> (или <code>/etc/modprobe.conf</code> для RedHat Enterprise Linux 4) можно использовать команду <code>ifup</code> для активации bonding-интерфейса, или можно просто перезапустить сервис сети командой <code>service network restart</code>.</p>
+<p><strong>Дополнительная информация:</strong> с помощью модуля ядра можно управлять важными аспектами bonding-интерфейса.</p>
+<ul>
+<li>За дополнительной информацией по управлению модулем интерфейса объединённого канала обратитесь к разделу A.3.2 &#8211; The Channel Bonding Module по адресу: <a href="https://www.redhat.com/docs/manuals/enterprise/RHEL-3-Manual/ref-guide/s1-modules-ethernet.html">https://www.redhat.com/docs/manuals/enterprise/RHEL-3-Manual/ref-guide/s1-modules-ethernet.html</a> для RedHat Enterprise Linux 3 и <a href="https://www.redhat.com/docs/manuals/enterprise/RHEL-4-Manual/ref-guide/s1-modules-ethernet.html">https://www.redhat.com/docs/manuals/enterprise/RHEL-4-Manual/ref-guide/s1-modules-ethernet.html</a> для RedHat Enterprise Linux 4</li>
+<li>В справочном руководстве по Red Hat Enterprise Linux 3, находящемся по адресу: <a href="https://www.redhat.com/docs/manuals/enterprise/RHEL-3-Manual/ref-guide/">https://www.redhat.com/docs/manuals/enterprise/RHEL-3-Manual/ref-guide/</a> и Red Hat Enterprise Linux 4: <a href="https://www.redhat.com/docs/manuals/enterprise/RHEL-4-Manual/ref-guide/">https://www.redhat.com/docs/manuals/enterprise/RHEL-4-Manual/ref-guide/</a>.</li>
+<li>Также можно найти полезную информацию в файле <code>/usr/src/linux-2.4/Documentation/networking/bonding.txt</code>.</li>
+</ul>
+]]></content:encoded>
+										</item>
+	</channel>
+</rss>

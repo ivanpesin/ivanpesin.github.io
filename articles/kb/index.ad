@@ -1,0 +1,133 @@
+= Assorted tips & tricks
+Ivan Pesin
+v1.2, 2013-07-13
+:toc: right
+:sectanchors:
+:icons: font
+:source-highlighter: rouge
+// :stylesdir: ./stylesheets
+// :stylesheet: asciidoc-ip.css
+// :linkcss:
+
+:TODO: pass:q[<span style="background-color: gold">&nbsp; *TODO* </span>:]
+
+This is a collection of commands, tips, and tricks that I happen to use rarly enough to
+forget the exact syntax or parameters, but often enough to have them handy instead of 
+googling up everytime.
+
+## bash
+
+### pidtree
+[source,bash]
+----
+#!/bin/bash
+ 
+pidtree() {
+  echo -n $1 " "
+  for _child in $(ps -o pid --no-headers --ppid $1); do
+    echo -n $_child `pidtree $_child` " "
+  done
+}
+ 
+ps f `pidtree 4378`
+----
+
+## firewalld
+
+Port-forwarding based on destination IP address:
+
+```
+firewall-cmd --add-rich-rule='rule family="ipv4" destination address="1.1.1.1"
+   forward-port port="8022" protocol="tcp"
+   to-addr="2.2.2.2" to-port="22"'
+```
+
+## ffmpeg
+
+Speed up video and audio x1.25:
+
+```
+ffmpeg -i <input_file> -filter_complex "[0:v]setpts=PTS/1.25[v];[0:a]atempo=1.25[a]" \
+   -map "[v]" -map "[a]" <output_file>
+```
+
+## mysql
+
+### Restore single DB from the dump
+
+`mysql -u root -p --one-database destdbname < alldatabases.sql`
+
+## openssl
+
+### self-signed cert
+
+```
+openssl req -nodes -x509 -newkey rsa:4096 -keyout key.pem \
+   -out cert.pem -days 356
+```
+
+### show cert details
+
+```
+openssl x509 -in cerfile.cer -noout -text
+```
+
+### generate password
+
+`openssl rand -base64 14`
+
+## netcat
+
+Suppose you want to transfer a file “file.txt” from server A to client B.
+
+----
+Server: $ nc -l 4444 < file.txt
+Client: $ nc -n 192.168.1.100 4444 > file.txt
+----
+
+Suppose you want to transfer a file “file.txt” from client B to server A:
+----
+Server: $ nc -l 4444 > file.txt
+Client: $ nc 192.168.1.100 4444 < file.txt
+----
+
+Remote shell:
+----
+Server: $ nc -l 4444 -e /bin/bash -i
+Client: $ nc 192.168.1.100 4444
+----
+
+Reverse remote shell:
+----
+Server: $ nc -l 4444
+Client: $ nc 192.168.1.100 4444 -e /bin/bash
+----
+
+## SSH
+
+### How to check if RSA/DSA key pair matches
+
+The following command displays the matching public key for a given private one:
+
+[output,console]
+----
+ssh-keygen -y -e -f <private key>
+----
+
+To check if the public key matches the private one, use:
+
+[output,console]
+----
+diff <( ssh-keygen -y -e -f id_rsa ) <( ssh-keygen -y -e -f id_rsa.pub )
+----
+
+## Terminal histograms
+
+### `gnuplot`
+
+  gnuplot -e "set term dumb 120, 30; set autoscale; plot '-' with lines notitle"
+
+[output,console]
+----
+diff <( ssh-keygen -y -e -f id_rsa ) <( ssh-keygen -y -e -f id_rsa.pub )
+----

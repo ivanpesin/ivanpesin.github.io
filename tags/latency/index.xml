@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>latency on Articles, Translations, and Blog</title>
+    <link>http://pesin.space/tags/latency/</link>
+    <description>Recent content in latency on Articles, Translations, and Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 22 Sep 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://pesin.space/tags/latency/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Latency numbers every engineer should know</title>
+      <link>http://pesin.space/posts/2020-09-22-latencies/</link>
+      <pubDate>Tue, 22 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2020-09-22-latencies/</guid>
+      <description>I have been re-reading Tom Limoncelli&amp;rsquo;s et al. The Practice of Cloud System Administration book (which is great and is well worth reading even 5 years after it has been published) and it has this wonderful reference table called Latency Numbers Every Engineer/Programmer Should Know. This table was popularized by Jeff Dean, and originally presented by Peter Norvig.
+I find it handy and wanted to copy it here, on my blog, but then realized it&amp;rsquo;s almost a decade old as the data was from 2012.</description>
+    </item>
+    
+  </channel>
+</rss>

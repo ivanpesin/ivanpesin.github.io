@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>cfengine &#8211; Ivan Pesin</title>
+	<atom:link href="/blog/tag/cfengine/feed/" rel="self" type="application/rss+xml" />
+	<link>https://pesin.space/blog</link>
+	<description>Articles &#38; Translations</description>
+	<lastBuildDate>
+	Wed, 19 Oct 2016 02:08:18 +0000	</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=5.1.1</generator>
+	<item>
+		<title>Links: Jun 3</title>
+		<link>/blog/2014/06/links-jun-3/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=links-jun-3</link>
+				<pubDate>Tue, 03 Jun 2014 12:05:36 +0000</pubDate>
+		<dc:creator><![CDATA[ivan]]></dc:creator>
+				<category><![CDATA[Links]]></category>
+		<category><![CDATA[bash]]></category>
+		<category><![CDATA[cfengine]]></category>
+		<category><![CDATA[English]]></category>
+		<category><![CDATA[expect]]></category>
+		<category><![CDATA[lavabit]]></category>
+		<category><![CDATA[monitoring]]></category>
+		<category><![CDATA[thinking]]></category>
+
+		<guid isPermaLink="false">https://pesin.space/blog/2014/06/links-jun-3/</guid>
+				<description><![CDATA[Writing is nature&#8217;s way of telling you how sloppy your thinking is.  Technology: Shocking post-mortem from Joyent: operator mistake and a tool which reboots the whole datacenter without requesting additional confirmation. Defensive BASH programming &#8212; an excellent post on scripting techniques! Thinking for programmers by Leslie Lamport. The epigraph comes from this talk. The best expect script [&#8230;]]]></description>
+								<content:encoded><![CDATA[<p id="top" />
+<blockquote><p>Writing is nature&#8217;s way of telling you how sloppy your thinking is.</p></blockquote>
+<h3> Technology:</h3>
+<ul>
+<li><a href="http://www.joyent.com/blog/postmortem-for-outage-of-us-east-1-may-27-2014">Shocking post-mortem</a> from Joyent: operator mistake and a tool which reboots the whole datacenter without requesting additional confirmation.</li>
+<li><a href="http://www.kfirlavi.com/blog/2012/11/14/defensive-bash-programming/">Defensive BASH programming</a> &#8212; an excellent post on scripting techniques!</li>
+<li><a href="http://channel9.msdn.com/Events/Build/2014/3-642">Thinking for programmers</a> by <a href="http://en.wikipedia.org/wiki/Leslie_Lamport">Leslie Lamport</a>. The epigraph comes from this talk.</li>
+<li><a href="http://www.security-portal.cz/clanky/expect-script-which-can-execute-commands-multiple-servers-ssh">The best expect script</a> I found to execute commands on servers remotely via ssh. This is really handy when one does not have key-based authentication set up. The downside is that it&#8217;s slow, so one need to parallelise it if one has over few dozen of servers to crawl.</li>
+<li><a href="http://www.ncf.io">ncf</a> &#8212; CFEngine framework for small installations, runs in pure CFEngine language, to help structure your CFEngine policy and provide reusable, single purpose components distributed under the GPLv3 license.</li>
+<li>The same guys are behind <a href="http://www.rudder-project.org/site/">the Rudder</a> &#8212; web-driven, role-based solution for IT Infrastructure Automation &amp; Compliance.</li>
+<li>&#8220;Law of Murphy for devops: if thing can able go wrong, is mean is already wrong but you not have Nagios alert of it yet&#8221;. Therefore, don&#8217;t forget to monitor <a href="http://word.bitly.com/post/74839060954/ten-things-to-monitor">these things</a>.</li>
+<li>Interesting <a href="http://blog.dataloop.io/2014/01/30/what-we-learnt-talking-to-60-companies-about-monitoring/">stats</a> on monitoring tools &#8212; Nagios is the king, Sensu and Zabbix have a large chunk of large deployments.</li>
+</ul>
+<h3>English:</h3>
+<ul>
+<li><a href="http://stilldrinking.org/programming-sucks">Hilarious story</a> about why programming sucks. Careful and exact observations put in a lively and funny language. It definitely made my day!</li>
+<li><a href="http://theweek.com/article/index/256169/aunt-adult-pajama-why-cant-we-agree-how-to-pronounce-common-words">Quirks</a> with pronunciation of some borrowed words:<br />
+<blockquote><p>Another word that the British Anglicized from French is harass and its related noun harassment. They shifted the accent to the first syllable, sounding like &#8220;harris.&#8221; The Americans preferred the French-style second-syllable stress, no doubt further encouraged by the double s. But the British style is becoming more popular with people who don&#8217;t want to sound like they&#8217;re saying &#8220;her ass&#8221; — sort of like how the British &#8220;urine-us&#8221; pronunciation of Uranus, based on the Latin and Greek stress pattern, is sometimes preferred by Americans who don&#8217;t like how the American say-it-like-it-looks version sounds like &#8220;your anus.&#8221;</p></blockquote>
+</li>
+<li>Stop new wordage? Never gonna happen. <a href="http://stancarey.wordpress.com/2014/02/06/in-defence-of-unnecessary-words/">In defence of unnecessary words</a>.</li>
+<li>Corporate speak &#8212; <a href="http://www.economist.com/blogs/prospero/2014/02/corporate-speak-0">speaking strategically</a> without a strategy.</li>
+</ul>
+<hr />
+<blockquote><p>As languages go, English is particularly extreme in differentiating between stressed and unstressed syllables; the stressed syllables play a disproportionately big role in making words identifiable, and because unstressed syllables are out of the spotlight, and don’t contribute much to the exact identity of words, it doesn’t really matter exactly what they sound like. For example, some people pronounce the first syllable of believe as /bɪ/, others as /bə/, and in fact it would often be hard to tell exactly which vowel sound is used. Even if you use a different one – if you say, for example, /bʊ/ or /be/ – the identity of the word will be clear; the important thing is to pronounce the stressed second syllable with a clear /iː/ vowel.</p></blockquote>
+<p style="text-align: right;">&#8212; <a href="http://www.macmillandictionaryblog.com/schwa-syllables-and-words-in-different-guises-part-1">http://www.macmillandictionaryblog.com/schwa-syllables-and-words-in-different-guises-part-1</a></p>
+<h3>Other:</h3>
+<p><a href="http://lavabit.com">The story</a> behind lavabit shut down.</p>
+<hr />
+<p><center><br />
+<iframe width="625" height="352" src="https://www.youtube.com/embed/h_bX0T76X8U?feature=oembed" frameborder="0" allowfullscreen></iframe><br />
+</center></p>
+]]></content:encoded>
+										</item>
+		<item>
+		<title>Links: Jan 2</title>
+		<link>/blog/2014/01/links-jan-2/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=links-jan-2</link>
+				<pubDate>Wed, 01 Jan 2014 21:16:39 +0000</pubDate>
+		<dc:creator><![CDATA[ivan]]></dc:creator>
+				<category><![CDATA[Links]]></category>
+		<category><![CDATA[bitcoin]]></category>
+		<category><![CDATA[cfengine]]></category>
+		<category><![CDATA[chef]]></category>
+		<category><![CDATA[configuration management]]></category>
+		<category><![CDATA[hiring]]></category>
+		<category><![CDATA[krauss]]></category>
+		<category><![CDATA[msdos]]></category>
+		<category><![CDATA[routing]]></category>
+
+		<guid isPermaLink="false">https://pesin.space/blog/2014/01/links-jan-2/</guid>
+				<description><![CDATA[Merry Christmas and a happy New Year! :-) Technology A very interesting and simple video explaining how the Bitcoin works. As Tom Limoncelli mentioned, this is first time I understood it: A video from ChefConf, Phil Dibowitz&#8217;s talk about Scaling systems configuration at Facebook. Very interesting to listen what they count as important achievements and [&#8230;]]]></description>
+								<content:encoded><![CDATA[<p id="top" />Merry Christmas and a happy New Year! :-)</p>
+<h2>Technology</h2>
+<ul>
+<li>A very interesting and simple video explaining how the Bitcoin works. As Tom Limoncelli mentioned, this is first time I understood it:</li>
+</ul>
+<blockquote><p><center><br />
+<iframe width="625" height="352" src="https://www.youtube.com/embed/Lx9zgZCMqXE?feature=oembed" frameborder="0" allowfullscreen></iframe><br />
+</center></p></blockquote>
+<ul>
+<li>A video from ChefConf, Phil Dibowitz&#8217;s talk about Scaling systems configuration at Facebook. Very interesting to listen what they count as important achievements and what sort of approaches they use. Few things irked me though:
+<ul>
+<li><span style="line-height: 1.5em;">What point is in comparing Chef, first released in 2010, with CFEngine 2, which was released in 1998, especially considering CFEngine 3 is around since 2008? Most of the complaints about CFEngine or its shortcomings Phil makes either have been addressed or are easily implemented in CFEngine 3.</span></li>
+<li><span style="line-height: 1.5em;">The lessons they have learned are enlightening, though achieving idempotent systems is very complicated in cases when you do not own the systems you are supposed to manage via configuration management.</span></li>
+<li><span style="line-height: 1.5em;">Full programming languages versus DSL &#8212; well, no one argues that full programming languages are way more versatile compared to domain-specific, but that&#8217;s their purpose. Implementing functionality which DSL is tailored for, on the other hand, is faster and more efficient in DSL. I would try to strike a balance here, using each tool in the domain it is targeted at.</span></li>
+</ul>
+</li>
+<li>And two messages I wanted to highlight:
+<ul>
+<li><span style="line-height: 1.5em;">Scale is more than number of clients &#8212; this is a very powerful message that many miss.</span></li>
+<li><span style="line-height: 1.5em;">Regarding testing &#8212; not long ago I had a lunch with couple of younger colleagues and we were discussing release rollouts and time estimates. I started with saying &#8216;Suppose your release fails at the very last step of the procedure&#8230;&#8217; and was interrupted with &#8216;why would it fail?!&#8217;. I had to stop and explain that &#8216;Why would it fail&#8217; is a wrong question to ask. If we knew why it would fail, we could have prepared or even address it. This is just to reinforce Phil&#8217;s message that &#8216;until you run it in production, you cannot know it works&#8217;. Totally agree with this.</span></li>
+</ul>
+</li>
+</ul>
+<blockquote><p><center><br />
+<iframe width="625" height="352" src="https://www.youtube.com/embed/SYZ2GzYAw_Q?feature=oembed" frameborder="0" allowfullscreen></iframe><br />
+</center></p></blockquote>
+<ul>
+<li>An example of <a href="http://cfengine.com/blog/cfengine-and-docker-ensure-application-availability-and-container-integrity? mkt_tok=3RkMMJWWfF9wsRoks6zKZKXonjHpfsX56uokXaCylMI%2F0ER3fOvrPUfGjI4DS8BlI%2BSLDwEYGJlv6SgFSLDAMa9u37gEUxA%3D">Docker and CFEngine</a> integration</li>
+<li><span style="line-height: 1.5em;">On the relevant note &#8212; is <a href="http://kartar.net/2013/11/docker-and-configuration-management">Docker really suited</a> for use with configuration management?</span></li>
+<li>To end chef-related links, here is a web-tool that lets you browse the data in your Chef server: <a title="Chef Browser" href="https://github.com/3ofcoins/chef-browser">Chef Browser</a>.</li>
+<li><span style="line-height: 1.5em;">Switching to hiring matters, two excellent blog-posts: </span><span style="line-height: 1.5em;"><a href="http://css-tricks.com/interviewing-front-end-engineer-san-francisco/">Interviewing</a> as a Front-End Engineer in San Francisco </span><span style="line-height: 1.5em;">and </span><span style="line-height: 1.5em;"><a href="http://www.nczonline.net/blog/2013/12/27/on-interviewing-front-end-engineers/">On Interviewing</a> Front-End Engineers </span></li>
+<li>Unknown MS-DOS 4.0M:
+<ul>
+<li><a href="https://sites.google.com/site/pcdosretro/multitaskingdos4">Multitasking MS-DOS 4.0</a> was a little known and separate development of DOS done in parallel with the development of DOS 3.x in 1985. It should not be confused with the later retail DOS 4.0 that was released in 1988. DOS 4.0 supported preemptive multitasking, shared memory, semaphores, advanced memory management, a session manager, imports, exports and a new executable format. Many of the ideas and features introduced here found their way into OS/2. Unfortunately DOS 4.0 was limited by the real-mode 8086 environment and the 640KB address space. Also programs which were not well-behaved or relied upon undocumented DOS functions would not run properly under DOS 4.0, particularly TSR programs.</li>
+<li>From <a href="http://blogs.technet.com/b/exchange/archive/2004/03/05/larry-osterman-s-biography.aspx">Larry Osterman&#8217;s</a> <a href="https://blogs.msdn.com/b/larryosterman/archive/2009/08/26/24-years-ago-today-1985.aspx">blog</a>: MS-DOS 4.0 was unique because it was developed “on spec” – IBM didn’t see a need for a multitasking version MS-DOS and didn’t have a new hardware offering on which to attach the product. But IBM did have the PC/AT which was an 80286 based processor and it didn’t have an OS that took advantage of that hardware. So IBM and Microsoft started negotiations to take the MS-DOS 4.0 code base and turn it into what eventually turned into OS/2. I ended up not working on the OS/2 effort, instead I worked on finishing up MS-DOS 4.0 for the OEM partners who had licensed MS-DOS 4.0.</li>
+<li><a href="http://habrahabr.ru/post/207848/">Investigation report</a> on MS-DOS 4.0M in Russian</li>
+</ul>
+</li>
+<li>Finally this is happening: <a href="http://allthingsd.com/20131120/how-somebody-forced-the-worlds-internet-traffic-through-belarus-and-iceland">routing battles</a>, somebody forced the world’s Internet traffic through Belarus and Iceland.</li>
+</ul>
+<h2>Other</h2>
+<blockquote><p><center><br />
+<iframe width="625" height="352" src="https://www.youtube.com/embed/sZP5U6SW_08?feature=oembed" frameborder="0" allowfullscreen></iframe><br />
+</center></p></blockquote>
+]]></content:encoded>
+										</item>
+		<item>
+		<title>Links: Dec 24</title>
+		<link>/blog/2013/12/links-dec-24/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=links-dec-24</link>
+				<pubDate>Tue, 24 Dec 2013 20:49:26 +0000</pubDate>
+		<dc:creator><![CDATA[ivan]]></dc:creator>
+				<category><![CDATA[Links]]></category>
+		<category><![CDATA[acoustic cryptanalysis]]></category>
+		<category><![CDATA[AWS]]></category>
+		<category><![CDATA[cfengine]]></category>
+		<category><![CDATA[English]]></category>
+		<category><![CDATA[high traffic]]></category>
+		<category><![CDATA[lviv]]></category>
+		<category><![CDATA[Maidan]]></category>
+		<category><![CDATA[mobile]]></category>
+		<category><![CDATA[nginx]]></category>
+		<category><![CDATA[promise theory]]></category>
+		<category><![CDATA[redid]]></category>
+		<category><![CDATA[RSA]]></category>
+		<category><![CDATA[salary]]></category>
+		<category><![CDATA[web history]]></category>
+		<category><![CDATA[Yaremche]]></category>
+		<category><![CDATA[yum]]></category>
+
+		<guid isPermaLink="false">https://pesin.space/blog/2013/12/links-dec-24/</guid>
+				<description><![CDATA[Just when you think you’ve sorted things out it appears the whole world gone mad :-) Ukraine has got its next Maindan (that’s how we call a nation-wide protest here) and the time is even more scarce than it was. Here are few links to sum up and give you the taste: Goodbye, Putin The [&#8230;]]]></description>
+								<content:encoded><![CDATA[<p id="top" />Just when you think you’ve sorted things out it appears the whole world gone mad :-) Ukraine has got its next Maindan (that’s how we call a nation-wide protest here) and the time is even more scarce than it was. Here are few links to sum up and give you the taste:</p>
+<ul>
+<li><a href="http://www.economist.com/news/leaders/21591589-viktor-yanukovych-has-made-his-choice-his-country-has-chosen-otherwise-goodbye-putin">Goodbye, Putin</a></li>
+<li><a href="http://www.economist.com/news/europe/21591642-viktor-yanukovychs-botched-crackdown-protests-maidan-seemed-defy-common-sense">The birth of the nation?</a></li>
+<li><a href="http://www.economist.com/news/europe/21591897-under-its-current-government-ukraine-may-be-prize-not-worth-winning-putins-expensive-victory">Putin’s expensive victory</a></li>
+<li><a href="http://www.economist.com/blogs/easternapproaches/2013/12/ukraine-0">Scenes from Maindan</a></li>
+<li><a href="http://www.theguardian.com/world/2013/dec/15/ukraine-protests-analysis-two-nations">Ukraine: tale of two nations for country locked in struggle over whether to face east or west</a></li>
+<li><a href="http://www.theguardian.com/world/2013/dec/15/ukraine-protesters-return-central-kiev-eu-campaign">Ukraine protesters return en masse to central Kiev for pro-EU campaign</a></li>
+<li><a href="http://www.theguardian.com/world/2013/dec/17/ukraine-russia-leaders-talks-kremlin-loan-deal">Vladimir Putin offers Ukraine financial incentives to stick with Russia</a></li>
+</ul>
+<p>Some other, more conventional news:</p>
+<h2>Technology</h2>
+<ul>
+<li><a href="http://highscalability.com/blog/2013/12/16/22-recommendations-for-building-effective-high-traffic-web-s.html">22 recommendations</a> for building effective high-traffic web-sites. Concentrated knowledge and experience, very nice</li>
+<li><a href="http://highscalability.com/blog/2013/11/5/10-things-you-should-know-about-aws.html">10 things</a> you should know about AWS – time saving tips</li>
+<li><a href="http://blog.zachorr.com/nginx-setup/">Battle-ready Nginx</a> – a brief overview with explanations of some settings that can be tuned in order to improve Nginx performance.</li>
+<li>Reflections on <a href="http://blog.ingineering.it/post/67370710404/turning-requirements-into-promises">turning requirements into promises</a> and <a href="http://blog.ingineering.it/post/67444144353/scaling-agile-projects-using-promises">scaling agile projects using promises</a></li>
+<li>4k bit RSA keys being cracked by <a href="http://www.extremetech.com/extreme/173108-researchers-crack-the-worlds-toughest-encryption-by-listening-to-the-tiny-sounds-made-by-your-computers-cpu">acoustic cryptanalysis</a>, totally mad and scary world!</li>
+<li>yum now keeps the <a href="http://www.cyberciti.biz/faq/yum-history-command/">history</a> of its transactions, available with <code>yum history</code></li>
+<li>Link from the past: <a href="http://evolutionofweb.appspot.com/#/growth/day">Evolution of the web</a></li>
+<li>Mike Svoboda’s presentation on how CFEngine is used in LinkedIn: <a href="http://www.slideshare.net/MikeSvoboda/lisa-2013-sysopsapi-leveraging-inmemory-key-value-stores-for-large-scale-operations-with-redis-and-cfengine">slides</a> and <a href="http://www.youtube.com/watch?v=NCTSN5KOmbM">youtube</a></li>
+</ul>
+<h2>English</h2>
+<ul>
+<li><a href="http://www.macmillandictionaryblog.com/hit-the-nail-on-the-head">Bending over backwards to hit the nail on the head</a> – Have you got a bee in your bonnet about idioms? Do you bend over backwards to find opportunities to use them? If so, be careful not to go overboard; otherwise you might be at risk of putting your foot in it.</li>
+<li><a href="http://www.dailywritingtips.com/vice-versa-and-vis-a-vis/">Vice Versa and Vis-à-Vis</a> – get it right</li>
+</ul>
+<h2>Other</h2>
+<ul>
+<li>NYTimes article on <a href="http://www.nytimes.com/2013/10/20/travel/lvivs-and-a-familys-stories-in-architecture.html">Lviv’s history in architecture</a>.</li>
+<li>Triumph of ignorami lasted 7 days: Ukrainian ski resort <a href="http://www.bloomberg.com/news/2013-11-01/now-there-are-two-towns-that-ban-cell-service.html">outlawed</a> mobile phones based on citizens fantasies. Reminds me how bus and tram drivers were complaining they are receiving a radiation from newly installed GPS receivers (which do not emit any radiation by definition)</li>
+</ul>
+<p style="text-align: center;"><img class="aligncenter" alt="pay map" src="http://www.glassdoor.com/press/wp-content/files_mf/salarycomparison.usmap57.jpg" width="95%" height="95%" /><br />
+<img class="aligncenter" alt="pay list" src="http://www.glassdoor.com/blog/wp-content/uploads/25-Highest-Paying-Companies-for-Software-Engineers.jpg" width="90%" height="90%" /></p>
+]]></content:encoded>
+										</item>
+		<item>
+		<title>vim syntax highlighting for cfengine3</title>
+		<link>/blog/2012/07/vim-syntax-highlighting-for-cfengine3/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=vim-syntax-highlighting-for-cfengine3</link>
+				<pubDate>Sat, 21 Jul 2012 09:13:09 +0000</pubDate>
+		<dc:creator><![CDATA[ivan]]></dc:creator>
+				<category><![CDATA[Uncategorized]]></category>
+		<category><![CDATA[cfengine]]></category>
+		<category><![CDATA[cfengine3]]></category>
+		<category><![CDATA[SA]]></category>
+		<category><![CDATA[vim]]></category>
+
+		<guid isPermaLink="false">https://pesin.space/blog/2012/07/vim-syntax-highlighting-for-cfengine3/</guid>
+				<description><![CDATA[Major part of my work these days is connected with cfengine3 and writing promises. I&#8217;m kind of a vim-guy, so clearly I&#8217;m using it when writing cfengine promises and when you write a lot of code, you&#8217;d definitely want to make your development environment comfy and snug. Part of being comfy and sung in my [&#8230;]]]></description>
+								<content:encoded><![CDATA[<p id="top" />Major part of my work these days is connected with cfengine3 and writing promises. I&#8217;m kind of a vim-guy, so clearly I&#8217;m using it when writing cfengine promises and when you write a lot of code, you&#8217;d definitely want to make your development environment comfy and snug. Part of being comfy and sung in my understanding is syntax highlighting, which tremendously simplifies reading code and makes you spot typos and other sorts of mistakes right away.</p>
+<p>There&#8217;s an initial version of syntax highlighting for cfeninge, written by Neil Watson available on <a href="https://github.com/neilhwatson/vim_cf3/tree/master/syntax">github</a>. However, I wanted more sophisticated highlighting functionality, so I took Neil&#8217;s work and spent couple of weekends extending it. Here are some screenshots with results of that extension (click to see them full-size):</p>
+<p><center><br />
+<a href="/blog/wp-content/uploads/2012/07/Screen-Shot-2012-07-21-at-12.22.03-PM.png"><img class="alignnone  wp-image-846" title="Screen Shot 2012-07-21 at 12.22.03 PM" src="/blog/wp-content/uploads/2012/07/Screen-Shot-2012-07-21-at-12.22.03-PM.png" alt="" width="321" height="300" /></a><a href="/blog/wp-content/uploads/2012/07/Screen-Shot-2012-07-21-at-12.21.13-PM.png"><img class="alignnone  wp-image-844" title="Screen Shot 2012-07-21 at 12.21.13 PM" src="/blog/wp-content/uploads/2012/07/Screen-Shot-2012-07-21-at-12.21.13-PM.png" alt="" width="321" height="300" /></a></center>At the moment, the module highlights correctly cfengine-stdlib.cf and all cf files in examples/ directory of cfengine with exception of knowledge-related promises. There&#8217;s still a lot of work to do &#8211; a bit of refactoring and then, perhaps, a rudimental syntax checker &#8211; but it seems to me already usable, so I decided to release it&#8217;s &#8220;first&#8221; version.</p>
+<p>The syntax highlighting module is available at <a href="https://github.com/ivanpesin/vim_cf3/tree/master/syntax">https://github.com/ivanpesin/vim_cf3/tree/master/syntax</a>. To activate it, you&#8217;ll need to save cf3.vim in ~/.vim/ directory and add following lines to your ~/.vimrc:</p><pre class="crayon-plain-tag">au BufRead,BufNewFile *.cf set ft=cf3
+au! Syntax cf3 source $HOME/.vim/cf3.vim</pre><p>&nbsp;</p>
+]]></content:encoded>
+										</item>
+		<item>
+		<title>Bundle execution time randomization in cfengine3</title>
+		<link>/blog/2012/07/bundle-execution-time-randomization-in-cfengine3/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=bundle-execution-time-randomization-in-cfengine3</link>
+				<pubDate>Tue, 17 Jul 2012 16:25:22 +0000</pubDate>
+		<dc:creator><![CDATA[ivan]]></dc:creator>
+				<category><![CDATA[Articles]]></category>
+		<category><![CDATA[cfengine]]></category>
+		<category><![CDATA[cfengine3]]></category>
+		<category><![CDATA[dist]]></category>
+		<category><![CDATA[English]]></category>
+		<category><![CDATA[SA]]></category>
+		<category><![CDATA[splayclass]]></category>
+
+		<guid isPermaLink="false">https://pesin.space/blog/2012/07/bundle-execution-time-randomization-in-cfengine3/</guid>
+				<description><![CDATA[Read this article in Russian. In our environment we use cfengine to manage servers across the organization. Having a fairly large infrastructure we have to give a lot of thought to such things as smoothing the load on cfengine hubs and other parts of the infrastructure. This article presents some approaches to bundle execution time randomization. [&#8230;]]]></description>
+								<content:encoded><![CDATA[<p id="top" />Read this article in Russian.</p>
+<p>In our environment we use cfengine to manage servers across the organization. Having a fairly large infrastructure we have to give a lot of thought to such things as smoothing the load on cfengine hubs and other parts of the infrastructure.</p>
+<p>This article presents some approaches to bundle execution time randomization. This might be useful when you have a bundle which is going to affect a lot of servers and you don’t want it to execute simultaneously across a whole lot, thus causing a pressure point and possible event storms.</p>
+<p>The first approach which comes to mind is <strong>splayclass()</strong> function, which defines a class if the system clock lies within a scheduled time-interval that maps to a hash of the first argument – arbitrary string, usually set to fqdn. Different strings will hash to different time intervals, and thus one can map different tasks to time-intervals. The code utilizing this function looks like this:</p><pre class="crayon-plain-tag">classes:</pre><p></p><pre class="crayon-plain-tag">&nbsp; &quot;ok_to_run&quot; expression =&amp;gt; splayclass(&quot;$(sys.host)$(sys.ipv4)&quot;,&quot;hourly&quot;);</pre><p></p><pre class="crayon-plain-tag">reports:</pre><p></p><pre class="crayon-plain-tag">&nbsp; ok_to_run::</pre><p></p><pre class="crayon-plain-tag">&nbsp;&nbsp;&nbsp; &quot;Here we go!;</pre><p>This will execute report at a random moment every hour.</p>
+<p>A nuisance with this function is that it’s somewhat limited, having only “hourly” and “daily” policies. With “hourly” policy, the class will be defined for a 5-minute interval every hour, and with “daily” policy then the class will be defined for one 5-minute interval every day. This might be either too frequent or too seldom for a specific case. This also might be a problem if you use an cfengine run interval different from a default one.</p>
+<p>To address this nuisance we might employ <strong>dist</strong> keyword in classes’ definition which generates a probabilistic class distribution. For example:</p><pre class="crayon-plain-tag">classes:</pre><p></p><pre class="crayon-plain-tag">&nbsp;&nbsp;&nbsp; &quot;percent_of_runs&quot;</pre><p></p><pre class="crayon-plain-tag">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;dist =&amp;gt; { &quot;15&quot;, &quot;85&quot; };</pre><p></p><pre class="crayon-plain-tag">reports:</pre><p></p><pre class="crayon-plain-tag">&nbsp;&nbsp;&nbsp; percent_of_runs_15::</pre><p></p><pre class="crayon-plain-tag">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;GOTCHA! This moment ( $(sys.date) ) seems to be in 15%!&quot;;</pre><p></p><pre class="crayon-plain-tag">&nbsp;&nbsp;&nbsp; percent_of_runs_85::</pre><p></p><pre class="crayon-plain-tag">&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;This moment ( $(sys.date) ) seems to be in 85%!&quot;;</pre><p>In this example class “percent_of_runs_15”  will be defined in 15 out of (15+85=) 100 cases or in 15% of cf-agent runs. Considering that cf-agent runs with 5 minutes interval by default, that makes 15% out of (24*12 =) 288 runs per day, or 43 runs, or approximately twice per hour at a random moment. Tuning the sum and the initial number we might change the random frequency at which the class will get defined.</p>
+<p><strong>Dist</strong> might give us even more flexibility, for example when we need the bundle to execute at the random hour every 12 hours, but at that hour we’d like bundle to run every 5 minutes. This might be needed when bundle requires multiple runs to fix things (deleting stuff from a file is a good example). So for that matter we might combine <strong>dist</strong> keyword with persistent classes, like in:</p><pre class="crayon-plain-tag">bundle agent dist_test {</pre><p></p><pre class="crayon-plain-tag">classes:</pre><p></p><pre class="crayon-plain-tag">&nbsp;&nbsp;&nbsp; &quot;percent_of_runs&quot;</pre><p></p><pre class="crayon-plain-tag">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;dist =&amp;gt; { &quot;1&quot;, &quot;99&quot; }; # sets percent_of_runs_1 with prob. of 1/(1+99)=1/100 or twice a day.</pre><p></p><pre class="crayon-plain-tag">commands:</pre><p></p><pre class="crayon-plain-tag">&nbsp;&nbsp;&nbsp; percent_of_runs_1::</pre><p></p><pre class="crayon-plain-tag">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &ldquo;/bin/false ok_to_run&rdquo; classes =&amp;gt; persistent_for_hour(&ldquo;ok_to_run&rdquo;);</pre><p></p><pre class="crayon-plain-tag">reports:</pre><p></p><pre class="crayon-plain-tag">&nbsp;&nbsp;&nbsp; ok_to_run::</pre><p></p><pre class="crayon-plain-tag">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;This report will execute every 5 mins throughout two random hours of the day&quot;;</pre><p></p><pre class="crayon-plain-tag">}</pre><p></p><pre class="crayon-plain-tag">bundle classes persistent_for_hour(class) {</pre><p></p><pre class="crayon-plain-tag">promise_kept =&amp;gt; { &quot;$(class)&quot; };</pre><p></p><pre class="crayon-plain-tag">persist_time =&amp;gt; &quot;60&quot;;</pre><p></p><pre class="crayon-plain-tag">}</pre><p>This approach seems to be more flexible, but it also contains an issue – due to its nature, <strong>dist</strong> is probabilistic and that means it doesn’t guarantee that the percent of distribution will be exact. In fact, you should keep in mind that +/- error is a norm here and, for instance, running the 15%/85% example drew results from 13% to 18% for 15% class.</p>
+<p>We can also apply the approach with persistent classes to <strong>splayclass()</strong> function in the following manner:</p><pre class="crayon-plain-tag">classes:</pre><p></p><pre class="crayon-plain-tag">&nbsp; &quot;right_moment&quot; expression =&amp;gt; splayclass(&quot;$(sys.host)$(sys.ipv4)&quot;,&quot;daily&quot;);</pre><p></p><pre class="crayon-plain-tag">commands:</pre><p></p><pre class="crayon-plain-tag">&nbsp;&nbsp;&nbsp; right_moment::</pre><p></p><pre class="crayon-plain-tag">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &ldquo;/bin/false ok_to_run&rdquo; classes =&amp;gt; persistent_for_hour(&ldquo;ok_to_run&rdquo;);</pre><p></p><pre class="crayon-plain-tag">reports:</pre><p></p><pre class="crayon-plain-tag">&nbsp; ok_to_run::</pre><p></p><pre class="crayon-plain-tag">&nbsp;&nbsp;&nbsp; &quot;Here we go!;</pre><p>Which would allow us to execute a report (or bundle) every 5 mins throughout a random hour of the day.</p>
+<p>&nbsp;</p>
+]]></content:encoded>
+										</item>
+	</channel>
+</rss>

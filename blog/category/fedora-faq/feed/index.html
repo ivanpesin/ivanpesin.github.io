@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>Fedora FAQ &#8211; Ivan Pesin</title>
+	<atom:link href="/blog/category/fedora-faq/feed/" rel="self" type="application/rss+xml" />
+	<link>https://pesin.space/blog</link>
+	<description>Articles &#38; Translations</description>
+	<lastBuildDate>
+	Wed, 19 Oct 2016 02:08:18 +0000	</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=5.1.1</generator>
+	<item>
+		<title>Почему команда ls добавляет точку (.) или плюс (+) к полю прав доступа некоторых файлов?</title>
+		<link>/blog/2009/07/%d0%bf%d0%be%d1%87%d0%b5%d0%bc%d1%83-%d0%ba%d0%be%d0%bc%d0%b0%d0%bd%d0%b4%d0%b0-ls-%d0%b4%d0%be%d0%b1%d0%b0%d0%b2%d0%bb%d1%8f%d0%b5%d1%82-%d1%82%d0%be%d1%87%d0%ba%d1%83-%d0%b8%d0%bb%d0%b8-%d0%bf/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=%25d0%25bf%25d0%25be%25d1%2587%25d0%25b5%25d0%25bc%25d1%2583-%25d0%25ba%25d0%25be%25d0%25bc%25d0%25b0%25d0%25bd%25d0%25b4%25d0%25b0-ls-%25d0%25b4%25d0%25be%25d0%25b1%25d0%25b0%25d0%25b2%25d0%25bb%25d1%258f%25d0%25b5%25d1%2582-%25d1%2582%25d0%25be%25d1%2587%25d0%25ba%25d1%2583-%25d0%25b8%25d0%25bb%25d0%25b8-%25d0%25bf</link>
+				<pubDate>Mon, 06 Jul 2009 20:03:47 +0000</pubDate>
+		<dc:creator><![CDATA[ivan]]></dc:creator>
+				<category><![CDATA[Fedora FAQ]]></category>
+		<category><![CDATA[basics]]></category>
+		<category><![CDATA[fedora]]></category>
+		<category><![CDATA[ls]]></category>
+
+		<guid isPermaLink="false">http://www.n-ix.com/ipesin/?p=458</guid>
+				<description><![CDATA[Система: Fedora 11 Пример: [crayon-6a527cac8c383886198231/] Это новая функциональность, добавленная в последние версии пакета coreutils, который включён в дистрибутив Fedora 11. Ответ на этот вопрос содержит страница информации команды ls. Посмотреть её можно командой #&#160;info&#160;ls. Вот выдержка оттуда: За битами прав доступа следует один символ, который указывает на то, используется ли альтернативный метод контроля доступа, такой, [&#8230;]]]></description>
+								<content:encoded><![CDATA[<p id="top" /><strong>Система:</strong> Fedora 11</p>
+<p>Пример:</p>
+<blockquote><p></p><pre class="crayon-plain-tag">[ivan@radon ~]$ ll /boot/vmlinuz-*
+-rwxr-xr-x. 1 root root 3089424 2009-05-28 00:39 /boot/vmlinuz-2.6.29.4-167.fc11.i686.PAE
+-rwxr-xr-x. 1 root root 3088208 2009-06-17 06:27 /boot/vmlinuz-2.6.29.5-191.fc11.i686.PAE</pre><p></p></blockquote>
+<p>Это новая функциональность, добавленная в последние версии пакета <code>coreutils</code>, который включён в дистрибутив Fedora 11. Ответ на этот вопрос содержит страница информации команды <code>ls</code>. Посмотреть её можно командой <code>#&nbsp;info&nbsp;ls</code>. Вот выдержка оттуда:</p>
+<p>За битами прав доступа следует один символ, который указывает на то, используется ли альтернативный метод контроля доступа, такой, например, как списки контроля доступа. Если этот символ отсутствует, это означает, что альтернативные методы не используется. Если же отображается какой-либо печатный символ &#8212; значит используется.</p>
+<p>Команда GNU ls использует символ точки (.) для обозначения, что у файла есть только контекст безопасности SELinux. Если у файла присутствуют и другие методы контроля доступа в любой комбинации, он помечается символом плюс (+).</p>
+]]></content:encoded>
+										</item>
+	</channel>
+</rss>

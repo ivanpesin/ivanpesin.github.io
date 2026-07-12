@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>xen &#8211; Ivan Pesin</title>
+	<atom:link href="/blog/tag/xen/feed/" rel="self" type="application/rss+xml" />
+	<link>https://pesin.space/blog</link>
+	<description>Articles &#38; Translations</description>
+	<lastBuildDate>
+	Wed, 19 Oct 2016 02:08:18 +0000	</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=5.1.1</generator>
+	<item>
+		<title>Как определить, выполняется ли текущая система в виртуальной машине?</title>
+		<link>/blog/2009/07/%d0%ba%d0%b0%d0%ba-%d0%be%d0%bf%d1%80%d0%b5%d0%b4%d0%b5%d0%bb%d0%b8%d1%82%d1%8c-%d0%b2%d1%8b%d0%bf%d0%be%d0%bb%d0%bd%d1%8f%d0%b5%d1%82%d1%81%d1%8f-%d0%bb%d0%b8-%d1%82%d0%b5%d0%ba%d1%83%d1%89%d0%b0/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=%25d0%25ba%25d0%25b0%25d0%25ba-%25d0%25be%25d0%25bf%25d1%2580%25d0%25b5%25d0%25b4%25d0%25b5%25d0%25bb%25d0%25b8%25d1%2582%25d1%258c-%25d0%25b2%25d1%258b%25d0%25bf%25d0%25be%25d0%25bb%25d0%25bd%25d1%258f%25d0%25b5%25d1%2582%25d1%2581%25d1%258f-%25d0%25bb%25d0%25b8-%25d1%2582%25d0%25b5%25d0%25ba%25d1%2583%25d1%2589%25d0%25b0</link>
+				<pubDate>Sun, 05 Jul 2009 09:53:25 +0000</pubDate>
+		<dc:creator><![CDATA[ivan]]></dc:creator>
+				<category><![CDATA[RedHat KB]]></category>
+		<category><![CDATA[qemu]]></category>
+		<category><![CDATA[rhel5]]></category>
+		<category><![CDATA[virtualization]]></category>
+		<category><![CDATA[vmware]]></category>
+		<category><![CDATA[xen]]></category>
+
+		<guid isPermaLink="false">http://www.n-ix.com/ipesin/?p=313</guid>
+				<description><![CDATA[Copyright (c) 2009 by Red Hat, Inc. This material may be distributed only subject to the terms and conditions set forth in the Open Publication License, v1.0 or later (available at http://www.opencontent.org/openpub/). Original article: http://kbase.redhat.com/faq/docs/DOC-15413.pdf Translated by Ivan Pesin, July 2009 В только-что загрузившейся системе, чтобы узнать, работает ли она в виртуальном окружении, достаточно проверить [&#8230;]]]></description>
+								<content:encoded><![CDATA[<p id="top" />
+<div class="copyright">Copyright (c) 2009 by Red Hat, Inc. This material may be distributed only subject to the terms and conditions set forth in the Open Publication License, v1.0 or later (available at <a href="http://www.opencontent.org/openpub/">http://www.opencontent.org/openpub/</a>).<br />
+Original article: <a href="http://kbase.redhat.com/faq/docs/DOC-15413.pdf">http://kbase.redhat.com/faq/docs/DOC-15413.pdf</a></p>
+<p>Translated by Ivan Pesin, July 2009</p></div>
+<p>В только-что загрузившейся системе, чтобы узнать, работает ли она в виртуальном окружении, достаточно проверить вывод команды <code>dmesg</code>. Ниже приведены примеры выполнения команды в разных виртуализационных средах: </p>
+<p><strong>Xen</strong></p>
+<blockquote><p></p><pre class="crayon-plain-tag">$ dmesg | grep -i virtual 
+Xen virtual console successfully installed as xvc0</pre><p></p></blockquote>
+<p><strong>VMWare</strong></p>
+<blockquote><p></p><pre class="crayon-plain-tag">$ dmesg | grep -i virtual  
+     VMware vmxnet virtual NIC driver         Vendor: VMware    Model: Virtual disk      Rev: 1.0  
+     hda: VMware Virtual IDE CDROM Drive, ATAPI CD/DVD-ROM drive</pre><p></p></blockquote>
+<p><strong>QEMU или KVM</strong></p>
+<blockquote><p></p><pre class="crayon-plain-tag">$ dmesg | grep -i virtual    
+   CPU: AMD QEMU Virtual CPU version 0.9.1 stepping 03</pre><p></p></blockquote>
+<p>Кроме того, можно также использовать команду <code>dmidecode</code>, для получения информации из системного BIOS. Например:</p>
+<p><strong>VMWare</strong>:</p>
+<blockquote><p></p><pre class="crayon-plain-tag"># dmidecode | egrep -i 'manufacturer|product'   
+    Manufacturer: VMware, Inc.       Product Name: VMware Virtual Platform</pre><p></p></blockquote>
+<p><strong>QEMU или KVM</strong>:</p>
+<blockquote><p></p><pre class="crayon-plain-tag"># dmidecode | egrep -i 'vendor' 
+   Vendor: QEMU</pre><p></p></blockquote>
+]]></content:encoded>
+										</item>
+		<item>
+		<title>Как настроить Xendump в Red Hat Enterprise Linux 5?</title>
+		<link>/blog/2009/06/%d0%ba%d0%b0%d0%ba-%d0%bd%d0%b0%d1%81%d1%82%d1%80%d0%be%d0%b8%d1%82%d1%8c-xendump-%d0%b2-red-hat-enterprise-linux-5/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=%25d0%25ba%25d0%25b0%25d0%25ba-%25d0%25bd%25d0%25b0%25d1%2581%25d1%2582%25d1%2580%25d0%25be%25d0%25b8%25d1%2582%25d1%258c-xendump-%25d0%25b2-red-hat-enterprise-linux-5</link>
+				<pubDate>Thu, 18 Jun 2009 07:20:22 +0000</pubDate>
+		<dc:creator><![CDATA[ivan]]></dc:creator>
+				<category><![CDATA[RedHat KB]]></category>
+		<category><![CDATA[kdump]]></category>
+		<category><![CDATA[rhel5]]></category>
+		<category><![CDATA[virtualization]]></category>
+		<category><![CDATA[xen]]></category>
+
+		<guid isPermaLink="false">http://www.n-ix.com/ipesin/?p=192</guid>
+				<description><![CDATA[Copyright (c) 2009 by Red Hat, Inc. This material may be distributed only subject to the terms and conditions set forth in the Open Publication License, v1.0 or later (available at http://www.opencontent.org/openpub/). Original article: http://kbase.redhat.com/faq/docs/DOC-9864.pdf Translated by Ivan Pesin, June 2009 Система: Red Hat Enterprise Linux 5 Решение: Xendump это средство захвата дампов памяти гостевых [&#8230;]]]></description>
+								<content:encoded><![CDATA[<p id="top" />
+<div class="copyright">Copyright (c) 2009 by Red Hat, Inc. This material may be distributed only subject to the terms and conditions set forth in the Open Publication License, v1.0 or later (available at <a href="http://www.opencontent.org/openpub/">http://www.opencontent.org/openpub/</a>).<br />
+Original article: <a href="http://kbase.redhat.com/faq/docs/DOC-9864.pdf">http://kbase.redhat.com/faq/docs/DOC-9864.pdf</a></p>
+<p>Translated by Ivan Pesin, June 2009</p></div>
+<p><strong>Система:</strong> Red Hat Enterprise Linux 5</p>
+<p><strong>Решение:</strong></p>
+<p><code>Xendump</code> это средство захвата дампов памяти гостевых систем Xen. Оно встроено в гипервизор Xen Hypervisor. Дампы памяти ядра полезны при выяснении причин краха системы. Для анализа таких дампов используется утилита <code>crash</code>. Утилита <code>crash</code> аналогична традиционной Unix-программе <code>crash</code>. Она предоставляет трассировки стека и другую отладочную функциональность для определения проблемных областей, вызывающих крах системы. Аналогичное средство, предназначенное для обычных (не-Xen) ядер, называется <code>Kdump</code>. Чтобы узнать больше о том, как работает <code>Kdump</code>, прочитайте <a href="/blog/2009/06/%d0%ba%d0%b0%d0%ba-%d0%bd%d0%b0%d1%81%d1%82%d1%80%d0%be%d0%b8%d1%82%d1%8c-kexeckdump-%d0%b2-red-hat-enterprise-linux-5/">Как настроить kexec/kdump в Red Hat Enterprise Linux 5?</a> .</p>
+<p>Чтобы настроить Xendump следуйте нижеприведённым инструкциям:</p>
+<ol>
+<li>Включите средство Xendump. Отредактируйте <code>/etc/xen/xend-config.sxp</code> и измените строку<br />
+<blockquote><p></p><pre class="crayon-plain-tag">#(enable-dump no)</pre><p></p></blockquote>
+<p>на:</p>
+<blockquote><p></p><pre class="crayon-plain-tag">(enable-dump yes)</pre><p></p></blockquote>
+</li>
+<li>Перезапустите демон xen:<br />
+<blockquote><p></p><pre class="crayon-plain-tag"># service xend restart</pre><p></p></blockquote>
+</li>
+<li>Чтобы проверить работу Xendump, запустите гостевую систему Xen:<br />
+<blockquote><p></p><pre class="crayon-plain-tag"># xm create /etc/xen/&amp;lt;домен&amp;gt;</pre><p></p></blockquote>
+</li>
+<li>Выполните захват памяти командой:<br />
+<blockquote><p></p><pre class="crayon-plain-tag"># xm dump-core &amp;lt;имя_домена&amp;gt; &amp;lt;файл_дампа&amp;gt;</pre><p></p></blockquote>
+</li>
+</ol>
+<p>Обратите внимание, что на данный момент <code>Xendump</code> может быть настроен для автоматического захвата дампов памяти паравиртуальных (PV) гостевых систем Xen при их крахе. Для захвата дампа памяти гостевых систем Xen с полной виртуализацией (FV) Xen, необходимо выполнять команду <code>xm dump-core</code> вручную.</p>
+]]></content:encoded>
+										</item>
+		<item>
+		<title>Как объединить несколько сетевых интерфейсов Xen-хоста в мост, доступный гостевым системам?</title>
+		<link>/blog/2009/05/%d0%ba%d0%b0%d0%ba-%d0%be%d0%b1%d1%8a%d0%b5%d0%b4%d0%b8%d0%bd%d0%b8%d1%82%d1%8c-%d0%bd%d0%b5%d1%81%d0%ba%d0%be%d0%bb%d1%8c%d0%ba%d0%be-%d1%81%d0%b5%d1%82%d0%b5%d0%b2%d1%8b%d1%85-%d0%b8%d0%bd%d1%82/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=%25d0%25ba%25d0%25b0%25d0%25ba-%25d0%25be%25d0%25b1%25d1%258a%25d0%25b5%25d0%25b4%25d0%25b8%25d0%25bd%25d0%25b8%25d1%2582%25d1%258c-%25d0%25bd%25d0%25b5%25d1%2581%25d0%25ba%25d0%25be%25d0%25bb%25d1%258c%25d0%25ba%25d0%25be-%25d1%2581%25d0%25b5%25d1%2582%25d0%25b5%25d0%25b2%25d1%258b%25d1%2585-%25d0%25b8%25d0%25bd%25d1%2582</link>
+				<pubDate>Sun, 24 May 2009 19:19:16 +0000</pubDate>
+		<dc:creator><![CDATA[ivan]]></dc:creator>
+				<category><![CDATA[RedHat KB]]></category>
+		<category><![CDATA[rhel5]]></category>
+		<category><![CDATA[virtualization]]></category>
+		<category><![CDATA[xen]]></category>
+
+		<guid isPermaLink="false">http://www.n-ix.com/ipesin/?p=65</guid>
+				<description><![CDATA[Copyright (c) 2009 by Red Hat, Inc. This material may be distributed only subject to the terms and conditions set forth in the Open Publication License, v1.0 or later (available at http://www.opencontent.org/openpub/). Original article: http://kb.redhat.com/faq/docs/DOC-9811.pdf Translated by Ivan Pesin, May 2009 Создайте скрипт со следующим содержанием и назовите его /etc/xen/scripts/network-xen-custom: [crayon-6a527c85e48bd290267037/] Убедитесь, что этот скрипт [&#8230;]]]></description>
+								<content:encoded><![CDATA[<p id="top" />
+<div class="copyright">Copyright (c) 2009 by Red Hat, Inc. This material may be distributed only subject to the terms and conditions set forth in<br />
+the Open Publication License, v1.0 or later (available at http://www.opencontent.org/openpub/).<br />
+Original article: <a href="http://kb.redhat.com/faq/docs/DOC-9811.pdf">http://kb.redhat.com/faq/docs/DOC-9811.pdf</a></p>
+<p>Translated by Ivan Pesin, May 2009</p></div>
+<p>Создайте скрипт со следующим содержанием и назовите его /etc/xen/scripts/network-xen-custom:</p>
+<blockquote><p>
+</p><pre class="crayon-plain-tag">#!/bin/sh
+# network-xen-custom
+# Выйти, если что-то пойдёт не так
+set -e
+# Первый аргумент -- это операция
+OP=$1
+shift
+script=/etc/xen/scripts/network-bridge
+case ${OP} in
+        start)
+                $script start vifnum=0 bridge=xenbr0 netdev=eth0
+                $script start vifnum=1 bridge=xenbr1 netdev=eth1
+                ;;
+        stop)
+                $script stop vifnum=0 bridge=xenbr0 netdev=eth0
+                $script stop vifnum=1 bridge=xenbr1 netdev=eth1
+                ;;
+        status)
+                $script status vifnum=0 bridge=xenbr0 netdev=eth0
+                $script status vifnum=1 bridge=xenbr1 netdev=eth1
+                ;;
+        *)
+                echo &quot;Unknown command:${OP}&quot;
+                echo 'Valid commands are: start, stop, status'
+                exit 1
+esac</pre><p>
+</p></blockquote>
+<p>Убедитесь, что этот скрипт имеет установленный бит выполнения:</p>
+<blockquote><p><code>chmod 755 /etc/xen/scripts/network-xen-custom<br />
+</code></p></blockquote>
+<p>Отредактируйте файл /etc/xen/xend-config.sxp : закомментируйте вызов старого скрипта и добавьте строку с вызовом нового:</p>
+<blockquote><p><code>#(network-script network-bridge)<br />
+(network-script network-xen-custom)<br />
+</code></p></blockquote>
+<p>Перезагрузите систему, чтобы новый интерфейс-мост инициализировался корректно.</p>
+]]></content:encoded>
+										</item>
+	</channel>
+</rss>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>cpuset on Articles, Translations, and Blog</title>
+    <link>http://pesin.space/tags/cpuset/</link>
+    <description>Recent content in cpuset on Articles, Translations, and Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 24 Oct 2014 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://pesin.space/tags/cpuset/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Links: 24th Oct</title>
+      <link>http://pesin.space/posts/2014-10-24-links/</link>
+      <pubDate>Fri, 24 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://pesin.space/posts/2014-10-24-links/</guid>
+      <description>&lt;blockquote&gt;
+    &lt;p&gt;
+        Computer Science is no more about computers than astronomy is about telescopes.
+    &lt;/p&gt;
+    &lt;footer style=&#34;padding-left: 1em;&#34;&gt;
+        
+        
+            
+            Edsger Dijkstra
+        
+
+        
+    &lt;/footer&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>sysctl &#8211; Ivan Pesin</title>
+	<atom:link href="/blog/tag/sysctl/feed/" rel="self" type="application/rss+xml" />
+	<link>https://pesin.space/blog</link>
+	<description>Articles &#38; Translations</description>
+	<lastBuildDate>
+	Wed, 19 Oct 2016 02:08:18 +0000	</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=5.1.1</generator>
+	<item>
+		<title>Как активировать маскарад в iptables?</title>
+		<link>/blog/2009/07/%d0%ba%d0%b0%d0%ba-%d0%b0%d0%ba%d1%82%d0%b8%d0%b2%d0%b8%d1%80%d0%be%d0%b2%d0%b0%d1%82%d1%8c-%d0%bc%d0%b0%d1%81%d0%ba%d0%b0%d1%80%d0%b0%d0%b4-%d0%b2-iptables/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=%25d0%25ba%25d0%25b0%25d0%25ba-%25d0%25b0%25d0%25ba%25d1%2582%25d0%25b8%25d0%25b2%25d0%25b8%25d1%2580%25d0%25be%25d0%25b2%25d0%25b0%25d1%2582%25d1%258c-%25d0%25bc%25d0%25b0%25d1%2581%25d0%25ba%25d0%25b0%25d1%2580%25d0%25b0%25d0%25b4-%25d0%25b2-iptables</link>
+				<pubDate>Fri, 10 Jul 2009 11:34:39 +0000</pubDate>
+		<dc:creator><![CDATA[ivan]]></dc:creator>
+				<category><![CDATA[RedHat KB]]></category>
+		<category><![CDATA[iptables]]></category>
+		<category><![CDATA[ipv4]]></category>
+		<category><![CDATA[ip_forward]]></category>
+		<category><![CDATA[masquerade]]></category>
+		<category><![CDATA[net]]></category>
+		<category><![CDATA[networking]]></category>
+		<category><![CDATA[security]]></category>
+		<category><![CDATA[sysctl]]></category>
+
+		<guid isPermaLink="false">http://www.n-ix.com/ipesin/?p=455</guid>
+				<description><![CDATA[Copyright (c) 2009 by Red Hat, Inc. This material may be distributed only subject to the terms and conditions set forth in the Open Publication License, v1.0 or later (available at http://www.opencontent.org/openpub/). Original article: http://kbase.redhat.com/faq/docs/DOC-6266.pdf Translated by Ivan Pesin, July 2009 Приведённые здесь инструкции активируют функциональность маскарада, но не обеспечивают полной настройки пакетного фильтра. В [&#8230;]]]></description>
+								<content:encoded><![CDATA[<p id="top" />
+<div class="copyright">Copyright (c) 2009 by Red Hat, Inc. This material may be distributed only subject to the terms and conditions set forth in the Open Publication License, v1.0 or later (available at <a href="http://www.opencontent.org/openpub/">http://www.opencontent.org/openpub/</a>).<br />
+Original article: <a href="http://kbase.redhat.com/faq/docs/DOC-6266.pdf">http://kbase.redhat.com/faq/docs/DOC-6266.pdf</a></p>
+<p>Translated by Ivan Pesin, July 2009</p></div>
+<p>Приведённые здесь инструкции активируют функциональность маскарада, но не обеспечивают полной настройки пакетного фильтра.</p>
+<p>В нашем примере, мы будем использовать устройство eth0. Следующая команда iptables добавляет цель MASQUERADE в послемаршрутизационную цепь обработки пакетов (т.е. непосредственно включает маскарад):</p>
+<blockquote><p></p><pre class="crayon-plain-tag">iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE</pre><p></p></blockquote>
+<p>После этого, нужно отредактировать файл <code>/etc/sysctl.conf</code>, чтобы настроить продвижение пакетов. Для этого измените строку:</p>
+<blockquote><p></p><pre class="crayon-plain-tag">net.ipv4.ip_forward=0</pre><p></p></blockquote>
+<p>на:</p>
+<blockquote><p></p><pre class="crayon-plain-tag">net.ipv4.ip_forward=1</pre><p></p></blockquote>
+<p>Если такой строки в файле нет, просто добавьте вышеприведённую строку, которая устанавливает значение параметра ip_forward равным 1 (единице). После этого, чтобы пересчитать файл конфигурации sysctl, запустите команду:</p>
+<blockquote><p></p><pre class="crayon-plain-tag">sysctl -p</pre><p></p></blockquote>
+]]></content:encoded>
+										</item>
+	</channel>
+</rss>

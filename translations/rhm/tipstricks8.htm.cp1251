@@ -1,0 +1,1008 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <title>RedHat Magazine Tips &amp; Tricks 8</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  <style type="text/css">
+  code { font-weight: bold;
+    font-size: x-small;
+    }
+
+  h1 { color: rgb(102, 0, 0);
+    font-family: Verdana,Arial,Helvetica,sans-serif;
+    font-size: 24px;
+    }
+
+  pre { border: 1px solid ;
+    padding-top: 10pt;
+    padding-bottom: 10pt;
+    padding-left: 5px;
+    }
+
+  .byline { color: rgb(102, 102, 102);
+    }
+
+  h2 { font-family: Verdana,Arial,Helvetica,sans-serif;
+    font-size: medium;
+    }
+
+  h3 { font-family: Verdana,Arial,Helvetica,sans-serif;
+    font-size: small;
+    }
+
+  p { font-family: Verdana,Arial,Helvetica,sans-serif;
+    font-size: small;
+    }
+
+  ul { font-family: Verdana,Arial,Helvetica,sans-serif;
+    font-size: x-small;
+    }
+
+  h4 { font-family: Arial,Helvetica,sans-serif;
+    font-size: x-small;
+    }
+
+  .adnote { border: 1px dotted rgb(255, 0, 0);
+    padding-left: 4pt;
+    padding-bottom: 2pt;
+    font-family: verdana,arial,helvetica,sans-serif;
+    font-size: x-small;
+    color: rgb(51, 51, 51);
+    }
+
+
+  </style>
+  
+  
+  
+  
+  
+  
+  <style type="text/css">
+  .rhceInner { border: 1px solid ;
+    margin: 0px;
+    padding: 5px;
+    background-color: rgb(206, 206, 206);
+    text-indent: 0pt;
+    }
+
+  .command { font-family: monospace;
+    font-size: medium;
+    }
+
+
+  </style>
+</head>
+
+
+<body>
+
+
+
+
+
+
+
+<h1 id="tipstricks">Tips &amp; Tricks</h1>
+
+
+
+
+
+
+
+<p>This article is protected by the <a href="http://www.opencontent.org/openpub/">Open 
+  Publication License, V1.0 or later</a>. Copyright &copy; 2005 by Red Hat, Inc.<br>
+
+
+
+
+
+
+
+  Original article: <a href="http://www.redhat.com/magazine/008jun05/departments/tips_tricks/">http://www.redhat.com/magazine/008jun05/departments/tips_tricks/</a></p>
+
+
+
+
+
+
+
+<h4> <a href="http://www.redhat.com/magazine/008jun05/departments/tips_tricks/">Red 
+  Hat Magazine, выпуск 8, июнь 2005</a></h4>
+
+
+
+
+
+
+
+<p>Перевод: &copy; Иван Песин</p>
+
+
+
+
+
+
+
+<p>Раздел "Tips &amp; Tricks" этого месяца включает примеры вопросов 
+  и ответов системных администраторов, которые можно найти в базе знаний Red Hat 
+  Knowledgebase. </p>
+
+
+
+
+
+
+
+<a name="rhce"></a> 
+<div id="RHCEtip"> 
+  
+<h1 id="rhcetips">Советы от RHCE</h1>
+
+
+
+
+
+
+
+  
+<div class="rhceInner"> 
+    
+<h2>Спасение рабочего стола GNOME из лап конфигурационной системы GNOME</h2>
+
+
+
+
+
+
+
+    
+<h4 class="byline">Ричард Кич (Richard Keech), RHCE</h4>
+
+
+
+
+
+
+
+    
+<p>Проблема: мне удалось заблокировать себе доступ в среду&nbsp;GNOME, некорректно выставив&nbsp;Preferences-&gt; Resolution. </p>
+
+
+
+
+
+
+
+    
+<p>В поисках решения я получил несколько важных уроков о конфигурации GNOME. </p>
+
+
+
+
+
+
+
+    
+<p>Главный урок, полученный мною, заключался в том, что конфигурация
+GNOME не хранится в старых добрых текстовых файлах. У GNOME есть своя
+собственная, аналогичная реестру&nbsp;Windows, конфигурационная
+система. </p>
+
+
+
+
+
+
+
+    
+<p>Другим уроком стало то, что не смотря на наследование параметров
+экрана по-умолчанию от сервера&nbsp;X, при изменении настроек они
+сохраняются в пользовательских настройках&nbsp;GNOME. </p>
+
+
+
+
+
+
+
+    
+<p>В данном конкретном случае, решение заключалось в отмене
+пользовательских настроек экранного разрешения. Для этого необходимо
+зарегистрироваться в текстовом режиме и выполнить: </p>
+
+
+
+
+
+
+
+    
+<pre>gconftool-2 --unset /desktop/gnome/screen/$(hostname)/0/rate<br>gconftool-2 --unset /desktop/gnome/screen/$(hostname)/0/resolution</pre>
+
+
+
+
+
+
+
+    
+<p></p>
+
+
+
+
+
+
+
+  </div>
+
+
+
+
+
+
+
+  <!-- end rhceInner -->
+</div>
+
+
+
+
+
+
+
+<!-- end RHCEtip -->
+<h2>Зачем нужны init-скриптам файлы блокировок?</h2>
+
+
+
+
+
+
+
+<h4 class="byline">Бредфорд Хинсон (Bradford Hinson)</h4>
+
+
+
+
+
+
+
+<p>Когда сервис запускается с помощью init-скрипта, в каталоге <code class="COMMAND">/var/lock/subsys/</code> 
+  создается файл с таким же именем, как и у скрипта. Когда сервис останавливается, 
+  этот файл удаляется. Нас не будет интересовать содержимое этих файлов, главное, 
+  чтобы его имя совпадало с именем init-скрипта.</p>
+
+
+
+
+
+
+
+<p>Данный файл, если он существует, говорит о том, что подсистема
+сервиса заблокирована или, другими словами, сервис сейчас находится в
+запущенном состоянии. Поскольку сервис может состоять из нескольких
+исполняемых программ с разными именами, поиск идентификатора
+процесса&nbsp;(PID) одного исполняемого файла может оказаться
+недостаточным для определения состояния всего сервиса. Поэтому команда:
+</p>
+
+
+
+
+
+
+<pre class="SCREEN">service &lt;initscript&gt; status<br></pre>
+
+
+
+
+
+<p>
+
+проверяет и&nbsp;PID исполняемого файла, и файл в каталоге&nbsp;<code class="COMMAND">/var/lock/subsys/</code>. Если&nbsp;PID не найден, но соответствующий файл в каталоге существует, вы получите такое сообщение: 
+</p>
+
+
+
+
+
+<pre class="SCREEN">&lt;service&gt; dead but subsys locked<br></pre>
+
+
+
+
+
+
+
+
+<p>Управление подсистемой сервиса преследует две цели. Во-первых, даже
+если сервис не блокирует подсистему, он все равно будет запускаться и
+останавливаться с помощью интерфейса сервисов. Однако, при смене уровня
+выполнения, rc-скрипты проверяют существование файла в каталоге&nbsp;<code class="COMMAND">/var/lock/subsys/</code>.
+Если этот файл не найден, сервис не будет корректно остановлен или
+запущен при переходе между уровнями выполнения, даже если в каталогах <code class="COMMAND">/etc/rc#.d/</code> есть символические ссылки для старта и завершения.</p>
+
+
+
+
+
+
+
+<p>Во-вторых, при перезагрузке и останове системы проверяется каталог <code class="COMMAND">/var/lock/subsys/</code>. Рассмотрим процедуру останова системы: 
+</p>
+
+
+
+
+
+
+<ol class="command">
+
+
+
+
+
+
+
+  <li>Выполнить для всех сервисов&nbsp;<code class="COMMAND">service &lt;initscript&gt; stop</code>.</li>
+
+
+
+
+
+
+
+  <li>Выполнить для всех процессов&nbsp;<code class="COMMAND">kill -SIGTERM</code>&nbsp; 
+  </li>
+
+
+
+
+
+
+  <li>Пауза 5 секунд</li>
+
+
+
+
+
+
+
+  <li>Выполнить для всех оставшихся процессов <code class="COMMAND">kill -SIGKILL</code>&nbsp;</li>
+
+
+
+
+
+
+
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+<p>Такой порядок выполняемых при останове системы процедур обеспечивает
+максимально корректное завершение всех процессов. При завершении работы
+системы, скрипт <code class="COMMAND">/etc/rc.d/init.d/killall</code> 
+  проверяет каталог&nbsp;<code class="COMMAND">/var/lock/subsys/</code>,
+чтобы узнать какие подсистемы все еще заблокированы. Если после
+остановки всех сервисов (т.е. завершения п.1) остаются заблокированные
+подсистемы, то скрипт&nbsp; <code class="COMMAND">killall</code> 
+  использует имя файла для вызова&nbsp;<code class="COMMAND">service &lt;initscript&gt; 
+  stop</code>.&nbsp;</p>
+
+
+<p>Эта схема&nbsp;позволяет завершить выполнение процесса максимально
+толерантно, перед тем как перейти к выполнению пунктов 2-4, где
+оставшиеся сервисы завершаются безусловно.</p>
+
+
+
+
+
+
+
+<h2>Где находится файл <code>/etc/timezone</code> в Red Hat&reg; Enterprise Linux&reg;?</h2>
+
+
+
+
+
+
+
+<h4 class="byline">Раул Сандерем (Rahul Sundaram)</h4>
+
+
+
+
+
+
+
+<p>Файл&nbsp;<code class="command">/etc/timezone</code>&nbsp;не включается в&nbsp;Red 
+  Hat Enterprise Linux. Локальный часовой пояс хранится в&nbsp;<code class="command">/etc/localtime</code> 
+  и используется библиотекой&nbsp;GNU для C (glibc) если не выставлена переменная&nbsp;TZ. Файл <code class="command">/etc/timezone</code> является либо копией дерева&nbsp;<code class="command">/usr/share/zoneinfo/</code>, либо символической ссылкой на него.</p>
+
+
+
+
+
+
+
+<dl class="adnote">
+
+
+
+
+
+
+
+  <dt>Примечание:</dt>
+
+
+
+
+
+
+
+  <dd>Стандарт иерархии файловой системы (Filesystem Hierarchy
+Standard,&nbsp;FHS) не требует наличия того файла и не определяет его
+формат. За дополнительной информацией по&nbsp;FHS обратитесь к
+документу <a href="http://www.tldp.org/LDP/Linux-Filesystem-Hierarchy/html/etc.html" target="blank">http://www.tldp.org/LDP/Linux-Filesystem-Hierarchy/html/etc.html</a>. 
+  </dd>
+
+
+
+
+
+
+
+</dl>
+
+
+
+
+
+
+
+<h2>Как задать права доступа к ресурсам&nbsp;Samba?</h2>
+
+
+
+
+
+
+
+<h4 class="byline">Роберт Мьюнилла (Robert Munilla)</h4>
+
+
+
+
+
+
+
+<p>Существует много способов задания прав доступа к вашим
+ресурсам&nbsp;Samba и увеличения безопасности. Этот совет демонстрирует
+некоторые основные способы определения прав доступа.</p>
+
+
+
+
+
+
+
+<p>Наиболее ключевые установки:<br>
+
+
+
+
+
+
+</p>
+
+
+
+
+
+
+
+<pre>read only = Yes<br>guest ok = Yes<br></pre>
+
+
+
+
+
+
+
+<p>По-умолчанию <code class="command">read only = Yes</code></p>
+
+
+
+
+
+
+
+<h3>Права доступа к ресурсу</h3>
+
+
+
+
+
+
+
+<pre> <br><em>read only:</em>    Этот параметр контролирует возможность пользователей создавать и модифицировать файлы <br>              на данном ресурсе.<br><br><em>guest ok:</em>     Если данный параметр равен yes, то пользователи будут получать доступ к ресурсу <br>              без указания пароля, что может быть небезопасно.<br></pre>
+
+
+
+
+
+
+
+<p>Пример:</p>
+
+
+
+
+
+
+
+<pre>[share]<br>path = /samba<br><i>read only = Yes</i>
+</pre>
+
+
+
+
+
+
+
+<p>Эта опция управляет доступом к ресурсу на запись.</p>
+
+
+
+
+
+
+
+<h3>Дополнительные параметры</h3>
+
+
+
+
+
+
+
+<pre><em>read list:</em>     Данный параметр определяет список пользователей или групп, которые имеют доступ к <br>               ресурсу в режиме "только для чтения".<br><br><em>write list:</em>    Задает список пользователей для данного ресурса, имеющих права на запись.<br><br><em>valid users:</em>   Можно открыть доступ к ресурсу только для определенных пользователей. Для этого, укажите необходимых<br>               пользователей и группы в данном параметре.<br><br><em>invalid users:</em> Указанные пользователи и группы не будут иметь доступа к данному ресурсу.<br></pre>
+
+
+
+
+
+
+
+<p>Пример:</p>
+
+
+
+
+
+
+
+<pre class="screen"> <br>[share]<br>path = /samba<br><i>write list = user1 user2</i>
+</pre>
+
+
+
+
+
+
+
+<h3>Группы</h3>
+
+
+
+
+
+
+
+<p>Имя группы может быть добавлено в качестве значения с помощью двух специальных символов:</p>
+
+
+
+
+
+
+
+<pre><em>@</em> (at symbol)  группа будет искаться в NIS<br><em>+</em> (plus sign)  группа не будет искаться в NIS <br></pre>
+
+
+
+
+
+
+
+<p>Примеры:</p>
+
+
+
+
+
+
+
+<pre class="screen">  <br>valid users = @groupname<br>invalid users = +groupname<br></pre>
+
+
+
+
+
+
+
+<h3>Права доступа, автоматически устанавливаемые на новых файлах</h3>
+
+
+
+
+
+
+
+<pre><em>create mask:</em>    Этот параметр задает восьмиричное значение прав доступа, которые устанавливаются<br>                на созданных файлах. Пример: create mask = 1644<br><br><em>directory mask:</em> Для разрешения доступа к каталогу, его права доступа должны включать бит исполнения.<br>                Значение по умолчанию -- 0755<br></pre>
+
+
+
+
+
+
+
+<p>Пример:</p>
+
+
+
+
+
+
+
+<pre> <br>[global]<br>create mask = 0775<br></pre>
+
+
+
+
+
+
+
+<h3>Примечания и дополнительная информация</h3>
+
+
+
+
+
+
+
+<ul>
+
+
+
+
+
+
+
+  <li>Системные права доступа UNIX имеют приоритет перед
+правами доступа Samba. Соответственно, вы должны указать правильные
+права доступа к каталогам, которые используются в качестве ресурсов.
+Если каталог не имеет разрешений на запись в системе, то разрешение на
+запись в конфигурации&nbsp;Samba не даст возможности пользователям
+возможность писать в данный ресурс.</li>
+
+
+
+
+
+
+
+  <li>Параметры, задающие режимы доступа не переопределяют
+специальные режимы смонтированных файловых систем. Если файловая
+система смонтирована в режиме "только для чтение", параметр "<code class="command">write 
+    ok = Yes"</code> не даст пользователям возможность записывать данные на эту файловую систему.</li>
+
+
+
+
+
+
+
+</ul>
+
+
+
+
+
+
+
+<h2>Что означает сообщение&nbsp;"DriveReady SeekComplete Error", появляющееся при загрузке системы?</h2>
+
+
+
+
+
+
+
+<h4 class="byline">Рауль Сандерем (Rahul Sundaram)</h4>
+
+
+
+
+
+
+
+<p>Это сообщение означает, что устройство хранения данных
+получило&nbsp;от ядра запрос, который оно не понимает и игнорирует его.
+Это может, например, означать, что драйвер ядра послал команды, которые
+не поддерживаются конкретным устройством. Обычно, это не критическая
+ошибка и ее можно проигнорировать без побочных эффектов. </p>
+
+
+
+
+
+
+
+<h2>Почему при загрузке системы я получаю ошибки <code>grep: /proc/cmdline: No such file or directory</code> и <code>grep: /proc/mounts: No such file or directory</code>&nbsp;?</h2>
+
+
+
+
+
+
+
+<h4 class="byline">Рауль Сандерем (Rahul Sundaram)</h4>
+
+
+
+
+
+
+
+<p>Эти ошибки означают, что виртуальная файловая система&nbsp;proc не
+была смонтирована во время загрузки. Linux использует эту файловую
+систему для представления приложениям различной важной информации о процессах.</p>
+
+
+
+
+
+
+
+<p>Если система не загружается, выполните загрузку в аварийный режим. Иструкции можно найти в разделе&nbsp;<a href="http://www.redhat.com/docs/manuals/enterprise/RHEL-3-Manual/sysadmin-guide/s1-rescuemode-boot.html">Загрузка в аварийный режим</a> руководства системного администратора. </p>
+
+
+
+
+
+
+
+<p>Если вы получите сообщение об ошибке:</p>
+
+
+
+
+
+
+
+<pre command="screen">An error occurred trying to mount all or some of your file systems. <br>Some of them may be under /mnt/sysimage<br></pre>
+
+
+
+
+
+
+
+<p>проверьте файл&nbsp;<code class="filename">/etc/fstab</code>, поскольку он содержит таблицу файловых систем. </p>
+
+
+
+
+
+
+
+<p>В этом файле должна присутствовать строка, аналогичная следующей:</p>
+
+
+
+
+
+
+
+<pre>none                    /proc                   proc    defaults        0 0</pre>
+
+
+
+
+
+
+
+<p>Каталог&nbsp;<code class="filename">/proc</code> должен существовать и быть доступен на чтение и выполнение для всех пользователей.</p>
+
+
+
+
+
+
+
+<h2>Как мне поменять командный интерпретатор?</h2>
+
+
+
+
+
+
+
+<h4 class="byline">Майкл Керей (Michael Kearey)</h4>
+
+
+
+
+
+
+
+<p>Для смены вашего командного интерпретатора, воспользуйтесь командой <code class="COMMAND">chsh.</code></p>
+
+
+
+
+
+
+
+<code class="COMMAND"> 
+</code>
+<p>Можно, также, воспользоваться параметрами команды. Чтобы вывести список доступных интерпретаторов в системе, введите:</p>
+
+
+
+
+
+
+
+<pre>chsh --list</pre>
+
+
+
+
+
+
+
+<p>в результате, вы получите приблизительно следующий список:</p>
+
+
+
+
+
+
+
+<pre>/bin/sh<br>/bin/bash<br>/sbin/nologin<br>/bin/ash<br>/bin/bsh<br>/bin/ksh<br>/usr/bin/ksh<br>/usr/bin/pdksh<br>/bin/tcsh<br>/bin/csh<br></pre>
+
+
+
+
+
+
+
+<p>Чтобы сменить командный интерпретатор на&nbsp;csh, выполните команду:</p>
+
+
+
+
+
+
+
+<pre>chsh -s /bin/csh<br></pre>
+
+
+
+
+
+
+
+<p>Чтобы узнать текущий командный интерпретатор, используйте команду:</p>
+
+
+
+
+
+
+
+<pre>echo $SHELL<br></pre>
+
+
+
+
+
+
+
+<dl class="adnote">
+
+
+
+
+
+
+
+  <dt>Примечание:</dt>
+
+
+
+
+
+
+
+  <dd>Вышеприведенный пример предполагает, что текущий пользователь
+--&nbsp;root. Другие пользователи при смене командного интерпретатора
+должны будут указать свой пароль. Изменения вступят в силу после
+следующей регистрации в системе.</dd>
+
+
+
+
+
+
+
+</dl>
+
+
+
+
+
+
+
+<!-- END OF TIPS AND TRICKS -->
+<p class="palenote">This article is protected by the <a href="http://www.opencontent.org/openpub/">Open 
+  Publication License, V1.0 or later</a>. Copyright &copy; 2004 by Red Hat, Inc.</p>
+
+
+
+
+
+
+
+ 
+</body>
+</html>
