@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI tools and how we work | Ivan Pesin</title>
+  <meta name="description" content="How AI changes teamwork, attention, and verification, and what engineering teams can do about it.">
+  <meta name="author" content="Ivan Pesin">
+  <link rel="canonical" href="https://ivanpesin.com/articles/ai-tools-and-how-we-work/">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Ivan Pesin">
+  <meta property="og:title" content="AI tools and how we work">
+  <meta property="og:description" content="How AI changes teamwork, attention, and verification, and what engineering teams can do about it.">
+  <meta property="og:url" content="https://ivanpesin.com/articles/ai-tools-and-how-we-work/">
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #fff;
+      color: #252e38;
+      font: 1.0625rem/1.7 system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+
+    .wrap {
+      width: min(100% - 2.5rem, 44rem);
+      margin-inline: auto;
+    }
+
+    .site-header {
+      background: #f8fafc;
+      border-bottom: 1px solid #dfe6ee;
+      padding-block: 0.85rem;
+    }
+
+    a {
+      color: #235b8d;
+      text-underline-offset: 0.16em;
+    }
+
+    a:hover {
+      color: #173f65;
+    }
+
+    a:focus-visible {
+      outline: 2px solid #235b8d;
+      outline-offset: 3px;
+    }
+
+    .site-header a {
+      color: #253c53;
+      font-weight: 650;
+    }
+
+    article {
+      padding-block: clamp(2rem, 6vw, 4rem) 2.5rem;
+    }
+
+    h1, h2 {
+      color: #172637;
+      line-height: 1.15;
+    }
+
+    h1 {
+      margin: 0 0 0.65rem;
+      font-size: clamp(2rem, 5.5vw, 3.25rem);
+      letter-spacing: -0.035em;
+      text-wrap: balance;
+    }
+
+    .byline {
+      margin: 0;
+      color: #526172;
+      font-size: 0.9375rem;
+    }
+
+    .intro {
+      margin-top: 1.6rem;
+      font-size: 1.1875rem;
+      line-height: 1.6;
+    }
+
+    h2 {
+      margin: 2.25rem 0 0.85rem;
+      font-size: 1.5rem;
+      letter-spacing: -0.015em;
+    }
+
+    p, ul {
+      margin: 0 0 1.05rem;
+    }
+
+    ul {
+      padding-inline-start: 1.35rem;
+    }
+
+    li + li {
+      margin-top: 0.85rem;
+    }
+
+    blockquote {
+      margin: 1.65rem 0 0;
+      padding: 1rem clamp(0.9rem, 4vw, 1.4rem);
+      background: #f1f6fb;
+      border-inline-start: 3px solid #4277a6;
+      border-radius: 0 0.35rem 0.35rem 0;
+    }
+
+    blockquote p {
+      margin: 0;
+    }
+
+    .site-footer {
+      border-top: 1px solid #dfe6ee;
+      padding-block: 1rem 2.5rem;
+      font-size: 0.9375rem;
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap"><a href="/">Ivan Pesin</a></div>
+  </header>
+
+  <main class="wrap">
+    <article>
+      <header>
+        <h1>AI tools and how we work</h1>
+        <p class="byline">Ivan Pesin · <time datetime="2026-10-31">Oct. 31, 2026</time></p>
+      </header>
+
+      <p class="intro">AI made <em>starting</em> and <em>producing</em> work nearly free, but didn’t make <em>understanding</em>, <em>verifying</em>, or <em>coordinating</em> any cheaper. People optimize for what feels fast, so they over-invest in the cheap part and under-invest in the expensive ones.</p>
+
+      <h2>Three problems</h2>
+
+      <p><strong>Less human communication.</strong> The AI is always available, never impatient, and never makes you feel slow, so asking it takes less effort than asking a colleague. Quick questions to colleagues used to spread context and keep people aligned. Now that context stays in private chat sessions. The team loses a shared view of how the system works and where it’s heading, and people break things other parts of the system rely on, often without knowing those dependencies exist. People end up with more code and less collective knowledge.</p>
+
+      <p><strong>Parallel threads and shallow thinking.</strong> Running 3–5 agent sessions feels productive because something is always progressing. But you become a dispatcher and reviewer, constantly reloading context, and review quality drops as you approve diffs you’ve half-read. Work that spans several interacting components doesn’t parallelize. Parallelism works for well-specified, low-risk tasks and works poorly for anything requiring judgment.</p>
+
+      <p><strong>Ship and move on.</strong> This is the most dangerous of the three, especially in infrastructure. When producing a fix takes 10 minutes, spending hours confirming the intended effect and looking for the unintended ones feels disproportionate, so people skip it. But verification costs as much as ever, and side effects (node churn, retry storms, CDC/replication lag, connection pool exhaustion) rarely show up right away. They build over time or appear only under different load.</p>
+
+      <h2>Mitigations that seem to work</h2>
+
+      <ul>
+        <li><strong>Adjust what “done” means.</strong> A change is done when you’ve confirmed in production that it had the intended effect and no side effects. Before you release, note how you’ll check both. An agent can help: put a verification step in its instructions, and it will review production metrics and logs after release. I have agents re-check for regressions a few hours, sometimes even days, later.</li>
+        <li><strong>Limit work in progress per person.</strong> One well-known <a href="https://ayeconference.com/multiprojecting-the-illusion-of-progress.html">estimate</a> puts the cost of each added task at about 20% of your time lost to context switching; beyond three, more than half goes to switching. Limit yourself to one deep task plus one or two mechanical agent tasks. I sort my agent sessions into two lists, WIP and HOLD, and keep at most three in WIP. I work only on WIP. I don’t start anything new or pull anything back from HOLD until a WIP slot frees up, either because a task is done or because I move one to HOLD.</li>
+        <li><strong>Decide with the team before you build.</strong> If you write code first, even with AI, you grow attached to it, and it frames the discussion around your solution instead of the problem. Ask the AI for options and a recommendation, work out who would notice if the change went wrong, and discuss the options with them and your team. Only then implement what you agree on. Waiting for teammates is fine: a short delay costs less than building the wrong thing. The team stays aligned, and everyone understands the change.</li>
+        <li><strong>Make AI-assisted work visible.</strong> A quick fix can break parts of the system you never touched. Before you ship, post a short note in the team channel on what you plan to change and why, and give people time to respond. Write the note yourself, not with AI: teammates skim AI-written summaries, but they read a few lines in your own words. Now and then, pair with a teammate on an AI session.</li>
+      </ul>
+
+      <h2>Measure outcomes</h2>
+
+      <p>The metrics that matter now show whether changes work: change failure rate, rollbacks, rework, and the time it takes to detect a regression.</p>
+
+      <blockquote>
+        <p><strong>The bottleneck has moved from writing changes to judging them.</strong> Anyone can produce a change in minutes now. Knowing whether it’s the right change is the scarce skill, and the one that matters most. A fast fix is worth little if you don’t understand what you’re fixing and how. If we reward speed, we will get more changes and fewer people who know why they broke.</p>
+      </blockquote>
+    </article>
+  </main>
+
+  <footer class="site-footer wrap">
+    <a href="/#articles-translations">← Articles &amp; Translations</a>
+  </footer>
+</body>
+</html>
