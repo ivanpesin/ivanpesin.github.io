@@ -2,1560 +2,1560 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Articles, Translations, and Blog</title>
-    <link>http://pesin.space/tags/</link>
+    <link>https://ivanpesin.com/tags/</link>
     <description>Recent content in Tags on Articles, Translations, and Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 30 Jan 2021 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="http://pesin.space/tags/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://ivanpesin.com/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>English</title>
-      <link>http://pesin.space/tags/english/</link>
+      <link>https://ivanpesin.com/tags/english/</link>
       <pubDate>Sat, 30 Jan 2021 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/english/</guid>
+      <guid>https://ivanpesin.com/tags/english/</guid>
       <description></description>
     </item>
     
     <item>
       <title>book</title>
-      <link>http://pesin.space/tags/book/</link>
+      <link>https://ivanpesin.com/tags/book/</link>
       <pubDate>Fri, 18 Dec 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/book/</guid>
+      <guid>https://ivanpesin.com/tags/book/</guid>
       <description></description>
     </item>
     
     <item>
       <title>ruby</title>
-      <link>http://pesin.space/tags/ruby/</link>
+      <link>https://ivanpesin.com/tags/ruby/</link>
       <pubDate>Fri, 18 Dec 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/ruby/</guid>
+      <guid>https://ivanpesin.com/tags/ruby/</guid>
       <description></description>
     </item>
     
     <item>
       <title>awk</title>
-      <link>http://pesin.space/tags/awk/</link>
+      <link>https://ivanpesin.com/tags/awk/</link>
       <pubDate>Sat, 31 Oct 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/awk/</guid>
+      <guid>https://ivanpesin.com/tags/awk/</guid>
       <description></description>
     </item>
     
     <item>
       <title>cli</title>
-      <link>http://pesin.space/tags/cli/</link>
+      <link>https://ivanpesin.com/tags/cli/</link>
       <pubDate>Sat, 31 Oct 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/cli/</guid>
+      <guid>https://ivanpesin.com/tags/cli/</guid>
       <description></description>
     </item>
     
     <item>
       <title>gnuplot</title>
-      <link>http://pesin.space/tags/gnuplot/</link>
+      <link>https://ivanpesin.com/tags/gnuplot/</link>
       <pubDate>Sat, 31 Oct 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/gnuplot/</guid>
+      <guid>https://ivanpesin.com/tags/gnuplot/</guid>
       <description></description>
     </item>
     
     <item>
       <title>histograms</title>
-      <link>http://pesin.space/tags/histograms/</link>
+      <link>https://ivanpesin.com/tags/histograms/</link>
       <pubDate>Sat, 31 Oct 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/histograms/</guid>
+      <guid>https://ivanpesin.com/tags/histograms/</guid>
       <description></description>
     </item>
     
     <item>
       <title>autossh</title>
-      <link>http://pesin.space/tags/autossh/</link>
+      <link>https://ivanpesin.com/tags/autossh/</link>
       <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/autossh/</guid>
+      <guid>https://ivanpesin.com/tags/autossh/</guid>
       <description></description>
     </item>
     
     <item>
       <title>systemd</title>
-      <link>http://pesin.space/tags/systemd/</link>
+      <link>https://ivanpesin.com/tags/systemd/</link>
       <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/systemd/</guid>
+      <guid>https://ivanpesin.com/tags/systemd/</guid>
       <description></description>
     </item>
     
     <item>
       <title>console</title>
-      <link>http://pesin.space/tags/console/</link>
+      <link>https://ivanpesin.com/tags/console/</link>
       <pubDate>Mon, 05 Oct 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/console/</guid>
+      <guid>https://ivanpesin.com/tags/console/</guid>
       <description></description>
     </item>
     
     <item>
       <title>iterm</title>
-      <link>http://pesin.space/tags/iterm/</link>
+      <link>https://ivanpesin.com/tags/iterm/</link>
       <pubDate>Mon, 05 Oct 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/iterm/</guid>
+      <guid>https://ivanpesin.com/tags/iterm/</guid>
       <description></description>
     </item>
     
     <item>
       <title>locale</title>
-      <link>http://pesin.space/tags/locale/</link>
+      <link>https://ivanpesin.com/tags/locale/</link>
       <pubDate>Mon, 05 Oct 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/locale/</guid>
+      <guid>https://ivanpesin.com/tags/locale/</guid>
       <description></description>
     </item>
     
     <item>
       <title>macos</title>
-      <link>http://pesin.space/tags/macos/</link>
+      <link>https://ivanpesin.com/tags/macos/</link>
       <pubDate>Mon, 05 Oct 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/macos/</guid>
+      <guid>https://ivanpesin.com/tags/macos/</guid>
       <description></description>
     </item>
     
     <item>
       <title>mosh</title>
-      <link>http://pesin.space/tags/mosh/</link>
+      <link>https://ivanpesin.com/tags/mosh/</link>
       <pubDate>Mon, 05 Oct 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/mosh/</guid>
+      <guid>https://ivanpesin.com/tags/mosh/</guid>
       <description></description>
     </item>
     
     <item>
       <title>terminal</title>
-      <link>http://pesin.space/tags/terminal/</link>
+      <link>https://ivanpesin.com/tags/terminal/</link>
       <pubDate>Mon, 05 Oct 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/terminal/</guid>
+      <guid>https://ivanpesin.com/tags/terminal/</guid>
       <description></description>
     </item>
     
     <item>
       <title>latency</title>
-      <link>http://pesin.space/tags/latency/</link>
+      <link>https://ivanpesin.com/tags/latency/</link>
       <pubDate>Tue, 22 Sep 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/latency/</guid>
+      <guid>https://ivanpesin.com/tags/latency/</guid>
       <description></description>
     </item>
     
     <item>
       <title>numbers</title>
-      <link>http://pesin.space/tags/numbers/</link>
+      <link>https://ivanpesin.com/tags/numbers/</link>
       <pubDate>Tue, 22 Sep 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/numbers/</guid>
+      <guid>https://ivanpesin.com/tags/numbers/</guid>
       <description></description>
     </item>
     
     <item>
       <title>bugs</title>
-      <link>http://pesin.space/tags/bugs/</link>
+      <link>https://ivanpesin.com/tags/bugs/</link>
       <pubDate>Fri, 14 Aug 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/bugs/</guid>
+      <guid>https://ivanpesin.com/tags/bugs/</guid>
       <description></description>
     </item>
     
     <item>
       <title>doctors</title>
-      <link>http://pesin.space/tags/doctors/</link>
+      <link>https://ivanpesin.com/tags/doctors/</link>
       <pubDate>Fri, 14 Aug 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/doctors/</guid>
+      <guid>https://ivanpesin.com/tags/doctors/</guid>
       <description></description>
     </item>
     
     <item>
       <title>gphotos</title>
-      <link>http://pesin.space/tags/gphotos/</link>
+      <link>https://ivanpesin.com/tags/gphotos/</link>
       <pubDate>Fri, 14 Aug 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/gphotos/</guid>
+      <guid>https://ivanpesin.com/tags/gphotos/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Israel</title>
-      <link>http://pesin.space/tags/israel/</link>
+      <link>https://ivanpesin.com/tags/israel/</link>
       <pubDate>Fri, 14 Aug 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/israel/</guid>
+      <guid>https://ivanpesin.com/tags/israel/</guid>
       <description></description>
     </item>
     
     <item>
       <title>loc</title>
-      <link>http://pesin.space/tags/loc/</link>
+      <link>https://ivanpesin.com/tags/loc/</link>
       <pubDate>Fri, 14 Aug 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/loc/</guid>
+      <guid>https://ivanpesin.com/tags/loc/</guid>
       <description></description>
     </item>
     
     <item>
       <title>quotes</title>
-      <link>http://pesin.space/tags/quotes/</link>
+      <link>https://ivanpesin.com/tags/quotes/</link>
       <pubDate>Fri, 14 Aug 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/quotes/</guid>
+      <guid>https://ivanpesin.com/tags/quotes/</guid>
       <description></description>
     </item>
     
     <item>
       <title>religion</title>
-      <link>http://pesin.space/tags/religion/</link>
+      <link>https://ivanpesin.com/tags/religion/</link>
       <pubDate>Fri, 14 Aug 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/religion/</guid>
+      <guid>https://ivanpesin.com/tags/religion/</guid>
       <description></description>
     </item>
     
     <item>
       <title>targets</title>
-      <link>http://pesin.space/tags/targets/</link>
+      <link>https://ivanpesin.com/tags/targets/</link>
       <pubDate>Fri, 14 Aug 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/targets/</guid>
+      <guid>https://ivanpesin.com/tags/targets/</guid>
       <description></description>
     </item>
     
     <item>
       <title>tracking</title>
-      <link>http://pesin.space/tags/tracking/</link>
+      <link>https://ivanpesin.com/tags/tracking/</link>
       <pubDate>Fri, 14 Aug 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/tracking/</guid>
+      <guid>https://ivanpesin.com/tags/tracking/</guid>
       <description></description>
     </item>
     
     <item>
       <title>keyboard</title>
-      <link>http://pesin.space/tags/keyboard/</link>
+      <link>https://ivanpesin.com/tags/keyboard/</link>
       <pubDate>Tue, 28 Jul 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/keyboard/</guid>
+      <guid>https://ivanpesin.com/tags/keyboard/</guid>
       <description></description>
     </item>
     
     <item>
       <title>aldrich</title>
-      <link>http://pesin.space/tags/aldrich/</link>
+      <link>https://ivanpesin.com/tags/aldrich/</link>
       <pubDate>Sat, 25 Jul 2020 13:50:34 +0300</pubDate>
       
-      <guid>http://pesin.space/tags/aldrich/</guid>
+      <guid>https://ivanpesin.com/tags/aldrich/</guid>
       <description></description>
     </item>
     
     <item>
       <title>burns</title>
-      <link>http://pesin.space/tags/burns/</link>
+      <link>https://ivanpesin.com/tags/burns/</link>
       <pubDate>Sat, 25 Jul 2020 13:50:34 +0300</pubDate>
       
-      <guid>http://pesin.space/tags/burns/</guid>
+      <guid>https://ivanpesin.com/tags/burns/</guid>
       <description></description>
     </item>
     
     <item>
       <title>marshak</title>
-      <link>http://pesin.space/tags/marshak/</link>
+      <link>https://ivanpesin.com/tags/marshak/</link>
       <pubDate>Sat, 25 Jul 2020 13:50:34 +0300</pubDate>
       
-      <guid>http://pesin.space/tags/marshak/</guid>
+      <guid>https://ivanpesin.com/tags/marshak/</guid>
       <description></description>
     </item>
     
     <item>
       <title>russian</title>
-      <link>http://pesin.space/tags/russian/</link>
+      <link>https://ivanpesin.com/tags/russian/</link>
       <pubDate>Sat, 25 Jul 2020 13:50:34 +0300</pubDate>
       
-      <guid>http://pesin.space/tags/russian/</guid>
+      <guid>https://ivanpesin.com/tags/russian/</guid>
       <description></description>
     </item>
     
     <item>
       <title>docker</title>
-      <link>http://pesin.space/tags/docker/</link>
+      <link>https://ivanpesin.com/tags/docker/</link>
       <pubDate>Thu, 02 Jul 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/docker/</guid>
+      <guid>https://ivanpesin.com/tags/docker/</guid>
       <description></description>
     </item>
     
     <item>
       <title>k8s</title>
-      <link>http://pesin.space/tags/k8s/</link>
+      <link>https://ivanpesin.com/tags/k8s/</link>
       <pubDate>Thu, 02 Jul 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/k8s/</guid>
+      <guid>https://ivanpesin.com/tags/k8s/</guid>
       <description></description>
     </item>
     
     <item>
       <title>fun</title>
-      <link>http://pesin.space/tags/fun/</link>
+      <link>https://ivanpesin.com/tags/fun/</link>
       <pubDate>Sat, 06 Jun 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/fun/</guid>
+      <guid>https://ivanpesin.com/tags/fun/</guid>
       <description></description>
     </item>
     
     <item>
       <title>math</title>
-      <link>http://pesin.space/tags/math/</link>
+      <link>https://ivanpesin.com/tags/math/</link>
       <pubDate>Sat, 06 Jun 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/math/</guid>
+      <guid>https://ivanpesin.com/tags/math/</guid>
       <description></description>
     </item>
     
     <item>
       <title>writing</title>
-      <link>http://pesin.space/tags/writing/</link>
+      <link>https://ivanpesin.com/tags/writing/</link>
       <pubDate>Fri, 22 May 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/writing/</guid>
+      <guid>https://ivanpesin.com/tags/writing/</guid>
       <description></description>
     </item>
     
     <item>
       <title>twain</title>
-      <link>http://pesin.space/tags/twain/</link>
+      <link>https://ivanpesin.com/tags/twain/</link>
       <pubDate>Sat, 07 Mar 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/twain/</guid>
+      <guid>https://ivanpesin.com/tags/twain/</guid>
       <description></description>
     </item>
     
     <item>
       <title>coe</title>
-      <link>http://pesin.space/tags/coe/</link>
+      <link>https://ivanpesin.com/tags/coe/</link>
       <pubDate>Sat, 08 Feb 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/coe/</guid>
+      <guid>https://ivanpesin.com/tags/coe/</guid>
       <description></description>
     </item>
     
     <item>
       <title>dilbert</title>
-      <link>http://pesin.space/tags/dilbert/</link>
+      <link>https://ivanpesin.com/tags/dilbert/</link>
       <pubDate>Sat, 08 Feb 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/dilbert/</guid>
+      <guid>https://ivanpesin.com/tags/dilbert/</guid>
       <description></description>
     </item>
     
     <item>
       <title>excellence</title>
-      <link>http://pesin.space/tags/excellence/</link>
+      <link>https://ivanpesin.com/tags/excellence/</link>
       <pubDate>Sat, 08 Feb 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/excellence/</guid>
+      <guid>https://ivanpesin.com/tags/excellence/</guid>
       <description></description>
     </item>
     
     <item>
       <title>bigdata</title>
-      <link>http://pesin.space/tags/bigdata/</link>
+      <link>https://ivanpesin.com/tags/bigdata/</link>
       <pubDate>Tue, 02 Jul 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/bigdata/</guid>
+      <guid>https://ivanpesin.com/tags/bigdata/</guid>
       <description></description>
     </item>
     
     <item>
       <title>conf</title>
-      <link>http://pesin.space/tags/conf/</link>
+      <link>https://ivanpesin.com/tags/conf/</link>
       <pubDate>Wed, 14 Nov 2018 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/conf/</guid>
+      <guid>https://ivanpesin.com/tags/conf/</guid>
       <description></description>
     </item>
     
     <item>
       <title>dependencies</title>
-      <link>http://pesin.space/tags/dependencies/</link>
+      <link>https://ivanpesin.com/tags/dependencies/</link>
       <pubDate>Wed, 14 Nov 2018 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/dependencies/</guid>
+      <guid>https://ivanpesin.com/tags/dependencies/</guid>
       <description></description>
     </item>
     
     <item>
       <title>lisa</title>
-      <link>http://pesin.space/tags/lisa/</link>
+      <link>https://ivanpesin.com/tags/lisa/</link>
       <pubDate>Wed, 14 Nov 2018 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/lisa/</guid>
+      <guid>https://ivanpesin.com/tags/lisa/</guid>
       <description></description>
     </item>
     
     <item>
       <title>scale</title>
-      <link>http://pesin.space/tags/scale/</link>
+      <link>https://ivanpesin.com/tags/scale/</link>
       <pubDate>Wed, 14 Nov 2018 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/scale/</guid>
+      <guid>https://ivanpesin.com/tags/scale/</guid>
       <description></description>
     </item>
     
     <item>
       <title>ascii</title>
-      <link>http://pesin.space/tags/ascii/</link>
+      <link>https://ivanpesin.com/tags/ascii/</link>
       <pubDate>Wed, 07 Nov 2018 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/ascii/</guid>
+      <guid>https://ivanpesin.com/tags/ascii/</guid>
       <description></description>
     </item>
     
     <item>
       <title>asciiart</title>
-      <link>http://pesin.space/tags/asciiart/</link>
+      <link>https://ivanpesin.com/tags/asciiart/</link>
       <pubDate>Wed, 07 Nov 2018 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/asciiart/</guid>
+      <guid>https://ivanpesin.com/tags/asciiart/</guid>
       <description></description>
     </item>
     
     <item>
       <title>figlet</title>
-      <link>http://pesin.space/tags/figlet/</link>
+      <link>https://ivanpesin.com/tags/figlet/</link>
       <pubDate>Wed, 07 Nov 2018 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/figlet/</guid>
+      <guid>https://ivanpesin.com/tags/figlet/</guid>
       <description></description>
     </item>
     
     <item>
       <title>review</title>
-      <link>http://pesin.space/tags/review/</link>
+      <link>https://ivanpesin.com/tags/review/</link>
       <pubDate>Wed, 07 Nov 2018 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/review/</guid>
+      <guid>https://ivanpesin.com/tags/review/</guid>
       <description></description>
     </item>
     
     <item>
       <title>conway</title>
-      <link>http://pesin.space/tags/conway/</link>
+      <link>https://ivanpesin.com/tags/conway/</link>
       <pubDate>Fri, 03 Aug 2018 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/conway/</guid>
+      <guid>https://ivanpesin.com/tags/conway/</guid>
       <description></description>
     </item>
     
     <item>
       <title>golang</title>
-      <link>http://pesin.space/tags/golang/</link>
+      <link>https://ivanpesin.com/tags/golang/</link>
       <pubDate>Fri, 03 Aug 2018 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/golang/</guid>
+      <guid>https://ivanpesin.com/tags/golang/</guid>
       <description></description>
     </item>
     
     <item>
       <title>life</title>
-      <link>http://pesin.space/tags/life/</link>
+      <link>https://ivanpesin.com/tags/life/</link>
       <pubDate>Fri, 03 Aug 2018 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/life/</guid>
+      <guid>https://ivanpesin.com/tags/life/</guid>
       <description></description>
     </item>
     
     <item>
       <title>model</title>
-      <link>http://pesin.space/tags/model/</link>
+      <link>https://ivanpesin.com/tags/model/</link>
       <pubDate>Fri, 03 Aug 2018 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/model/</guid>
+      <guid>https://ivanpesin.com/tags/model/</guid>
       <description></description>
     </item>
     
     <item>
       <title>schelling</title>
-      <link>http://pesin.space/tags/schelling/</link>
+      <link>https://ivanpesin.com/tags/schelling/</link>
       <pubDate>Fri, 03 Aug 2018 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/schelling/</guid>
+      <guid>https://ivanpesin.com/tags/schelling/</guid>
       <description></description>
     </item>
     
     <item>
       <title>segregation</title>
-      <link>http://pesin.space/tags/segregation/</link>
+      <link>https://ivanpesin.com/tags/segregation/</link>
       <pubDate>Fri, 03 Aug 2018 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/segregation/</guid>
+      <guid>https://ivanpesin.com/tags/segregation/</guid>
       <description></description>
     </item>
     
     <item>
       <title>poetry</title>
-      <link>http://pesin.space/tags/poetry/</link>
+      <link>https://ivanpesin.com/tags/poetry/</link>
       <pubDate>Wed, 09 May 2018 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/poetry/</guid>
+      <guid>https://ivanpesin.com/tags/poetry/</guid>
       <description></description>
     </item>
     
     <item>
       <title>ukrainian</title>
-      <link>http://pesin.space/tags/ukrainian/</link>
+      <link>https://ivanpesin.com/tags/ukrainian/</link>
       <pubDate>Wed, 09 May 2018 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/ukrainian/</guid>
+      <guid>https://ivanpesin.com/tags/ukrainian/</guid>
       <description></description>
     </item>
     
     <item>
       <title>airline</title>
-      <link>http://pesin.space/tags/airline/</link>
+      <link>https://ivanpesin.com/tags/airline/</link>
       <pubDate>Sat, 14 Apr 2018 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/airline/</guid>
+      <guid>https://ivanpesin.com/tags/airline/</guid>
       <description></description>
     </item>
     
     <item>
       <title>passenger</title>
-      <link>http://pesin.space/tags/passenger/</link>
+      <link>https://ivanpesin.com/tags/passenger/</link>
       <pubDate>Sat, 14 Apr 2018 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/passenger/</guid>
+      <guid>https://ivanpesin.com/tags/passenger/</guid>
       <description></description>
     </item>
     
     <item>
       <title>pax</title>
-      <link>http://pesin.space/tags/pax/</link>
+      <link>https://ivanpesin.com/tags/pax/</link>
       <pubDate>Sat, 14 Apr 2018 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/pax/</guid>
+      <guid>https://ivanpesin.com/tags/pax/</guid>
       <description></description>
     </item>
     
     <item>
       <title>profit</title>
-      <link>http://pesin.space/tags/profit/</link>
+      <link>https://ivanpesin.com/tags/profit/</link>
       <pubDate>Sat, 14 Apr 2018 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/profit/</guid>
+      <guid>https://ivanpesin.com/tags/profit/</guid>
       <description></description>
     </item>
     
     <item>
       <title>experience</title>
-      <link>http://pesin.space/tags/experience/</link>
+      <link>https://ivanpesin.com/tags/experience/</link>
       <pubDate>Tue, 06 Jun 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/experience/</guid>
+      <guid>https://ivanpesin.com/tags/experience/</guid>
       <description></description>
     </item>
     
     <item>
       <title>alphabet</title>
-      <link>http://pesin.space/tags/alphabet/</link>
+      <link>https://ivanpesin.com/tags/alphabet/</link>
       <pubDate>Thu, 09 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/alphabet/</guid>
+      <guid>https://ivanpesin.com/tags/alphabet/</guid>
       <description></description>
     </item>
     
     <item>
       <title>management</title>
-      <link>http://pesin.space/tags/management/</link>
+      <link>https://ivanpesin.com/tags/management/</link>
       <pubDate>Sat, 21 Jan 2017 14:36:06 -0500</pubDate>
       
-      <guid>http://pesin.space/tags/management/</guid>
+      <guid>https://ivanpesin.com/tags/management/</guid>
       <description></description>
     </item>
     
     <item>
       <title>peter</title>
-      <link>http://pesin.space/tags/peter/</link>
+      <link>https://ivanpesin.com/tags/peter/</link>
       <pubDate>Sat, 21 Jan 2017 14:36:06 -0500</pubDate>
       
-      <guid>http://pesin.space/tags/peter/</guid>
+      <guid>https://ivanpesin.com/tags/peter/</guid>
       <description></description>
     </item>
     
     <item>
       <title>air</title>
-      <link>http://pesin.space/tags/air/</link>
+      <link>https://ivanpesin.com/tags/air/</link>
       <pubDate>Wed, 29 Jun 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/air/</guid>
+      <guid>https://ivanpesin.com/tags/air/</guid>
       <description></description>
     </item>
     
     <item>
       <title>quality</title>
-      <link>http://pesin.space/tags/quality/</link>
+      <link>https://ivanpesin.com/tags/quality/</link>
       <pubDate>Wed, 29 Jun 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/quality/</guid>
+      <guid>https://ivanpesin.com/tags/quality/</guid>
       <description></description>
     </item>
     
     <item>
       <title>media</title>
-      <link>http://pesin.space/tags/media/</link>
+      <link>https://ivanpesin.com/tags/media/</link>
       <pubDate>Tue, 28 Jun 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/media/</guid>
+      <guid>https://ivanpesin.com/tags/media/</guid>
       <description></description>
     </item>
     
     <item>
       <title>politics</title>
-      <link>http://pesin.space/tags/politics/</link>
+      <link>https://ivanpesin.com/tags/politics/</link>
       <pubDate>Tue, 28 Jun 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/politics/</guid>
+      <guid>https://ivanpesin.com/tags/politics/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Europe</title>
-      <link>http://pesin.space/tags/europe/</link>
+      <link>https://ivanpesin.com/tags/europe/</link>
       <pubDate>Sun, 12 Jun 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/europe/</guid>
+      <guid>https://ivanpesin.com/tags/europe/</guid>
       <description></description>
     </item>
     
     <item>
       <title>travel</title>
-      <link>http://pesin.space/tags/travel/</link>
+      <link>https://ivanpesin.com/tags/travel/</link>
       <pubDate>Sun, 12 Jun 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/travel/</guid>
+      <guid>https://ivanpesin.com/tags/travel/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Ukraine</title>
-      <link>http://pesin.space/tags/ukraine/</link>
+      <link>https://ivanpesin.com/tags/ukraine/</link>
       <pubDate>Sun, 12 Jun 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/ukraine/</guid>
+      <guid>https://ivanpesin.com/tags/ukraine/</guid>
       <description></description>
     </item>
     
     <item>
       <title>colors</title>
-      <link>http://pesin.space/tags/colors/</link>
+      <link>https://ivanpesin.com/tags/colors/</link>
       <pubDate>Sun, 17 Jan 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/colors/</guid>
+      <guid>https://ivanpesin.com/tags/colors/</guid>
       <description></description>
     </item>
     
     <item>
       <title>colours</title>
-      <link>http://pesin.space/tags/colours/</link>
+      <link>https://ivanpesin.com/tags/colours/</link>
       <pubDate>Sun, 17 Jan 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/colours/</guid>
+      <guid>https://ivanpesin.com/tags/colours/</guid>
       <description></description>
     </item>
     
     <item>
       <title>palette</title>
-      <link>http://pesin.space/tags/palette/</link>
+      <link>https://ivanpesin.com/tags/palette/</link>
       <pubDate>Sun, 17 Jan 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/palette/</guid>
+      <guid>https://ivanpesin.com/tags/palette/</guid>
       <description></description>
     </item>
     
     <item>
       <title>putty</title>
-      <link>http://pesin.space/tags/putty/</link>
+      <link>https://ivanpesin.com/tags/putty/</link>
       <pubDate>Sun, 17 Jan 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/putty/</guid>
+      <guid>https://ivanpesin.com/tags/putty/</guid>
       <description></description>
     </item>
     
     <item>
       <title>emoji</title>
-      <link>http://pesin.space/tags/emoji/</link>
+      <link>https://ivanpesin.com/tags/emoji/</link>
       <pubDate>Sat, 09 Jan 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/emoji/</guid>
+      <guid>https://ivanpesin.com/tags/emoji/</guid>
       <description></description>
     </item>
     
     <item>
       <title>shortcuts</title>
-      <link>http://pesin.space/tags/shortcuts/</link>
+      <link>https://ivanpesin.com/tags/shortcuts/</link>
       <pubDate>Sat, 09 Jan 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/shortcuts/</guid>
+      <guid>https://ivanpesin.com/tags/shortcuts/</guid>
       <description></description>
     </item>
     
     <item>
       <title>devops</title>
-      <link>http://pesin.space/tags/devops/</link>
+      <link>https://ivanpesin.com/tags/devops/</link>
       <pubDate>Tue, 29 Dec 2015 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/devops/</guid>
+      <guid>https://ivanpesin.com/tags/devops/</guid>
       <description></description>
     </item>
     
     <item>
       <title>sa</title>
-      <link>http://pesin.space/tags/sa/</link>
+      <link>https://ivanpesin.com/tags/sa/</link>
       <pubDate>Tue, 29 Dec 2015 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/sa/</guid>
+      <guid>https://ivanpesin.com/tags/sa/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Bleep</title>
-      <link>http://pesin.space/tags/bleep/</link>
+      <link>https://ivanpesin.com/tags/bleep/</link>
       <pubDate>Sun, 17 May 2015 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/bleep/</guid>
+      <guid>https://ivanpesin.com/tags/bleep/</guid>
       <description></description>
     </item>
     
     <item>
       <title>chance</title>
-      <link>http://pesin.space/tags/chance/</link>
+      <link>https://ivanpesin.com/tags/chance/</link>
       <pubDate>Sun, 17 May 2015 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/chance/</guid>
+      <guid>https://ivanpesin.com/tags/chance/</guid>
       <description></description>
     </item>
     
     <item>
       <title>DNS</title>
-      <link>http://pesin.space/tags/dns/</link>
+      <link>https://ivanpesin.com/tags/dns/</link>
       <pubDate>Sun, 17 May 2015 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/dns/</guid>
+      <guid>https://ivanpesin.com/tags/dns/</guid>
       <description></description>
     </item>
     
     <item>
       <title>firmware</title>
-      <link>http://pesin.space/tags/firmware/</link>
+      <link>https://ivanpesin.com/tags/firmware/</link>
       <pubDate>Sun, 17 May 2015 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/firmware/</guid>
+      <guid>https://ivanpesin.com/tags/firmware/</guid>
       <description></description>
     </item>
     
     <item>
       <title>iOS</title>
-      <link>http://pesin.space/tags/ios/</link>
+      <link>https://ivanpesin.com/tags/ios/</link>
       <pubDate>Sun, 17 May 2015 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/ios/</guid>
+      <guid>https://ivanpesin.com/tags/ios/</guid>
       <description></description>
     </item>
     
     <item>
       <title>meetup</title>
-      <link>http://pesin.space/tags/meetup/</link>
+      <link>https://ivanpesin.com/tags/meetup/</link>
       <pubDate>Sun, 17 May 2015 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/meetup/</guid>
+      <guid>https://ivanpesin.com/tags/meetup/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Mlodinov</title>
-      <link>http://pesin.space/tags/mlodinov/</link>
+      <link>https://ivanpesin.com/tags/mlodinov/</link>
       <pubDate>Sun, 17 May 2015 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/mlodinov/</guid>
+      <guid>https://ivanpesin.com/tags/mlodinov/</guid>
       <description></description>
     </item>
     
     <item>
       <title>random</title>
-      <link>http://pesin.space/tags/random/</link>
+      <link>https://ivanpesin.com/tags/random/</link>
       <pubDate>Sun, 17 May 2015 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/random/</guid>
+      <guid>https://ivanpesin.com/tags/random/</guid>
       <description></description>
     </item>
     
     <item>
       <title>refresher</title>
-      <link>http://pesin.space/tags/refresher/</link>
+      <link>https://ivanpesin.com/tags/refresher/</link>
       <pubDate>Sun, 17 May 2015 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/refresher/</guid>
+      <guid>https://ivanpesin.com/tags/refresher/</guid>
       <description></description>
     </item>
     
     <item>
       <title>sleep</title>
-      <link>http://pesin.space/tags/sleep/</link>
+      <link>https://ivanpesin.com/tags/sleep/</link>
       <pubDate>Sun, 17 May 2015 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/sleep/</guid>
+      <guid>https://ivanpesin.com/tags/sleep/</guid>
       <description></description>
     </item>
     
     <item>
       <title>SSL</title>
-      <link>http://pesin.space/tags/ssl/</link>
+      <link>https://ivanpesin.com/tags/ssl/</link>
       <pubDate>Sun, 17 May 2015 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/ssl/</guid>
+      <guid>https://ivanpesin.com/tags/ssl/</guid>
       <description></description>
     </item>
     
     <item>
       <title>war</title>
-      <link>http://pesin.space/tags/war/</link>
+      <link>https://ivanpesin.com/tags/war/</link>
       <pubDate>Sun, 17 May 2015 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/war/</guid>
+      <guid>https://ivanpesin.com/tags/war/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Bedford</title>
-      <link>http://pesin.space/tags/bedford/</link>
+      <link>https://ivanpesin.com/tags/bedford/</link>
       <pubDate>Fri, 24 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/bedford/</guid>
+      <guid>https://ivanpesin.com/tags/bedford/</guid>
       <description></description>
     </item>
     
     <item>
       <title>cpuset</title>
-      <link>http://pesin.space/tags/cpuset/</link>
+      <link>https://ivanpesin.com/tags/cpuset/</link>
       <pubDate>Fri, 24 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/cpuset/</guid>
+      <guid>https://ivanpesin.com/tags/cpuset/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Fraser</title>
-      <link>http://pesin.space/tags/fraser/</link>
+      <link>https://ivanpesin.com/tags/fraser/</link>
       <pubDate>Fri, 24 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/fraser/</guid>
+      <guid>https://ivanpesin.com/tags/fraser/</guid>
       <description></description>
     </item>
     
     <item>
       <title>netcat</title>
-      <link>http://pesin.space/tags/netcat/</link>
+      <link>https://ivanpesin.com/tags/netcat/</link>
       <pubDate>Fri, 24 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/netcat/</guid>
+      <guid>https://ivanpesin.com/tags/netcat/</guid>
       <description></description>
     </item>
     
     <item>
       <title>pidtree</title>
-      <link>http://pesin.space/tags/pidtree/</link>
+      <link>https://ivanpesin.com/tags/pidtree/</link>
       <pubDate>Fri, 24 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/pidtree/</guid>
+      <guid>https://ivanpesin.com/tags/pidtree/</guid>
       <description></description>
     </item>
     
     <item>
       <title>progressbar</title>
-      <link>http://pesin.space/tags/progressbar/</link>
+      <link>https://ivanpesin.com/tags/progressbar/</link>
       <pubDate>Fri, 24 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/progressbar/</guid>
+      <guid>https://ivanpesin.com/tags/progressbar/</guid>
       <description></description>
     </item>
     
     <item>
       <title>rpm</title>
-      <link>http://pesin.space/tags/rpm/</link>
+      <link>https://ivanpesin.com/tags/rpm/</link>
       <pubDate>Fri, 24 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/rpm/</guid>
+      <guid>https://ivanpesin.com/tags/rpm/</guid>
       <description></description>
     </item>
     
     <item>
       <title>shell</title>
-      <link>http://pesin.space/tags/shell/</link>
+      <link>https://ivanpesin.com/tags/shell/</link>
       <pubDate>Fri, 24 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/shell/</guid>
+      <guid>https://ivanpesin.com/tags/shell/</guid>
       <description></description>
     </item>
     
     <item>
       <title>spinner</title>
-      <link>http://pesin.space/tags/spinner/</link>
+      <link>https://ivanpesin.com/tags/spinner/</link>
       <pubDate>Fri, 24 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/spinner/</guid>
+      <guid>https://ivanpesin.com/tags/spinner/</guid>
       <description></description>
     </item>
     
     <item>
       <title>bash</title>
-      <link>http://pesin.space/tags/bash/</link>
+      <link>https://ivanpesin.com/tags/bash/</link>
       <pubDate>Tue, 03 Jun 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/bash/</guid>
+      <guid>https://ivanpesin.com/tags/bash/</guid>
       <description></description>
     </item>
     
     <item>
       <title>cfengine</title>
-      <link>http://pesin.space/tags/cfengine/</link>
+      <link>https://ivanpesin.com/tags/cfengine/</link>
       <pubDate>Tue, 03 Jun 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/cfengine/</guid>
+      <guid>https://ivanpesin.com/tags/cfengine/</guid>
       <description></description>
     </item>
     
     <item>
       <title>expect</title>
-      <link>http://pesin.space/tags/expect/</link>
+      <link>https://ivanpesin.com/tags/expect/</link>
       <pubDate>Tue, 03 Jun 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/expect/</guid>
+      <guid>https://ivanpesin.com/tags/expect/</guid>
       <description></description>
     </item>
     
     <item>
       <title>lavabit</title>
-      <link>http://pesin.space/tags/lavabit/</link>
+      <link>https://ivanpesin.com/tags/lavabit/</link>
       <pubDate>Tue, 03 Jun 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/lavabit/</guid>
+      <guid>https://ivanpesin.com/tags/lavabit/</guid>
       <description></description>
     </item>
     
     <item>
       <title>monitoring</title>
-      <link>http://pesin.space/tags/monitoring/</link>
+      <link>https://ivanpesin.com/tags/monitoring/</link>
       <pubDate>Tue, 03 Jun 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/monitoring/</guid>
+      <guid>https://ivanpesin.com/tags/monitoring/</guid>
       <description></description>
     </item>
     
     <item>
       <title>thinking</title>
-      <link>http://pesin.space/tags/thinking/</link>
+      <link>https://ivanpesin.com/tags/thinking/</link>
       <pubDate>Tue, 03 Jun 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/thinking/</guid>
+      <guid>https://ivanpesin.com/tags/thinking/</guid>
       <description></description>
     </item>
     
     <item>
       <title>cheatsheet</title>
-      <link>http://pesin.space/tags/cheatsheet/</link>
+      <link>https://ivanpesin.com/tags/cheatsheet/</link>
       <pubDate>Fri, 04 Apr 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/cheatsheet/</guid>
+      <guid>https://ivanpesin.com/tags/cheatsheet/</guid>
       <description></description>
     </item>
     
     <item>
       <title>corporate</title>
-      <link>http://pesin.space/tags/corporate/</link>
+      <link>https://ivanpesin.com/tags/corporate/</link>
       <pubDate>Fri, 04 Apr 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/corporate/</guid>
+      <guid>https://ivanpesin.com/tags/corporate/</guid>
       <description></description>
     </item>
     
     <item>
       <title>google</title>
-      <link>http://pesin.space/tags/google/</link>
+      <link>https://ivanpesin.com/tags/google/</link>
       <pubDate>Fri, 04 Apr 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/google/</guid>
+      <guid>https://ivanpesin.com/tags/google/</guid>
       <description></description>
     </item>
     
     <item>
       <title>LXC</title>
-      <link>http://pesin.space/tags/lxc/</link>
+      <link>https://ivanpesin.com/tags/lxc/</link>
       <pubDate>Fri, 04 Apr 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/lxc/</guid>
+      <guid>https://ivanpesin.com/tags/lxc/</guid>
       <description></description>
     </item>
     
     <item>
       <title>nagios</title>
-      <link>http://pesin.space/tags/nagios/</link>
+      <link>https://ivanpesin.com/tags/nagios/</link>
       <pubDate>Fri, 04 Apr 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/nagios/</guid>
+      <guid>https://ivanpesin.com/tags/nagios/</guid>
       <description></description>
     </item>
     
     <item>
       <title>outlook</title>
-      <link>http://pesin.space/tags/outlook/</link>
+      <link>https://ivanpesin.com/tags/outlook/</link>
       <pubDate>Fri, 04 Apr 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/outlook/</guid>
+      <guid>https://ivanpesin.com/tags/outlook/</guid>
       <description></description>
     </item>
     
     <item>
       <title>security</title>
-      <link>http://pesin.space/tags/security/</link>
+      <link>https://ivanpesin.com/tags/security/</link>
       <pubDate>Fri, 04 Apr 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/security/</guid>
+      <guid>https://ivanpesin.com/tags/security/</guid>
       <description></description>
     </item>
     
     <item>
       <title>solaris</title>
-      <link>http://pesin.space/tags/solaris/</link>
+      <link>https://ivanpesin.com/tags/solaris/</link>
       <pubDate>Fri, 04 Apr 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/solaris/</guid>
+      <guid>https://ivanpesin.com/tags/solaris/</guid>
       <description></description>
     </item>
     
     <item>
       <title>vi</title>
-      <link>http://pesin.space/tags/vi/</link>
+      <link>https://ivanpesin.com/tags/vi/</link>
       <pubDate>Fri, 04 Apr 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/vi/</guid>
+      <guid>https://ivanpesin.com/tags/vi/</guid>
       <description></description>
     </item>
     
     <item>
       <title>vim</title>
-      <link>http://pesin.space/tags/vim/</link>
+      <link>https://ivanpesin.com/tags/vim/</link>
       <pubDate>Fri, 04 Apr 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/vim/</guid>
+      <guid>https://ivanpesin.com/tags/vim/</guid>
       <description></description>
     </item>
     
     <item>
       <title>wolfram</title>
-      <link>http://pesin.space/tags/wolfram/</link>
+      <link>https://ivanpesin.com/tags/wolfram/</link>
       <pubDate>Fri, 04 Apr 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/wolfram/</guid>
+      <guid>https://ivanpesin.com/tags/wolfram/</guid>
       <description></description>
     </item>
     
     <item>
       <title>maidan</title>
-      <link>http://pesin.space/tags/maidan/</link>
+      <link>https://ivanpesin.com/tags/maidan/</link>
       <pubDate>Sun, 23 Feb 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/maidan/</guid>
+      <guid>https://ivanpesin.com/tags/maidan/</guid>
       <description></description>
     </item>
     
     <item>
       <title>collectd3</title>
-      <link>http://pesin.space/tags/collectd3/</link>
+      <link>https://ivanpesin.com/tags/collectd3/</link>
       <pubDate>Sun, 29 Sep 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/collectd3/</guid>
+      <guid>https://ivanpesin.com/tags/collectd3/</guid>
       <description></description>
     </item>
     
     <item>
       <title>graphdb</title>
-      <link>http://pesin.space/tags/graphdb/</link>
+      <link>https://ivanpesin.com/tags/graphdb/</link>
       <pubDate>Sun, 29 Sep 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/graphdb/</guid>
+      <guid>https://ivanpesin.com/tags/graphdb/</guid>
       <description></description>
     </item>
     
     <item>
       <title>load testing</title>
-      <link>http://pesin.space/tags/load-testing/</link>
+      <link>https://ivanpesin.com/tags/load-testing/</link>
       <pubDate>Sun, 29 Sep 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/load-testing/</guid>
+      <guid>https://ivanpesin.com/tags/load-testing/</guid>
       <description></description>
     </item>
     
     <item>
       <title>mysql</title>
-      <link>http://pesin.space/tags/mysql/</link>
+      <link>https://ivanpesin.com/tags/mysql/</link>
       <pubDate>Sun, 29 Sep 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/mysql/</guid>
+      <guid>https://ivanpesin.com/tags/mysql/</guid>
       <description></description>
     </item>
     
     <item>
       <title>paper</title>
-      <link>http://pesin.space/tags/paper/</link>
+      <link>https://ivanpesin.com/tags/paper/</link>
       <pubDate>Sun, 29 Sep 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/paper/</guid>
+      <guid>https://ivanpesin.com/tags/paper/</guid>
       <description></description>
     </item>
     
     <item>
       <title>phoenix project</title>
-      <link>http://pesin.space/tags/phoenix-project/</link>
+      <link>https://ivanpesin.com/tags/phoenix-project/</link>
       <pubDate>Sun, 29 Sep 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/phoenix-project/</guid>
+      <guid>https://ivanpesin.com/tags/phoenix-project/</guid>
       <description></description>
     </item>
     
     <item>
       <title>sher</title>
-      <link>http://pesin.space/tags/sher/</link>
+      <link>https://ivanpesin.com/tags/sher/</link>
       <pubDate>Sun, 29 Sep 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/sher/</guid>
+      <guid>https://ivanpesin.com/tags/sher/</guid>
       <description></description>
     </item>
     
     <item>
       <title>surge</title>
-      <link>http://pesin.space/tags/surge/</link>
+      <link>https://ivanpesin.com/tags/surge/</link>
       <pubDate>Sun, 29 Sep 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/surge/</guid>
+      <guid>https://ivanpesin.com/tags/surge/</guid>
       <description></description>
     </item>
     
     <item>
       <title>ted</title>
-      <link>http://pesin.space/tags/ted/</link>
+      <link>https://ivanpesin.com/tags/ted/</link>
       <pubDate>Sun, 29 Sep 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/ted/</guid>
+      <guid>https://ivanpesin.com/tags/ted/</guid>
       <description></description>
     </item>
     
     <item>
       <title>glissade</title>
-      <link>http://pesin.space/tags/glissade/</link>
+      <link>https://ivanpesin.com/tags/glissade/</link>
       <pubDate>Fri, 20 Sep 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/glissade/</guid>
+      <guid>https://ivanpesin.com/tags/glissade/</guid>
       <description></description>
     </item>
     
     <item>
       <title>logs</title>
-      <link>http://pesin.space/tags/logs/</link>
+      <link>https://ivanpesin.com/tags/logs/</link>
       <pubDate>Fri, 20 Sep 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/logs/</guid>
+      <guid>https://ivanpesin.com/tags/logs/</guid>
       <description></description>
     </item>
     
     <item>
       <title>lviv</title>
-      <link>http://pesin.space/tags/lviv/</link>
+      <link>https://ivanpesin.com/tags/lviv/</link>
       <pubDate>Fri, 20 Sep 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/lviv/</guid>
+      <guid>https://ivanpesin.com/tags/lviv/</guid>
       <description></description>
     </item>
     
     <item>
       <title>oom</title>
-      <link>http://pesin.space/tags/oom/</link>
+      <link>https://ivanpesin.com/tags/oom/</link>
       <pubDate>Fri, 20 Sep 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/oom/</guid>
+      <guid>https://ivanpesin.com/tags/oom/</guid>
       <description></description>
     </item>
     
     <item>
       <title>punctuation</title>
-      <link>http://pesin.space/tags/punctuation/</link>
+      <link>https://ivanpesin.com/tags/punctuation/</link>
       <pubDate>Fri, 20 Sep 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/punctuation/</guid>
+      <guid>https://ivanpesin.com/tags/punctuation/</guid>
       <description></description>
     </item>
     
     <item>
       <title>redhat</title>
-      <link>http://pesin.space/tags/redhat/</link>
+      <link>https://ivanpesin.com/tags/redhat/</link>
       <pubDate>Fri, 20 Sep 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/redhat/</guid>
+      <guid>https://ivanpesin.com/tags/redhat/</guid>
       <description></description>
     </item>
     
     <item>
       <title>regex</title>
-      <link>http://pesin.space/tags/regex/</link>
+      <link>https://ivanpesin.com/tags/regex/</link>
       <pubDate>Fri, 20 Sep 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/regex/</guid>
+      <guid>https://ivanpesin.com/tags/regex/</guid>
       <description></description>
     </item>
     
     <item>
       <title>time</title>
-      <link>http://pesin.space/tags/time/</link>
+      <link>https://ivanpesin.com/tags/time/</link>
       <pubDate>Fri, 20 Sep 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/time/</guid>
+      <guid>https://ivanpesin.com/tags/time/</guid>
       <description></description>
     </item>
     
     <item>
       <title>apple</title>
-      <link>http://pesin.space/tags/apple/</link>
+      <link>https://ivanpesin.com/tags/apple/</link>
       <pubDate>Wed, 04 Sep 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/apple/</guid>
+      <guid>https://ivanpesin.com/tags/apple/</guid>
       <description></description>
     </item>
     
     <item>
       <title>grep</title>
-      <link>http://pesin.space/tags/grep/</link>
+      <link>https://ivanpesin.com/tags/grep/</link>
       <pubDate>Wed, 04 Sep 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/grep/</guid>
+      <guid>https://ivanpesin.com/tags/grep/</guid>
       <description></description>
     </item>
     
     <item>
       <title>iphone</title>
-      <link>http://pesin.space/tags/iphone/</link>
+      <link>https://ivanpesin.com/tags/iphone/</link>
       <pubDate>Wed, 04 Sep 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/iphone/</guid>
+      <guid>https://ivanpesin.com/tags/iphone/</guid>
       <description></description>
     </item>
     
     <item>
       <title>kids</title>
-      <link>http://pesin.space/tags/kids/</link>
+      <link>https://ivanpesin.com/tags/kids/</link>
       <pubDate>Wed, 04 Sep 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/kids/</guid>
+      <guid>https://ivanpesin.com/tags/kids/</guid>
       <description></description>
     </item>
     
     <item>
       <title>less</title>
-      <link>http://pesin.space/tags/less/</link>
+      <link>https://ivanpesin.com/tags/less/</link>
       <pubDate>Wed, 04 Sep 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/less/</guid>
+      <guid>https://ivanpesin.com/tags/less/</guid>
       <description></description>
     </item>
     
     <item>
       <title>osx</title>
-      <link>http://pesin.space/tags/osx/</link>
+      <link>https://ivanpesin.com/tags/osx/</link>
       <pubDate>Wed, 04 Sep 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/osx/</guid>
+      <guid>https://ivanpesin.com/tags/osx/</guid>
       <description></description>
     </item>
     
     <item>
       <title>photos</title>
-      <link>http://pesin.space/tags/photos/</link>
+      <link>https://ivanpesin.com/tags/photos/</link>
       <pubDate>Wed, 04 Sep 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/photos/</guid>
+      <guid>https://ivanpesin.com/tags/photos/</guid>
       <description></description>
     </item>
     
     <item>
       <title>recording</title>
-      <link>http://pesin.space/tags/recording/</link>
+      <link>https://ivanpesin.com/tags/recording/</link>
       <pubDate>Wed, 04 Sep 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/recording/</guid>
+      <guid>https://ivanpesin.com/tags/recording/</guid>
       <description></description>
     </item>
     
     <item>
       <title>rpmdb</title>
-      <link>http://pesin.space/tags/rpmdb/</link>
+      <link>https://ivanpesin.com/tags/rpmdb/</link>
       <pubDate>Wed, 04 Sep 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/rpmdb/</guid>
+      <guid>https://ivanpesin.com/tags/rpmdb/</guid>
       <description></description>
     </item>
     
     <item>
       <title>signals</title>
-      <link>http://pesin.space/tags/signals/</link>
+      <link>https://ivanpesin.com/tags/signals/</link>
       <pubDate>Wed, 04 Sep 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/signals/</guid>
+      <guid>https://ivanpesin.com/tags/signals/</guid>
       <description></description>
     </item>
     
     <item>
       <title>sunlight</title>
-      <link>http://pesin.space/tags/sunlight/</link>
+      <link>https://ivanpesin.com/tags/sunlight/</link>
       <pubDate>Wed, 04 Sep 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/sunlight/</guid>
+      <guid>https://ivanpesin.com/tags/sunlight/</guid>
       <description></description>
     </item>
     
     <item>
       <title>yac</title>
-      <link>http://pesin.space/tags/yac/</link>
+      <link>https://ivanpesin.com/tags/yac/</link>
       <pubDate>Wed, 04 Sep 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/yac/</guid>
+      <guid>https://ivanpesin.com/tags/yac/</guid>
       <description></description>
     </item>
     
     <item>
       <title>ansible</title>
-      <link>http://pesin.space/tags/ansible/</link>
+      <link>https://ivanpesin.com/tags/ansible/</link>
       <pubDate>Fri, 16 Aug 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/ansible/</guid>
+      <guid>https://ivanpesin.com/tags/ansible/</guid>
       <description></description>
     </item>
     
     <item>
       <title>fry</title>
-      <link>http://pesin.space/tags/fry/</link>
+      <link>https://ivanpesin.com/tags/fry/</link>
       <pubDate>Fri, 16 Aug 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/fry/</guid>
+      <guid>https://ivanpesin.com/tags/fry/</guid>
       <description></description>
     </item>
     
     <item>
       <title>knockd</title>
-      <link>http://pesin.space/tags/knockd/</link>
+      <link>https://ivanpesin.com/tags/knockd/</link>
       <pubDate>Fri, 16 Aug 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/knockd/</guid>
+      <guid>https://ivanpesin.com/tags/knockd/</guid>
       <description></description>
     </item>
     
     <item>
       <title>LGBT</title>
-      <link>http://pesin.space/tags/lgbt/</link>
+      <link>https://ivanpesin.com/tags/lgbt/</link>
       <pubDate>Fri, 16 Aug 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/lgbt/</guid>
+      <guid>https://ivanpesin.com/tags/lgbt/</guid>
       <description></description>
     </item>
     
     <item>
       <title>big-O</title>
-      <link>http://pesin.space/tags/big-o/</link>
+      <link>https://ivanpesin.com/tags/big-o/</link>
       <pubDate>Sat, 03 Aug 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/big-o/</guid>
+      <guid>https://ivanpesin.com/tags/big-o/</guid>
       <description></description>
     </item>
     
     <item>
       <title>crc32</title>
-      <link>http://pesin.space/tags/crc32/</link>
+      <link>https://ivanpesin.com/tags/crc32/</link>
       <pubDate>Sat, 03 Aug 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/crc32/</guid>
+      <guid>https://ivanpesin.com/tags/crc32/</guid>
       <description></description>
     </item>
     
     <item>
       <title>bootstrap</title>
-      <link>http://pesin.space/tags/bootstrap/</link>
+      <link>https://ivanpesin.com/tags/bootstrap/</link>
       <pubDate>Sun, 21 Jul 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/bootstrap/</guid>
+      <guid>https://ivanpesin.com/tags/bootstrap/</guid>
       <description></description>
     </item>
     
     <item>
       <title>clouds</title>
-      <link>http://pesin.space/tags/clouds/</link>
+      <link>https://ivanpesin.com/tags/clouds/</link>
       <pubDate>Sun, 21 Jul 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/clouds/</guid>
+      <guid>https://ivanpesin.com/tags/clouds/</guid>
       <description></description>
     </item>
     
     <item>
       <title>coursera</title>
-      <link>http://pesin.space/tags/coursera/</link>
+      <link>https://ivanpesin.com/tags/coursera/</link>
       <pubDate>Sun, 21 Jul 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/coursera/</guid>
+      <guid>https://ivanpesin.com/tags/coursera/</guid>
       <description></description>
     </item>
     
     <item>
       <title>dou</title>
-      <link>http://pesin.space/tags/dou/</link>
+      <link>https://ivanpesin.com/tags/dou/</link>
       <pubDate>Sun, 21 Jul 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/dou/</guid>
+      <guid>https://ivanpesin.com/tags/dou/</guid>
       <description></description>
     </item>
     
     <item>
       <title>education</title>
-      <link>http://pesin.space/tags/education/</link>
+      <link>https://ivanpesin.com/tags/education/</link>
       <pubDate>Sun, 21 Jul 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/education/</guid>
+      <guid>https://ivanpesin.com/tags/education/</guid>
       <description></description>
     </item>
     
     <item>
       <title>ifconfig</title>
-      <link>http://pesin.space/tags/ifconfig/</link>
+      <link>https://ivanpesin.com/tags/ifconfig/</link>
       <pubDate>Sun, 21 Jul 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/ifconfig/</guid>
+      <guid>https://ivanpesin.com/tags/ifconfig/</guid>
       <description></description>
     </item>
     
     <item>
       <title>tor</title>
-      <link>http://pesin.space/tags/tor/</link>
+      <link>https://ivanpesin.com/tags/tor/</link>
       <pubDate>Sun, 21 Jul 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/tor/</guid>
+      <guid>https://ivanpesin.com/tags/tor/</guid>
       <description></description>
     </item>
     
     <item>
       <title>videos</title>
-      <link>http://pesin.space/tags/videos/</link>
+      <link>https://ivanpesin.com/tags/videos/</link>
       <pubDate>Sun, 21 Jul 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/videos/</guid>
+      <guid>https://ivanpesin.com/tags/videos/</guid>
       <description></description>
     </item>
     
     <item>
       <title>ganalytics</title>
-      <link>http://pesin.space/tags/ganalytics/</link>
+      <link>https://ivanpesin.com/tags/ganalytics/</link>
       <pubDate>Sun, 14 Jul 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/ganalytics/</guid>
+      <guid>https://ivanpesin.com/tags/ganalytics/</guid>
       <description></description>
     </item>
     
     <item>
       <title>links</title>
-      <link>http://pesin.space/tags/links/</link>
+      <link>https://ivanpesin.com/tags/links/</link>
       <pubDate>Sun, 14 Jul 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/links/</guid>
+      <guid>https://ivanpesin.com/tags/links/</guid>
       <description></description>
     </item>
     
     <item>
       <title>snowden</title>
-      <link>http://pesin.space/tags/snowden/</link>
+      <link>https://ivanpesin.com/tags/snowden/</link>
       <pubDate>Sun, 14 Jul 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/snowden/</guid>
+      <guid>https://ivanpesin.com/tags/snowden/</guid>
       <description></description>
     </item>
     
     <item>
       <title>troubleshooting</title>
-      <link>http://pesin.space/tags/troubleshooting/</link>
+      <link>https://ivanpesin.com/tags/troubleshooting/</link>
       <pubDate>Sun, 14 Jul 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/troubleshooting/</guid>
+      <guid>https://ivanpesin.com/tags/troubleshooting/</guid>
       <description></description>
     </item>
     
     <item>
       <title>highlighting</title>
-      <link>http://pesin.space/tags/highlighting/</link>
+      <link>https://ivanpesin.com/tags/highlighting/</link>
       <pubDate>Sat, 21 Jul 2012 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/highlighting/</guid>
+      <guid>https://ivanpesin.com/tags/highlighting/</guid>
       <description></description>
     </item>
     
     <item>
       <title>syntax</title>
-      <link>http://pesin.space/tags/syntax/</link>
+      <link>https://ivanpesin.com/tags/syntax/</link>
       <pubDate>Sat, 21 Jul 2012 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/syntax/</guid>
+      <guid>https://ivanpesin.com/tags/syntax/</guid>
       <description></description>
     </item>
     
     <item>
       <title>nulp</title>
-      <link>http://pesin.space/tags/nulp/</link>
+      <link>https://ivanpesin.com/tags/nulp/</link>
       <pubDate>Thu, 19 Apr 2012 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/nulp/</guid>
+      <guid>https://ivanpesin.com/tags/nulp/</guid>
       <description></description>
     </item>
     
     <item>
       <title>techtalks2012</title>
-      <link>http://pesin.space/tags/techtalks2012/</link>
+      <link>https://ivanpesin.com/tags/techtalks2012/</link>
       <pubDate>Thu, 19 Apr 2012 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/techtalks2012/</guid>
+      <guid>https://ivanpesin.com/tags/techtalks2012/</guid>
       <description></description>
     </item>
     
     <item>
       <title>ejf</title>
-      <link>http://pesin.space/tags/ejf/</link>
+      <link>https://ivanpesin.com/tags/ejf/</link>
       <pubDate>Sun, 04 Dec 2011 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/ejf/</guid>
+      <guid>https://ivanpesin.com/tags/ejf/</guid>
       <description></description>
     </item>
     
     <item>
       <title>talks</title>
-      <link>http://pesin.space/tags/talks/</link>
+      <link>https://ivanpesin.com/tags/talks/</link>
       <pubDate>Sun, 04 Dec 2011 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/tags/talks/</guid>
+      <guid>https://ivanpesin.com/tags/talks/</guid>
       <description></description>
     </item>
     

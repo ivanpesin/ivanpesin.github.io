@@ -2,93 +2,93 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on Articles, Translations, and Blog</title>
-    <link>http://pesin.space/categories/</link>
+    <link>https://ivanpesin.com/categories/</link>
     <description>Recent content in Categories on Articles, Translations, and Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 30 Jan 2021 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="http://pesin.space/categories/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://ivanpesin.com/categories/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>quotes</title>
-      <link>http://pesin.space/categories/quotes/</link>
+      <link>https://ivanpesin.com/categories/quotes/</link>
       <pubDate>Sat, 30 Jan 2021 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/categories/quotes/</guid>
+      <guid>https://ivanpesin.com/categories/quotes/</guid>
       <description></description>
     </item>
     
     <item>
       <title>tech</title>
-      <link>http://pesin.space/categories/tech/</link>
+      <link>https://ivanpesin.com/categories/tech/</link>
       <pubDate>Fri, 18 Dec 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/categories/tech/</guid>
+      <guid>https://ivanpesin.com/categories/tech/</guid>
       <description></description>
     </item>
     
     <item>
       <title>howto</title>
-      <link>http://pesin.space/categories/howto/</link>
+      <link>https://ivanpesin.com/categories/howto/</link>
       <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/categories/howto/</guid>
+      <guid>https://ivanpesin.com/categories/howto/</guid>
       <description></description>
     </item>
     
     <item>
       <title>links</title>
-      <link>http://pesin.space/categories/links/</link>
+      <link>https://ivanpesin.com/categories/links/</link>
       <pubDate>Fri, 14 Aug 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/categories/links/</guid>
+      <guid>https://ivanpesin.com/categories/links/</guid>
       <description></description>
     </item>
     
     <item>
       <title>english</title>
-      <link>http://pesin.space/categories/english/</link>
+      <link>https://ivanpesin.com/categories/english/</link>
       <pubDate>Sat, 25 Jul 2020 13:50:34 +0300</pubDate>
       
-      <guid>http://pesin.space/categories/english/</guid>
+      <guid>https://ivanpesin.com/categories/english/</guid>
       <description></description>
     </item>
     
     <item>
       <title>fun</title>
-      <link>http://pesin.space/categories/fun/</link>
+      <link>https://ivanpesin.com/categories/fun/</link>
       <pubDate>Thu, 02 Jul 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/categories/fun/</guid>
+      <guid>https://ivanpesin.com/categories/fun/</guid>
       <description></description>
     </item>
     
     <item>
       <title>general</title>
-      <link>http://pesin.space/categories/general/</link>
+      <link>https://ivanpesin.com/categories/general/</link>
       <pubDate>Sat, 08 Feb 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/categories/general/</guid>
+      <guid>https://ivanpesin.com/categories/general/</guid>
       <description></description>
     </item>
     
     <item>
       <title>poetry</title>
-      <link>http://pesin.space/categories/poetry/</link>
+      <link>https://ivanpesin.com/categories/poetry/</link>
       <pubDate>Wed, 09 May 2018 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/categories/poetry/</guid>
+      <guid>https://ivanpesin.com/categories/poetry/</guid>
       <description></description>
     </item>
     
     <item>
       <title>talks</title>
-      <link>http://pesin.space/categories/talks/</link>
+      <link>https://ivanpesin.com/categories/talks/</link>
       <pubDate>Thu, 19 Apr 2012 00:00:00 +0000</pubDate>
       
-      <guid>http://pesin.space/categories/talks/</guid>
+      <guid>https://ivanpesin.com/categories/talks/</guid>
       <description></description>
     </item>
     
